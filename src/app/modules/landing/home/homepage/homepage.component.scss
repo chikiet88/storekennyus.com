@@ -1,25 +1,31 @@
-.center-img{
-    transform: translate(-50%,-50%);
+.center-img {
+    transform: translate(-50%, -50%);
 }
-.centerX-img{
-    transform: translateX(-50%)
+.centerX-img {
+    transform: translateX(-50%);
 }
-.centerY-img{
+.centerY-img {
     transform: translateY(-50%);
 }
-.margintop{
+.margintop {
     margin-top: -50px;
     z-index: 20;
     position: relative;
 }
-.item-image{
+.item-image {
     height: 596px;
 }
-@media screen and (max-width: 768px){
-    .item-image{
+@media screen and (max-width: 768px) {
+    .item-image {
         height: 415px;
-    } 
-    .big-sale{
+    }
+    .big-sale {
         transform: translateY(-50%);
+    }
+    .margintop {
+        margin-top: 50px;
+    }
+    .mat-tab-body-wrapper {
+        width: 100% !important;
     }
 }

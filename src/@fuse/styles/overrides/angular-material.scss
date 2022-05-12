@@ -1337,10 +1337,10 @@
                         border-radius: 9999px !important;
                         @apply text-secondary;
 
-                        &.mat-tab-label-active {
-                            @apply bg-gray-700 bg-opacity-10 dark:bg-gray-50 dark:bg-opacity-10 #{'!important'};
-                            @apply text-default #{'!important'};
-                        }
+                        // &.mat-tab-label-active {
+                        //     @apply bg-gray-700 bg-opacity-10 dark:bg-gray-50 dark:bg-opacity-10 #{'!important'};
+                        //     @apply text-default #{'!important'};
+                        // }
 
                         + .mat-tab-label {
                             margin-left: 4px;

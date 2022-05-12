@@ -118,7 +118,7 @@ const config = {
         },
         screens : {
             print: {'raw': 'print'},
-            sm   : '480px',
+            sm   : '360px',
             md   : '767px',
             lg   : '1080px',
             xl   : '1440px'
