@@ -1,0 +1,25 @@
+.center-img{
+    transform: translate(-50%,-50%);
+}
+.centerX-img{
+    transform: translateX(-50%)
+}
+.centerY-img{
+    transform: translateY(-50%);
+}
+.margintop{
+    margin-top: -50px;
+    z-index: 20;
+    position: relative;
+}
+.item-image{
+    height: 596px;
+}
+@media screen and (max-width: 768px){
+    .item-image{
+        height: 415px;
+    } 
+    .big-sale{
+        transform: translateY(-50%);
+    }
+}
