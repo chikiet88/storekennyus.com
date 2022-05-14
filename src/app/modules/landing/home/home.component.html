@@ -19,15 +19,12 @@
     <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 px-3 py-3">
         <div class="flex items-center justify-between">
             <div class="text-2xl h-12 lg:w-2/12 md:w-3/12">
-                <div class="w-full h-12 bg-red-200">210*50</div>
+                <div class="w-full h-12 bg-red-200 hidden lg:block">210*50</div>
+                <div class="w-full h-12 bg-red-200 lg:hidden">140*70</div>
             </div>
-            <div class=" sm:flex lg:hidden">
-                <span class="material-icons text-3xl mr-3">
-                    search
-                    </span>
-                    <span class="material-icons text-3xl">
-                        list
-                        </span>
+            <div class="sm:flex lg:hidden">
+                <span class="material-icons text-3xl mr-3"> search </span>
+                <span class="material-icons text-3xl"> list </span>
             </div>
             <div class="w-7/12 hidden lg:block">
                 <div class="flex items-center w-full justify-end">
@@ -54,11 +51,11 @@
                     </button>
                 </div>
             </div>
-            <div class="hidden lg:flex items-center justify-end w-3/12 ">
+            <div class="hidden lg:flex items-center justify-end w-3/12">
                 <span class="material-icons text-4xl text-blue-500 mr-3">
                     phone
-                    </span>
-                    
+                </span>
+
                 <div class="">
                     <p class="text-purple-500">Sales & Service Support</p>
                     <p class="text-bold text-purple-500 font-bold text-lg">
@@ -69,14 +66,21 @@
         </div>
     </div>
     <div class="relative py-3 hidden lg:block">
-        <div class="flex justify-between lg:max-w-7xl lg:mx-auto lg:px-5 py-3">
+        <div
+            class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto lg:px-5"
+        >
             <div class="flex items-center justify-between w-full">
                 <div
                     class="flex items-center justify-center text-purple-500 p-3 bg-gray-200 hover:bg-purple-500 hover:text-white w-32 rounded-3xl font-bold text-center w-2/12"
                 >
                     <span class="material-icons"> sort </span> All Categories
                 </div>
-                <ul class="flex items-center ml-5">
+                <mat-tab-group animationDuration="0ms" class="flex items-center">
+                    <mat-tab label="First">Content 1</mat-tab>
+                    <mat-tab label="Second">Content 2</mat-tab>
+                    <mat-tab label="Third">Content 3</mat-tab>
+                  </mat-tab-group>
+                <ul class="flex items-center">
                     <li class="mx-4 text-xl text-purple-500 font-bold">Home</li>
                     <li class="mx-4 text-xl text-purple-500 font-bold">
                         Shop By Brand
@@ -127,14 +131,171 @@
         <div class="absolute w-full h-px top-0 bg-black"></div>
         <div class="absolute w-full h-px bottom-0 bg-black"></div>
     </div>
+    <div>
+        <div
+            class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto lg:px-5 rounded-xl"
+        >
+            <div class="grid grid-cols-5 rounded overflow-hidden shadow-lg">
+                <div class="pl-7 bg-gray-200">
+                    <ul class="py-7">
+                        <li
+                            class="text-lg text-purple-500 font-bold hover:text-blue-500"
+                        >
+                            Baby Accesssories
+                        </li>
+                    </ul>
+                </div>
+                <div class="pl-10 py-5">
+                    <ul class="mt-5 border-r border-gray-400">
+                        <li
+                            class="bg-gray-200"
+                            style="width: 86px; height: 157px"
+                        >
+                            86*157
+                        </li>
+                        <li class="pt-7 text-xl text-purple-500 font-bold">
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
+                        >
+                            View all >
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pl-10 py-5">
+                    <ul class="mt-5 border-r border-gray-400">
+                        <li
+                            class="bg-gray-200"
+                            style="width: 86px; height: 157px"
+                        >
+                            86*157
+                        </li>
+                        <li class="pt-7 text-xl text-purple-500 font-bold">
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
+                        >
+                            View all >
+                        </li>
+                    </ul>
+                </div>
+                <div class="pl-10 py-5">
+                    <ul class="mt-5">
+                        <li
+                            class="bg-gray-200"
+                            style="width: 86px; height: 157px"
+                        >
+                            86*157
+                        </li>
+                        <li class="pt-7 text-xl text-purple-500 font-bold">
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                        >
+                            Baby Accesssories
+                        </li>
+                        <li
+                            class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
+                        >
+                            View all >
+                        </li>
+                    </ul>
+                </div>
+                <div class="mr-10 mt-5 mb-10">
+                    <div
+                        class="w-full h-full relative flex flex-col items-center justify-center bg-red-200 rounded-2xl mt-5"
+                    >
+                        <div
+                            class="bg-gray-200"
+                            style="width: 150px; height: 187px"
+                        >
+                            150*187
+                        </div>
+                        <div class="flex flex-col items-center pt-5">
+                            <p class="text-purple-500">loremloremlorem</p>
+                            <p class="text-2xl text-center text-purple-500 font-bold">
+                                Vitamin & Supplements
+                            </p>
+                            <button
+                                class="text-lg bg-orange-500 rounded-2xl mt-3 p-2 text-white font-bold"
+                            >
+                                Shop now >
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 <app-homepage></app-homepage>
 <footer>
     <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-3 mt-10 px-3">
-        <div class="flex flex-col lg:flex-row ">
-            <div class="lg:w-4/6 w-full flex md:flex-row sm:flex-col-reverse  ">
-                <div class="md:w-1/2 sm:w-full flex flex-col justify-between relative  md:h-56 h-72 py-10 md:py-0">
+        <div class="flex flex-col lg:flex-row">
+            <div class="lg:w-4/6 w-full flex md:flex-row sm:flex-col-reverse">
+                <div
+                    class="md:w-1/2 sm:w-full flex flex-col justify-between relative md:h-56 h-72 py-10 md:py-0"
+                >
                     <div class="text-2xl w-2/5">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -168,20 +329,26 @@
                         <li class="mr-3">icon</li>
                     </ul>
                     <div
-                        class="absolute md:w-px md:h-full w-full h-px opacity-30 bg-black right-0 top-0 "
+                        class="absolute md:w-px md:h-full w-full h-px opacity-30 bg-black right-0 top-0"
                     ></div>
                     <div
-                    class="absolute  w-full h-px opacity-30 bg-black right-0 bottom-0 md:hidden"
-                ></div>
+                        class="absolute w-full h-px opacity-30 bg-black right-0 bottom-0 md:hidden"
+                    ></div>
                 </div>
-                <div class="md:w-1/2 sm:w-full md:pl-16 flex flex-col justify-between  md:h-56 h-72 pb-10 md:pb-0">
+                <div
+                    class="md:w-1/2 sm:w-full md:pl-16 flex flex-col justify-between md:h-56 h-72 pb-10 md:pb-0"
+                >
                     <p class="text-blue-500 text-xl font-bold">Need help</p>
                     <div class="flex flex-col">
                         <p class="lg:text-3xl text-2xl text-blue-500 font-bold">
                             9876 788 - HGGGY -888
                         </p>
-                        <p class="lg:text-xl text-lg py-2">Monday - Friday: 9:00 - 20:00</p>
-                        <p class="lg:text-xl text-lg">Monday - Friday: 9:00 - 20:00</p>
+                        <p class="lg:text-xl text-lg py-2">
+                            Monday - Friday: 9:00 - 20:00
+                        </p>
+                        <p class="lg:text-xl text-lg">
+                            Monday - Friday: 9:00 - 20:00
+                        </p>
                     </div>
                     <div class="flex items-center">
                         <span class="material-icons mr-3"> email </span>
@@ -189,9 +356,15 @@
                     </div>
                 </div>
             </div>
-            <div class="lg:w-2/6 w-full flex md:mt-10 lg:mt-0  md:h-56 h-72 pt-10 md:pt-0">
-                <div class="w-1/2 h-full lg:pl-10 lg:flex lg:flex-col lg:justify-between">
-                    <p class="text-blue-500 text-xl font-bold sm:pb-3 md:pb-0">Information</p>
+            <div
+                class="lg:w-2/6 w-full flex md:mt-10 lg:mt-0 md:h-56 h-72 pt-10 md:pt-0"
+            >
+                <div
+                    class="w-1/2 h-full lg:pl-10 lg:flex lg:flex-col lg:justify-between"
+                >
+                    <p class="text-blue-500 text-xl font-bold sm:pb-3 md:pb-0">
+                        Information
+                    </p>
                     <ul class="flex flex-col md:pt-5 lg:pt-0">
                         <li class="text-lg hover:text-blue-500 pb-3">
                             <a href="#" class="hover:text-blue-500">About us</a>
@@ -210,8 +383,12 @@
                         </li>
                     </ul>
                 </div>
-                <div class="w-1/2 h-full lg:pl-10 lg:flex lg:flex-col lg:justify-between">
-                    <p class="text-blue-500 text-xl font-bold sm:pb-3 md:pb-0">Information</p>
+                <div
+                    class="w-1/2 h-full lg:pl-10 lg:flex lg:flex-col lg:justify-between"
+                >
+                    <p class="text-blue-500 text-xl font-bold sm:pb-3 md:pb-0">
+                        Information
+                    </p>
                     <ul class="flex flex-col md:pt-5 lg:pt-0">
                         <li class="text-lg hover:text-blue-500 pb-3">
                             <a href="#" class="hover:text-blue-500">About us</a>
@@ -234,13 +411,18 @@
         </div>
         <div class="md:pt-10">
             <div class="pt-10 relative">
-                <div class="absolute h-px w-full bg-black opacity-30 top-0"></div>
+                <div
+                    class="absolute h-px w-full bg-black opacity-30 top-0"
+                ></div>
                 <div class="flex justify-between md:flex-row flex-col">
-                    <p class="text-gray-500 md:text-lg text-sm">Copyright 2020 Propharm. All Rights Reserved</p>
-                   <div class="w-56 h-8 bg-gray-200 md:mt-0 sm:mt-3">220*30</div>
+                    <p class="text-gray-500 md:text-lg text-sm">
+                        Copyright 2020 Propharm. All Rights Reserved
+                    </p>
+                    <div class="w-56 h-8 bg-gray-200 md:mt-0 sm:mt-3">
+                        220*30
+                    </div>
                 </div>
             </div>
         </div>
-   
     </div>
 </footer>
