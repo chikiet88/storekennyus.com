@@ -9,19 +9,31 @@ import {MaterialExampleModule} from 'material.modules'
 import { HomepageComponent } from './homepage/homepage.component';
 import { ProductPopularComponent } from './product-popular/product-popular.component';
 import { MoreLoveComponent } from './more-love/more-love.component';
+import { DanhmucComponent } from './danhmuc/danhmuc.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { GioithieuComponent } from './gioithieu/gioithieu.component';
+
+import { SwiperModule } from 'swiper/angular';
+import { ContactComponent } from './contact/contact.component';
+
 @NgModule({
     declarations: [
         LandingHomeComponent,
         HomepageComponent,
         ProductPopularComponent,
-        MoreLoveComponent
+        MoreLoveComponent,
+        DanhmucComponent,
+        GioithieuComponent,
+        ContactComponent
     ],
     imports     : [
         RouterModule.forChild(landingHomeRoutes),
         MatButtonModule,
         MatIconModule,
         SharedModule,
-        MaterialExampleModule
+        MaterialExampleModule,
+        NgxSliderModule,
+        SwiperModule
         
     ]
 })

@@ -1,0 +1,157 @@
+<div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-3 mt-10 px-3">
+    <div class="flex">
+        <div class="w-1/5 pr-5">
+            <p class="text-xl text-purple-500 font-bold">Shop by Categories</p>
+            <ul class="">
+                <li
+                    class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5"
+                >
+                    Baby
+                </li>
+                <li
+                    class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5"
+                >
+                    Baby
+                </li>
+                <li
+                    class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5"
+                >
+                    Baby
+                </li>
+                <li
+                    class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5"
+                >
+                    Baby
+                </li>
+                <li
+                    class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5"
+                >
+                    Baby
+                </li>
+                <li
+                    class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5"
+                >
+                    Baby
+                </li>
+                <li
+                    class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5"
+                >
+                    Baby
+                </li>
+                <li
+                    class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5"
+                >
+                    Baby
+                </li>
+            </ul>
+            <div class="pt-5">
+                <button
+                    class="text-purple-500 text-lg font-bold hover:text-blue-500"
+                    [matMenuTriggerFor]="menu"
+                >
+                    Menu
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Item 1</button>
+                    <button mat-menu-item>Item 2</button>
+                </mat-menu>
+            </div>
+
+            <div class="pt-10">
+                <p class="text-purple-500 font-bold text-xl pb-5">Milliliters</p>
+                <ngx-slider
+                    [(value)]="minValue"
+                    [(highValue)]="maxValue"
+                    [options]="options"
+                ></ngx-slider>
+            </div>
+
+            <div class="pt-10">
+                <p class="text-xl text-purple-500 font-bold">Brand</p>
+                <div class="h-48 overflow-auto">
+                    <mat-selection-list #shoes>
+                        <mat-list-option *ngFor="let shoe of typesOfShoes">
+                            {{ shoe }}
+                        </mat-list-option>
+                    </mat-selection-list>
+                </div>
+            </div>
+            <div class="pt-10">
+                <p class="text-xl text-purple-500 font-bold">Condition</p>
+            </div>
+        </div>
+
+        <div class="w-4/5 pl-5">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div
+                        class="flex bg-gray-200 rounded-xl items-center p-2 justify-center"
+                    >
+                        <div class="w-7 h-7 mx-1 bg-red-200"></div>
+                        <div class="w-7 h-7 mx-1 bg-red-200"></div>
+                        <div class="w-7 h-7 mx-1 bg-red-200"></div>
+                    </div>
+                    <div class="ml-5 flex items-center">
+                        <mat-select
+                            class="p-2 text-purple-500 rounded-xl text-lg border w-40 h-full bg-gray-200"
+                            value="Default sorting"
+                        >
+                            <mat-option
+                                value="Category"
+                                class="text-purple-500 text-xl"
+                            >
+                                Category</mat-option
+                            >
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-5 mt-10">
+                <div class="w-full bg-red-200 flex rounded-2xl px-8 pt-8">
+                    <div class="w-1/2 h-56 bg-gray-200"></div>
+                    <div class="w-1/2 flex justify-center flex-col pl-3">
+                        <p class="text-lg text-purple-500">Save up to 10%</p>
+                        <p class="text-2xl text-purple-500">
+                            <strong>Vitamins &</strong> Supplements
+                        </p>
+                        <button
+                            class="text-white font-bold text-lg p-2 bg-green-500 rounded-2xl w-28"
+                        >
+                            Buy now >
+                        </button>
+                    </div>
+                </div>
+                <div class="w-full bg-red-200 flex rounded-2xl px-8 pt-8">
+                    <div class="w-1/2 h-56 bg-gray-200"></div>
+                    <div class="w-1/2 flex justify-center flex-col pl-3">
+                        <p
+                            class="text-sm p-1 font-bold bg-orange-500 text-white rounded-xl w-16 text-center"
+                        >
+                            New
+                        </p>
+                        <p class="text-2xl text-purple-500">
+                            <strong>Vitamins &</strong> Supplements
+                        </p>
+                        <button
+                            class="text-white font-bold text-lg p-2 bg-green-500 rounded-2xl w-28"
+                        >
+                            Buy now >
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-4 gap-5 mt-10">
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+            </div>
+        </div>
+    </div>
+</div>

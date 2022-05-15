@@ -1,4 +1,4 @@
-<header>
+<header class="">
     <div class="bg-blue-500 hidden lg:block">
         <div class="lg:max-w-7xl lg:mx-auto lg:px-5 py-3">
             <div class="flex justify-between items-center">
@@ -69,21 +69,364 @@
         <div
             class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto lg:px-5"
         >
-            <div class="flex items-center justify-between w-full">
+            <div class="flex items-center justify-between w-full relative">
                 <div
-                    class="flex items-center justify-center text-purple-500 p-3 bg-gray-200 hover:bg-purple-500 hover:text-white w-32 rounded-3xl font-bold text-center w-2/12"
+                    class="flex items-center justify-center text-purple-500 p-3 bg-gray-200 hover:bg-purple-500 hover:text-white w-32 rounded-3xl font-bold text-center w-2/12 relative"
+                    (mouseenter)="toggleMenu()"
+                    (mouseleave)="checkIsshow()"
                 >
                     <span class="material-icons"> sort </span> All Categories
                 </div>
-                <mat-tab-group animationDuration="0ms" class="flex items-center">
-                    <mat-tab label="First">Content 1</mat-tab>
-                    <mat-tab label="Second">Content 2</mat-tab>
-                    <mat-tab label="Third">Content 3</mat-tab>
-                  </mat-tab-group>
+                <div
+                    class="absolute z-20 categories"
+                    style="transform: translateY(57%)"
+                    [ngClass]="{ active: isShow }"
+                >
+                    <div
+                        class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto lg:px-5 rounded-xl"
+                        (mouseleave)="checkIsshow()"
+                        (mouseenter)="toggleMenu()"
+                    >
+                        <div
+                            class="grid grid-cols-5 rounded overflow-hidden shadow-lg bg-white z-20 gallery-categories"
+                        >
+                            <div class="pl-7 bg-gray-200">
+                                <ul class="py-7">
+                                    <li
+                                        class="text-lg text-purple-500 font-bold hover:text-blue-500"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pl-10 py-5">
+                                <ul class="mt-5 border-r border-gray-400">
+                                    <li
+                                        class="bg-gray-200"
+                                        style="width: 86px; height: 157px"
+                                    >
+                                        86*157
+                                    </li>
+                                    <li
+                                        class="pt-7 text-xl text-purple-500 font-bold"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
+                                    >
+                                        View all >
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="pl-10 py-5">
+                                <ul class="mt-5 border-r border-gray-400">
+                                    <li
+                                        class="bg-gray-200"
+                                        style="width: 86px; height: 157px"
+                                    >
+                                        86*157
+                                    </li>
+                                    <li
+                                        class="pt-7 text-xl text-purple-500 font-bold"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
+                                    >
+                                        View all >
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pl-10 py-5">
+                                <ul class="mt-5">
+                                    <li
+                                        class="bg-gray-200"
+                                        style="width: 86px; height: 157px"
+                                    >
+                                        86*157
+                                    </li>
+                                    <li
+                                        class="pt-7 text-xl text-purple-500 font-bold"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-black cursos-pointer hover:underline"
+                                    >
+                                        Baby Accesssories
+                                    </li>
+                                    <li
+                                        class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
+                                    >
+                                        View all >
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mr-10 mt-5 mb-10">
+                                <div
+                                    class="w-full h-full relative flex flex-col items-center justify-center bg-red-200 rounded-2xl mt-5"
+                                >
+                                    <div
+                                        class="bg-gray-200"
+                                        style="width: 150px; height: 187px"
+                                    >
+                                        150*187
+                                    </div>
+                                    <div
+                                        class="flex flex-col items-center pt-5"
+                                    >
+                                        <p class="text-purple-500">
+                                            loremloremlorem
+                                        </p>
+                                        <p
+                                            class="text-2xl text-center text-purple-500 font-bold"
+                                        >
+                                            Vitamin & Supplements
+                                        </p>
+                                        <button
+                                            class="text-lg bg-orange-500 rounded-2xl mt-3 p-2 text-white font-bold"
+                                        >
+                                            Shop now >
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <ul class="flex items-center">
-                    <li class="mx-4 text-xl text-purple-500 font-bold">Home</li>
-                    <li class="mx-4 text-xl text-purple-500 font-bold">
-                        Shop By Brand
+                    <li class="relative">
+                        <p
+                            class="mx-4 text-xl text-purple-500 font-bold p-4"
+                            (mouseenter)="toggleMenuHome()"
+                            (mouseleave)="checkIsshowMenuHome()"
+                        >
+                            Home
+                        </p>
+                        <div
+                            class="absolute left-0 bottom-0 z-20 home-menu"
+                            [ngClass]="{ menuhomeactive: isShowMenuHome }"
+                        >
+                            <div
+                                class=""
+                                (mouseenter)="toggleMenuHome()"
+                                (mouseleave)="checkIsshowMenuHome()"
+                            >
+                                <div
+                                    class="grid grid-cols-3 gap-5 gallery-home bg-white rounded-2xl"
+                                >
+                                    <div class="hidemenu">
+                                        <p
+                                            class="text-purple-500 font-bold text-xl"
+                                        >
+                                            Homepages
+                                        </p>
+                                        <ul class="pt-5">
+                                            <li class="">
+                                                <a
+                                                    routerLink="/gioithieu"
+                                                    class="text-purple-500 text-md hover:text-blue-500"
+                                                    >Giới Thiệu</a
+                                                >
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                <a
+                                                    routerLink="/lienhe"
+                                                    class="text-purple-500 text-md hover:text-blue-500"
+                                                    >Liên Hệ</a
+                                                >
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                <a
+                                                    routerLink="/danhmuc"
+                                                    class="text-purple-500 text-md hover:text-blue-500"
+                                                    >Danh Mục</a
+                                                >
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="hidemenu">
+                                        <p
+                                            class="text-purple-500 font-bold text-xl"
+                                        >
+                                            Homepages
+                                        </p>
+                                        <ul class="pt-5">
+                                            <li class="text-purple-500 text-md">
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="hidemenu">
+                                        <p
+                                            class="text-purple-500 font-bold text-xl"
+                                        >
+                                            Homepages
+                                        </p>
+                                        <ul class="pt-5">
+                                            <li class="text-purple-500 text-md">
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                            <li
+                                                class="text-purple-500 text-md pt-4"
+                                            >
+                                                Home 1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="relative">
+                        <p
+                            class="mx-4 text-xl text-purple-500 font-bold p-4"
+                            (mouseenter)="toggleMenuBrand()"
+                            (mouseleave)="checkIsshowMenuBrand()"
+                        >
+                            Shop By Brand
+                        </p>
+                        <div
+                            class="absolute z-20  right-0 bg-white brand-menu"
+                            [ngClass]="{ menubrandactive: isShowMenuBrand }"
+                        >
+                            <div
+                                class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto rounded-xl"
+                            >
+                                <div
+                                    class="flex items-center justify-center gallery-brand hidemenu"
+                                    (mouseenter)="toggleMenuBrand()"
+                                    (mouseleave)="checkIsshowMenuBrand()"
+                                >
+                                    <div
+                                        class="w-56 h-full bg-gray-200 mx-2"
+                                    ></div>
+                                    <div
+                                        class="w-56 h-full bg-gray-200 mx-2"
+                                    ></div>
+                                    <div
+                                        class="w-56 h-full bg-gray-200 mx-2"
+                                    ></div>
+                                    <div
+                                        class="w-56 h-full bg-gray-200 mx-2"
+                                    ></div>
+                                    <div
+                                        class="w-56 h-full bg-gray-200 mx-2"
+                                    ></div>
+                                    <div
+                                        class="w-56 h-full bg-gray-200 mx-2"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
 
                     <li class="mx-4 text-xl text-purple-500 font-bold">
@@ -131,164 +474,10 @@
         <div class="absolute w-full h-px top-0 bg-black"></div>
         <div class="absolute w-full h-px bottom-0 bg-black"></div>
     </div>
-    <div>
-        <div
-            class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto lg:px-5 rounded-xl"
-        >
-            <div class="grid grid-cols-5 rounded overflow-hidden shadow-lg">
-                <div class="pl-7 bg-gray-200">
-                    <ul class="py-7">
-                        <li
-                            class="text-lg text-purple-500 font-bold hover:text-blue-500"
-                        >
-                            Baby Accesssories
-                        </li>
-                    </ul>
-                </div>
-                <div class="pl-10 py-5">
-                    <ul class="mt-5 border-r border-gray-400">
-                        <li
-                            class="bg-gray-200"
-                            style="width: 86px; height: 157px"
-                        >
-                            86*157
-                        </li>
-                        <li class="pt-7 text-xl text-purple-500 font-bold">
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
-                        >
-                            View all >
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="pl-10 py-5">
-                    <ul class="mt-5 border-r border-gray-400">
-                        <li
-                            class="bg-gray-200"
-                            style="width: 86px; height: 157px"
-                        >
-                            86*157
-                        </li>
-                        <li class="pt-7 text-xl text-purple-500 font-bold">
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
-                        >
-                            View all >
-                        </li>
-                    </ul>
-                </div>
-                <div class="pl-10 py-5">
-                    <ul class="mt-5">
-                        <li
-                            class="bg-gray-200"
-                            style="width: 86px; height: 157px"
-                        >
-                            86*157
-                        </li>
-                        <li class="pt-7 text-xl text-purple-500 font-bold">
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                            Baby Accesssories
-                        </li>
-                        <li
-                            class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
-                        >
-                            View all >
-                        </li>
-                    </ul>
-                </div>
-                <div class="mr-10 mt-5 mb-10">
-                    <div
-                        class="w-full h-full relative flex flex-col items-center justify-center bg-red-200 rounded-2xl mt-5"
-                    >
-                        <div
-                            class="bg-gray-200"
-                            style="width: 150px; height: 187px"
-                        >
-                            150*187
-                        </div>
-                        <div class="flex flex-col items-center pt-5">
-                            <p class="text-purple-500">loremloremlorem</p>
-                            <p class="text-2xl text-center text-purple-500 font-bold">
-                                Vitamin & Supplements
-                            </p>
-                            <button
-                                class="text-lg bg-orange-500 rounded-2xl mt-3 p-2 text-white font-bold"
-                            >
-                                Shop now >
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </header>
 
-<app-homepage></app-homepage>
+<router-outlet></router-outlet>
+
 <footer>
     <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-3 mt-10 px-3">
         <div class="flex flex-col lg:flex-row">
