@@ -58,9 +58,7 @@
             </div>
 
             <div class="pt-10">
-                <p class="text-purple-500 font-bold text-xl pb-5">
-                    Milliliters
-                </p>
+                <p class="text-purple-500 font-bold text-xl pb-5">Price</p>
                 <ngx-slider
                     [(value)]="minValue"
                     [(highValue)]="maxValue"
@@ -80,18 +78,97 @@
             </div>
             <div class="pt-10">
                 <p class="text-xl text-purple-500 font-bold">Condition</p>
+                <div class="pt-5 flex flex-wrap">
+                    <p
+                        class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                    >
+                        Acid reflux
+                    </p>
+                    <p
+                        class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                    >
+                        Anxiety
+                    </p>
+
+                    <p
+                        class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                    >
+                        Cold
+                    </p>
+                    <p
+                        class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                    >
+                        Covid 19
+                    </p>
+                    <p
+                        class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                    >
+                        Acid reflux
+                    </p>
+                </div>
+            </div>
+            <div class="pt-10">
+                <p class="text-xl text-purple-500 font-bold">Brand</p>
+                <div class="h-48 overflow-auto">
+                    <mat-selection-list #shoes>
+                        <mat-list-option *ngFor="let shoe of typesOfShoes">
+                            {{ shoe }}
+                        </mat-list-option>
+                    </mat-selection-list>
+                </div>
+            </div>
+            <div class="pt-10">
+                <div
+                    class="w-full bg-gray-200 rounded-xl"
+                    style="height: 425px"
+                >
+                    <div class="p-5 flex flex-col items-center">
+                        <div class="w-full h-52 bg-red-200"></div>
+                        <div
+                            class="w-full h-1/2 flex flex-col items-center pt-5"
+                        >
+                            <p class="text-purple-500">Pyridoxine Vitamin B6</p>
+                            <p
+                                class="text-3xl font-bold text-purple-500 text-center"
+                            >
+                                Vitamin & <br />
+                                Supplements
+                            </p>
+                            <button
+                                class="text-white font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
+                            >
+                                Shop now >
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="lg:w-4/5 w-full lg:pl-5">
+        <div class="lg:w-4/5 w-full pl-5">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <div
                         class="flex bg-gray-200 rounded-xl items-center p-2 justify-center"
                     >
-                        <div class="w-7 h-7 mx-1 bg-red-200"></div>
-                        <div class="w-7 h-7 mx-1 bg-red-200"></div>
-                        <div class="w-7 h-7 mx-1 bg-red-200"></div>
+                        <div
+                            class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+                            (click)="productListtoggle(1)"
+                        >
+                            1
+                        </div>
+                        <div
+                            class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+                            (click)="productListtoggle(2)"
+                        >
+                            2
+                        </div>
+                        <div
+                            class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+                            (click)="productListtoggle(3)"
+                        >
+                            3
+                        </div>
                     </div>
                     <div class="ml-5 flex items-center">
                         <mat-select
@@ -147,71 +224,84 @@
                 </div>
             </div>
 
-            <div class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  mt-10 gap-5">
-                <div class="h-full w-full ">
-                    <div class="w-full h-56 bg-red-200 rounded-2xl">
-
-                    </div>
-                    <div class="text-center pt-5 font-bold text-purple-500 text-xl">
-                        Baby
-                    </div>
-                </div>
-                <div class="h-full w-full ">
-                    <div class="w-full h-56 bg-red-200 rounded-2xl">
-
-                    </div>
-                    <div class="text-center pt-5 font-bold text-purple-500 text-xl">
-                        Baby
-                    </div>
-                </div>
-                <div class="h-full w-full ">
-                    <div class="w-full h-56 bg-red-200 rounded-2xl">
-
-                    </div>
-                    <div class="text-center pt-5 font-bold text-purple-500 text-xl">
-                        Baby
-                    </div>
-                </div>
-                <div class="h-full w-full ">
-                    <div class="w-full h-56 bg-red-200 rounded-2xl">
-
-                    </div>
-                    <div class="text-center pt-5 font-bold text-purple-500 text-xl">
-                        Baby
-                    </div>
-                </div>
-                <div class="h-full w-full ">
-                    <div class="w-full h-56 bg-red-200 rounded-2xl">
-
-                    </div>
-                    <div class="text-center pt-5 font-bold text-purple-500 text-xl">
-                        Baby
-                    </div>
-                </div>
-                <div class="h-full w-full ">
-                    <div class="w-full h-56 bg-red-200 rounded-2xl">
-
-                    </div>
-                    <div class="text-center pt-5 font-bold text-purple-500 text-xl">
-                        Baby
-                    </div>
-                </div>
-                <div class="h-full w-full ">
-                    <div class="w-full h-56 bg-red-200 rounded-2xl">
-
-                    </div>
-                    <div class="text-center pt-5 font-bold text-purple-500 text-xl">
-                        Baby
-                    </div>
-                </div>
-                <div class="h-full w-full ">
-                    <div class="w-full h-56 bg-red-200 rounded-2xl">
-
-                    </div>
-                    <div class="text-center pt-5 font-bold text-purple-500 text-xl">
-                        Baby
-                    </div>
-                </div>
+            <div
+                class="grid grid-cols-4 gap-5 mt-10"
+                [ngClass]="{ hidden: productListhide != 1 }"
+            >
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+                <app-product-popular></app-product-popular>
+            </div>
+            <div
+                class="grid md:grid-cols-3 grid-cols-2 gap-5 mt-10"
+                [ngClass]="{ hidden: productListhide != 2 }"
+            >
+                <app-product-item2></app-product-item2>
+                <app-product-item2></app-product-item2>
+                <app-product-item2></app-product-item2>
+                <app-product-item2></app-product-item2>
+                <app-product-item2></app-product-item2>
+                <app-product-item2></app-product-item2>
+            </div>
+            <div
+                class="grid grid-cols-1 gap-5 mt-10"
+                [ngClass]="{ hidden: productListhide != 3 }"
+            >
+                <app-product-item1></app-product-item1>
+                <app-product-item1></app-product-item1>
+                <app-product-item1></app-product-item1>
+                <app-product-item1></app-product-item1>
+                <app-product-item1></app-product-item1>
+            </div>
+            <div class="pt-5 flex justify-end">
+                <nav aria-label="Page navigation example">
+                    <ul class="inline-flex -space-x-px">
+                        <li>
+                            <a
+                                href="#"
+                                class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            >
+                                &#60;
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                class="py-2 px-3 leading-tight text-white bg-blue-500 rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                >1</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                >2</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                aria-current="page"
+                                class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                >3</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                >&#62;
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             <div class="pt-16">
                 <div

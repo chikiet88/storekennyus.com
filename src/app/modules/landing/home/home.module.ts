@@ -12,9 +12,14 @@ import { MoreLoveComponent } from './more-love/more-love.component';
 import { DanhmucComponent } from './danhmuc/danhmuc.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { GioithieuComponent } from './gioithieu/gioithieu.component';
-
+import { NgxStarRatingModule } from 'ngx-star-rating';
 import { SwiperModule } from 'swiper/angular';
 import { ContactComponent } from './contact/contact.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductItem1Component } from './product-list/product-item1/product-item1.component';
+import { ProductItem2Component } from './product-list/product-item2/product-item2.component';
+import { ProductDetailComponent } from './product-list/product-detail/product-detail.component';
+
 
 @NgModule({
     declarations: [
@@ -24,7 +29,12 @@ import { ContactComponent } from './contact/contact.component';
         MoreLoveComponent,
         DanhmucComponent,
         GioithieuComponent,
-        ContactComponent
+        ContactComponent,
+        ProductListComponent,
+        ProductItem1Component,
+        ProductItem2Component,
+        ProductDetailComponent
+      
     ],
     imports     : [
         RouterModule.forChild(landingHomeRoutes),
@@ -33,7 +43,9 @@ import { ContactComponent } from './contact/contact.component';
         SharedModule,
         MaterialExampleModule,
         NgxSliderModule,
-        SwiperModule
+        SwiperModule,
+        NgxStarRatingModule
+        
         
     ]
 })

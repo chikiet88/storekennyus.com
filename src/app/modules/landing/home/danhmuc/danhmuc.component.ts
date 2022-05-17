@@ -7,6 +7,7 @@ import { Options, LabelType } from "@angular-slider/ngx-slider";
   styleUrls: ['./danhmuc.component.scss']
 })
 export class DanhmucComponent implements OnInit {
+  rating3: number;
   minValue: number = 0;
     maxValue: number = 100;
     options: Options = {
@@ -24,7 +25,9 @@ export class DanhmucComponent implements OnInit {
       }
     };
     typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
-  constructor() { }
+  constructor() { 
+    this.rating3 = 3
+  }
 
   ngOnInit(): void {
   }

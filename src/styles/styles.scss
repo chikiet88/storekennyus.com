@@ -55,3 +55,55 @@
     }
     
 }
+.tabs_product-detail{
+    .mat-tab-label {
+        margin: 0 7px;
+        .mat-tab-label-content {
+            color: #184363;
+            font-size: 0.875rem;
+            font-weight: bold;
+            padding: 0 1rem;
+        }
+    }
+    .mat-tab-label.mat-tab-label-active {
+        background-color: #e2e9ee !important;
+        opacity: 1 !important;
+        .mat-tab-label-content {
+            color: #15A9E3;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+    }
+    
+    @media screen and (max-width: 468px) {
+        .mat-tab-labels {
+            flex-direction: column;
+            
+        }
+        .mat-tab-label {
+            margin: 7px 0px;
+        }
+        .mat-tab-body-wrapper {
+            width: 100% !important;
+    
+            flex-direction: column;
+            .mat-tab-body-content {
+                padding: inherit;
+            }
+        }
+        .mat-tab-label {
+            .mat-tab-label-content{
+                font-size: 1rem !important;
+            }
+        }
+        
+        
+        .mat-tab-header{
+            width: 100%;
+        }
+    }
+}
+label.star{
+    font-size: 24px !important;
+    padding: 5px !important;
+}

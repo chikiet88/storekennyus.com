@@ -1,0 +1,90 @@
+<div class="h-full w-full rounded overflow-hidden flex py-5 border-b border-black">
+    <div class="w-48 lg:h-56 h-40 bg-gray-200 rounded-xl">
+        300*300
+        <div
+            class="absolute top-3 left-5 bg-green-500 py-1 px-2 rounded-2xl text-white sm:text-sm"
+        >
+            Sale
+        </div>
+    </div>
+    <div class="w-3/5 flex flex-col justify-around pl-5">
+        <div>
+            <p
+                class="text-blue-500 text-sm font-medium "
+            >
+                SupplementsVitamins
+            </p>
+            <p
+                class=" text-purple-500 my-2 font-bold hover:text-blue-500"
+            >
+                Vitamin C 500mg Sugarless Tab X
+            </p>
+            <p class=" text-purple-500">
+                $16.00 - $35.00
+            </p>
+            <div class="flex">
+                <ngx-star-rating
+                    [(ngModel)]="rating3"
+                    [id]="'rating3'"
+                    class="text-xl"
+                ></ngx-star-rating>
+            </div>
+        </div>
+        <ul class="flex flex-col lg:fle-row">
+            <li class="mr-3 text-md flex items-center">
+                <span
+                    class="material-icons mr-3 text-md text-green-500"
+                >
+                    done
+                </span>
+                3 cleaning programs
+            </li>
+            <li class="mr-3 text-md flex items-center">
+                <span
+                    class="material-icons mr-3 text-md text-green-500"
+                >
+                    done
+                </span>
+                3 cleaning programs
+            </li>
+            <li class="mr-3 text-md flex items-center">
+                <span
+                    class="material-icons mr-3 text-md text-green-500"
+                >
+                    done
+                </span>
+                3 cleaning programs
+            </li>
+        </ul>
+    </div>
+    <div class="w-1/5 flex flex-col justify-around">
+        <div>
+            <button
+                class="rounded-3xl text-purple-500 bg-gray-200 flex item-center justify-center hover:text-white hover:bg-purple-500 lg:text-lg w-full py-2 font-bold"
+            >
+                <span class="material-icons">
+                    shopping_cart
+                </span>
+
+                Add to cart
+            </button>
+
+            <div class="number-input flex items-center rounded-3xl mt-3">
+                <button class="text-md bg-gray-200 rounded-l-3xl" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                <input class="quantity text-purple-500 bg-gray-200 border-none flex item-center justify-center text-center lg:text-lg text-md w-full py-2 font-bold" min="0" name="quantity" value="1" type="number">
+                <button class="plus text-md bg-gray-200 rounded-r-3xl" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" ></button>
+              </div>
+              <div class="flex justify-center pt-5">
+                    <div class="w-7 h-7 bg-gray-200 rounded-full mr-3">
+
+                    </div>
+                    <div class="w-7 h-7 bg-gray-200 rounded-full mr-3">
+
+                    </div>
+                    <div class="w-7 h-7 bg-gray-200 rounded-full ">
+
+                    </div>
+              </div>
+        </div>
+    </div>
+</div>
