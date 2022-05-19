@@ -19,6 +19,9 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductItem1Component } from './product-list/product-item1/product-item1.component';
 import { ProductItem2Component } from './product-list/product-item2/product-item2.component';
 import { ProductDetailComponent } from './product-list/product-detail/product-detail.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { BlogComponent } from './blog/blog.component';
+import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 
 
 @NgModule({
@@ -33,7 +36,10 @@ import { ProductDetailComponent } from './product-list/product-detail/product-de
         ProductListComponent,
         ProductItem1Component,
         ProductItem2Component,
-        ProductDetailComponent
+        ProductDetailComponent,
+        WishlistComponent,
+        BlogComponent,
+        BlogDetailComponent
       
     ],
     imports     : [

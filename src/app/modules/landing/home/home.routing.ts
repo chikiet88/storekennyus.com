@@ -6,6 +6,9 @@ import { ContactComponent } from './contact/contact.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-list/product-detail/product-detail.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { BlogComponent } from './blog/blog.component';
+import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 
 export const landingHomeRoutes: Route[] = [
     {
@@ -18,6 +21,12 @@ export const landingHomeRoutes: Route[] = [
             { path: 'lienhe', component: ContactComponent },
             { path: 'product-list', component: ProductListComponent },
             { path: 'product-list/:slug', component: ProductDetailComponent },
+            { path: 'wishlist', component: WishlistComponent },
+            { path: 'blog', component: BlogComponent },
+            { path: 'blog/:slug', component: BlogDetailComponent },
+
+
+            
 
         ],
     },
