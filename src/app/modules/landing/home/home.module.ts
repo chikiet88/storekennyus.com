@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +22,20 @@ import { ProductDetailComponent } from './product-list/product-detail/product-de
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
+import { CartComponent } from './cart/cart.component';
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+import { registerLocaleData } from '@angular/common';
 
+import { CheckoutComponent } from './checkout/checkout.component';
+import { SigninComponent } from './signin/signin.component';
+import { CheckoutDetailComponent } from './checkout-detail/checkout-detail.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PopupProductComponent } from './components/popup-product/popup-product.component';
+import { CartPopupComponent } from './components/cart-popup/cart-popup.component';
+import { FooterComponent } from './components/footer/footer.component';
+
+registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
 @NgModule({
     declarations: [
@@ -39,8 +52,22 @@ import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
         ProductDetailComponent,
         WishlistComponent,
         BlogComponent,
-        BlogDetailComponent
+        BlogDetailComponent,
+        CartComponent,
+        CheckoutComponent,
+        SigninComponent,
+        CheckoutDetailComponent,
+        ProfileComponent,
+        PopupProductComponent,
+        CartPopupComponent,
+        FooterComponent
       
+    ],
+    providers: [
+        {
+            provide: LOCALE_ID,
+            useValue: 'de-DE',
+        },
     ],
     imports     : [
         RouterModule.forChild(landingHomeRoutes),

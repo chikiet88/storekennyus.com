@@ -2,10 +2,10 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
-@import 'swiper/scss';
-@import 'swiper/scss/navigation';
-@import 'swiper/scss/pagination';
-.mat-product{
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+.mat-product {
     .mat-tab-label {
         background-color: #e2e9ee;
         margin: 0 7px;
@@ -25,37 +25,34 @@
             font-weight: bold;
         }
     }
-    
+
     @media screen and (max-width: 468px) {
         .mat-tab-labels {
             flex-direction: column;
-            
         }
         .mat-tab-label {
             margin: 7px 0px;
         }
         .mat-tab-body-wrapper {
             width: 100% !important;
-    
+
             flex-direction: column;
             .mat-tab-body-content {
                 padding: inherit;
             }
         }
         .mat-tab-label {
-            .mat-tab-label-content{
+            .mat-tab-label-content {
                 font-size: 1rem !important;
             }
         }
-        
-        
-        .mat-tab-header{
+
+        .mat-tab-header {
             width: 100%;
         }
     }
-    
 }
-.tabs_product-detail{
+.tabs_product-detail {
     .mat-tab-label {
         margin: 0 7px;
         .mat-tab-label-content {
@@ -69,41 +66,97 @@
         background-color: #e2e9ee !important;
         opacity: 1 !important;
         .mat-tab-label-content {
-            color: #15A9E3;
+            color: #15a9e3;
             font-size: 0.875rem;
             font-weight: bold;
         }
     }
-    
+
     @media screen and (max-width: 468px) {
         .mat-tab-labels {
             flex-direction: column;
-            
         }
         .mat-tab-label {
             margin: 7px 0px;
         }
         .mat-tab-body-wrapper {
             width: 100% !important;
-    
+
             flex-direction: column;
             .mat-tab-body-content {
                 padding: inherit;
             }
         }
         .mat-tab-label {
-            .mat-tab-label-content{
+            .mat-tab-label-content {
                 font-size: 1rem !important;
             }
         }
-        
-        
-        .mat-tab-header{
+
+        .mat-tab-header {
             width: 100%;
         }
     }
 }
-label.star{
+label.star {
     font-size: 24px !important;
     padding: 5px !important;
+}
+.checkout {
+    .mat-expansion-panel {
+        background: transparent !important;
+        box-shadow: none !important ;
+        margin-bottom: inherit !important;
+    }
+}
+.cdk-overlay-pane {
+    max-width: inherit !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #000 !important;
+    border-radius: 100%;
+    padding: 0 20px;
+    border: 1px solid #ddd;
+    background-color: #ddd;
+    opacity: 0.8;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    font-size: 20px;
+}
+.thuonghieu-item-hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+        opacity: 0;
+        transition: ease 0.3s all;
+    }
+}
+.thuonghieu-item-hover:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+        opacity: 1;
+        transition: ease 0.3s all;
+    }
+}
+
+.danhmuc {
+    .swiper-button-prev,
+    .swiper-button-next {
+        opacity: 0;
+        transition: ease 0.3s all;
+    }
+}
+.danhmuc:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+        opacity: 1;
+        transition: ease 0.3s all;
+    }
+}
+.nav-mobile{
+    .mat-expansion-panel-header{
+        padding: inherit;
+    }
 }

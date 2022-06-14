@@ -8,6 +8,27 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/example'
+    },
+    {
+        id   : 'danhmuc',
+        title: 'Danh mục',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/admin/danhmuc'
+    },
+    {
+        id   : 'sanpham',
+        title: 'Sản phẩm',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/admin/sanpham'
+    },
+    {
+        id   : 'baiviet',
+        title: 'Bài Viết',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/admin/baiviet'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [

@@ -12,6 +12,11 @@ import { mockApiServices } from 'app/mock-api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
+import { AngularFireModule} from '@angular/fire/compat'
+import {AngularFireDatabaseModule} from '@angular/fire/compat/database';
+import {AngularFireStorageModule } from '@angular/fire/compat/storage'
+import { environment } from 'environments/environment';
+
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
     scrollPositionRestoration: 'enabled'
@@ -38,7 +43,10 @@ const routerConfig: ExtraOptions = {
         LayoutModule,
 
         // 3rd party modules that require global configuration via forRoot
-        MarkdownModule.forRoot({})
+        MarkdownModule.forRoot({}),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireDatabaseModule,
+        AngularFireStorageModule,
     ],
     bootstrap   : [
         AppComponent

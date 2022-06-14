@@ -1,43 +1,83 @@
-import { Component, OnInit } from '@angular/core';
-import { Options, LabelType } from '@angular-slider/ngx-slider';
+import { Component, OnInit } from "@angular/core";
+import { Options, LabelType } from "@angular-slider/ngx-slider";
+import { ProductListService } from "./product-list.service";
 
 @Component({
-    selector: 'app-product-list',
-    templateUrl: './product-list.component.html',
-    styleUrls: ['./product-list.component.scss'],
+  selector: "app-product-list",
+  templateUrl: "./product-list.component.html",
+  styleUrls: ["./product-list.component.scss"],
 })
 export class ProductListComponent implements OnInit {
-    productListhide: number;
-    minValue: number = 0;
-    maxValue: number = 100;
-    options: Options = {
-        floor: 0,
-        ceil: 100,
-        translate: (value: number, label: LabelType): string => {
-            switch (label) {
-                case LabelType.Low:
-                    return '<b>Min price:</b> $' + value;
-                case LabelType.High:
-                    return '<b>Max price:</b> $' + value;
-                default:
-                    return '$' + value;
-            }
-        },
-    };
-    typesOfShoes: string[] = [
-        'Boots',
-        'Clogs',
-        'Loafers',
-        'Moccasins',
-        'Sneakers',
-    ];
+  products: any[];
+  productDM: any[];
+  danhmuc: any[];
+  valuePrice: number;
+  selectedIndex: number;
+  productListhide: number;
+  minValue: number = 0;
+  temp:any[]
+  maxValue: number = 100;
+  isChecked = false;
+  options: Options = {
+    floor: 0,
+    ceil: 100,
+    translate: (value: number, label: LabelType): string => {
+      switch (label) {
+        case LabelType.Low:
+          return "<b>Min price:</b> $" + value;
+        case LabelType.High:
+          return "<b>Max price:</b> $" + value;
+        default:
+          this.valuePrice = value;
 
-    productListtoggle(number) {
-        this.productListhide = number;
-    }
-    constructor() {
-        this.productListhide = 2;
-    }
+          return "$" + value;
+      }
+    },
+  };
+  typesOfShoes: string[] = [
+    "Boots",
+    "Clogs",
+    "Loafers",
+    "Moccasins",
+    "Sneakers",
+  ];
+  changePrice(value) {
+    console.log(value);
 
-    ngOnInit(): void {}
+    this.productDM = this.productDM.filter((x) => x.price <= value);
+    console.log(this.productDM);
+  }
+  productListtoggle(number) {
+    this.productListhide = number;
+  }
+  constructor(private _productService: ProductListService) {
+    this.productListhide = 1;
+  }
+  onSelectDanhmuc(item, i) {
+    this._productService.products$.subscribe((res) => (this.products = res));
+    this.selectedIndex = i;
+    this.productDM = this.products.filter((x) => {
+      return x.idDM == item.id;
+    });
+    this.temp = this.productDM
+  }
+  selectSale() {
+    this.isChecked = !this.isChecked;
+    
+    if (this.isChecked == true) {
+
+      this.productDM = this.productDM.filter((x) => x.status == "sale");
+    } else {
+      this.productDM = this.temp;
+    }
+  }
+
+  ngOnInit(): void {
+    this._productService.getDanhmuc().subscribe();
+    this._productService.danhmuc$.subscribe((res) => (this.danhmuc = res));
+    this._productService.getProduct().subscribe();
+    this._productService.products$.subscribe((res) => {
+      this.productDM = res?.filter((x) => x.idDM == this.danhmuc[0].id);
+    });
+  }
 }

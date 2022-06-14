@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-more-love',
-  templateUrl: './more-love.component.html',
-  styleUrls: ['./more-love.component.scss']
+  selector: "app-more-love",
+  templateUrl: "./more-love.component.html",
+  styleUrls: ["./more-love.component.scss"],
 })
 export class MoreLoveComponent implements OnInit {
+  @Input() item;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

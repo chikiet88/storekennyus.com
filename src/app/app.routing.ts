@@ -66,15 +66,15 @@ export const appRoutes: Route[] = [
 
     // Admin routes
     {
-        path       : '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
+        path       : 'admin',
+        // canActivate: [AuthGuard],
+        // canActivateChild: [AuthGuard],
         component  : LayoutComponent,
         resolve    : {
             initialData: InitialDataResolver,
         },
         children   : [
-            {path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
+            {path: '', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
         ]
     }
 ];

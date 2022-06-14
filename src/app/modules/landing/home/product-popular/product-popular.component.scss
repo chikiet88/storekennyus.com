@@ -1,0 +1,10 @@
+.icon {
+  opacity: 0;
+  transition: 0.3s;
+}
+.product:hover {
+  .icon {
+    opacity: 1;
+    transition: 0.3s;
+  }
+}
