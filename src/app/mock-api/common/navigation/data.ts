@@ -3,58 +3,102 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
+        id: 'example',
         title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        type: 'group',
+        icon: 'heroicons_outline:chart-pie',
+        children: [
+            {
+                id: 'danhmuc',
+                title: 'Danh mục',
+                type: 'basic',
+                icon: 'heroicons_outline:chart-pie',
+                link: '/admin/danhmuc',
+            },
+        ],
     },
     {
-        id   : 'danhmuc',
+        id: 'menu',
+        title: 'Menu',
+        type: 'aside',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/menu',
+    },
+    {
+        id: 'danhmuc',
         title: 'Danh mục',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/admin/danhmuc'
+        type: 'aside',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/danhmuc',
     },
     {
-        id   : 'sanpham',
+        id: 'sanpham',
         title: 'Sản phẩm',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/admin/sanpham'
+        type: 'aside',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/sanpham',
+    },
+    
+    {
+        id: 'baiviet',
+        title: 'Bài Viết',
+        type: 'aside',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/baiviet',
     },
     {
-        id   : 'baiviet',
-        title: 'Bài Viết',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/admin/baiviet'
+        id: 'thuonghieu',
+        title: 'Thương Hiệu',
+        type: 'aside',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/thuonghieu',
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
+        id: 'example',
         title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        type: 'aside',
+        icon: 'heroicons_outline:chart-pie',
+        children: [],
+    },
+    {
+        id: 'danhmuc',
+        title: 'Danh mục',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/danhmuc',
+    },
+    {
+        id: 'sanpham',
+        title: 'Sản phẩm',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/sanpham',
+    },
+    {
+        id: 'baiviet',
+        title: 'Bài Viết',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/baiviet',
+    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
+        id: 'example',
         title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/example',
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
+        id: 'example',
         title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/example',
+    },
 ];

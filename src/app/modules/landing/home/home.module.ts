@@ -15,10 +15,7 @@ import { GioithieuComponent } from './gioithieu/gioithieu.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { SwiperModule } from 'swiper/angular';
 import { ContactComponent } from './contact/contact.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductItem1Component } from './product-list/product-item1/product-item1.component';
-import { ProductItem2Component } from './product-list/product-item2/product-item2.component';
-import { ProductDetailComponent } from './product-list/product-detail/product-detail.component';
+
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
@@ -34,6 +31,14 @@ import { ProfileComponent } from './profile/profile.component';
 import { PopupProductComponent } from './components/popup-product/popup-product.component';
 import { CartPopupComponent } from './components/cart-popup/cart-popup.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ThuonghieuComponent } from './thuonghieu/thuonghieu.component';
+import { CarouselHomeComponent } from './components/carousel-home/carousel-home.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductItem1Component } from './product-list/product-item1/product-item1.component';
+import { ProductDetailComponent } from './product-list/product-detail/product-detail.component';
+import { ProductItem2Component } from './product-list/product-item2/product-item2.component';
+import { SanphamDanhmucComponent } from './product-list/sanpham-danhmuc/sanpham-danhmuc.component';
+import { BlogListComponent } from './blog/blog-list/blog-list.component';
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
@@ -60,7 +65,11 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
         ProfileComponent,
         PopupProductComponent,
         CartPopupComponent,
-        FooterComponent
+        FooterComponent,
+        ThuonghieuComponent,
+        CarouselHomeComponent,
+        SanphamDanhmucComponent,
+        BlogListComponent,
       
     ],
     providers: [

@@ -24,6 +24,7 @@ export class DanhmucComponent implements OnInit {
     DanhmucList: FormGroup;
     selectTheme: any;
     idSelect;
+    Icon;
     public Editor = ClassicEditor;
 
     public config = {
@@ -52,12 +53,12 @@ export class DanhmucComponent implements OnInit {
             (res) => {
                 if (res) {
                     alert('Tạo nội dung thành công');
+                    this.resetForm();
                 } else {
                     alert('Tạo nội dung không thành công');
                 }
             }
         );
-        this.resetForm();
     }
 
     onSelectDanhmucCha(item) {
@@ -71,6 +72,8 @@ export class DanhmucComponent implements OnInit {
         this.DanhmucList.get('Tieude').setValue(item.Tieude);
         this.DanhmucList.get('Mota').setValue(item.Mota);
         this.DanhmucList.get('Image').setValue(item.Image);
+        this.DanhmucList.get('Icon').setValue(item.Icon);
+
         this.DanhmucList.get('pid').setValue(item.pid);
         this.DanhmucList.get('code').setValue(item.code);
         this.DanhmucList.get('Type').setValue(item.Type);
@@ -82,11 +85,15 @@ export class DanhmucComponent implements OnInit {
         });
         this.idSelect = item.id;
         this.thumb = item.Image;
+        this.Icon = item.Icon;
     }
     deleteDanhmuc() {
-        alert('Xóa Danhmuc thành công');
-        this.DanhmucService.deleteDanhmuc(this.idSelect).subscribe();
-        this.resetForm();
+        this.DanhmucService.deleteDanhmuc(this.idSelect).subscribe((res) => {
+            alert('Xóa Danhmuc thành công');
+            this.resetForm();
+
+            this.idSelect = undefined;
+        });
     }
     updateDanhmuc() {
         this.DanhmucList.removeControl('tenDMcha');
@@ -95,12 +102,15 @@ export class DanhmucComponent implements OnInit {
             (res) => {
                 if (res) {
                     alert('Cập nhật Danh mục thành công');
+                    this.resetForm();
+                    this.thumb = '';
+                    this.Icon = '';
+                    this.idSelect = undefined;
                 } else {
                     alert('Cập nhật Danh mục không thành công');
                 }
             }
         );
-        this.resetForm();
     }
     resetForm() {
         this.DanhmucList = this.fb.group({
@@ -108,8 +118,9 @@ export class DanhmucComponent implements OnInit {
             Mota: [''],
             Image: [''],
             Type: [''],
+            Icon: [''],
             pid: [''],
-            code:[''],
+            code: [''],
             Slug: [''],
             tenDMcha: [''],
         });
@@ -129,6 +140,9 @@ export class DanhmucComponent implements OnInit {
                             this.percentage = Math.round(
                                 percentage ? percentage : 0
                             );
+                            if (percentage) {
+                                this.selectedFiles = undefined;
+                            }
                         },
                         (error) => {
                             console.log(error);
@@ -145,37 +159,41 @@ export class DanhmucComponent implements OnInit {
             }
         });
     }
-    // uploadIcon(): void {
-    //     if (this.selectedFiles) {
-    //         const file: File | null = this.selectedFiles.item(0);
-    //         this.selectedFiles = undefined;
-    //         if (file) {
-    //             this.currentFileUpload = new FileUpload(file);
-    //             console.log(this.currentFileUpload);
 
-    //             this.uploadService
-    //                 .pushFileToStorage(this.currentFileUpload)
-    //                 .subscribe(
-    //                     (percentage) => {
-    //                         this.percentage = Math.round(
-    //                             percentage ? percentage : 0
-    //                         );
-    //                     },
-    //                     (error) => {
-    //                         console.log(error);
-    //                     }
-    //                 );
-    //         }
-    //     }
-    //     this.uploadService._thumb$.subscribe((res) => {
-    //         if (res) {
-    //             console.log(res);
+    uploadIcon(): void {
+        if (this.selectedFiles) {
+            const file: File | null = this.selectedFiles.item(0);
+            this.selectedFiles = undefined;
+            if (file) {
+                this.currentFileUpload = new FileUpload(file);
+                console.log(this.currentFileUpload);
 
-    //             this.icon = res;
-    //             this.DanhmucList.get('icon').setValue(res);
-    //         }
-    //     });
-    // }
+                this.uploadService
+                    .pushFileToStorage(this.currentFileUpload)
+                    .subscribe(
+                        (percentage) => {
+                            this.percentage = Math.round(
+                                percentage ? percentage : 0
+                            );
+                            if (percentage) {
+                                this.selectedFiles = undefined;
+                            }
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                    );
+            }
+        }
+        this.uploadService._thumb$.subscribe((res) => {
+            if (res) {
+                console.log(res);
+
+                this.icon = res;
+                this.DanhmucList.get('Icon').setValue(res.url);
+            }
+        });
+    }
     selectFile(event: any): void {
         this.selectedFiles = event.target.files;
     }

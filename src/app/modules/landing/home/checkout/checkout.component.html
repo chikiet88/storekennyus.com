@@ -1,5 +1,5 @@
 <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-10 md:mt-10 px-3">
-  <p class="text-gray-500">Have a coupon? Click here to enter your code</p>
+  <!-- <p class="text-gray-500">Have a coupon? Click here to enter your code</p> -->
 
   <div class="flex lg:flex-row flex-col pt-10">
     <div class="lg:w-1/2 w-full lg:pr-10">
@@ -7,82 +7,37 @@
         <div class="md:w-1/2 w-full mr-2">
           <p class="text-2xl text-2xl font-bold">Billing details</p>
 
-          <form class="pt-7">
+          <form class="pt-7" [formGroup]="khachhangForm">
             <div class="flex flex-col">
-              <label class="text-gray-400">Username or email address *</label>
+              <label class="text-gray-400">Họ và tên *</label>
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
                 type="text"
+                [formControlName]="'hoten'"
               />
             </div>
             <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
+              <label class="text-gray-400">Số điện thoại *</label>
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
+                type="number"
+                [formControlName]="'phone'"
               />
             </div>
             <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
+              <label class="text-gray-400">Email *</label>
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
+                type="email"
+                [formControlName]="'email'"
               />
             </div>
             <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
+              <label class="text-gray-400">Địa chỉ giao hàng</label>
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
-              />
-            </div>
-            <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
-              <input
-                class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
-              />
-            </div>
-            <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
-              <input
-                class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
-              />
-            </div>
-            <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
-              <input
-                class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
-              />
-            </div>
-            <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
-              <input
-                class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
-              />
-            </div>
-            <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
-              <input
-                class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
-              />
-            </div>
-            <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
-              <input
-                class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
-              />
-            </div>
-            <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Password *</label>
-              <input
-                class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="password"
+                type="text"
+                [formControlName]="'diachi'"
               />
             </div>
           </form>
@@ -96,6 +51,7 @@
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl h-28"
                 type="text"
                 placeholder="Notes"
+                [formControlName]="'ghichu'"
               ></textarea>
             </div>
           </form>
@@ -114,19 +70,24 @@
             </tr>
           </thead>
           <tbody class="border border-gray-200 rounded-xl">
-            <tr class="border-b border-gray-200 px-2">
+            <tr
+              class="border-b border-gray-200 px-2"
+              *ngFor="let item of carts"
+            >
               <td class="py-2 px-2 text-gray-500">
-                Vitamin D3 (1000IU) Cap X - 350, Green × 1
+                {{ item.Tieude }}
               </td>
-              <td class="py-2 px-2">$35.00</td>
+              <td class="py-2 px-2">
+                {{ item.Gia * item.cartNum | currency: "VND" }}
+              </td>
             </tr>
             <tr class="border-b border-gray-200 px-2">
               <td class="py-2 px-2 text-purple-500 font-bold">Subtotal</td>
-              <td class="py-2 px-2">$35.00</td>
+              <td class="py-2 px-2">{{ amount | currency: "VND" }}</td>
             </tr>
             <tr class="border-b border-gray-200 px-2">
               <td class="py-2 px-2 text-purple-500 font-bold">Total</td>
-              <td class="py-2 px-2">$35.00</td>
+              <td class="py-2 px-2">{{ amount | currency: "VND" }}</td>
             </tr>
           </tbody>
         </table>
@@ -180,7 +141,11 @@
           experience throughout this website, and for other purposes described
           in our <a href="#" class="text-purple-500">privacy policy.</a>
         </p>
-        <div class="mt-5 w-28 bg-orange-500 hover:bg-purple-500 text-white font-bold py-2 rounded-2xl text-center">Place order</div>
+        <div
+          class="mt-5 w-28 bg-orange-500 hover:bg-purple-500 text-white font-bold py-2 rounded-2xl text-center"
+        >
+          Place order
+        </div>
       </div>
     </div>
   </div>

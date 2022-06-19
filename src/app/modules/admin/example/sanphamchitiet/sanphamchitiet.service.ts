@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SanphamchitietService {
-    private urlApi = 'http://localhost:3000/sanphamchitiet';
+    private urlApi = environment.url +'/sanpham';
     post: any;
     private _sanphamchitiets: BehaviorSubject<any | null> = new BehaviorSubject(null);
 

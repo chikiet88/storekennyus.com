@@ -11,7 +11,7 @@
                 >
                     <span matPrefix>Danh mục cha</span>
                     <mat-select [formControlName]="'tenDMcha'">
-                        <mat-option></mat-option>
+                        <mat-option value=""></mat-option>
                         <mat-option
                             [value]="item.Tieude"
                             *ngFor="let item of danhmuc"
@@ -29,13 +29,11 @@
                     <mat-select placeholder="" [formControlName]="'Type'">
                         <mat-option value=""></mat-option>
 
-                        <mat-option value="chuyennganh"
-                            >Chuyên ngành</mat-option
+                        <mat-option value="Popular"
+                            >Nổi Bật</mat-option
                         >
-                        <mat-option value="gochocvien">Góc học viên</mat-option>
-                        <mat-option value="tintucsukien"
-                            >Tin tức sự kiện</mat-option
-                        >
+                        <mat-option value="Seller">Bán Chạy</mat-option>
+                      
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field
@@ -134,7 +132,7 @@
                         />
                     </label>
                     <button
-                        class="btn btn-success btn-sm mt-3 md:mt-0"
+                        class="px-3 py-1 bg-green-600 rounded-lg text-white"
                         [disabled]="!selectedFiles"
                         (click)="upload()"
                     >
@@ -163,6 +161,46 @@
                     </ul>
                 </div>
             </div>
+            <div class="flex flex-wrap md:mb-6">
+                
+                <div class="w-full md:px-3 mb-6 md:mb-0">
+                    <label>
+                        <input
+                            type="file"
+                            class="text-nowrap text-truncate"
+                            (change)="selectFile($event)"
+                        />
+                    </label>
+                    <button
+                        class="px-3 py-1 bg-green-600 rounded-lg text-white"
+                        [disabled]="!selectedFiles"
+                        (click)="uploadIcon()"
+                    >
+                        Upload Icon
+                    </button>
+                    <div *ngIf="currentFileUpload" class="progress mt-2">
+                        <div
+                            class="progress-bar progress-bar-info"
+                            role="progressbar"
+                            attr.aria-valuenow="{{ percentage }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            [ngStyle]="{ width: percentage + '%' }"
+                        >
+                            {{ percentage }}%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card w-full mt-5" *ngIf="Icon">
+                    <div class="card-header">Image Upload</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <img src="{{ Icon }}" class="w-20 h-20" alt="" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="form-group md:mx-3 mb-6">
@@ -178,7 +216,7 @@
                 type="update"
                 class="px-3 py-1 bg-indigo-600 rounded-lg mr-10 text-white"
                 (click)="updateDanhmuc()"
-                *ngIf="idSelect"
+                *ngIf="idSelect != undefined"
             >
                 Update
             </button>
@@ -186,7 +224,7 @@
                 type="update"
                 class="px-3 py-1 bg-red-600 rounded-lg text-white"
                 (click)="deleteDanhmuc()"
-                *ngIf="idSelect"
+                *ngIf="idSelect != undefined"
             >
                 Delete
             </button>

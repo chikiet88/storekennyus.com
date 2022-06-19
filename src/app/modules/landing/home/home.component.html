@@ -5,82 +5,71 @@
         <div class="p-3">
           <div class="flex">
             <div
-              class="w-1/2 text-purple-500 text-wjite bg-blue-500 bg-gray-200 text-center py-2 rounded-2xl text-lg font-bold mr-2"
+              class="w-40    text-center py-2 rounded-2xl text-lg font-bold mr-2 {{
+                MenuActive
+                  ? 'bg-blue-500 text-white'
+                  : 'text-purple-500 bg-gray-200'
+              }}"
+              (click)="MenuActive = !MenuActive; DanhmucActive = false"
             >
               Menu
             </div>
             <div
-              class="w-1/2 text-purple-500 text-wjite bg-blue-500 bg-gray-200 text-center py-2 rounded-2xl text-lg font-bold ml-2"
+              class="w-40   text-center py-2 rounded-2xl text-lg font-bold ml-2 {{
+                DanhmucActive
+                  ? 'bg-blue-500 text-white'
+                  : 'text-purple-500 bg-gray-200'
+              }}"
+              (click)="DanhmucActive = !DanhmucActive; MenuActive = false"
             >
               Danh mục
             </div>
           </div>
         </div>
-        <div class="py-5 px-3 hidden">
-          <ul class="nav-mobile">
-            <li class="text-purple-500 mb-3 text-2xl font-bold">
-              <a routerLink="">Trang chủ</a>
-            </li>
-            <li class="text-purple-500 mb-3 text-2xl font-bold">
-              <a routerLink="sanpham">Sản phẩm</a>
-            </li>
-            <li class="text-purple-500 mb-3 text-2xl font-bold">
-              <a routerLink="sanpham">Thương hiệu</a>
-            </li>
-            <li class="text-purple-500 mb-3 text-2xl font-bold">
-              <a routerLink="sanpham">Flash sale</a>
-            </li>
-            <li class="mb-3">
-              <mat-accordion>
-                <mat-expansion-panel
-                  class=""
-                  (opened)="panelOpenState = true"
-                  (closed)="panelOpenState = false"
-                >
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      <div>
-                        <a
-                          routerLink="gioithieu"
-                          class="text-2xl text-purple-500 font-bold"
-                          >Về chúng tôi</a
-                        >
-                      </div>
 
-                      <!-- <ng-template #notparent>
-                        <a routerLink="/{{itemmenu.slug}}" class="text-lg uppercase text-white mt-2 lg:px-3 mb-0 lg:py-2 rounded-md text-sm font-medium" (click)="drawer.toggle()">{{itemmenu.title}}</a>
-    
-                      </ng-template>
-                    </mat-panel-title> -->
-                    </mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <ul class="">
-                    <li class="text-purple-500 text-xl font-bold mb-2">
-                      <a routerLink="gioithieu">Giới Thiệu</a>
-                    </li>
-                    <li class="text-purple-500 text-xl font-bold mb-2">
-                      <a routerLink="lienhe">Liên hệ</a>
-                    </li>
-                    <li class="text-purple-500 text-xl font-bold mb-2">
-                      <a routerLink="lienhe">Chính sách vận chuyển</a>
-                    </li>
-                    <li class="text-purple-500 text-xl font-bold mb-2">
-                      <a routerLink="lienhe">Chính sách đổi trả</a>
-                    </li>
-                    <li class="text-purple-500 text-xl font-bold mb-2">
-                      <a routerLink="lienhe">Hình thức thanh toán</a>
-                    </li>
-                  </ul>
-                </mat-expansion-panel>
-              </mat-accordion>
-            </li>
-            <li class="text-purple-500 mb-3 text-2xl font-bold">
-              <a routerLink="blog ">Tin tức</a>
-            </li>
-          </ul>
-        </div>
-        <div class="py-5 px-3">
-          <ul class="nav-mobile">
+        <div class="py-5 px-3" *ngIf="DanhmucActive == true">
+          <mat-accordion>
+            <mat-expansion-panel
+              *ngFor="let itemmenu of danhmuc"
+              (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false"
+            >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div *ngIf="itemmenu?.children.length > 0; else notparent">
+                    <a
+                      routerLink="/{{ itemmenu.Slug }}"
+                      class="text-purple-500 mb-3 text-2xl font-bold"
+                      >{{ itemmenu.Tieude }}</a
+                    >
+                  </div>
+                  <ng-template #notparent>
+                    <a
+                      routerLink="/{{ itemmenu.Slug }}"
+                      class="text-purple-500 mb-3 text-2xl font-bold"
+                      (click)="drawer.toggle()"
+                      >{{ itemmenu.Tieude }}</a
+                    >
+                  </ng-template>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div *ngIf="itemmenu?.children.length > 0">
+                <div
+                  class="flex flex-col"
+                  *ngFor="let item of itemmenu.children"
+                >
+                  <a
+                    class="text-purple-500 mb-3 text-2xl font-bold"
+                    routerLink="/{{ item.Slug }}"
+                    (click)="drawer.toggle()"
+                    >{{ item.Tieude }}</a
+                  >
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <!-- <ul class="nav-mobile">
+            
             <li
               class="text-purple-500 mb-3 text-2xl font-bold"
               *ngFor="let item of danhmuc"
@@ -88,6 +77,69 @@
               <a routerLink="sanpham" (click)="drawer.toggle()">{{
                 item.Tieude
               }}</a>
+            </li>
+          </ul> -->
+        </div>
+        <div class="py-5 px-3" *ngIf="MenuActive == true">
+          <ul class="nav-mobile">
+            <li class="text-purple-500 mb-3 text-2xl font-bold">
+              <a routerLink="" (click)="drawer.toggle()">Trang chủ</a>
+            </li>
+            <li class="text-purple-500 mb-3 text-2xl font-bold">
+              <a routerLink="sanpham" (click)="drawer.toggle()">Sản phẩm</a>
+            </li>
+            <li class="text-purple-500 mb-3 text-2xl font-bold">
+              <a routerLink="" (click)="drawer.toggle()">Thương hiệu</a>
+            </li>
+            <li class="text-purple-500 mb-3 text-2xl font-bold">
+              <a routerLink="" (click)="drawer.toggle()">Flase Sale</a>
+            </li>
+            <li class="text-purple-500 mb-3 text-2xl font-bold">
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <p class="text-purple-500 mb-3 text-2xl font-bold">
+                        Về chúng tôi
+                      </p>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="pl-3 flex flex-col">
+                    <a
+                      routerLink="/gioithieu"
+                      class="text-purple-500 mb-3 text-2xl font-bold"
+                      aria-current="page"
+                      (click)="drawer.toggle()"
+                      >Giới Thiệu</a
+                    >
+                    <a
+                      routerLink="/lienhe"
+                      class="text-purple-500 mb-3 text-2xl font-bold"
+                      aria-current="page"
+                      (click)="drawer.toggle()"
+                      >Liên hệ</a
+                    >
+                    <a
+                      routerLink=""
+                      class="text-purple-500 mb-3 text-2xl font-bold"
+                      aria-current="page"
+                      (click)="drawer.toggle()"
+                      >Chính Sách Đổi Trả</a
+                    >
+                    <a
+                      routerLink=""
+                      class="text-purple-500 mb-3 text-2xl font-bold"
+                      aria-current="page"
+                      (click)="drawer.toggle()"
+                      >Hình Thức Thanh Toán</a
+                    >
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </li>
+            <li class="text-purple-500 mb-3 text-2xl font-bold">
+              <a routerLink="tintuc" (click)="drawer.toggle()">Tin Tức</a>
             </li>
           </ul>
         </div>
@@ -195,24 +247,27 @@
             </div>
           </div>
           <div class="hidden lg:flex items-center justify-end w-3/12">
-            <span class="material-icons text-4xl text-blue-500 mr-3">
-              phone
-            </span>
+            <a href="tel:0368 651 526"
+              ><span class="material-icons text-4xl text-blue-500 mr-3">
+                phone
+              </span></a
+            >
 
             <div class="">
               <p class="text-purple-500">Sales & Service Support</p>
-              <p class="text-bold text-purple-500 font-bold text-lg">
-                986-456-67892
-              </p>
+              <a
+                href="tel:0368 651 526"
+                class="text-bold text-purple-500 font-bold text-lg"
+              >
+                0368 651 526
+              </a>
             </div>
           </div>
         </div>
       </div>
       <div class="relative py-3 hidden lg:block">
-        <div
-          class=" lg:max-w-7xl lg:mx-auto relative lg:px-5"
-        >
-          <div class="flex items-center  w-full ">
+        <div class="lg:max-w-7xl lg:mx-auto relative lg:px-5">
+          <div class="flex items-center w-full">
             <div
               class="flex items-center categories-hover justify-center text-purple-500 p-3 bg-gray-200 hover:bg-purple-500 hover:text-white w-32 rounded-3xl font-bold text-center w-2/12 relative"
             >
@@ -222,155 +277,35 @@
                   class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto lg:px-5 rounded-xl"
                 >
                   <div
-                    class="grid grid-cols-5 rounded overflow-hidden shadow-lg bg-white z-20 gallery-categories"
+                    class="flex rounded overflow-hidden shadow-lg bg-white z-20 gallery-categories"
                   >
-                    <div class="pl-7 bg-gray-200">
+                    <div class="px-3 bg-gray-200 w-1/5">
                       <ul class="py-7">
                         <li
-                          class="text-lg text-purple-500 font-bold hover:text-blue-500"
+                          class="text-lg text-purple-500 font-bold hover:text-blue-500 active"
                         >
-                          Baby Accesssories
+                          Danh mục Sản Phẩm
                         </li>
                       </ul>
                     </div>
-                    <div class="pl-10 py-5">
-                      <ul class="mt-5 border-r border-gray-400">
-                        <li
-                          class="bg-gray-200"
-                          style="width: 86px; height: 157px"
-                        >
-                          86*157
-                        </li>
-                        <li class="pt-7 text-lg text-purple-500 font-bold">
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
-                        >
-                          View all >
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="pl-10 py-5">
-                      <ul class="mt-5 border-r border-gray-400">
-                        <li
-                          class="bg-gray-200"
-                          style="width: 86px; height: 157px"
-                        >
-                          86*157
-                        </li>
-                        <li class="pt-7 text-lg text-purple-500 font-bold">
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
-                        >
-                          View all >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="pl-10 py-5">
-                      <ul class="mt-5">
-                        <li
-                          class="bg-gray-200"
-                          style="width: 86px; height: 157px"
-                        >
-                          86*157
-                        </li>
-                        <li class="pt-7 text-lg text-purple-500 font-bold">
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-black cursos-pointer hover:underline"
-                        >
-                          Baby Accesssories
-                        </li>
-                        <li
-                          class="pt-4 text-lg text-blue-500 font-bold cursos-pointer"
-                        >
-                          View all >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="mr-10 mt-5 mb-10">
+                    <div class="grid grid-cols-6 gap-5 px-3 w-4/5">
                       <div
-                        class="w-full h-full relative flex flex-col items-center justify-center bg-red-200 rounded-2xl mt-5"
+                        class="py-7 flex flex-col items-center"
+                        *ngFor="let itemDM of danhmuc"
                       >
-                        <div
-                          class="bg-gray-200"
-                          style="width: 150px; height: 187px"
-                        >
-                          150*187
+                        <div class="w-10 h-10">
+                          <img src="{{ itemDM.Icon }}" alt="" class=" " />
                         </div>
-                        <div class="flex flex-col items-center pt-5">
-                          <p class="text-purple-500">loremloremlorem</p>
-                          <p
-                            class="text-2xl text-center text-purple-500 font-bold"
-                          >
-                            Vitamin & Supplements
-                          </p>
-                          <button
-                            class="text-lg bg-orange-500 rounded-2xl mt-3 p-2 text-white font-bold"
-                          >
-                            Shop now >
-                          </button>
+                        <div class="text-purple-500 font-bold mt-2">
+                          {{ itemDM.Tieude }}
                         </div>
+                        <ul class="">
+                          <li *ngFor="let item of itemDM.children" class="mt-2">
+                            <a class="text-gray-500" routerLink="{{item.Slug}}">{{ item.Tieude }}</a>
+                          </li>
+                        </ul>
+                        <!-- <a routerLink="danhmuc" class="text-blue-500 hover:underline">View all</a> -->
+
                       </div>
                     </div>
                   </div>
@@ -497,7 +432,7 @@
                 <!-- <li class="relative">
                   <a
                     routerLink="/gioithieu"
-                    class=" text-lg text-purple-500 font-bold py-4 text-center w-28 block"
+                    class=" text-lg text-purple-500 font-bold py-4 text-center w-28 mx-2 block"
                   >
                     Giới Thiệu
                   </a>
@@ -524,97 +459,122 @@
                   </div>
                 </li> -->
 
-                <div class="">
-                  <a
-                    routerLink="/"
-                    class="ml-8 text-lg text-purple-500 font-bold py-4 w-28 text-center block"
-                  >
-                    Trang Chủ
-                  </a>
+                <div class="text-lg text-purple-500 font-bold w-28 mx-2">
+                  <div class="links relative">
+                    <a
+                      routerLink=""
+                      class="text-lg text-purple-500 font-bold text-center block line-hover"
+                    >
+                      Trang Chủ
+                    </a>
+                  </div>
                 </div>
-                <div class="text-lg text-purple-500 font-bold w-28">
-                  <a
-                    routerLink="/sanpham"
-                    class="text-lg text-purple-500 font-bold py-4 text-center block"
-                  >
-                    Sản Phẩm
-                  </a>
+                <div class="text-lg text-purple-500 font-bold w-28 mx-2">
+                  <div class="links relative">
+                    <a
+                      routerLink="/sanpham"
+                      class="text-lg text-purple-500 font-bold text-center block line-hover"
+                    >
+                      Sản Phẩm
+                    </a>
+                  </div>
                 </div>
                 <div
-                  class="text-lg text-purple-500 font-bold   thuonghieu group"
+                  class="text-lg text-purple-500 font-bold thuonghieu group py-4 w-28 mx-2"
                 >
-                  <a
-                    class="text-lg text-purple-500 font-bold py-4 text-center block"
-                  >
-                    Thương Hiệu
-                  </a>
-                  <div class="bg-white z-20 thuonghieu-item-hover">
-                    <div
-                      class="lg:max-w-7xl lg:mx-auto lg:px-5 py-3 w-full h-full py-5"
+                  <div class="links">
+                    <a
+                      class="text-lg text-purple-500 font-bold text-center block"
                     >
+                      Thương Hiệu
+                    </a>
+                  </div>
+                  <div class="bg-white z-20 thuonghieu-item-hover">
+                    <div class="lg:max-w-7xl lg:mx-auto lg:px-5 w-full h-full">
                       <swiper
                         [config]="config"
                         [navigation]="true"
                         class="mySwiper"
                       >
-                        <ng-template swiperSlide
+                        <ng-template
+                          swiperSlide
+                          *ngFor="let item of thuonghieus"
                           ><div
                             class="w-40 bg-red-100 flex items-center thuonghieu-item"
-                          ></div>
-                        </ng-template>
-
-                        <ng-template swiperSlide
-                          ><div
-                            class="w-40 bg-red-100 flex items-center thuonghieu-item"
-                          ></div>
-                        </ng-template>
-                        <ng-template swiperSlide
-                          ><div
-                            class="w-40 bg-red-100 flex items-center thuonghieu-item"
-                          ></div>
-                        </ng-template>
-                        <ng-template swiperSlide
-                          ><div
-                            class="w-40 bg-red-100 flex items-center thuonghieu-item"
-                          ></div>
-                        </ng-template>
-                        <ng-template swiperSlide>
-                          <div
-                            class="w-40 bg-red-100 flex items-center thuonghieu-item"
-                          ></div
-                        ></ng-template>
-                        <ng-template swiperSlide
-                          ><div
-                            class="w-40 bg-red-100 flex items-center thuonghieu-item"
-                          ></div>
+                          >
+                            <img
+                              src="{{ item.Image }}"
+                              class="w-full h-full"
+                              alt=""
+                            />
+                          </div>
                         </ng-template>
                       </swiper>
                     </div>
                   </div>
                 </div>
-                <div class="text-lg text-purple-500 font-bold w-28">
-                  <a
-                    routerLink="/lienhe"
-                    class="text-lg text-purple-500 font-bold py-4 text-center block"
-                  >
-                    Flash Sale
-                  </a>
+                <div class="text-lg text-purple-500 font-bold w-28 mx-2">
+                  <div class="links relative">
+                    <a
+                      routerLink="/lienhe"
+                      class="text-lg text-purple-500 font-bold text-center block line-hover"
+                    >
+                      Flash Sale
+                    </a>
+                  </div>
                 </div>
-                <div class="text-lg text-purple-500 font-bold w-28">
-                  <a
-                    routerLink="/lienhe"
-                    class="text-lg text-purple-500 font-bold py-4 text-center block"
-                  >
-                    Về Chúng Tôi
-                  </a>
+                <div class="links flex w-28 mx-2">
+                  <div class="dropdown relative">
+                    <div class="py-4" (mouseenter)="toggleMenu()">
+                      <button
+                        class="dropdown-toggle border-none cusor-pointer relative hover:text-yellow-500"
+                        type="button"
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <a
+                          routerLink=""
+                          class="block text-purple-500 font-bold text-center lg:inline-block lg:mt-0 line-hover text-lg line-hover"
+                        >
+                          Về Chúng Tôi
+                        </a>
+                      </button>
+                    </div>
+
+                    <ul
+                      class="dropdown-menu min-w-max absolute bg-white z-50 float-left py-2 list-none text-left rounded-lg shadow-lg m-0 bg-clip-padding border-none"
+                      [ngClass]="{ hidden: isShow }"
+                      (mouseleave)="toggleMenu()"
+                    >
+                      <li (click)="toggleMenu()" class="relative mt-2">
+                        <a
+                          class="block text-purple-500 font-bold mx-4 line-hover text-lg"
+                          routerLink="gioithieu"
+                          >Giới Thiệu</a
+                        >
+                      </li>
+
+                      <li (click)="toggleMenu()" class="relative mt-2">
+                        <a
+                          class="block text-purple-500 font-bold mx-4 line-hover text-lg"
+                          routerLink="lienhe"
+                          >Liên Hệ</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="text-lg text-purple-500 font-bold w-28">
-                  <a
-                    routerLink="/tintuc"
-                    class="text-lg text-purple-500 font-bold py-4 text-center block"
-                  >
-                    Tin Tức
-                  </a>
+
+                <div class="text-lg text-purple-500 font-bold w-28 mx-2 py-4">
+                  <div class="links relative">
+                    <a
+                      routerLink="/tintuc"
+                      class="text-lg text-purple-500 font-bold text-center block line-hover"
+                    >
+                      Tin Tức
+                    </a>
+                  </div>
                 </div>
               </div>
               <ul class="flex items-center flex-end">

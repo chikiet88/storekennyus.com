@@ -1,14 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment.prod';
 import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
-// import { Khoahoc } from '../theme/theme.types';
-import {environment} from "../../../../../environments/environment.prod"
 @Injectable({
   providedIn: 'root'
 })
-export class BaivietService {
+export class AddBaivietService {
+
+  // private urlApi = 'https://v2api.timona.edu.vn/theme'
+  // private urlApi = environment.url
 
   private urlApi = 'http://localhost:3000'
+
+
+  
   post: any;
   private _themes: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _courses: BehaviorSubject<any | null> = new BehaviorSubject(null);
@@ -18,16 +23,16 @@ export class BaivietService {
   constructor(private http:HttpClient) { }
 
 
-  get themes$(): Observable<any>{
+  get themes$(): Observable<any[]>{
     return this._themes.asObservable();
   }
-  get theme$(): Observable<any>{
+  get theme$(): Observable<any[]>{
     return this._themes.asObservable();
   }
   get menu$(): Observable<any>{
     return this._menu.asObservable();
   }
-  get courses$(): Observable<any>{
+  get courses$(): Observable<any[]>{
     return this._courses.asObservable();
   }
 
@@ -36,8 +41,6 @@ export class BaivietService {
       take(1),
       switchMap(courses => this.http.post(this.urlApi+'/baiviet',data).pipe(
         map((course)=>{
-          console.log(course);
-          console.log(data);
           
           this._courses.next([course,...courses ]);
 
@@ -68,8 +71,7 @@ export class BaivietService {
   getBaiviet(){
     return this.http.get(this.urlApi+'/baiviet').pipe(
       map((courses) => {
-          console.log(courses);
-          
+
           this._courses.next(courses);
           return courses;
       }),

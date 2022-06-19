@@ -8,3 +8,8 @@
     transition: 0.3s;
   }
 }
+.rotate-line {
+  height: 1px;
+  background-color: #000;
+  transform: rotate(5deg);
+}

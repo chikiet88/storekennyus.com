@@ -1,12 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "environments/environment";
 import { BehaviorSubject, map, Observable, switchMap, take } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class ProductListService {
-  private urlApi = "http://localhost:3000";
+  private urlApi = environment.url;
   private _products: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _product: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _danhmuc: BehaviorSubject<any | null> = new BehaviorSubject(null);
@@ -22,7 +23,7 @@ export class ProductListService {
   constructor(private http: HttpClient) {}
 
   getProduct() {
-    return this.http.get(this.urlApi + `/product`).pipe(
+    return this.http.get(this.urlApi + `/sanpham`).pipe(
       map((products) => {
         this._products.next(products);
         return products;
@@ -30,7 +31,7 @@ export class ProductListService {
     );
   }
   getProductDetail(id) {
-    return this.http.get(this.urlApi + `/product/${id}`).pipe(
+    return this.http.get(this.urlApi + `/sanpham/${id}`).pipe(
       map((product) => {
         this._product.next(product);
         return product;

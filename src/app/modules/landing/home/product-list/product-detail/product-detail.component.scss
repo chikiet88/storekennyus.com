@@ -58,3 +58,8 @@ input[type="number"] {
     font-weight: bold;
     text-align: center;
   }
+  .rotate-line {
+    height: 1px;
+    background-color: #000;
+    transform: rotate(5deg);
+  }

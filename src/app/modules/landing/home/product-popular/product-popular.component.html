@@ -4,7 +4,7 @@
   <div
     class="w-full md:h-56 sm:h-40 rounded-xl bg-gray-200 relative text-2xl flex justify-end"
   >
-    <img src="{{ item?.image[1].url }}" alt="" />
+    <img src="{{ item.Image }}" alt="" />
     <div
       class="absolute top-3 left-5 bg-green-500 py-1 px-2 rounded-2xl text-white sm:text-sm"
     >
@@ -26,12 +26,12 @@
     </div>
   </div>
   <div class="pt-5 w-full flex flex-col justify-between h-48">
-    <p class="text-blue-500 text-sm">{{ item?.tags }}</p>
+    <p class="text-blue-500 text-sm">{{ item?.Tag }}</p>
     <a
       class="font-bold text-purple-500 hover:text-blue-500"
       routerLink="/sanpham/{{ item.id }}"
     >
-      {{ item?.name }}
+      {{ item?.Tieude }}
     </a>
     <div class="flex items-center">
       <svg
@@ -85,7 +85,15 @@
         ></path>
       </svg>
     </div>
-    <p class="text-purple-500">{{ item?.price | currency: "VND" }}</p>
+    <div class="flex">
+      <span class="text-purple-500 mb-0 pr-3" *ngIf="item.GiaSale != 0"
+        >{{ item.GiaSale | currency: "VND" }}
+      </span>
+      <span class=" mb-0 text-purple-500 relative ">{{ item.Gia | currency: "VND" }}
+        <div class="absolute top-1/2 left-0 w-full rotate-line {{item.GiaSale != 0 ? 'block' : 'hidden'}}"></div>
+
+      </span>
+    </div>
 
     <button
       class="rounded-3xl text-purple-500 bg-gray-200 flex item-center justify-center hover:text-white hover:bg-purple-500 py-2 font-bold"

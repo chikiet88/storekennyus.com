@@ -2,7 +2,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { map } from 'rxjs';
-import { BaivietService } from '../baiviet/baiviet.service';
+// import { AddBaivietService } from '../add-baiviet/add-baiviet.service';
 import { DanhmucService } from '../danhmuc/danhmuc.service';
 import { MenuService } from './menu.service';
 
@@ -37,23 +37,18 @@ export class MenuComponent implements OnInit {
     constructor(
         private MenuService: MenuService,
         private fb: FormBuilder,
-        private _baivietService: BaivietService,
+        // private _baivietService: AddBaivietService,
         private _danhmucSerice: DanhmucService
     ) {}
     resetForm() {
-        this.menuForm = {
-            title: '',
-            parentid: '',
-            slug: '',
-        };
-    }
-    ngOnInit(): void {
         this.MenuList = this.fb.group({
             title: [''],
             parentid: [''],
             slug: [''],
             tenMenuCha: [''],
         });
+    }
+    ngOnInit(): void {
         this.resetForm();
 
         this.MenuService.getMenu().subscribe();
@@ -61,11 +56,11 @@ export class MenuComponent implements OnInit {
             this.menu = menu;
         });
 
-        this._baivietService.getBaiviet().subscribe();
-        this._baivietService.courses$.subscribe((result) => {
-            this.courses = result?.filter((x) => x.idDM == 0);
-            console.log(this.courses);
-        });
+        // this._baivietService.getBaiviet().subscribe();
+        // this._baivietService.courses$.subscribe((result) => {
+        //     this.courses = result?.filter((x) => x.idDM == 0);
+        //     console.log(this.courses);
+        // });
 
         this._danhmucSerice.getDanhmuc().subscribe();
         this._danhmucSerice.danhmucs$.subscribe((res) => (this.danhmuc = res));
@@ -76,32 +71,32 @@ export class MenuComponent implements OnInit {
         // })
     }
     onSubmit() {
-        console.log(this.menuForm);
-
         this.MenuList.removeControl('tenMenuCha');
-        this.MenuService.Addmenu(this.menuForm).subscribe((res) =>
+        this.MenuList.removeControl('id');
+
+        this.MenuService.Addmenu(this.MenuList.value).subscribe((res) =>
             alert('Tạo nội dung thành công')
         );
         this.resetForm();
     }
 
     onSelect(item) {
-        // this.MenuList.get('parentid').setValue(item.id);
-        this.menuForm.parentid = item.id;
+        this.MenuList.get('parentid').setValue(item.id);
+        // this.menuForm.parentid = item.id;
     }
     onSelectMenu(item) {
         console.log(item);
 
-        this.menuForm.id = item.id;
-        this.menuForm.title = item.title;
-        this.menuForm.slug = item.slug;
-        this.menuForm.parentid = item.parentid;
+        // this.menuForm.id = item.id;
+        // this.menuForm.title = item.title;
+        // this.menuForm.slug = item.slug;
+        // this.menuForm.parentid = item.parentid;
 
-        // this.MenuList.addControl('id', new FormControl(item.id));
-        // this.MenuList.get('id').setValue(item.id);
-        // this.MenuList.get('title').setValue(item.title);
-        // this.MenuList.get('slug').setValue(item.slug);
-        // this.MenuList.get('parentid').setValue(item.parentid);
+        this.MenuList.addControl('id', new FormControl(item.id));
+        this.MenuList.get('id').setValue(item.id);
+        this.MenuList.get('title').setValue(item.title);
+        this.MenuList.get('slug').setValue(item.slug);
+        this.MenuList.get('parentid').setValue(item.parentid);
         this.idSelect = item.id;
         this.menu.find((x) => {
             if (x.id == item.parentid) {
@@ -124,15 +119,16 @@ export class MenuComponent implements OnInit {
 
         this.MenuService.deleteMenu(this.idSelect).subscribe((res) => {
             alert('Xóa Menu thành công');
+            this.resetForm();
         });
-        this.resetForm();
     }
     updateMenu() {
         this.MenuList.removeControl('tenMenuCha');
 
-        this.MenuService.updateMenu(this.menuForm).subscribe((res) =>
-            alert('Cập nhật Menu thành công')
-        );
-        this.resetForm();
+        this.MenuService.updateMenu(this.MenuList.value).subscribe((res) => {
+            alert('Cập nhật Menu thành công');
+            this.resetForm();
+            this.idSelect = undefined;
+        });
     }
 }

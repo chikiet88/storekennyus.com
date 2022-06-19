@@ -1,5 +1,5 @@
 <div class="container px-10">
-    <form class="w-full pt-10" >
+    <form class="w-full pt-10" [formGroup]="MenuList">
         <div class="flex flex-wrap">
             <div
                 class="flex md:flex-row flex-col justify-between w-full mx-3 mb-6"
@@ -10,7 +10,7 @@
                     style="height: 50px"
                 >
                     <span matPrefix>Chọn Menu cha</span>
-                    <mat-select >
+                    <mat-select>
                         <mat-option
                             [value]="item.title"
                             *ngFor="let item of menu"
@@ -26,13 +26,10 @@
                     style="height: 50px"
                 >
                     <span matPrefix>Edit Menu</span>
-                    <mat-select>
-                        <mat-option
-                            [value]="item.id"
-                            *ngFor="let item of menu"
-                            (click)="onSelectMenu(item)"
-                            >{{ item.title }}</mat-option
-                        >
+                    <mat-select (selectionChange)="onSelectMenu($event.value)">
+                        <mat-option [value]="item" *ngFor="let item of menu">{{
+                            item.title
+                        }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
@@ -42,7 +39,9 @@
                     style="height: 50px"
                 >
                     <span matPrefix>Danh mục</span>
-                    <mat-select (selectionChange)="onSelectdanhmuc($event.value)">
+                    <mat-select
+                        (selectionChange)="onSelectdanhmuc($event.value)"
+                    >
                         <mat-option
                             [value]="item"
                             *ngFor="let item of danhmuc"
@@ -81,9 +80,8 @@
                     id="grid-first-name"
                     type="text"
                     placeholder="Giới thiệu"
-                    [(ngModel)]="menuForm.title"
+                    [formControlName]="'title'"
                     name="title"
-
                 />
                 <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
             </div>
@@ -99,37 +97,37 @@
                     id="grid-first-name"
                     type="text"
                     placeholder="gioi-thieu"
-                    [(ngModel)]="menuForm.slug"
+                    [formControlName]="'slug'"
                     name="slug"
                 />
                 <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
             </div>
         </div>
-        <div class="form-group mx-3 mb-6">
+        <div class="form-group mr-3 mb-3 pt-5">
             <button
                 type="submit"
                 (click)="onSubmit()"
                 [disabled]="!MenuList.valid"
-                class="btn btn-success bg-indigo-900"
+                class="px-3 py-1 bg-green-600 rounded-lg text-white"
                 *ngIf="!idSelect"
             >
-                Tạo mới
+                Submit
             </button>
             <button
                 type="update"
-                class="btn btn-primary mr-10"
+                class="px-3 py-1 bg-indigo-600 rounded-lg mr-10 text-white"
                 (click)="updateMenu()"
-                *ngIf="idSelect"
+                *ngIf="idSelect != undefined"
             >
-                Cập nhật
+                Update
             </button>
             <button
                 type="update"
-                class="btn btn-danger"
+                class="px-3 py-1 bg-red-600 rounded-lg text-white"
                 (click)="deleteMenu()"
-                *ngIf="idSelect"
+                *ngIf="idSelect != undefined"
             >
-                Xóa
+                Delete
             </button>
         </div>
     </form>

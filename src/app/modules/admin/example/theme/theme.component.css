@@ -1,0 +1,12 @@
+ul li::before {
+    content: "\2022";
+    color: #00256e;
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+  }
+  .fuse-mat-emphasized-affix{
+    border: 1px solid rgb(82, 79, 79);
+    border-radius: 5px;
+}

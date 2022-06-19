@@ -8,7 +8,7 @@
                 <span matPrefix>Cập nhật hoặc xóa sản phẩm </span>
                 <mat-select (selectionChange)="selectProduct($event.value)">
                     <mat-option [value]="item" *ngFor="let item of products">{{
-                        item.name ? item.name : ""
+                        item.Tieude ? item.Tieude : ""
                     }}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -18,10 +18,15 @@
                 appearance="fill"
             >
                 <span matPrefix>Danh mục sản phấm</span>
-                <mat-select (selectionChange)="selectionDanhmuc($event.value)">
-                    <mat-option [value]="item" *ngFor="let item of danhmucs">{{
-                        item.Tieude
-                    }}</mat-option>
+                <mat-select
+                    (selectionChange)="selectionDanhmuc($event.value)"
+                    [(value)]="tenDMcha"
+                >
+                    <mat-option
+                        [value]="item.Tieude"
+                        *ngFor="let item of danhmucs"
+                        >{{ item.Tieude }}</mat-option
+                    >
                 </mat-select>
             </mat-form-field>
         </div>
@@ -38,7 +43,7 @@
                     id="grid-first-name"
                     type="text"
                     placeholder="DNA Sharyn"
-                    [formControlName]="'name'"
+                    [formControlName]="'Tieude'"
                     name="title"
                 />
                 <p class="text-red-500 text-xs italic">
@@ -50,14 +55,14 @@
                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="grid-first-name"
                 >
-                    Giá Mới
+                    Giá tiền
                 </label>
                 <input
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                     id="grid-first-name"
                     type="number"
                     placeholder="2000000"
-                    [formControlName]="'price'"
+                    [formControlName]="'Gia'"
                     name="number"
                 />
                 <p class="text-red-500 text-xs italic">
@@ -69,14 +74,14 @@
                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="grid-first-name"
                 >
-                    Giá cũ
+                    Giá Sale
                 </label>
                 <input
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                     id="grid-first-name"
                     type="number"
                     placeholder="2000000"
-                    [formControlName]="'price'"
+                    [formControlName]="'GiaSale'"
                     name="number"
                 />
                 <p class="text-red-500 text-xs italic">
@@ -97,7 +102,7 @@
                     [editor]="Editor"
                     #editer
                     [config]="config"
-                    [formControlName]="'des'"
+                    [formControlName]="'Mota'"
                 ></ckeditor>
             </div>
         </div>
@@ -112,8 +117,9 @@
                 <ckeditor
                     [editor]="Editor"
                     #editer
+                    (ready)="onReady($event)"
                     [config]="config"
-                    [formControlName]="'mota'"
+                    [formControlName]="'Thongtin'"
                 ></ckeditor>
             </div>
         </div>
@@ -128,8 +134,9 @@
                 <ckeditor
                     [editor]="Editor"
                     #editer
+                    (ready)="onReady($event)"
                     [config]="config"
-                    [formControlName]="'thanhphan'"
+                    [formControlName]="'Thanhphan'"
                 ></ckeditor>
             </div>
         </div>
@@ -144,8 +151,9 @@
                 <ckeditor
                     [editor]="Editor"
                     #editer
+                    (ready)="onReady($event)"
                     [config]="config"
-                    [formControlName]="'huongdan'"
+                    [formControlName]="'Huongdan'"
                 ></ckeditor>
             </div>
         </div>
@@ -162,8 +170,8 @@
                     id="grid-first-name"
                     type="text"
                     placeholder="dna-sharyn"
-                    [formControlName]="'slug'"
-                    name="slug"
+                    [formControlName]="'Slug'"
+                    name="Slug"
                 />
             </div>
             <div class="lg:w-1/2 w-full lg:pl-3 mb-3 md:mb-0">
@@ -178,8 +186,8 @@
                     id="grid-first-name"
                     type="text"
                     placeholder="dna-sharyn"
-                    [formControlName]="'slug'"
-                    name="slug"
+                    [formControlName]="'Khoiluong'"
+                    name="Khoiluong"
                 />
             </div>
         </div>
@@ -212,16 +220,14 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="card w-full mt-5">
-                    <div class="card-header">Image Upload</div>
-                    <ul class="list-group list-group-flush" *ngIf="thumb">
-                        <li class="list-group-item" *ngFor="let file of fileUploads">
-                            <img src="{{ thumb }}" class="w-20 h-20" alt="" />
-                            
-                        </li>
-                    </ul>
-                </div> -->
+        </div>
+        <div class="card w-full my-5">
+            <div class="card-header">Image Upload</div>
+            <ul class="list-group list-group-flush" *ngIf="thumb">
+                <li class="list-group-item">
+                    <img src="{{ thumb }}" class="w-20 h-20" alt="" />
+                </li>
+            </ul>
         </div>
         <div class="flex lg:flex-row flex-col lg:pt-5">
             <mat-form-field
@@ -229,7 +235,7 @@
                 appearance="fill"
             >
                 <span matPrefix>Chọn trạng thái</span>
-                <mat-select [formControlName]="'status'">
+                <mat-select [formControlName]="'Trangthai'">
                     <mat-option value="Promo"> Promo </mat-option>
                     <mat-option value="Best Seller"> Best Seller </mat-option>
                     <mat-option value="Out of Stock"> Out of stock </mat-option>

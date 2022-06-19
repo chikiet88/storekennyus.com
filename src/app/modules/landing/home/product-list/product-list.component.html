@@ -1,21 +1,53 @@
 <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-3 mt-5 px-3">
-  <nav class="flex mb-5 " aria-label="Breadcrumb">
+  <nav class="flex mb-5" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1 md:space-x-3">
       <li class="inline-flex items-center">
-        <a routerLink="" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+        <a
+          routerLink=""
+          class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+        >
           Home
         </a>
       </li>
       <li>
         <div class="flex items-center">
-          <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-          <a routerLink="/blog" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">Projects</a>
+          <svg
+            class="w-4 h-4 text-gray-400"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <a
+            routerLink="/blog"
+            class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
+            >Projects</a
+          >
         </div>
       </li>
       <li aria-current="page">
         <div class="flex items-center">
-          <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-          <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">Flowbite</span>
+          <svg
+            class="w-6 h-6 text-gray-400"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span
+            class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500"
+            >Flowbite</span
+          >
         </div>
       </li>
     </ol>
@@ -23,15 +55,43 @@
   <div class="flex">
     <div class="w-1/5 pr-5 hidden lg:block">
       <p class="text-xl text-purple-500 font-bold">Shop by Categories</p>
-      <ul class="" *ngFor="let item of danhmuc; let i = index">
-        <li
-          class="text-lg text-purple-500 hover:text-blue-500 font-bold pt-5 danhmuc cursor-pointer"
-          (click)="onSelectDanhmuc(item, i)"
-          [ngClass]="{ active: selectedIndex == i }"
+      <mat-accordion>
+        <mat-expansion-panel
+          *ngFor="let itemmenu of danhmuc; let i = index"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
         >
-          {{ item.Tieude }}
-        </li>
-      </ul>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div *ngIf="itemmenu?.children.length > 0; else notparent">
+                <a
+                  (click)="onSelectDanhmuc(itemmenu, i)"
+                  [ngClass]="{ active: selectedIndex == i }"
+                  class="text-purple-500 font-bold"
+                  >{{ itemmenu.Tieude }}</a
+                >
+              </div>
+              <ng-template #notparent>
+                <a
+                  class="text-purple-500 font-bold"
+                  (click)="onSelectDanhmuc(itemmenu, i)"
+                  >{{ itemmenu.Tieude }}</a
+                >
+              </ng-template>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngIf="itemmenu?.children.length > 0">
+            <div class="flex flex-col" *ngFor="let item of itemmenu.children">
+              <a
+                (click)="onSelectDanhmuc(item, i)"
+                class="text-purple-500 font-bold"
+                >{{ item.Tieude }}</a
+              >
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
       <div class="pt-5">
         <button
           class="text-purple-500 text-lg font-bold hover:text-blue-500"
@@ -127,14 +187,14 @@
       </div>
     </div>
 
-    <div class="lg:w-4/5 w-full pl-5">
-      <div class="w-full bg-gray-200 lg:hidden py-2 flex justify-center items-center mb-3">
-        <span class="material-icons text-purple-500 text-xl">
-          tune
-          </span>
+    <div class="lg:w-4/5 w-full lg:pl-5">
+      <div
+        class="w-full bg-gray-200 lg:hidden py-2 flex justify-center items-center mb-3"
+      >
+        <span class="material-icons text-purple-500 text-xl"> tune </span>
       </div>
       <div class="flex justify-between items-center md:flex-row flex-col">
-        <div class=" items-center md:flex hidden">
+        <div class="items-center md:flex hidden">
           <div
             class="flex bg-gray-200 rounded-xl items-center p-2 justify-center"
           >
@@ -169,11 +229,11 @@
           </div>
         </div>
         <div class="flex items-center">
-            <div class="text-gray-500 mr-3">Hiển thị 5 sản phẩm</div>
-            <div class="flex items-center">
-                <input type="checkbox" class="mr-2"  (click)="selectSale()"/>
-                <p class="text-gray-500">Only products on sale</p>
-            </div>
+          <div class="text-gray-500 mr-3">Hiển thị 5 sản phẩm</div>
+          <div class="flex items-center">
+            <input type="checkbox" class="mr-2" (click)="selectSale()" />
+            <p class="text-gray-500">Only products on sale</p>
+          </div>
         </div>
       </div>
       <div class="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-10">

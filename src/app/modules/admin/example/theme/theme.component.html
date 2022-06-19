@@ -1,0 +1,140 @@
+
+
+<div class="container px-10">
+
+    <form class="w-full  pt-10" [formGroup]="userProfile" >
+        <div class="flex flex-wrap  md:mb-6">
+          <div class="w-full  mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+              Tiêu đề
+            </label>
+            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Phun xăm thẩm mỹ" formControlName="title" name="title">
+          </div>
+         
+        </div>
+       
+        <div class="flex flex-wrap  mb-6">
+            <div class="w-full ">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                Nội dung 1
+              </label>
+              <ckeditor [editor]="Editor" #editer [config]='config' [formControlName]="'content1'" ></ckeditor>
+            </div>
+          </div>
+
+          <div [formGroupName]="'slide1'" class="mb-6">
+            <p class="mb-3 text-2xl text-bold">Nội dung Cơ hội nghề nghiệp</p>
+            <div class="w-full  mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                Tiêu đề
+              </label>
+              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Phun xăm thẩm mỹ" [formControlName]="'titleCarousel'" name="title">
+            </div>
+            <div class="w-full mt-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                Mô tả
+              </label>
+              <ckeditor [editor]="Editor" #editer [config]='config'    [formControlName]="'desCarousel'" ></ckeditor>
+            </div>
+
+            <div class="w-full mt-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                Nội dung Carousel 1
+              </label>
+              <ckeditor [editor]="Editor" #editer [config]='config'    [formControlName]="'contentCarousel'" ></ckeditor>
+            </div>
+          </div>
+
+          <div [formGroupName]="'slide2'" class="mb-6">
+            <p class="mb-3 text-2xl text-bold">Nội dung chi tiết khóa học</p>
+            <div class="w-full  mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                Tiêu đề
+              </label>
+              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Phun xăm thẩm mỹ" [formControlName]="'titleCarousel'" name="title">
+            </div>
+            <div class="w-full mt-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                Mô tả
+              </label>
+              <ckeditor [editor]="Editor" #editer [config]='config'    [formControlName]="'desCarousel'" ></ckeditor>
+            </div>
+
+            <div class="w-full mb-6 mt-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                Nội dung Carousel 2
+              </label>
+              <ckeditor [editor]="Editor" #editer [config]='config'    [formControlName]="'contentCarousel'" ></ckeditor>
+            </div>
+          </div>
+
+
+          <div class="flex flex-wrap  mb-6">
+            <div class="w-full ">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                Nội dung 2
+              </label>
+              <ckeditor [editor]="Editor" #editer [config]='config'    [formControlName]="'content2'" ></ckeditor>
+            </div>
+          </div>
+
+      <div class="flex " style="height: 50px;">
+        <mat-form-field
+            class="fuse-mat-emphasized-affix w-80 "
+            appearance="fill"
+        >
+            <span matPrefix >Chọn theme</span>
+            <mat-select (selectionChange)="onSelect($event.value)">
+                <mat-option
+                    [value]="item"
+                    *ngFor="let item of themes"
+                    >{{ item.title ? item.title : "" }}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+      <div class="form-group py-5">
+        <button
+            type="submit"
+            (click)="onSubmit()"
+            [disabled]="!userProfile.valid"
+            class="btn btn-success bg-indigo-900"
+            *ngIf="!idtheme"
+
+        >
+            Tạo mới
+        </button>
+
+        <button
+            type="update"
+            class="btn btn-primary mx-10"
+            (click)="updateTheme()"
+            *ngIf="idtheme"
+        >
+            Cập nhật
+        </button>
+
+        <button
+            type="delete"
+            class="btn btn-danger"
+            (click)="deleteTheme()"
+            *ngIf="idtheme"
+
+        >
+            Xóa
+        </button>
+    </div>
+        
+
+        
+    </form>
+
+    <div>
+        
+        
+     </div>
+
+        
+        
+</div>

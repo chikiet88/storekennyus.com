@@ -98,6 +98,17 @@
         }
     }
 }
+.example-sidenav{
+    .mat-expansion-panel-header{
+        padding: 0 24px 0 0;
+    }
+    .mat-accordion .mat-expansion-panel{
+        box-shadow: none;
+        --tw-shadow:none;
+        display: inline;
+    }
+}
+
 label.star {
     font-size: 24px !important;
     padding: 5px !important;

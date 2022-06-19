@@ -100,6 +100,16 @@
       "icon": "",
       "id": 10,
       "tenDMcha": "Thực Phẩm Chức Năng"
+    },
+    {
+      "Tieude": "Sữa",
+      "Mota": "<p>sssssssss</p>",
+      "Image": "",
+      "Type": "",
+      "pid": "",
+      "code": "S",
+      "Slug": "sua",
+      "id": 11
     }
   ],
   "product": [
@@ -165,9 +175,65 @@
       "id": 2,
       "mota": "<p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; you a complete account of the system, and expound the actual</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; teachings of the great explorer of the truth, the master-builder</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; of human happiness. No one rejects, dislikes, or avoids pleasure</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; itself, because it is pleasure, but because those who do not</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; know how to pursue pleasure rationally encounter consequences</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; that are extremely painful.</p><p><br>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; To take a trivial example, which of us ever undertakes laborious</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; physical exercise, except to obtain some advantage from it? But</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; who has any right to find fault with a man who chooses to enjoy</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; a pleasure that has no annoying consequences, or one who avoids</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; a pain that produces no resultant pleasure? On the other hand,</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; we denounce with righteous indignation and dislike men who are</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; so beguiled and demoralized by the charms of pleasure of the</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moment, so blinded by desire.</p>",
       "thanhphan": "",
-      "huongdan":"<p>ddddddddddddddddddddd</p>"
+      "huongdan": "<p>ddddddddddddddddddddd</p>"
     }
   ],
   "memu": [],
-  "themesanphamchitiet": []
+  "themesanphamchitiet": [],
+  "theme": [
+    {
+      "title": "Theme TIn tức",
+      "content1": "<div class=\"w-full bg-gray-200 rounded-xl relative mt-10 \"><div class=\"absolute left-5 top-5 w-40 rounded-xl text-center text-white font-bold text-md bg-blue-500 p-1\">Community Impact</div><p><img class=\"w-full h-full hidden md:block\" src=\"../../../../../../assets/images/banner-blog.png\" alt=\"\"> <img class=\"w-full h-full rounded-2xl md:hidden\" src=\"../../../../../../assets/images/blog-image-1.png\" alt=\"\"></p></div><div class=\"lg:max-w-3xl lg:mx-auto pt-5\"><p class=\"text-2xl pt-3 text-purple-500 font-bold text-centẻ\">Scientists finding treatment or vaccine for coronavirus infection.</p><p class=\"text-lg pt-3 text-purple-500 text-justify\">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p><p class=\"pt-3 text-gray-500 text-justify\">Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring. Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p><div class=\"rounded-lg bg-gray-200 mt-5\"><div class=\"py-5 px-10 relative\"><div class=\"border-l-2 border-blue-500\"><p class=\"text-purple-500 ml-5\">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system.</p></div></div></div></div><div class=\"relative py-10\"><div class=\"lg:max-w-7xl lg:mx-auto lg:px-5 flex lg:flex-row flex-col\"><div class=\"lg:w-1/2 w-full \"><img class=\"w-full h-full rounded-2xl\" src=\"../../../../../../assets/images/blog-image-1.png\" alt=\"\"></div><div class=\"lg:w-1/2 w-full flex flex-col justify-around lg:pl-10 md:pt-10 lg:pt-0\"><div class=\"sm:pt-10 md:pt-0\"><p class=\"text-purple-500 font-bold text-2xl\">Treatment Or Vaccine</p><p class=\"text-purple-500 pt-4 text-lg\">Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive.</p></div><ul><li class=\"pt-5\"><span class=\"material-icons mr-3 text-white text-sm bg-green-500 rounded-full p-1\">done </span>Nor again is there anyone who loves or pursues or desires.</li><li class=\"pt-5\"><span class=\"material-icons mr-3 text-white text-sm bg-green-500 rounded-full p-1\">done </span>But I must explain to you how all this mistaken idea.</li><li class=\"pt-5\"><span class=\"material-icons mr-3 text-white text-sm bg-green-500 rounded-full p-1\">done </span>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</li><li class=\"pt-5\"><span class=\"material-icons mr-3 text-white text-sm bg-green-500 rounded-full p-1\">done </span>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</li></ul></div></div><div class=\"absolute bottom-0 h-px w-full bg-black opacity-30\">&nbsp;</div></div><div class=\"lg:max-w-3xl lg:mx-auto pt-5\"><p class=\"text-2xl pt-3 text-purple-500 font-bold\">Scientists finding treatment or vaccine for coronavirus infection.</p><p class=\"pt-3 text-gray-500 text-justify\">Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring. Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p></div>",
+      "slide1": {
+        "titleCarousel": "",
+        "desCarousel": "",
+        "contentCarousel": ""
+      },
+      "slide2": {
+        "titleCarousel": "",
+        "desCarousel": "",
+        "contentCarousel": ""
+      },
+      "content2": "<div><div class=\"w-full bg-gray-200 rounded-xl\"><img class=\"w-full h-full rounded-2xl\" src=\"../../../../../../assets/images/blog-image-2.png\" alt=\"\"></div><p class=\"text-2xl pt-3 text-purple-500 font-bold\">Treatment Or Vaccine For Coronavirus</p><p class=\"pt-3 text-gray-500 text-justify\">Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables. Proactively envisioned multimedia based expertise and cross-media growth strategies. Seamlessly visualize quality intellectual capital without superior collaboration and idea-sharing. Holistically pontificate installed base portals after maintainable products.&nbsp;<br><br>Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable potentialities.&nbsp;<br><br>Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&nbsp;<br><br>Credibly innovate granular internal or “organic” sources whereas high standards in web-readiness. Energistically scale future-proof core competencies vis-a-vis impactful experiences. Dramatically synthesize integrated schemas with optimal networks. Interactively procrastinate high-payoff content without backward-compatible data. Quickly cultivate optimal processes and tactical architectures. Completely iterate covalent strategic theme areas via accurate e-markets.</p></div>",
+      "id": 1
+    }
+  ],
+  "thuonghieu": [
+    {
+      "Tieude": "hello",
+      "Image": "https://firebasestorage.googleapis.com/v0/b/timona-9c284.appspot.com/o/test%2Fban-sac-rieng-trong-kinh-doanh-spa.jpg?alt=media&token=d8e81263-f1bb-460a-a753-8913fce44277",
+      "Slug": "adad",
+      "Type": "",
+      "Trangthai": 0,
+      "id": 1
+    }
+  ],
+  "baiviet": [
+    {
+      "title": "abc",
+      "des": "<p>ssssssssssssssssssssssssssssss</p>",
+      "listslide1": {},
+      "listslide2": {},
+      "content": "",
+      "content1": "<div class=\"w-full bg-gray-200 rounded-xl relative mt-10 \"><div class=\"absolute left-5 top-5 w-40 rounded-xl text-center text-white font-bold text-md bg-blue-500 p-1\">Community Impact</div><p><img class=\"w-full h-full hidden md:block\" src=\"../../../../../../assets/images/banner-blog.png\" alt=\"\"> <img class=\"w-full h-full rounded-2xl md:hidden\" src=\"../../../../../../assets/images/blog-image-1.png\" alt=\"\"></p></div><div class=\"lg:max-w-3xl lg:mx-auto pt-5\"><p class=\"text-2xl pt-3 text-purple-500 font-bold text-centẻ\">Scientists finding treatment or vaccine for coronavirus infection.</p><p class=\"text-lg pt-3 text-purple-500 text-justify\">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p><p class=\"pt-3 text-gray-500 text-justify\">Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring. Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p><div class=\"rounded-lg bg-gray-200 mt-5\"><div class=\"py-5 px-10 relative\"><div class=\"border-l-2 border-blue-500\"><p class=\"text-purple-500 ml-5\">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system.</p></div></div></div></div><div class=\"relative py-10\"><div class=\"lg:max-w-7xl lg:mx-auto lg:px-5 flex lg:flex-row flex-col\"><div class=\"lg:w-1/2 w-full \"><img class=\"w-full h-full rounded-2xl\" src=\"../../../../../../assets/images/blog-image-1.png\" alt=\"\"></div><div class=\"lg:w-1/2 w-full flex flex-col justify-around lg:pl-10 md:pt-10 lg:pt-0\"><div class=\"sm:pt-10 md:pt-0\"><p class=\"text-purple-500 font-bold text-2xl\">Treatment Or Vaccine</p><p class=\"text-purple-500 pt-4 text-lg\">Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive.</p></div><ul><li class=\"pt-5\"><span class=\"material-icons mr-3 text-white text-sm bg-green-500 rounded-full p-1\">done </span>Nor again is there anyone who loves or pursues or desires.</li><li class=\"pt-5\"><span class=\"material-icons mr-3 text-white text-sm bg-green-500 rounded-full p-1\">done </span>But I must explain to you how all this mistaken idea.</li><li class=\"pt-5\"><span class=\"material-icons mr-3 text-white text-sm bg-green-500 rounded-full p-1\">done </span>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</li><li class=\"pt-5\"><span class=\"material-icons mr-3 text-white text-sm bg-green-500 rounded-full p-1\">done </span>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</li></ul></div></div><div class=\"absolute bottom-0 h-px w-full bg-black opacity-30\">&nbsp;</div></div><div class=\"lg:max-w-3xl lg:mx-auto pt-5\"><p class=\"text-2xl pt-3 text-purple-500 font-bold\">Scientists finding treatment or vaccine for coronavirus infection.</p><p class=\"pt-3 text-gray-500 text-justify\">Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring. Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p></div>",
+      "content2": "<div><div class=\"w-full bg-gray-200 rounded-xl\"><img class=\"w-full h-full rounded-2xl\" src=\"../../../../../../assets/images/blog-image-2.png\" alt=\"\"></div><p class=\"text-2xl pt-3 text-purple-500 font-bold\">Treatment Or Vaccine For Coronavirus</p><p class=\"pt-3 text-gray-500 text-justify\">Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables. Proactively envisioned multimedia based expertise and cross-media growth strategies. Seamlessly visualize quality intellectual capital without superior collaboration and idea-sharing. Holistically pontificate installed base portals after maintainable products.&nbsp;<br><br>Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable potentialities.&nbsp;<br><br>Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&nbsp;<br><br>Credibly innovate granular internal or “organic” sources whereas high standards in web-readiness. Energistically scale future-proof core competencies vis-a-vis impactful experiences. Dramatically synthesize integrated schemas with optimal networks. Interactively procrastinate high-payoff content without backward-compatible data. Quickly cultivate optimal processes and tactical architectures. Completely iterate covalent strategic theme areas via accurate e-markets.</p></div>",
+      "slide1": {
+        "titleCarousel": "",
+        "desCarousel": "",
+        "contentCarousel": ""
+      },
+      "slide2": {
+        "titleCarousel": "",
+        "desCarousel": "",
+        "contentCarousel": ""
+      },
+      "idDM": 0,
+      "slug": "abc",
+      "Loaibaiviet": 0,
+      "thumbimage": "",
+      "image": {},
+      "id": 1
+    }
+  ],
+  "donhang":[]
 }

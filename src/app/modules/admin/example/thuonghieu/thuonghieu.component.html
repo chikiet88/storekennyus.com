@@ -1,0 +1,131 @@
+<div class="container px-10">
+    <form class="w-full pt-10" [formGroup]="ThuonghieuForm">
+        <div class="flex flex-wrap">
+            <div
+                class="flex md:mx-3 md:flex-row flex-col mb-6 justify-between w-full"
+            >
+                <mat-form-field
+                    class="fuse-mat-emphasized-affix md:w-80 w-76 md:mt-0 mt-6"
+                    appearance="fill"
+                    style="height: 50px"
+                >
+                    <span matPrefix>Edit Thương Hiệu</span>
+                    <mat-select
+                        (selectionChange)="onSelectDanhmucEdit($event.value)"
+                    >
+                        <mat-option value=""></mat-option>
+                        <mat-option
+                            [value]="item"
+                            *ngFor="let item of thuonghieu"
+                            >{{ item.Tieude }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="w-full md:px-3 mb-6 md:mb-0">
+                <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-first-name"
+                >
+                    Tiêu đề
+                </label>
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    id="grid-first-name"
+                    type="text"
+                    placeholder="Chăm sóc cá nhân"
+                    formControlName="Tieude"
+                    name="title"
+                />
+                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+            </div>
+            <div class="w-full md:px-3 mb-6 md:mb-0">
+                <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-first-name"
+                >
+                    slug
+                </label>
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    id="grid-first-name"
+                    type="text"
+                    placeholder="gioi-thieu"
+                    [formControlName]="'Slug'"
+                    name="title"
+                />
+                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+            </div>
+
+            <div class="flex flex-wrap md:mb-6">
+                <div class="w-full md:px-3 mb-6 md:mb-0">
+                    <label>
+                        <input
+                            type="file"
+                            class="text-nowrap text-truncate"
+                            (change)="selectFile($event)"
+                        />
+                    </label>
+                    <button
+                        class="px-3 py-1 bg-green-600 rounded-lg text-white"
+                        [disabled]="!selectedFiles"
+                        (click)="upload()"
+                    >
+                        Upload
+                    </button>
+                    <div *ngIf="currentFileUpload" class="progress mt-2">
+                        <div
+                            class="progress-bar progress-bar-info"
+                            role="progressbar"
+                            attr.aria-valuenow="{{ percentage }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            [ngStyle]="{ width: percentage + '%' }"
+                        >
+                            {{ percentage }}%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card w-full mt-5" *ngIf="thumb">
+                    <div class="card-header">Image Upload</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <img src="{{ thumb }}" class="w-20 h-20" alt="" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group md:mx-3 mb-6">
+            <button
+                type="submit"
+                (click)="onSubmit()"
+                *ngIf="!idSelect"
+                class="px-3 py-1 bg-green-600 rounded-lg text-white"
+            >
+                Submit
+            </button>
+            <button
+                type="update"
+                class="px-3 py-1 bg-indigo-600 rounded-lg mr-10 text-white"
+                (click)="updateDanhmuc()"
+                *ngIf="idSelect"
+            >
+                Update
+            </button>
+            <button
+                type="update"
+                class="px-3 py-1 bg-red-600 rounded-lg text-white"
+                (click)="deleteDanhmuc()"
+                *ngIf="idSelect"
+            >
+                Delete
+            </button>
+        </div>
+    </form>
+
+    <div></div>
+</div>

@@ -20,25 +20,26 @@
 
               <div
                 class="w-7 h-7 ml-3 bg-gray-200 rounded-full flex items-center mb-2 md:mb-0 justify-center flex-col text-purple-500 hover:text-white hover:bg-purple-500"
-              >
+                (click)="removeCartitem(item)"
+                >
                 x
               </div>
             </td>
             <td class="sm:flex md:inline-flex items-center justify-center py-3 border-t md:border-t-none border-gray-300">
               <div class="w-24 h-28 my-2 rounded-xl ">
-                <img src="{{item.image[1].url}}" alt="">
+                <img src="{{item.Image}}" alt="">
               </div>
             </td>
             <td class="py-3 border-t md:border-t-none border-gray-300">
               <p class=" font-bold text-purple-500 md:hidden">Product:</p>
               <a class="text-purple-500 hover:underline text-center" routerLink="/sanpham/{{item.id}}">
-               {{item.name}}
+               {{item.Tieude}}
               </a>
             </td>
             <td class="py-3 border-t md:border-t-none border-gray-300">
                 <p class=" font-bold text-purple-500 md:hidden">Price:</p>
                 <p class="text-purple-500 hover:underline text-center">
-                  {{item.price | currency:'VND'}}
+                  {{item.Gia | currency:'VND'}}
                 </p>
               </td>
             <td class="py-3 border-t md:border-t-none border-gray-300">
@@ -90,11 +91,11 @@
         <div class="border border-gray-300 rounded-xl px-3">
           <div class="flex justify-between border-b border-gray-300 py-3">
             <p class="text-purple-500 font-bold">Subtotal</p>
-            <p class="text-purple-500 font-bold">$44.00</p>
+            <p class="text-purple-500 font-bold">{{amount}}</p>
           </div>
           <div class="flex justify-between border-b border-gray-300 py-3">
             <p class="text-purple-500 font-bold">Total</p>
-            <p class="text-purple-500 font-bold text-lg">$44.00</p>
+            <p class="text-purple-500 font-bold text-lg">{{amount}}</p>
           </div>
           <div
             class="my-5 px-3 py-2 w-44 text-center text-white  bg-orange-500 cursor-pointer font-bold rounded-2xl hover:bg-purple-500"

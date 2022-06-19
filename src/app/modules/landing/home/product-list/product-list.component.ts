@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Options, LabelType } from "@angular-slider/ngx-slider";
 import { ProductListService } from "./product-list.service";
 
@@ -6,6 +6,7 @@ import { ProductListService } from "./product-list.service";
   selector: "app-product-list",
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductListComponent implements OnInit {
   products: any[];
@@ -15,7 +16,7 @@ export class ProductListComponent implements OnInit {
   selectedIndex: number;
   productListhide: number;
   minValue: number = 0;
-  temp:any[]
+  temp: any[];
   maxValue: number = 100;
   isChecked = false;
   options: Options = {
@@ -55,26 +56,37 @@ export class ProductListComponent implements OnInit {
   }
   onSelectDanhmuc(item, i) {
     this._productService.products$.subscribe((res) => (this.products = res));
+    
     this.selectedIndex = i;
     this.productDM = this.products.filter((x) => {
+      
       return x.idDM == item.id;
     });
-    this.temp = this.productDM
+    console.log(this.productDM);
+    
+    this.temp = this.productDM;
   }
   selectSale() {
     this.isChecked = !this.isChecked;
-    
-    if (this.isChecked == true) {
 
-      this.productDM = this.productDM.filter((x) => x.status == "sale");
+    if (this.isChecked == true) {
+      this.productDM = this.productDM.filter((x) => x.Trangthai == "sale");
     } else {
       this.productDM = this.temp;
     }
   }
-
+  nest = (items, id = "", link = "pid") =>
+    items
+      ?.filter((item) => item[link] == id)
+      .map((item) => ({
+        ...item,
+        children: this.nest(items, item.id),
+      }));
   ngOnInit(): void {
     this._productService.getDanhmuc().subscribe();
-    this._productService.danhmuc$.subscribe((res) => (this.danhmuc = res));
+    this._productService.danhmuc$.subscribe((res) => {
+      this.danhmuc = this.nest(res);
+    });
     this._productService.getProduct().subscribe();
     this._productService.products$.subscribe((res) => {
       this.productDM = res?.filter((x) => x.idDM == this.danhmuc[0].id);

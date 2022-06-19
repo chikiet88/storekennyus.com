@@ -1,3 +1,18 @@
 .danhmuc.active {
   color: blue !important;
 }
+
+.mat-expansion-panel-header{
+  padding: 0 24px 0 0;
+}
+.mat-accordion .mat-expansion-panel{
+  box-shadow: none;
+  --tw-shadow:none;
+  display: inline;
+}
+.mat-expansion-panel-header.mat-expanded{
+  height: 40px;
+}
+.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{
+  background: #F1F5F9 !important;
+}

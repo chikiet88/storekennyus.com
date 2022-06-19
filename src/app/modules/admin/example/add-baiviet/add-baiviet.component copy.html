@@ -1,0 +1,230 @@
+<div class="container px-10">
+    <form class="w-full pt-10" [formGroup]="baivietForm">
+        <div class="flex md:flex-row flex-col md:mb-4">
+            <div class="md:w-1/2 w-full md:mb-0 md:mr-3 ">
+                <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-first-name"
+                >
+                    Tiêu đề
+                </label>
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-black rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    id="grid-first-name"
+                    type="text"
+                    placeholder="Phun xăm thẩm mỹ"
+                    [formControlName]="'title'"
+                    name="title"
+                />
+            </div>
+            <div class="md:w-1/2 w-full md:ml-3 mb-4 md:mb-0">
+                <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-first-name"
+                >
+                    Slug
+                </label>
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-black rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    id="grid-first-name"
+                    type="text"
+                    placeholder="phun-xam-tham-my"
+                    [formControlName]="'slug'"
+                    name="slug"
+                />
+            </div>
+        </div>
+
+        <div class="md:flex justify-between md:mb-6">
+            <mat-form-field
+                class="fuse-mat-emphasized-affix md:w-1/2 w-full md:mr-3 mb-4 md:mb-0"
+                style="height: 50px"
+                appearance="fill"
+            >
+                <span matPrefix>Chọn theme</span>
+                <mat-select>
+                    <mat-option
+                        [value]="item.id"
+                        *ngFor="let item of themes"
+                        (click)="onSelectTheme(item)"
+                        >{{ item.title ? item.title : "" }}</mat-option
+                    >
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+                class="fuse-mat-emphasized-affix md:w-1/2 w-full md:ml-3 md:mb-0 mb-6"
+                appearance="fill"
+                style="height: 50px"
+            >
+                <span matPrefix>Chọn Danh mục</span>
+                <mat-select (selectionChange)="selectionDanhmuc($event.value)">
+                    <mat-option
+                        [value]="item.id"
+                        *ngFor="let item of danhmucs"
+                        >{{ item.Tieude }}</mat-option
+                    >
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+                class="fuse-mat-emphasized-affix w-80 md:mb-0"
+                style="height: 50px"
+                appearance="fill"
+            >
+                <span matPrefix>Chọn bài viết </span>
+                <mat-select (selectionChange)="onSelectBaiviet($event.value)">
+                    <mat-option [value]="item" *ngFor="let item of courses">{{
+                        item.title
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-wrap mb-4">
+            <div class="w-full">
+                <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-password"
+                >
+                    Giới thiệu
+                </label>
+                <ckeditor
+                    [editor]="Editor"
+                    #editer
+                    [config]="config"
+                    [formControlName]="'des'"
+                ></ckeditor>
+            </div>
+        </div>
+        <div class="flex flex-wrap mb-6">
+            <div class="w-full">
+                <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-password"
+                >
+                    Nội dung
+                </label>
+                <ckeditor
+                    [editor]="Editor"
+                    (ready)="onReady($event)"
+                    [(ngModel)]="html"
+                    #editer
+                    [config]="config"
+                    [formControlName]="'content'"
+                ></ckeditor>
+            </div>
+        </div>
+
+        <div class="md:flex mb-6 items-center">
+            <div class="md:w-1/2 w-full ">
+                <mat-form-field
+                    class="fuse-mat-emphasized-affix w-full"
+                    appearance="fill"
+                    style="height: 50px"
+                >
+                    <span matPrefix>Chọn bài viết nổi bật</span>
+                    <mat-select
+                        (selectionChange)="onchangeLoaibaiviet($event.value)"
+                    >
+                        <mat-option value="1">Có</mat-option>
+                        <mat-option value="0">Không</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- <div class="md:flex mb-6 items-center">
+            <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Chọn danh sách bài viết để hiển thị trong bài viết
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <section class="example-section">
+                        <div class="grid md:grid-cols-2 grid-cols-1 gap-5 w-full">
+                            <mat-checkbox
+                                class="example-margin"
+                                [value]="item"
+                                (change)="getCourseList($event)"
+                                *ngFor="let item of courses"
+                                >{{ item.title }}</mat-checkbox
+                            >
+                        </div>
+                    </section>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div> -->
+        <div class="flex flex-wrap mb-6">
+            <div class="w-full">
+                <label>
+                    <input
+                        type="file"
+                        class="text-nowrap text-truncate"
+                        (change)="selectFile($event)"
+                    />
+                </label>
+                <button
+                    class="btn btn-success btn-sm mt-3 md:mt-0"
+                    [disabled]="!selectedFiles"
+                    (click)="upload()"
+                >
+                    Upload
+                </button>
+                <div *ngIf="currentFileUpload" class="progress mt-2">
+                    <div
+                        class="progress-bar progress-bar-info"
+                        role="progressbar"
+                        attr.aria-valuenow="{{ percentage }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        [ngStyle]="{ width: percentage + '%' }"
+                    >
+                        {{ percentage }}%
+                    </div>
+                </div>
+            </div>
+
+            <div class="card w-full mt-5" *ngIf="thumb">
+                <div class="card-header">Image Upload</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <img src="{{ thumb }}" class="w-20 h-20" alt="" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex py-5">
+            <button
+                type="submit"
+                (click)="onSubmit()"
+                [disabled]="!baivietForm.valid"
+                class="btn btn-success bg-indigo-900"
+                *ngIf="!idSelect"
+            >
+                Tạo mới
+            </button>
+
+            <button
+                type="update"
+                class="btn btn-primary md:mr-10 mr-5"
+                (click)="updateBaiviet()"
+                *ngIf="idSelect"
+            >
+                Cập nhật
+            </button>
+
+            <button
+                type="delete"
+                class="btn btn-danger"
+                (click)="deleteBaiviet()"
+                *ngIf="idSelect"
+            >
+                Xóa
+            </button>
+        </div>
+    </form>
+</div>

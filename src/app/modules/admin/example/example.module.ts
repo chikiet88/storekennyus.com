@@ -8,8 +8,12 @@ import { CommonModule } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SanphamComponent } from './sanpham/sanpham.component';
 import { SanphamchitietComponent } from './sanphamchitiet/sanphamchitiet.component';
-import { BaivietComponent } from './baiviet/baiviet.component';
 import { ThemesanphamchitietComponent } from './sanpham/themesanphamchitiet/themesanphamchitiet.component';
+import { ThuonghieuComponent } from './thuonghieu/thuonghieu.component';
+import { MenuComponent } from './menu/menu.component';
+import { AddBaivietComponent } from './add-baiviet/add-baiviet.component';
+import { ThemeComponent } from './theme/theme.component';
+import { DonhangComponent } from './donhang/donhang.component';
 const exampleRoutes: Route[] = [
     {
         path: '',
@@ -22,7 +26,12 @@ const exampleRoutes: Route[] = [
                 component: ThemesanphamchitietComponent,
             },
             { path: 'danhmuc', component: DanhmucComponent },
-            { path: 'baiviet', component: BaivietComponent },
+            { path: 'baiviet', component: AddBaivietComponent },
+            { path: 'theme', component: ThemeComponent },
+
+            { path: 'thuonghieu', component: ThuonghieuComponent },
+            { path: 'menu', component: MenuComponent },
+            { path: 'donhang', component: DonhangComponent },
         ],
     },
 ];
@@ -33,8 +42,12 @@ const exampleRoutes: Route[] = [
         SanphamComponent,
         DanhmucComponent,
         SanphamchitietComponent,
-        BaivietComponent,
+        AddBaivietComponent,
         ThemesanphamchitietComponent,
+        ThuonghieuComponent,
+        MenuComponent,
+        ThemeComponent,
+        DonhangComponent,
     ],
     imports: [
         RouterModule.forChild(exampleRoutes),

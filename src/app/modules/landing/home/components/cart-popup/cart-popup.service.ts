@@ -27,7 +27,7 @@ export class CartPopupService {
 
   pushCart(item): Observable<any> {
     let cartNum = 1;
-    this.amount += item.price * cartNum;
+    this.amount += item.Gia * cartNum;
     this.num += cartNum;
     let index = this.arr.findIndex((e) => e.id == item.id);
     if (index === -1) {
@@ -59,7 +59,7 @@ export class CartPopupService {
       item.cartNum = quantity
       console.log(item.cartNum);
       
-      this.amount += item.price * quantity;
+      this.amount += item.Gia * quantity;
       this.num += quantity;
       this.arr.push(item);
       this._carts.next(this.arr);
@@ -74,7 +74,7 @@ export class CartPopupService {
       console.log(this.arr[index]);
       
       this.num -= this.arr[index].cartNum;
-      this.amount -= this.arr[index].price * this.arr[index].cartNum;
+      this.amount -= this.arr[index].Gia * this.arr[index].cartNum;
 
       console.log(this.amount);
       console.log(this.num);
@@ -82,7 +82,7 @@ export class CartPopupService {
       
       this.arr[index].cartNum = quantity;
       this.num += quantity;
-      this.amount += item.price * quantity;
+      this.amount += item.Gia * quantity;
       this._carts.next(this.arr);
       this._num.next(this.num);
       this._amount.next(this.amount);
@@ -102,12 +102,10 @@ export class CartPopupService {
   }
   removeCart(item) {
     let index = this.arr.findIndex((x) => x.id == item.id);
-    console.log(index);
-
     let temp = this.arr[index].cartNum;
     this.num -= temp;
     this.arr[index].cartNum -= this.arr[index].cartNum;
-    this.amount -= this.arr[index].price * temp;
+    this.amount -= this.arr[index].Gia * temp;
     if (this.arr[index].cartNum === 0) {
       this.arr = this.arr.filter((x) => x.id != item.id);
       console.log(this.arr);

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BaivietComponent } from './baiviet.component';
+import { BlogListComponent } from './blog-list.component';
 
-describe('BaivietComponent', () => {
-  let component: BaivietComponent;
-  let fixture: ComponentFixture<BaivietComponent>;
+describe('BlogListComponent', () => {
+  let component: BlogListComponent;
+  let fixture: ComponentFixture<BlogListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BaivietComponent ]
+      declarations: [ BlogListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BaivietComponent);
+    fixture = TestBed.createComponent(BlogListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

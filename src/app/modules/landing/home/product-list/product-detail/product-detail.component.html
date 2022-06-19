@@ -2,12 +2,14 @@
   <div class="md:flex md:flex-col lg:flex-row">
     <div class="lg:w-4/5 w-full lg:pr-5">
       <div class="md:flex">
-        <div class="md:w-2/5 w-full h-96 bg-red-200"></div>
+        <div class="md:w-2/5 w-full ">
+          <img src="{{product?.Image}}" class="w-full " alt="">
+        </div>
         <div class="md:w-3/5 w-full md:pl-10">
           <div class="lg:w-4/5">
             <div class="border-b border-black pb-5">
               <p class="text-3xl text-purple-500 font-bold pb-2">
-                {{ product?.name }}
+                {{ product?.Tieude }}
               </p>
               <div class="flex items-cener">
                 <div class="flex items-center mr-3">
@@ -65,31 +67,18 @@
                 <p class="text-purple-500 text-md">(1 customer review)</p>
               </div>
             </div>
-
-            <ul class="flex flex-col py-7 border-b border-black">
-              <li class="mr-3 text-md lg:text-base flex items-center">
-                <span class="material-icons mr-3 text-md text-green-500">
-                  done
-                </span>
-                3 cleaning programs
-              </li>
-              <li class="mr-3 py-3 text-md lg:text-base flex items-center">
-                <span class="material-icons mr-3 text-md text-green-500">
-                  done
-                </span>
-                3 cleaning programs
-              </li>
-              <li class="mr-3 text-md lg:text-base flex items-center">
-                <span class="material-icons mr-3 text-md text-green-500">
-                  done
-                </span>
-                3 cleaning programs
-              </li>
-            </ul>
-            <div class="pt-3">
-              <p class="text-3xl text-blue-500 font-bold">
-                {{ product?.price | currency: "VND" }}
-              </p>
+            <div [innerHTML]="product?.Mota" class="py-7 border-b border-black">
+              
+            </div>
+           
+            <div class="flex pt-3">
+              <p class="text-3xl text-blue-500 mr-3 font-bold" *ngIf="product?.GiaSale != 0"
+                >{{ product?.GiaSale | currency: "VND" }}
+            </p>
+              <span class=" text-3xl text-blue-500 font-bold  relative ">{{ product?.Gia | currency: "VND" }}
+                <div class="absolute top-1/2 left-0 w-full rotate-line {{product?.GiaSale != 0 ? 'block' : 'hidden'}}"></div>
+        
+              </span>
             </div>
             <div class="mt-4">
               <div class="bg-gray-200 rounded-xl">
@@ -119,7 +108,7 @@
                     ></button>
                   </div>
                   <div
-                    class="md:w-48 w-full mt-3 md:mt-0 rounded-3xl text-white bg-blue-500 ml-3 p-3 text-center flex items-center justify-center"
+                    class="cursor-pointer md:w-48 w-full mt-3 md:mt-0 rounded-3xl text-white bg-blue-500 ml-3 p-3 text-center flex items-center justify-center"
                     (click)="addtocart(product)"
                   >
                     <span class="material-icons mr-2"> shopping_cart </span>
@@ -175,7 +164,7 @@
             </p>
             <p class="text-purple-500 text-lg">
               <strong class="text-blue-500 font-bold">Tag: </strong
-              >{{ product?.tag }}
+              >{{ product?.Tag }}
             </p>
           </div>
           <div class="mt-4 flex items-center">
@@ -192,11 +181,11 @@
         <mat-tab-group animationDuration="0ms">
           <mat-tab label="Mô tả">
             <div class="">
-              <div [innerHTML]="product?.mota" class="text-gray-500"></div>
+              <div [innerHTML]="product?.Thongtin" class="text-gray-500"></div>
             </div>
           </mat-tab>
           <mat-tab label="Thành phần">
-            <div [innerHTML]="product?.thanhphan" class="text-gray-500"></div>
+            <div [innerHTML]="product?.Thanhphan" class="text-gray-500"></div>
 
             <!-- <div class="border border-gray-300 rounded-xl">
               <div class="flex items-center w-full">
@@ -250,7 +239,7 @@
             </div> -->
           </mat-tab>
           <mat-tab label="Hướng dẫn sử dụng">
-            <div [innerHTML]="product?.huongdan" class="text-gray-500"></div>
+            <div [innerHTML]="product?.Huongdan" class="text-gray-500"></div>
 
             <!-- <div class="rounded-xl border border-gray-300">
               <div
@@ -459,7 +448,7 @@
           ></app-product-item2>
         </div>
       </div>
-      <div class="my-5 flex items-center justify-center">
+      <!-- <div class="my-5 flex items-center justify-center">
         <div class="p-2 bg-gray-200 rounded-xl text-center w-16">
           <p id="days" class="text-md text-purple-500 font-bold"></p>
           <p class="text-xs text-purple-500">Days</p>
@@ -476,7 +465,7 @@
           <p id="seconds" class="text-md text-purple-500 font-bold"></p>
           <p class="text-xs text-purple-500">Seconds</p>
         </div>
-      </div>
+      </div> -->
       <div class="pt-5">
         <div class="w-full bg-gray-200 rounded-xl" style="height: 425px">
           <div class="p-5 flex flex-col items-center justify-between">

@@ -6,7 +6,7 @@ import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
     providedIn: 'root',
 })
 export class DanhmucService {
-    private urlApi = 'http://localhost:3000/danhmuc';
+    private urlApi = environment.url+'/danhmuc';
     post: any;
     private _danhmucs: BehaviorSubject<any | null> = new BehaviorSubject(null);
     private _danhmuc: BehaviorSubject<any | null> = new BehaviorSubject(null);

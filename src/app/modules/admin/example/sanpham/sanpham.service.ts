@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
 import { Product } from './sanpham.type';
 
@@ -7,7 +8,7 @@ import { Product } from './sanpham.type';
     providedIn: 'root',
 })
 export class SanphamService {
-    private urlApi = 'http://localhost:3000/product';
+    private urlApi = environment.url+'/sanpham';
     private _products: BehaviorSubject<any | null> = new BehaviorSubject(null);
     private _product: BehaviorSubject<any | null> = new BehaviorSubject(null);
 

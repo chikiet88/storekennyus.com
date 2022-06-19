@@ -9,7 +9,7 @@ import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
 export class MenuService {
 
   
-  private urlApi = environment.endpoint
+  private urlApi = environment.url+'/menu'
   post: any;
   private _menu: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
@@ -27,7 +27,7 @@ export class MenuService {
   Addmenu(data){
     return this.menu$.pipe(
       take(1),
-      switchMap(menus => this.http.post(this.urlApi +'/menu',data).pipe(
+      switchMap(menus => this.http.post(this.urlApi,data).pipe(
         map((menu)=>{
           
           this._menu.next([menu,...menus ]);
@@ -39,7 +39,7 @@ export class MenuService {
   }
 
   getMenu(){
-    return this.http.get(this.urlApi +'/menu').pipe(
+    return this.http.get(this.urlApi).pipe(
       map((menus) => {
 
           this._menu.next(menus);
@@ -53,7 +53,7 @@ export class MenuService {
   deleteMenu(id){
     return this.menu$.pipe(
       take(1),
-      switchMap(menus=>this.http.delete(this.urlApi +`/menu/${id}`).pipe(map((isDelete => {
+      switchMap(menus=>this.http.delete(this.urlApi+`/${id}`).pipe(map((isDelete => {
         
        const updateMenu =  menus.filter(e => e.id != id);
         
@@ -68,7 +68,7 @@ export class MenuService {
   updateMenu(data){
     return this.menu$.pipe(
       take(1),
-      switchMap(menus => this.http.patch(this.urlApi+`/menu/${data.id}`,data).pipe(
+      switchMap(menus => this.http.patch(this.urlApi+`/${data.id}`,data).pipe(
           map((updateMenu) => {
 
               // Find the index of the updated tag
