@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { ProductListService } from "./product-list/product-list.service";
 import SwiperCore, { Navigation, Pagination, FreeMode, Autoplay } from "swiper";
 import { ThuonghieuService } from "./thuonghieu/thuonghieu.service";
 import { HomeService } from "./home.service";
+import { ProductListService } from "./product-list/product-list.service";
 SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
 @Component({
   selector: "landing-home",

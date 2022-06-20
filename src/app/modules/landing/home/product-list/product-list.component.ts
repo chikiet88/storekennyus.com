@@ -62,8 +62,6 @@ export class ProductListComponent implements OnInit {
       
       return x.idDM == item.id;
     });
-    console.log(this.productDM);
-    
     this.temp = this.productDM;
   }
   selectSale() {

@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DonhangService } from '../donhang/donhang.service';
 import { ActivatedRoute } from '@angular/router';
 import { SanphamService } from '../sanpham/sanpham.service';
-import { Sanpham } from '../sanpham/sanpham.types';
 import { map } from 'rxjs';
 @Component({
     selector: 'app-donhang-detail',
@@ -45,7 +44,7 @@ export class DonhangDetailComponent implements OnInit {
     showSubmit = false;
     donhangchitiet;
     donhangForm;
-    sanpham: Sanpham[];
+    sanpham: any[];
     dataSource: MatTableDataSource<any>;
     showFiller = false;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -135,6 +134,8 @@ export class DonhangDetailComponent implements OnInit {
                     this.donhangForm.get('idUser').setValue(res.idUser);
                 }
             });
+            this.sanphamService.getProduct().subscribe();
+        this.sanphamService.products$.subscribe((res) => (this.sanpham = res));
         this.donhangService.getDonhang().subscribe();
         this.donhangService.donhang$
             .pipe(
@@ -151,12 +152,20 @@ export class DonhangDetailComponent implements OnInit {
             )
             .subscribe((result) => {
                 if (result) {
+                    result.forEach(x=>{
+                        this.sanpham.filter(v=>{
+                            if(x.idP == v.id){
+                                x.tenSP = v.Tieude
+                                x.trangthai = v.trangthai
+                            }
+                        })
+                    })
                     console.log(result);
+
                     return (this.dataSource = new MatTableDataSource(result));
                 }
             });
-        this.sanphamService.getSanpham().subscribe();
-        this.sanphamService.sanpham$.subscribe((res) => (this.sanpham = res));
+        
 
         this.donhangForm = this.fb.group({
             pub: [''],

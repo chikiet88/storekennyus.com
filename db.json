@@ -235,5 +235,55 @@
       "id": 1
     }
   ],
-  "donhang":[]
+  "donhang": [
+    {
+      "hoten": "Cường",
+      "phone": 937869787,
+      "email": "ticuong436@gmail.com",
+      "diachi": "adslđáklạds",
+      "ghichu": "",
+      "idP": "c86cdc77-ef5a-45cf-960d-26b6f25b15b2",
+      "idUser": 1,
+      "soluong": 5,
+      "Giatien": 899000,
+      "id": 1
+    },
+    {
+      "hoten": "Cường",
+      "phone": 937869787,
+      "email": "ticuong436@gmail.com",
+      "diachi": "adslđáklạds",
+      "ghichu": "",
+      "idP": "7623d4b7-7990-430f-b479-396fde82f657",
+      "idUser": 1,
+      "soluong": 3,
+      "Giatien": 500000,
+      "id": 2
+    },
+    {
+      "hoten": "",
+      "phone": 0,
+      "email": "",
+      "diachi": "",
+      "ghichu": "",
+      "idP": "c86cdc77-ef5a-45cf-960d-26b6f25b15b2",
+      "idUser": 2,
+      "soluong": 5,
+      "Giatien": 899000,
+      "id": 3
+    },
+    {
+      "hoten": "",
+      "phone": 0,
+      "email": "",
+      "diachi": "",
+      "ghichu": "",
+      "idP": "7623d4b7-7990-430f-b479-396fde82f657",
+      "idUser": 2,
+      "soluong": 3,
+      "Giatien": 500000,
+      "id": 4
+    }
+  ],
+  "donhangchitiet": []
 }

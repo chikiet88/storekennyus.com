@@ -7,7 +7,7 @@ import { BehaviorSubject, map, Observable, ObservableInput } from 'rxjs';
   providedIn: 'root'
 })
 export class CheckoutService {
-  private urlApi = environment.url+'/donhang';
+  private urlApi = 'http://localhost:3000/donhang';
   private donhang: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) {}
