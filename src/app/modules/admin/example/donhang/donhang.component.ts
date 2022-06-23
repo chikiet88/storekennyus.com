@@ -76,6 +76,7 @@ export class DonhangComponent implements AfterViewInit, OnInit {
         );
         this.donhangService.getDonhang().subscribe();
         this.donhangService.donhang$.subscribe((res) => {
+            
             if(res){
                 for (let i = 0; i <= this.products?.length; i++) {
                     for (let j = 0; j <= res?.length; j++) {

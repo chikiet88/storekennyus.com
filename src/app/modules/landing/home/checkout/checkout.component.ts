@@ -26,7 +26,6 @@ export class CheckoutComponent implements OnInit {
       soluong:[0],
       Giatien:[0],
 
-
     });
   }
   ngOnInit(): void {
@@ -46,6 +45,7 @@ export class CheckoutComponent implements OnInit {
       this.khachhangForm.get('soluong').setValue(x.cartNum)
       this.khachhangForm.get('Giatien').setValue(x.Gia)
 
+    
     this._donhangService.postdonhang(this.khachhangForm.value).subscribe(res=>{
       alert('Đặt hàng thành công')
       this.carts.forEach(x=>{

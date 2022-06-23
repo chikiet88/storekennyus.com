@@ -10,7 +10,6 @@ import { PopupProductComponent } from "../components/popup-product/popup-product
 })
 export class ProductPopularComponent implements OnInit {
   @Input() item;
-
   constructor(
     public dialog: MatDialog,
     private _cartService: CartPopupService
@@ -21,15 +20,24 @@ export class ProductPopularComponent implements OnInit {
     });
   }
   ngOnInit(): void {}
+  pushLocal() {
+    let a = JSON.parse(localStorage.getItem("sanphamdaxem")) || [];
+    a.filter((x) => {
+      if (x?.id == this.item.id) {
+        console.log(x);
+      } else {
+        a.push(this.item);  
+        localStorage.setItem("sanphamdaxem", JSON.stringify(a));
+      }
+    });
+  }
   addtocart(item) {
+    console.log(item);
     if (item.GiaSale != 0) {
       item.Gia = item.GiaSale;
-      console.log(item.Gia);
-    } else {
-      this._cartService
-
-        .pushCart(item)
-        .subscribe((res) => alert("Thêm sản phẩm thành công"));
     }
+    this._cartService
+      .pushCart(item)
+      .subscribe((res) => alert("Thêm sản phẩm thành công"));
   }
 }

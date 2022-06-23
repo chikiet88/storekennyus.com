@@ -12,7 +12,7 @@ import { CartPopupService } from "../cart-popup/cart-popup.service";
 export class PopupProductComponent implements OnInit {
   rating3;
   quantity: number = 1;
-  carts:any[];
+  carts: any[];
   danhmuc: any[];
   constructor(
     private _cartService: CartPopupService,
@@ -32,34 +32,23 @@ export class PopupProductComponent implements OnInit {
         if (x.id == this.data.dulieu.idDM) {
           this.data.dulieu.categories = x.Tieude;
           console.log(x.Tieude);
-          
         }
       });
     });
-    this._cartService.getCart().subscribe(res=> {
-      res.find(x=>{
-        if(this.data.dulieu.id == x.id){
-          this.quantity = x.cartNum
+    this._cartService.getCart().subscribe((res) => {
+      res.find((x) => {
+        if (this.data.dulieu.id == x.id) {
+          this.quantity = x.cartNum;
         }
-      })
-    })
-    
+      });
+    });
   }
 
   addtocart(item) {
-    if (item.GiaSale != 0) {
-      item.Gia = item.GiaSale;
-      this._cartService
-        .pushQuantityCart(item, this.quantity)
-        .subscribe((res) => {
-          alert("thêm sản phẩm thành công");
-        });
-    } else {
-      alert("thêm sản phẩm thành công");
+    
       this._cartService
         .pushQuantityCart(item, this.quantity)
         .subscribe((res) => alert("thêm sản phẩm thành công"));
-    }
   }
   congsoluong() {
     this.quantity += 1;

@@ -16,10 +16,10 @@ export class CarouselHomeComponent implements OnInit {
     this.config = {
       loop: true,
       speed:1000,
-      autoplay: {
-        delay: 4000,
-        disableOnInteraction: false,
-      },
+      // autoplay: {
+      //   delay: 4000,
+      //   disableOnInteraction: false,
+      // },
    
     };
   }

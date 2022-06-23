@@ -1,5 +1,5 @@
 <div
-  class="h-full w-full max-w-sm rounded overflow-hidden sm:mt-10 md:mt-0 product cursor-pointer"
+  class="h-full w-full max-w-sm rounded overflow-hidden sm:mt-10 md:mt-0 product"
 >
   <div
     class="w-full md:h-56 sm:h-40 rounded-xl bg-gray-200 relative text-2xl flex justify-end"
@@ -28,7 +28,8 @@
   <div class="pt-5 w-full flex flex-col justify-between h-48">
     <p class="text-blue-500 text-sm">{{ item?.Tag }}</p>
     <a
-      class="font-bold text-purple-500 hover:text-blue-500"
+      class="font-bold text-purple-500 hover:text-blue-500  cursor-pointer"
+      (click)="pushLocal()"
       routerLink="/sanpham/{{ item.id }}"
     >
       {{ item?.Tieude }}

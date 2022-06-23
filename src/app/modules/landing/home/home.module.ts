@@ -39,6 +39,7 @@ import { ProductDetailComponent } from './product-list/product-detail/product-de
 import { ProductItem2Component } from './product-list/product-item2/product-item2.component';
 import { SanphamDanhmucComponent } from './product-list/sanpham-danhmuc/sanpham-danhmuc.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
+import { SanphamDaxemComponent } from './sanpham-daxem/sanpham-daxem.component';
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
@@ -70,6 +71,7 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
         CarouselHomeComponent,
         SanphamDanhmucComponent,
         BlogListComponent,
+        SanphamDaxemComponent,
       
     ],
     providers: [

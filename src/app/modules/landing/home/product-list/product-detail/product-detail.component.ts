@@ -9,8 +9,8 @@ import { ProductListService } from "../product-list.service";
   templateUrl: "./product-detail.component.html",
   styleUrls: ["./product-detail.component.scss"],
 })
-// export class ProductDetailComponent implements OnInit, AfterViewInit {
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, AfterViewInit {
+  // export class ProductDetailComponent implements OnInit {
   rating3;
   quantity: number = 1;
   product;
@@ -22,7 +22,6 @@ export class ProductDetailComponent implements OnInit {
     private _cartService: CartPopupService,
     private _danhmucService: DanhmucService
   ) {}
-
   ngOnInit(): void {
     this.rating3 = 3;
     const prodId = this.route.snapshot.paramMap.get("id");
@@ -42,85 +41,81 @@ export class ProductDetailComponent implements OnInit {
 
       this._danhmucService.danhmucs$.subscribe((res) => {
         console.log(res);
-  
+
         res?.find((x) => {
-          console.log(this.product);
-  
           if (this.product?.idDM == x.id) {
-            console.log(this.product);
-  
             this.product.tenDM = x.Tieude;
-            console.log(x.Tieude);
           }
         });
       });
-      this._cartService.getCart().subscribe(res=> {
-        res.find(x=>{
-          if(this.product.id == x.id){
-            this.quantity = x.cartNum
+      this._cartService.getCart().subscribe((res) => {
+        res.find((x) => {
+          if (this.product.id == x.id) {
+            this.quantity = x.cartNum;
           }
-        })
-      })
+        });
+      });
     });
-    
-   
   }
-  // currentDate: any;
-  // targetDate: any;
-  // cDateMillisecs: any;
-  // tDateMillisecs: any;
-  // difference: any;
-  // seconds: any;
-  // minutes: any;
-  // hours: any;
-  // days: any;
-  // year: number = 2023;
-  // month: number = 6;
-  // months = [
-  //   "Jan",
-  //   "Feb",
-  //   "Mar",
-  //   "April",
-  //   "May",
-  //   "June",
-  //   "July",
-  //   "Aug",
-  //   "Sept",
-  //   "Oct",
-  //   "Nov",
-  //   "Dec",
-  // ];
-  // day: number = 31;
 
-  // ngAfterViewInit() {
-  //   this.myTimer();
-  // }
+  currentDate: any;
+  targetDate: any;
+  cDateMillisecs: any;
+  tDateMillisecs: any;
+  difference: any;
+  seconds: any;
+  minutes: any;
+  hours: any;
+  days: any;
+  year: number = 2023;
+  month: number = 6;
+  months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "April",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  day: number = 31;
 
-  // myTimer() {
-  //   this.currentDate = new Date();
-  //   this.targetDate = new Date(2023, 6, 31);
-  //   this.cDateMillisecs = this.currentDate.getTime();
-  //   this.tDateMillisecs = this.targetDate.getTime();
-  //   this.difference = this.tDateMillisecs - this.cDateMillisecs;
-  //   this.seconds = Math.floor(this.difference / 1000);
-  //   this.minutes = Math.floor(this.seconds / 60);
-  //   this.hours = Math.floor(this.minutes / 60);
-  //   this.days = Math.floor(this.hours / 24);
+  myTimer() {
+    this.currentDate = new Date();
+    this.targetDate = new Date(2023, 6, 31);
+    this.cDateMillisecs = this.currentDate.getTime();
+    this.tDateMillisecs = this.targetDate.getTime();
+    this.difference = this.tDateMillisecs - this.cDateMillisecs;
+    this.seconds = Math.floor(this.difference / 1000);
+    this.minutes = Math.floor(this.seconds / 60);
+    this.hours = Math.floor(this.minutes / 60);
+    this.days = Math.floor(this.hours / 24);
 
-  //   this.hours %= 24;
-  //   this.minutes %= 60;
-  //   this.seconds %= 60;
-  //   this.hours = this.hours < 10 ? "0" + this.hours : this.hours;
-  //   this.minutes = this.minutes < 10 ? "0" + this.minutes : this.minutes;
-  //   this.seconds = this.seconds < 10 ? "0" + this.seconds : this.seconds;
+    this.hours %= 24;
+    this.minutes %= 60;
+    this.seconds %= 60;
+    this.hours = this.hours < 10 ? "0" + this.hours : this.hours;
+    this.minutes = this.minutes < 10 ? "0" + this.minutes : this.minutes;
+    this.seconds = this.seconds < 10 ? "0" + this.seconds : this.seconds;
 
-  //   document.getElementById("days").innerText = this.days;
-  //   document.getElementById("hours").innerText = this.hours;
-  //   document.getElementById("mins").innerText = this.minutes;
-  //   document.getElementById("seconds").innerText = this.seconds;
+    let a = document.getElementById("days");
+    if (a != null) {
+      document.getElementById("days").innerText = this?.days;
+      document.getElementById("hours").innerText = this?.hours;
+      document.getElementById("mins").innerText = this?.minutes;
+      document.getElementById("seconds").innerText = this?.seconds;
+    }
 
-  //   setInterval(this.myTimer, 1000);
-  // }
+    setInterval(this.myTimer, 1000);
+  }
+  ngAfterViewInit() {
+    this.myTimer();
+  }
   addtocart(item) {
     if (item.GiaSale != 0) {
       item.Gia = item.GiaSale;

@@ -16,11 +16,10 @@
     height: 596px;
 }
 .banner-homepage {
-    height: 500px;
+    height: 400px;
 }
 .image-margin {
-    margin-top: -20px;
-    top: -7px;
+   
 }
 .centerX-img{
     transform: translateX(-50%);
@@ -32,7 +31,13 @@
     transform: translate(-50%, -50%);
 }
 
+.image-rotate-left{
+    transform: rotate(-16deg);
+}
+.image-rotate-right{
+    transform: rotate(16deg);
 
+}
 
 @media screen and (max-width: 767px) {
     .banner-homepage{
