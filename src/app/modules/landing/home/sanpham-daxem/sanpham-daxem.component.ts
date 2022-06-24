@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sanpham-daxem.component.scss']
 })
 export class SanphamDaxemComponent implements OnInit {
-
+  products
   constructor() { }
 
   ngOnInit(): void {
+    this.products = JSON.parse(localStorage.getItem("sanphamdaxem")) || [];
+
   }
 
 }

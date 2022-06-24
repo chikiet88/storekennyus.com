@@ -1,24 +1,3 @@
-.categories {
-  opacity: 0;
-  margin-top: 0px;
-  transition: ease all 0.35s;
-  .gallery-categories {
-    height: 0;
-  }
-}
-.categories-hover:hover {
-  .categories {
-    height: 100%;
-    opacity: 1;
-    left: 0;
-    bottom: -55px;
-    transition: ease all 0.35s;
-    .gallery-categories {
-      height: inherit;
-    }
-  }
-}
-
 .home-menu {
   opacity: 0;
   transform: translateY(10%);
@@ -29,6 +8,29 @@
       display: none;
     }
   }
+}
+.centerY{
+  transform: translateY(-50%);
+}
+.categories-hover{
+  color: #184363;
+  background: #E2E8F0;
+}
+.categories-hover:hover {
+  color: white;
+  background: #184363;
+  .categories {
+    pointer-events: auto;
+    opacity: 1;
+    transition: 0.35s;
+  }
+}
+.categories {
+  margin-top: -10px;
+  transform: translateY(60%);
+  opacity: 0;
+  transition: 0.35s;
+  pointer-events: none;
 }
 .home-menu.menuhomeactive {
   opacity: 1;
@@ -79,17 +81,16 @@
     position: absolute;
     left: 50%;
     width: 100vw;
+    pointer-events: none;
 
     transform: translateX(-50%);
     transition: ease 0.3s all;
     .thuonghieu-item {
-      pointer-events: none;
       height: 0px;
       transition: ease 0.3s all;
     }
   }
 }
-
 
 .thuonghieu:hover {
   .thuonghieu-item-hover {
@@ -98,6 +99,7 @@
     opacity: 1;
     height: 144px;
     transition: ease 0.3s all;
+    pointer-events: auto;
     .thuonghieu-item {
       height: 112px;
       transition: ease 0.3s all;
@@ -125,20 +127,31 @@
     width: 100%;
   }
 }
-.show-menu{
-  .show-menu-item{
+.show-menu {
+  .show-menu-item {
     height: 0;
-    
   }
-  
 }
-.show-menu:hover{
-  .show-menu-item{
+.show-menu:hover {
+  .show-menu-item {
     height: auto;
   }
-  
 }
+.gioithieu-menu {
+  .gioithieu-hover {
+    opacity: 0;
+    transition: 0.35s;
+    pointer-events: none;
+  }
+}
+.gioithieu-menu:hover {
+  .gioithieu-hover {
+    opacity: 1;
+    transition: 0.35s;
+    pointer-events: auto;
 
+  }
+}
 @media screen and (max-width: 486px) {
   .mobile-header {
     height: 100vh;
@@ -150,27 +163,27 @@
   .mobile-header {
     height: 100vh;
   }
-  .mat-expansion-panel-body{
+  .mat-expansion-panel-body {
     padding: 0 24px 0 !important;
   }
 }
 .links {
-  .line-hover:before{
-      content: '';
-      background: #000;
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      transition: all 0.3s ease-in-out;
-    }
+  .line-hover:before {
+    content: "";
+    background: #000;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    transition: all 0.3s ease-in-out;
+  }
 
-    .line-hover:hover {
-      background-position: 0;
-     }
-     
-     .line-hover:hover::before{
-       width: 100%;
-     }
+  .line-hover:hover {
+    background-position: 0;
+  }
+
+  .line-hover:hover::before {
+    width: 100%;
+  }
 }

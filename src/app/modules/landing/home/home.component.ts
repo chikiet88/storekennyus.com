@@ -14,7 +14,7 @@ SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
 export class LandingHomeComponent implements OnInit {
   isShowLogin = false;
   isShow = true;
-
+  num;
   isShowCart = false;
   isShowMenuHome = false;
   isShowMenuBrand = false;
@@ -23,10 +23,15 @@ export class LandingHomeComponent implements OnInit {
   DanhmucActive = false;
   danhmuc: any[];
   thuonghieus: any[];
+  categories: any[];
+  products: any[];
+  productSearch: any[];
+  searchText: string;
+  danhmucSearch;
   config;
   menu;
   timedOutCloser;
-
+  productSearchPopup = false
   /**
    * Constructor
    */
@@ -47,11 +52,46 @@ export class LandingHomeComponent implements OnInit {
       this.isShow = !this.isShow;
     }, 150);
   }
+  searchSanpham() {
+    if (this.searchText != "") {
+      this.searchText = this.searchText.toLocaleLowerCase();
+      this.productSearch = this.products.filter((x) => {
+        if (x.id == this.danhmucSearch?.id) {
+          x.tenDm = this.danhmucSearch?.Tieude;
+          return x.Tieude.toLocaleLowerCase().includes(this.searchText);
+        } else {
+          return x.Tieude.toLocaleLowerCase().includes(this.searchText);
+        }
+
+      });
+      this.productSearchPopup = true
+      
+
+      for (let i = 0; i < this.productSearch.length; i++) {
+        for (let j = 0; j < this.categories.length; j++) {
+          if (this.productSearch[i].idDM == this.categories[j].id) {
+            this.productSearch[i].tenDm = this.categories[j].Tieude;
+          }
+        }
+      }
+
+    }
+  }
+  selectCategories(item) {
+    this.danhmucSearch = item;
+  }
   ngOnInit(): void {
+    this.num = JSON.parse(localStorage.getItem("sanphamdaxem"))?.length || 0;
+    this._productListService.getProduct().subscribe();
+    this._productListService.products$.subscribe(
+      (res) => (this.products = res)
+    );
     this._productListService.getDanhmuc().subscribe();
     this._productListService.danhmuc$.subscribe((res) => {
+      this.categories = res;
+      console.log(res);
+
       this.danhmuc = this.nest(res);
-      console.log(this.danhmuc);
     });
 
     this.config = {
@@ -75,9 +115,9 @@ export class LandingHomeComponent implements OnInit {
       freeMode: true,
     };
     this._thuonghieuService.getThuonghieu().subscribe();
-    this._thuonghieuService.thuonghieus$.subscribe(
-      (res) => (this.thuonghieus = res)
-    );
+    this._thuonghieuService.thuonghieus$.subscribe((res) => {
+      this.thuonghieus = res?.filter((x) => x.Trangthai == 1);
+    });
     this._menuService.getMenu().subscribe();
     this._menuService.menu$.subscribe((res) => {
       this.menu = res;

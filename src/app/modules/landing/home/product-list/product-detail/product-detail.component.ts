@@ -31,7 +31,15 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
 
     this._productService.getProductDetail(prodId).subscribe((res) => {
       this.product = res;
+      let arr = JSON.parse(localStorage.getItem("sanphamdaxem")) || [];
+    let index = arr.findIndex((e) => e.id == this.product.id);
+      
+      if(index === -1){
+        arr.push(this.product)
+        localStorage.setItem("sanphamdaxem", JSON.stringify(arr));
 
+      }
+     
       this._productService.getProduct().subscribe();
       this._productService.products$.subscribe((res) => {
         this.products = res?.filter(
@@ -40,8 +48,6 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
       });
 
       this._danhmucService.danhmucs$.subscribe((res) => {
-        console.log(res);
-
         res?.find((x) => {
           if (this.product?.idDM == x.id) {
             this.product.tenDM = x.Tieude;

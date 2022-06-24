@@ -83,6 +83,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/admin/baiviet',
     },
+    {
+        id: 'thuonghieu',
+        title: 'Thương hiệu ',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/thuonghieu',
+    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {

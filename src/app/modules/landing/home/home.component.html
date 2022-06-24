@@ -157,14 +157,12 @@
               slight delay
             </div>
             <div class="flex">
-              <div class="text-white text-lg font-bold mx-3">EN</div>
-              <div class="text-white text-lg font-bold mx-3">USD</div>
               <div class="text-white text-lg font-bold relative ml-3">
                 <div (click)="isShowLogin = !isShowLogin" class="flex">
                   <span class="material-icons mr-2">
                     {{ isShowLogin == true ? "close" : "account_circle" }}
                   </span>
-                  My Account
+                  Đăng nhập
                 </div>
                 <div
                   class="absolute w-56 h-56 p-4 rounded-xl right-0 mt-3 bg-white z-20"
@@ -172,32 +170,32 @@
                 >
                   <form class="w-full">
                     <input
-                      placeholder="Username"
+                      placeholder="Tài Khoản"
                       class="p-2 rounded-2xl w-40 border border-black z-20 text-md text-gray-500"
                       type="text"
                     />
                     <input
-                      placeholder="Password"
+                      placeholder="Mật Khẩu"
                       class="p-2 rounded-2xl w-40 border border-black z-20 mt-3 text-md text-gray-500"
                       type="password"
                     />
                     <div
-                      class="text-white bg-orange-500 p-2 hover:bg-purple-500 w-20 mt-3 text-center rounded-2xl text-md"
+                      class="text-white bg-orange-500 p-2 hover:bg-purple-500 w-32 cursor-pointer mt-3 text-center rounded-2xl text-md"
                     >
-                      Login
+                      Đăng nhập
                     </div>
                   </form>
                   <a
                     class="text-gray-500 text-sm mt-3 hover:text-gray-400"
                     routerLink="#"
-                    >Forgor Password?</a
+                    >Bạn quên mật khẩu?</a
                   >
                   <div class="text-gray-500 text-sm hover:text-gray-400">
-                    Don't have account yet?
+                    Bạn không có tài khoản
                     <a
                       class="text-gray-500 text-sm hover:text-gray-400"
-                      routerLink="#"
-                      >Sign up</a
+                      routerLink="signin"
+                      >Đăng ký</a
                     >
                   </div>
                 </div>
@@ -212,10 +210,15 @@
         <div class="flex items-center justify-between">
           <div class="text-2xl h-12 lg:w-2/12 md:w-3/12">
             <a class="w-full h-12 hidden lg:block" routerLink=""
-              ><img src="../../../../assets/images/homepage/desktop/LOGO-WEBSITE-1.jpg" alt=""></a
-            >
-            <div class="h-12  bg-red-200 lg:hidden" routerLink="">
-              <img src="../../../../assets/images/homepage/desktop/LOGO-DIEN-THOAI-1.jpg" alt="">
+              ><img
+                src="../../../../assets/images/homepage/desktop/LOGO-WEBSITE-1.jpg"
+                alt=""
+            /></a>
+            <div class="h-12 bg-red-200 lg:hidden" routerLink="">
+              <img
+                src="../../../../assets/images/homepage/desktop/LOGO-DIEN-THOAI-1.jpg"
+                alt=""
+              />
             </div>
           </div>
           <div class="sm:flex lg:hidden">
@@ -224,29 +227,97 @@
               list
             </span>
           </div>
-          <div class="w-7/12 hidden lg:block">
-            <div class="flex items-center w-full justify-end">
+          <div class="hidden lg:block relative">
+            <div class="flex items-center w-full">
               <mat-select
                 class="p-3 text-purple-500 rounded-l-3xl text-lg border w-3/12 h-full bg-gray-200"
+                placeholder="Tìm Kiếm"
+                (selectionChange)="selectCategories($event.value)"
               >
-                <mat-option value="Category" class="text-purple-500 text-lg">
-                  Category</mat-option
+                <mat-option
+                  [value]="item"
+                  class="text-purple-500 text-lg"
+                  *ngFor="let item of categories"
+                >
+                  {{ item.Tieude }}</mat-option
                 >
               </mat-select>
-              <div class="w-7/12" style="height: 50px">
+              <div class="w-96" style="height: 50px">
                 <input
                   class="p-3 bg-gray-200 text-purple-500 text-lg w-full h-full"
-                  placeholder="What are you looking for?"
+                  placeholder="Bạn muốn tìm kiếm sản phẩm nào?"
+                  [(ngModel)]="searchText"
+                  (keyup.Enter)="searchSanpham()"
                 />
               </div>
               <button
                 class="bg-orange-500 text-white text-lg py-3 px-1 w-1/12 h-full rounded-r-3xl flex items-center justify-center"
+                (keyup.Enter)="searchSanpham()"
               >
-                <span class="material-icons"> search </span>
+                <span class="material-icons text-white"> search </span>
               </button>
             </div>
+            <div
+              class="absolute w-full left-0 bg-white rounded-2xl z-20 {{
+                productSearch > 3 ? 'h-80' : 'h-auto'
+              }} overflow-auto"
+              *ngIf="productSearchPopup == true"
+              (mouseleave)="productSearchPopup = false"
+            >
+              <div
+                class="p-3 flex flex-col w-full"
+                (mouseenter)="productSearchPopup = true"
+                *ngIf="productSearch?.length > 0"
+              >
+                <div
+                  class="flex items-center"
+                  *ngFor="let item of productSearch"
+                >
+                  <div class="pr-2">
+                    <div class="h-20 w-20">
+                      <img src="{{ item.Image }}" class="w-full h-full" />
+                    </div>
+                    <div
+                      class="rounded-xl text-center text-white mt-1 bg-green-500 rounded-2xl text-xs"
+                    >
+                      Sale
+                    </div>
+                  </div>
+                  <div class="flex flex-col">
+                    <p class="text-gray-300">{{ item.tenDm }}</p>
+                    <a
+                      routerLink="sanpham/{{ item.id }}"
+                      class="text-purple-500 hover:text-purple-900 mt-1"
+                      >{{ item.Tieude }}</a
+                    >
+                    <p class="mt-1 text-gray-300">SKU: {{ item.SKU }}</p>
+                    <div class="flex">
+                      <div class="text-blue-500 text-lg mr-2">
+                        {{
+                          item.GiaSale
+                            ? item.GiaSale
+                            : (item.Gia | currency: "VND")
+                        }}
+                      </div>
+                      <span class="text-lg relative" *ngIf="item.GiaSale != 0"
+                        >{{ item.Gia | currency: "VND" }}
+                        <div
+                          class="absolute left-0 top-1/2 centerY w-full h-px bg-black"
+                        ></div>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p
+                class="text-purple-500 p-3 text-center w-full text-xl"
+                *ngIf="productSearch?.length == 0"
+              >
+                Không tìm thấy sản phẩm
+              </p>
+            </div>
           </div>
-          <div class="hidden lg:flex items-center justify-end w-3/12">
+          <div class="hidden lg:flex items-center justify-end">
             <a href="tel:0368 651 526"
               ><span class="material-icons text-4xl text-blue-500 mr-3">
                 phone
@@ -265,14 +336,17 @@
           </div>
         </div>
       </div>
-      <div class="relative py-3 hidden lg:block">
-        <div class="lg:max-w-7xl lg:mx-auto relative lg:px-5">
+      <div class="relative hidden lg:block">
+        <div class="lg:max-w-7xl py-3 lg:mx-auto relative lg:px-5">
           <div class="flex items-center w-full">
             <div
-              class="flex items-center categories-hover justify-center text-purple-500 p-3 bg-gray-200 hover:bg-purple-500 hover:text-white w-32 rounded-3xl font-bold text-center w-2/12 relative"
+              class="flex items-center categories-hover justify-center p-3 w-32 rounded-3xl font-bold text-center w-2/12 relative"
             >
               <span class="material-icons"> sort </span> All Categories
-              <div class="absolute z-20 categories" style="width: 1250px">
+              <div
+                class="absolute z-20 left-0 categories"
+                style="width: 1250px"
+              >
                 <div
                   class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto lg:px-5 rounded-xl"
                 >
@@ -301,11 +375,14 @@
                         </div>
                         <ul class="">
                           <li *ngFor="let item of itemDM.children" class="mt-2">
-                            <a class="text-gray-500" routerLink="{{item.Slug}}">{{ item.Tieude }}</a>
+                            <a
+                              class="text-gray-500 hover:text-purple-500"
+                              routerLink="{{ item.Slug }}"
+                              >{{ item.Tieude }}</a
+                            >
                           </li>
                         </ul>
                         <!-- <a routerLink="danhmuc" class="text-blue-500 hover:underline">View all</a> -->
-
                       </div>
                     </div>
                   </div>
@@ -315,150 +392,6 @@
 
             <div class="flex justify-between w-full">
               <div class="flex items-center">
-                <!-- <li class="relative">
-                  <a
-                  routerLink=""
-                    class=" text-lg text-purple-500 font-bold p-4"
-                    (mouseenter)="toggleMenuHome()"
-                    (mouseleave)="checkIsshowMenuHome()"
-                  >
-                    
-                </a>
-                  <div
-                    class="absolute left-0 bottom-0 z-20 home-menu"
-                    [ngClass]="{ menuhomeactive: isShowMenuHome }"
-                  >
-                    <div
-                      class=""
-                      (mouseenter)="toggleMenuHome()"
-                      (mouseleave)="checkIsshowMenuHome()"
-                    >
-                      <div
-                        class="grid grid-cols-3 gap-5 gallery-home bg-white rounded-2xl"
-                      >
-                        <div class="hidemenu">
-                          <p class="text-purple-500 font-bold text-lg">Homepages</p>
-                          <ul class="pt-5">
-                            <li class="">
-                              <a
-                                routerLink="/gioithieu"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Giới Thiệu</a
-                              >
-                            </li>
-                            <li class="text-purple-500 text-md pt-4">
-                              <a
-                                routerLink="/lienhe"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Liên Hệ</a
-                              >
-                            </li>
-                            <li class="text-purple-500 text-md pt-4">
-                              <a
-                                routerLink="/danhmuc"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Danh Mục</a
-                              >
-                            </li>
-                            <li class="text-purple-500 text-md pt-4">
-                              <a
-                                routerLink="/product-list"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Danh sách sản phẩm</a
-                              >
-                            </li>
-                            <li class="text-purple-500 text-md pt-4">
-                                <a
-                                routerLink="/profile"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >profile</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="hidemenu">
-                          <p class="text-purple-500 font-bold text-lg">Homepages</p>
-                          <ul class="pt-5">
-                            <li class="text-purple-500 text-md">
-                                <a
-                                routerLink="/checkout"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Checkout</a
-                              >
-                            </li>
-                            <li class="text-purple-500 text-md pt-4">
-                                <a
-                                routerLink="/checkout/slug"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Checkout-detail</a>
-                            </li>
-                            <li class="text-purple-500 text-md pt-4">
-                                <a
-                                routerLink="/signin"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Sign in</a>
-                            </li>
-                            <li class="text-purple-500 text-md pt-4">   <a
-                                routerLink="/blog"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Blog</a></li>
-                            <li class="text-purple-500 text-md pt-4">
-                                <a
-                                routerLink="/blog/slug"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >Blog-detail</a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="hidemenu">
-                          <p class="text-purple-500 font-bold text-lg">Homepages</p>
-                          <ul class="pt-5">
-                            <li class="text-purple-500 text-md">
-                                <a
-                                routerLink="/cart"
-                                class="text-purple-500 text-md hover:text-blue-500"
-                                >cart</a>
-                            </li>
-                            <li class="text-purple-500 text-md pt-4">Home 1</li>
-                            <li class="text-purple-500 text-md pt-4">Home 1</li>
-                            <li class="text-purple-500 text-md pt-4">Home 1</li>
-                            <li class="text-purple-500 text-md pt-4">Home 1</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li> -->
-                <!-- <li class="relative">
-                  <a
-                    routerLink="/gioithieu"
-                    class=" text-lg text-purple-500 font-bold py-4 text-center w-28 mx-2 block"
-                  >
-                    Giới Thiệu
-                  </a>
-                  <div
-                    class="absolute z-20 right-0 bg-white brand-menu"
-                    [ngClass]="{ menubrandactive: isShowMenuBrand }"
-                  >
-                    <div
-                      class="flex justify-between flex-col lg:max-w-7xl lg:mx-auto rounded-xl"
-                    >
-                      <div
-                        class="flex items-center justify-center gallery-brand hidemenu"
-                        (mouseenter)="toggleMenuBrand()"
-                        (mouseleave)="checkIsshowMenuBrand()"
-                      >
-                        <div class="w-56 h-full bg-gray-200 mx-2"></div>
-                        <div class="w-56 h-full bg-gray-200 mx-2"></div>
-                        <div class="w-56 h-full bg-gray-200 mx-2"></div>
-                        <div class="w-56 h-full bg-gray-200 mx-2"></div>
-                        <div class="w-56 h-full bg-gray-200 mx-2"></div>
-                        <div class="w-56 h-full bg-gray-200 mx-2"></div>
-                      </div>
-                    </div>
-                  </div>
-                </li> -->
-
                 <div class="text-lg text-purple-500 font-bold w-28 mx-2">
                   <div class="links relative">
                     <a
@@ -524,8 +457,8 @@
                   </div>
                 </div>
                 <div class="links flex w-28 mx-2">
-                  <div class="dropdown relative">
-                    <div class="py-4" (mouseenter)="toggleMenu()">
+                  <div class="dropdown relative gioithieu-menu">
+                    <div class="py-4">
                       <button
                         class="dropdown-toggle border-none cusor-pointer relative hover:text-yellow-500"
                         type="button"
@@ -543,11 +476,9 @@
                     </div>
 
                     <ul
-                      class="dropdown-menu min-w-max absolute bg-white z-50 float-left py-2 list-none text-left rounded-lg shadow-lg m-0 bg-clip-padding border-none"
-                      [ngClass]="{ hidden: isShow }"
-                      (mouseleave)="toggleMenu()"
+                      class="dropdown-menu gioithieu-hover min-w-max absolute bg-white z-50 float-left py-2 list-none text-left rounded-lg shadow-lg m-0 bg-clip-padding border-none"
                     >
-                      <li (click)="toggleMenu()" class="relative mt-2">
+                      <li class="relative mt-2">
                         <a
                           class="block text-purple-500 font-bold mx-4 line-hover text-lg"
                           routerLink="gioithieu"
@@ -555,7 +486,7 @@
                         >
                       </li>
 
-                      <li (click)="toggleMenu()" class="relative mt-2">
+                      <li class="relative mt-2">
                         <a
                           class="block text-purple-500 font-bold mx-4 line-hover text-lg"
                           routerLink="lienhe"
@@ -578,29 +509,25 @@
                 </div>
               </div>
               <ul class="flex items-center flex-end">
-                <li class="mx-2 text-lg text-purple-500 font-bold">
-                  <p>
+                <li
+                  class="mx-2 text-lg text-purple-500 font-bold cusor-pointer"
+                >
+                  <a routerLink="san-pham-da-xem">
                     <mat-icon
-                      matBadge="15"
+                      matBadge="{{ num }}"
                       matBadgeColor="warn"
                       class="text-purple-500"
                       >compare_arrows</mat-icon
                     >
                     <!-- Include text description of the icon's meaning for screen-readers -->
-                  </p>
-                </li>
-                <li class="mx-2 text-lg text-purple-500 font-bold">
-                  <p>
-                    <mat-icon
-                      matBadge="15"
-                      matBadgeColor="warn"
-                      class="text-purple-500"
-                      >favorite_border</mat-icon
-                    >
-                  </p>
+                  </a>
                 </li>
 
-                <li class="mx-2 text-lg text-purple-500 font-bold relative">
+                <li
+                  class="mx-2 text-lg text-purple-500 font-bold relative cusor-pointer"
+                  (mouseenter)="isShowCart = true"
+                  (mouseleave)="isShowCart = false"
+                >
                   <app-cart-popup [isShowCart]="isShowCart"></app-cart-popup>
                 </li>
               </ul>

@@ -9,6 +9,7 @@ import { FileUpload } from '../models/file-upload.model';
 import { map } from 'rxjs';
 import { DanhmucService } from '../danhmuc/danhmuc.service';
 import { MyUploadAdapter } from '../MyUploadAdapter';
+import { ThuonghieuService } from '../thuonghieu/thuonghieu.service';
 
 @Component({
     selector: 'app-sanpham',
@@ -24,6 +25,7 @@ export class SanphamComponent implements OnInit {
     isSelectProduct = false;
     percentage = 0;
     danhmucs: any[];
+    thuonghieus: any[];
     tenDMcha: string;
     // thumb = {};
     thumb;
@@ -32,7 +34,8 @@ export class SanphamComponent implements OnInit {
         private fb: FormBuilder,
         private sanphamService: SanphamService,
         private uploadService: FileUploadService,
-        private _danhmucService: DanhmucService
+        private _danhmucService: DanhmucService,
+        private _thuonghieuService: ThuonghieuService
     ) {}
     public Editor = ClassicEditor;
     public config = {
@@ -81,6 +84,8 @@ export class SanphamComponent implements OnInit {
         this.productList.get('Gia').setValue(item.Gia);
         this.productList.get('GiaSale').setValue(item.GiaSale);
         this.productList.get('Slug').setValue(item.Slug);
+        this.productList.get('Thuonghieu').setValue(item.Thuonghieu);
+
         this.productList.get('Khoiluong').setValue(item.Khoiluong);
         this.productList.get('Thongtin').setValue(item.Thongtin);
         this.productList.get('Thanhphan').setValue(item.Thanhphan);
@@ -95,7 +100,14 @@ export class SanphamComponent implements OnInit {
             }
         });
     }
+    selectionThuonghieu(value){
+        this.thuonghieus.find(x=>{
+            if( x.Tieude == value){
+                this.productList.get('Thuonghieu').setValue(x.id)
 
+            }
+        })
+    }
     selectFile(event: any): void {
         this.selectedFiles = event.target.files;
     }
@@ -108,8 +120,7 @@ export class SanphamComponent implements OnInit {
                 alert('Cập nhật thành công');
                 this.resetForm();
                 this.isSelectProduct = false;
-                this.tenDMcha = ''
-
+                this.tenDMcha = '';
             });
     }
     onDelete() {
@@ -118,7 +129,7 @@ export class SanphamComponent implements OnInit {
             .subscribe((res) => {
                 this.resetForm();
                 this.isSelectProduct = false;
-                this.thumb = ''
+                this.thumb = '';
             });
     }
     upload(): void {
@@ -229,6 +240,10 @@ export class SanphamComponent implements OnInit {
         this._danhmucService.getDanhmuc().subscribe();
         this._danhmucService.danhmucs$.subscribe(
             (res) => (this.danhmucs = res)
+        );
+        this._thuonghieuService.getThuonghieu().subscribe();
+        this._thuonghieuService.thuonghieus$.subscribe(
+            (res) => (this.thuonghieus = res)
         );
     }
 }

@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Options, LabelType } from "@angular-slider/ngx-slider";
 import { ProductListService } from "./product-list.service";
+import { ThuonghieuService } from "../thuonghieu/thuonghieu.service";
 
 @Component({
   selector: "app-product-list",
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProductListComponent implements OnInit {
   products: any[];
@@ -35,13 +36,7 @@ export class ProductListComponent implements OnInit {
       }
     },
   };
-  typesOfShoes: string[] = [
-    "Boots",
-    "Clogs",
-    "Loafers",
-    "Moccasins",
-    "Sneakers",
-  ];
+  thuonghieus: string[] = [];
   changePrice(value) {
     console.log(value);
 
@@ -51,18 +46,28 @@ export class ProductListComponent implements OnInit {
   productListtoggle(number) {
     this.productListhide = number;
   }
-  constructor(private _productService: ProductListService) {
+  constructor(
+    private _productService: ProductListService,
+    private _thuonghieuService: ThuonghieuService
+  ) {
     this.productListhide = 1;
   }
   onSelectDanhmuc(item, i) {
     this._productService.products$.subscribe((res) => (this.products = res));
-    
+
     this.selectedIndex = i;
     this.productDM = this.products.filter((x) => {
-      
       return x.idDM == item.id;
     });
     this.temp = this.productDM;
+  }
+  selectThuonghieu(value){
+    console.log(value);
+    
+  let temp = this.thuonghieus
+  temp.filter(x=>{
+
+  })
   }
   selectSale() {
     this.isChecked = !this.isChecked;
@@ -89,5 +94,9 @@ export class ProductListComponent implements OnInit {
     this._productService.products$.subscribe((res) => {
       this.productDM = res?.filter((x) => x.idDM == this.danhmuc[0].id);
     });
+    this._thuonghieuService.getThuonghieu().subscribe();
+    this._thuonghieuService.thuonghieus$.subscribe(
+      (res) => (this.thuonghieus = res)
+    );
   }
 }

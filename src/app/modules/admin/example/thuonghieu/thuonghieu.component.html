@@ -45,16 +45,18 @@
                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="grid-first-name"
                 >
-                    slug
                 </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="text"
-                    placeholder="gioi-thieu"
-                    [formControlName]="'Slug'"
-                    name="title"
-                />
+                <mat-form-field
+                    class="fuse-mat-emphasized-affix md:w-80 w-76 md:mt-0 mt-6"
+                    appearance="fill"
+                    style="height: 50px"
+                >
+                    <span matPrefix>Hiển thị lên page không</span>
+                    <mat-select [formControlName]="'Trangthai'">
+                        <mat-option value="1">Có</mat-option>
+                        <mat-option value="0">Không</mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
             </div>
 
@@ -112,7 +114,7 @@
                 type="update"
                 class="px-3 py-1 bg-indigo-600 rounded-lg mr-10 text-white"
                 (click)="updateDanhmuc()"
-                *ngIf="idSelect"
+                *ngIf="idSelect != undefined"
             >
                 Update
             </button>
@@ -120,7 +122,7 @@
                 type="update"
                 class="px-3 py-1 bg-red-600 rounded-lg text-white"
                 (click)="deleteDanhmuc()"
-                *ngIf="idSelect"
+                *ngIf="idSelect != undefined"
             >
                 Delete
             </button>

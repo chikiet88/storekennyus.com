@@ -5,21 +5,19 @@ import { FileUploadService } from '../services/file-upload.service';
 import { ThuonghieuService } from './thuonghieu.service';
 
 @Component({
-  selector: 'app-thuonghieu',
-  templateUrl: './thuonghieu.component.html',
-  styleUrls: ['./thuonghieu.component.scss']
+    selector: 'app-thuonghieu',
+    templateUrl: './thuonghieu.component.html',
+    styleUrls: ['./thuonghieu.component.scss'],
 })
 export class ThuonghieuComponent implements OnInit {
-  thumb
-  thuonghieu
+    thumb;
+    thuonghieu;
     selectedFiles?: FileList;
     currentFileUpload?: FileUpload;
     percentage = 0;
     message: 'chon theme';
     ThuonghieuForm: FormGroup;
     idSelect;
-
-  
 
     constructor(
         private _thuonghieuService: ThuonghieuService,
@@ -30,16 +28,16 @@ export class ThuonghieuComponent implements OnInit {
     onSubmit() {
         this.ThuonghieuForm.removeControl('id');
 
-        this._thuonghieuService.AddThuonghieu(this.ThuonghieuForm.value).subscribe(
-            (res) => {
+        this._thuonghieuService
+            .AddThuonghieu(this.ThuonghieuForm.value)
+            .subscribe((res) => {
                 if (res) {
                     alert('Tạo nội dung thành công');
                     this.resetForm();
                 } else {
                     alert('Tạo nội dung không thành công');
                 }
-            }
-        );
+            });
     }
 
     onSelectDanhmucCha(item) {
@@ -51,39 +49,42 @@ export class ThuonghieuComponent implements OnInit {
         this.ThuonghieuForm.addControl('id', new FormControl(item.id));
         this.ThuonghieuForm.get('id').setValue(item.id);
         this.ThuonghieuForm.get('Tieude').setValue(item.Tieude);
-        this.ThuonghieuForm.get('Slug').setValue(item.Slug);
-       
+        this.ThuonghieuForm.get('Image').setValue(item.Image);
+
+
         this.idSelect = item.id;
         this.thumb = item.Image;
     }
     deleteDanhmuc() {
-        alert('Xóa Danhmuc thành công');
-        this._thuonghieuService.deleteThuonghieu(this.idSelect).subscribe();
-        this.resetForm();
+        this._thuonghieuService
+            .deleteThuonghieu(this.idSelect)
+            .subscribe((res) => {
+                alert('Xóa thương hiệu thành công');
+                this.resetForm();
+                this.idSelect = undefined;
+            });
     }
     updateDanhmuc() {
         this.ThuonghieuForm.removeControl('tenDMcha');
 
-        this._thuonghieuService.updateThuonghieu(this.ThuonghieuForm.value).subscribe(
-            (res) => {
+        this._thuonghieuService
+            .updateThuonghieu(this.ThuonghieuForm.value)
+            .subscribe((res) => {
                 if (res) {
-                    alert('Cập nhật Danh mục thành công');
+                    alert('Cập nhật Thương hiệu thành công');
+                    this.idSelect = undefined;
+                    this.resetForm();
                 } else {
-                    alert('Cập nhật Danh mục không thành công');
+                    alert('Cập nhật Thương hiệu không thành công');
                 }
-            }
-        );
-        this.resetForm();
+            });
     }
     resetForm() {
         this.ThuonghieuForm = this.fb.group({
             Tieude: [''],
             Image: [''],
-            Slug:[''],
-            Type: [''],
-            Trangthai:[0],
-            id:['']
-          
+            Trangthai: [1],
+            id: [''],
         });
     }
     upload(): void {
@@ -118,7 +119,6 @@ export class ThuonghieuComponent implements OnInit {
         });
     }
 
-    
     selectFile(event: any): void {
         this.selectedFiles = event.target.files;
     }
@@ -131,8 +131,5 @@ export class ThuonghieuComponent implements OnInit {
 
             this.thuonghieu = res;
         });
-
-        
     }
-
 }

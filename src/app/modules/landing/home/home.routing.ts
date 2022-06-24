@@ -16,6 +16,7 @@ import { ProductDetailComponent } from "./product-list/product-detail/product-de
 import { ProductListComponent } from "./product-list/product-list.component";
 import { BlogListComponent } from "./blog/blog-list/blog-list.component";
 import { SanphamDanhmucComponent } from "./product-list/sanpham-danhmuc/sanpham-danhmuc.component";
+import { SanphamDaxemComponent } from "./sanpham-daxem/sanpham-daxem.component";
 
 export const landingHomeRoutes: Route[] = [
   {
@@ -46,7 +47,7 @@ export const landingHomeRoutes: Route[] = [
       { path: "checkout", component: CheckoutComponent },
       { path: "checkout/:slug", component: CheckoutDetailComponent },
       { path: "profile", component: ProfileComponent },
-      { path: "san-pham-da-xem", component: SanphamDanhmucComponent },
+      { path: "san-pham-da-xem", component: SanphamDaxemComponent },
     ],
   },
 ];

@@ -1,5 +1,14 @@
 <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-3 mt-10 px-3">
-    <div class="grid lg:grid-cols-5 md:grid-col-3 grid-cols-1 gap-5">
-        <app-product-popular></app-product-popular>
-    </div>
+  <div
+    class="grid lg:grid-cols-5 md:grid-col-3 grid-cols-1 gap-5"
+    *ngIf="products?.length > 0"
+  >
+    <app-product-popular
+      [item]="item"
+      *ngFor="let item of products"
+    ></app-product-popular>
+  </div>
+  <p class="text-purple-500 font-bold text-2xl uppercase text-center" *ngIf="products?.length == 0">
+    Không có sản phẩm đã xem gần đây
+  </p>
 </div>

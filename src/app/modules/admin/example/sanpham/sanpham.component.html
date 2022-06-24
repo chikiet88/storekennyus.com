@@ -1,6 +1,6 @@
 <div class="lg:px-10 px-3">
     <form class="w-full pt-10" [formGroup]="productList">
-        <div>
+        <div class="flex">
             <mat-form-field
                 class="fuse-mat-emphasized-affix lg:w-1/2 w-full"
                 appearance="fill"
@@ -29,6 +29,22 @@
                     >
                 </mat-select>
             </mat-form-field>
+
+            <mat-form-field
+            class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pl-3 h-12"
+            appearance="fill"
+        >
+            <span matPrefix>Chọn thương hiệu</span>
+            <mat-select
+                (selectionChange)="selectionThuonghieu($event.value)"
+            >
+                <mat-option
+                    [value]="item.Tieude"
+                    *ngFor="let item of thuonghieus"
+                    >{{ item.Tieude }}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
         </div>
         <div class="flex mb-3 lg:flex-row flex-col">
             <div class="lg:w-1/2 w-full mb-3 lg:mr-2 md:mb-0">

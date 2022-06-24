@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment.prod';
 import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
 })
 export class ThuonghieuService {
 
-  private urlApi = 'http://localhost:3000/thuonghieu';
+  private urlApi = environment.url+'/thuonghieu';
   post: any;
   private _thuonghieus: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _thuonghieu: BehaviorSubject<any | null> = new BehaviorSubject(null);

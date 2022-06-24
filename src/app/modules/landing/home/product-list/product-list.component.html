@@ -26,30 +26,11 @@
           <a
             routerLink="/blog"
             class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
-            >Projects</a
+            >Sản phẩm</a
           >
         </div>
       </li>
-      <li aria-current="page">
-        <div class="flex items-center">
-          <svg
-            class="w-6 h-6 text-gray-400"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span
-            class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500"
-            >Flowbite</span
-          >
-        </div>
-      </li>
+
     </ol>
   </nav>
   <div class="flex">
@@ -116,11 +97,11 @@
       </div>
 
       <div class="pt-10">
-        <p class="text-xl text-purple-500 font-bold">Brand</p>
+        <p class="text-xl text-purple-500 font-bold">Thương hiệu</p>
         <div class="h-48 overflow-auto">
-          <mat-selection-list #shoes>
-            <mat-list-option *ngFor="let shoe of typesOfShoes">
-              {{ shoe }}
+          <mat-selection-list #shoes (selectionChange)="selectThuonghieu($event.value)">
+            <mat-list-option *ngFor="let item of thuonghieus" [value]="item">
+              {{ item.Tieude }}
             </mat-list-option>
           </mat-selection-list>
         </div>
@@ -156,16 +137,7 @@
           </p>
         </div>
       </div>
-      <div class="pt-10">
-        <p class="text-xl text-purple-500 font-bold">Brand</p>
-        <div class="h-48 overflow-auto">
-          <mat-selection-list #shoes>
-            <mat-list-option *ngFor="let shoe of typesOfShoes">
-              {{ shoe }}
-            </mat-list-option>
-          </mat-selection-list>
-        </div>
-      </div>
+     
       <div class="pt-10">
         <div class="w-full bg-gray-200 rounded-xl" style="height: 425px">
           <div class="p-5 flex flex-col items-center">
