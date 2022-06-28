@@ -8,9 +8,9 @@ import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
 export class AddBaivietService {
 
   // private urlApi = 'https://v2api.timona.edu.vn/theme'
-  // private urlApi = environment.url
+  private urlApi = environment.url
 
-  private urlApi = 'http://localhost:3000'
+  // private urlApi = 'http://localhost:3000'
 
 
   

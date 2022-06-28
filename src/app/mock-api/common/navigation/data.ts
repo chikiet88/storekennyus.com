@@ -90,6 +90,20 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/admin/thuonghieu',
     },
+    {
+        id: 'Theme',
+        title: 'Theme',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/theme',
+    },
+    {
+        id: 'Cauhinh',
+        title: 'Cấu hình',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/cauhinh',
+    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {

@@ -15,6 +15,7 @@ import { AddBaivietComponent } from './add-baiviet/add-baiviet.component';
 import { ThemeComponent } from './theme/theme.component';
 import { DonhangComponent } from './donhang/donhang.component';
 import { DonhangDetailComponent } from './donhang-detail/donhang-detail.component';
+import { CauhinhComponent } from './cauhinh/cauhinh.component';
 
 const exampleRoutes: Route[] = [
     {
@@ -35,6 +36,8 @@ const exampleRoutes: Route[] = [
             { path: 'menu', component: MenuComponent },
             { path: 'donhang', component: DonhangComponent },
             { path: 'donhang/:id', component: DonhangDetailComponent },
+            { path: 'cauhinh', component: CauhinhComponent },
+
         ],
     },
 ];
@@ -52,6 +55,7 @@ const exampleRoutes: Route[] = [
         ThemeComponent,
         DonhangComponent,
         DonhangDetailComponent,
+        CauhinhComponent
     ],
     imports: [
         RouterModule.forChild(exampleRoutes),
