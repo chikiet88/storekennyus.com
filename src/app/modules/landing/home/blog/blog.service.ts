@@ -15,8 +15,8 @@ import {
   providedIn: "root",
 })
 export class BlogService {
-  // private urlApi = environment.url;
-  private urlApi = 'http://localhost:3000/baiviet';
+  private urlApi = environment.url+'/baiviet';
+  // private urlApi = 'http://localhost:3000/baiviet';
 
   private _tintuc: BehaviorSubject<any | null> = new BehaviorSubject(null);
   // _tintuc$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -75,8 +75,8 @@ export class BlogService {
   getTintucChitiet(slug: string): Observable<any> {
     return (
       this.http
-        // .get<any>(this.urlApi + `/slug/${slug}`)
-        .get<any>(this.urlApi+`/${slug}`)
+        .get<any>(this.urlApi + `/slug/${slug}`)
+        // .get<any>(this.urlApi+`/${slug}`)
 
         .pipe(
           map((tintuc) => {

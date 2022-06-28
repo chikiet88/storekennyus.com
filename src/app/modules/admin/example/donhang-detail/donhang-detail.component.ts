@@ -108,7 +108,7 @@ export class DonhangDetailComponent implements OnInit {
     }
     themdonhang() {
         this.donhangService.postDonhang(this.donhangForm.value).subscribe();
-        this.ngOnInit();
+        // this.ngOnInit();
     }
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;

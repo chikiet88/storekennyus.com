@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Options, LabelType } from "@angular-slider/ngx-slider";
 import { ProductListService } from "./product-list.service";
 import { ThuonghieuService } from "../thuonghieu/thuonghieu.service";
+import { take } from "rxjs";
 
 @Component({
   selector: "app-product-list",
@@ -11,6 +12,7 @@ import { ThuonghieuService } from "../thuonghieu/thuonghieu.service";
 })
 export class ProductListComponent implements OnInit {
   products: any[];
+  tempProductSplice: any[] = [];
   productDM: any[];
   danhmuc: any[];
   valuePrice: number;
@@ -20,6 +22,7 @@ export class ProductListComponent implements OnInit {
   temp: any[];
   maxValue: number = 100;
   isChecked = false;
+  indexPaginate: number = 0;
   options: Options = {
     floor: 0,
     ceil: 100,
@@ -53,21 +56,42 @@ export class ProductListComponent implements OnInit {
     this.productListhide = 1;
   }
   onSelectDanhmuc(item, i) {
-    this._productService.products$.subscribe((res) => (this.products = res));
+    this.tempProductSplice = [];
+
 
     this.selectedIndex = i;
-    this.productDM = this.products.filter((x) => {
-      return x.idDM == item.id;
+    // this.products = this.products.filter((x) => {
+    //   return x.idDM == item.id;
+    // });
+    this._productService.getProduct().subscribe()
+    this._productService.products$.subscribe((res) => {
+      res = res.filter((x) => (x.idDM = item.id));
+      console.log(res);
+
+      let x = res.length / 10;
+      if (res.length > 0) {
+        for (let i = 0; i < x; i++) {
+          this.tempProductSplice.push(res.splice(10 * i, 10 * i + 10));
+        }
+      }
+      this.productDM = this.tempProductSplice[0];
     });
+  
+    console.log(this.tempProductSplice);
+    this.productDM = this.tempProductSplice[0];
     this.temp = this.productDM;
   }
-  selectThuonghieu(value){
+  selectThuonghieu(value) {
     console.log(value);
-    
-  let temp = this.thuonghieus
-  temp.filter(x=>{
 
-  })
+    let temp = this.thuonghieus;
+    temp.filter((x) => {});
+  }
+  paginateNumber(i) {
+    console.log(i);
+    this.indexPaginate = i;
+    this.productDM = this.tempProductSplice[i];
+    console.log(this.productDM);
   }
   selectSale() {
     this.isChecked = !this.isChecked;
@@ -92,7 +116,15 @@ export class ProductListComponent implements OnInit {
     });
     this._productService.getProduct().subscribe();
     this._productService.products$.subscribe((res) => {
-      this.productDM = res?.filter((x) => x.idDM == this.danhmuc[0].id);
+      
+      let arr = res
+      let x = arr.length / 10;
+      if (arr.length > 0) {
+        for (let i = 0; i < x; i++) {
+          this.tempProductSplice.push(arr.splice(10 * i, 10 * i + 10));
+        }
+      }
+      this.productDM = this.tempProductSplice[0];
     });
     this._thuonghieuService.getThuonghieu().subscribe();
     this._thuonghieuService.thuonghieus$.subscribe(

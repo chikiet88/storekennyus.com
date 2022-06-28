@@ -1,13 +1,21 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { take } from "rxjs";
 import { CartPopupService } from "../../components/cart-popup/cart-popup.service";
 import { DanhmucService } from "../../danhmuc/danhmuc.service";
+import { HomeService } from "../../home.service";
 import { ProductListService } from "../product-list.service";
 
 @Component({
   selector: "app-product-detail",
   templateUrl: "./product-detail.component.html",
   styleUrls: ["./product-detail.component.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProductDetailComponent implements OnInit, AfterViewInit {
   // export class ProductDetailComponent implements OnInit {
@@ -15,12 +23,14 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   quantity: number = 1;
   product;
   products;
+  cauhinh;
   danhmuc: any[];
   constructor(
     private _productService: ProductListService,
     private route: ActivatedRoute,
     private _cartService: CartPopupService,
-    private _danhmucService: DanhmucService
+    private _danhmucService: DanhmucService,
+    private _homeService: HomeService
   ) {}
   ngOnInit(): void {
     this.rating3 = 3;
@@ -28,40 +38,46 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     this._productService.getDanhmuc().subscribe();
     this._productService.danhmuc$.subscribe((res) => (this.danhmuc = res));
     this._danhmucService.getDanhmuc().subscribe();
-
-    this._productService.getProductDetail(prodId).subscribe((res) => {
-      this.product = res;
-      let arr = JSON.parse(localStorage.getItem("sanphamdaxem")) || [];
-    let index = arr.findIndex((e) => e.id == this.product.id);
-      
-      if(index === -1){
-        arr.push(this.product)
-        localStorage.setItem("sanphamdaxem", JSON.stringify(arr));
-
-      }
-     
-      this._productService.getProduct().subscribe();
-      this._productService.products$.subscribe((res) => {
-        this.products = res?.filter(
-          (x) => x.idDM == this.product.idDM && x.id != this.product.id
-        );
-      });
-
-      this._danhmucService.danhmucs$.subscribe((res) => {
-        res?.find((x) => {
-          if (this.product?.idDM == x.id) {
-            this.product.tenDM = x.Tieude;
-          }
-        });
-      });
-      this._cartService.getCart().subscribe((res) => {
-        res.find((x) => {
-          if (this.product.id == x.id) {
-            this.quantity = x.cartNum;
-          }
-        });
-      });
+    this._homeService.getCauhinh().subscribe();
+    this._homeService.cauhinh$.subscribe((res) => {
+      this.day = res[0].data.day;
+      this.month = res[0].data.month;
+      this.year = res[0].data.year;
     });
+    this._productService
+      .getProductDetail(prodId)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.product = res;
+        let arr = JSON.parse(localStorage.getItem("sanphamdaxem")) || [];
+        let index = arr.findIndex((e) => e.id == this.product.id);
+
+        if (index === -1) {
+          localStorage.setItem("sanphamdaxem", JSON.stringify([...arr, res]));
+        }
+
+        this._productService.getProduct().subscribe();
+        this._productService.products$.subscribe((res) => {
+          this.products = res?.filter(
+            (x) => x.idDM == this.product.idDM && x.id != this.product.id
+          );
+        });
+
+        this._danhmucService.danhmucs$.subscribe((res) => {
+          res?.find((x) => {
+            if (this.product?.idDM == x.id) {
+              this.product.tenDM = x.Tieude;
+            }
+          });
+        });
+        this._cartService.getCart().subscribe((res) => {
+          res.find((x) => {
+            if (this.product.id == x.id) {
+              this.quantity = x.cartNum;
+            }
+          });
+        });
+      });
   }
 
   currentDate: any;
@@ -93,7 +109,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
 
   myTimer() {
     this.currentDate = new Date();
-    this.targetDate = new Date(2023, 6, 31);
+    this.targetDate = new Date(2023, 6 - 1, 2022);
     this.cDateMillisecs = this.currentDate.getTime();
     this.tDateMillisecs = this.targetDate.getTime();
     this.difference = this.tDateMillisecs - this.cDateMillisecs;
@@ -122,6 +138,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.myTimer();
   }
+
   addtocart(item) {
     if (item.GiaSale != 0) {
       item.Gia = item.GiaSale;

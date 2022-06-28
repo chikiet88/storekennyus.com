@@ -63,3 +63,19 @@ input[type="number"] {
     background-color: #000;
     transform: rotate(5deg);
   }
+  app-product-detail .image img{
+    object-fit: contain;
+    width: inherit;
+   margin: 0 auto;
+
+}
+app-product-detail ul {
+  padding-left: 40px;
+  list-style: disc !important;
+  list-style-type: disc !important ;
+  
+}
+app-product-detail ul li{
+  margin-top: 8px;
+  text-align: justify;
+}

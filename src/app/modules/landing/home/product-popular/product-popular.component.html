@@ -6,11 +6,17 @@
   >
     <img src="{{ item.Image }}" alt="" />
     <div
-      class="absolute top-3 left-5 bg-green-500 py-1 px-2 rounded-2xl text-white sm:text-sm"
+      class="absolute top-3 left-5  py-1 px-2 rounded-2xl text-white sm:text-sm {{
+        item.Trangthai == 1
+          ? 'bg-green-500'
+          : item.Trangthai == 2
+          ? 'bg-red-500'
+          : 'hidden'
+      }}"
     >
-      Sale
+      {{ item.Trangthai == 1 ? "Sale" : item.Trangthai == 2 ? "Hết hàng" : "" }}
     </div>
-    <div class="absolute right-3 top-3 flex flex-col z-10 icon">
+    <!-- <div class="absolute right-3 top-3 flex flex-col z-10 icon">
       <div class="bg-white rounded-full mt-3 flex flex-col items-center">
         <span class="material-icons text-blue-500"> favorite_border </span>
       </div>
@@ -23,20 +29,19 @@
       >
         <span class="material-icons text-blue-500"> search </span>
       </div>
-    </div>
+    </div> -->
   </div>
-  <div class="pt-5 w-full flex flex-col justify-between h-48">
+  <div class="pt-5 w-full flex flex-col justify-between h-36">
     <p class="text-blue-500 text-sm">{{ item?.Tag }}</p>
     <a
-      class="font-bold text-purple-500 hover:text-blue-500  cursor-pointer"
-      (click)="pushLocal()"
+      class="font-bold text-purple-500 hover:text-blue-500 cursor-pointer"
       routerLink="/sanpham/{{ item.id }}"
     >
       {{ item?.Tieude }}
     </a>
     <div class="flex items-center">
       <svg
-        class="w-5 h-5 text-yellow-600"
+        class="w-5 h-5 text-yellow-500"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +51,7 @@
         ></path>
       </svg>
       <svg
-        class="w-5 h-5 text-yellow-600"
+        class="w-5 h-5 text-yellow-500"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +61,7 @@
         ></path>
       </svg>
       <svg
-        class="w-5 h-5 text-yellow-600"
+        class="w-5 h-5 text-yellow-500"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +71,7 @@
         ></path>
       </svg>
       <svg
-        class="w-5 h-5 text-yellow-600"
+        class="w-5 h-5 text-yellow-500"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -86,23 +91,29 @@
         ></path>
       </svg>
     </div>
-    <div class="flex">
-      <span class="text-purple-500 mb-0 pr-3" *ngIf="item.GiaSale != 0"
-        >{{ item.GiaSale | currency: "VND" }}
-      </span>
-      <span class=" mb-0 text-purple-500 relative ">{{ item.Gia | currency: "VND" }}
-        <div class="absolute top-1/2 left-0 w-full rotate-line {{item.GiaSale != 0 ? 'block' : 'hidden'}}"></div>
-
+    <div class="flex justify-between items-center">
+      <div>
+        <span class="text-purple-500 mb-0 pr-3" *ngIf="item.GiaSale != item.Gia"
+          >{{ item.GiaSale | currency: "VND" }}
+        </span>
+        <span class="mb-0 text-purple-500 relative"
+          >{{ item.Gia | currency: "VND" }}
+          <div
+            class="absolute top-1/2 left-0 w-full rotate-line {{
+              item.GiaSale == item.Gia ? 'hidden' : 'block'
+            }}"
+          ></div>
+        </span>
+      </div>
+      <span class="material-icons mr-1 p-2 bg-gray-300 rounded-lg hover:bg-purple-500 hover:text-white cursor-pointer" (click)="addtocart(item)">
+        shopping_cart
       </span>
     </div>
 
-    <button
+    <!-- <button
       class="rounded-3xl text-purple-500 bg-gray-200 flex item-center justify-center hover:text-white hover:bg-purple-500 py-2 font-bold"
-      (click)="addtocart(item)"
     >
-      <span class="material-icons"> shopping_cart </span>
-
       Add To Cart
-    </button>
+    </button> -->
   </div>
 </div>

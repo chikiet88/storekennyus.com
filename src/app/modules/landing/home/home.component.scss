@@ -12,26 +12,36 @@
 .centerY{
   transform: translateY(-50%);
 }
-.categories-hover{
-  color: #184363;
-  background: #E2E8F0;
+.centerX{
+  transform: translateX(-50%);
 }
-.categories-hover:hover {
-  color: white;
-  background: #184363;
-  .categories {
-    pointer-events: auto;
-    opacity: 1;
-    transition: 0.35s;
+.categories{
+  .categories-hover{
+    color: #184363;
+    background: #E2E8F0;
+    .categories-item {
+      transform: translateY(50%);
+    
+      opacity: 0;
+      transition: 0.35s;
+      pointer-events: none;
+    }
   }
 }
-.categories {
-  margin-top: -10px;
-  transform: translateY(60%);
-  opacity: 0;
-  transition: 0.35s;
-  pointer-events: none;
+.categories:hover{
+  .categories-hover {
+    color: white;
+    background: #184363;
+    .categories-item {
+      transform: translateY(58%);
+      pointer-events: auto;
+      opacity: 1;
+      transition: 0.35s;
+    }
+  }
 }
+
+
 .home-menu.menuhomeactive {
   opacity: 1;
   transform: translateY(15%);

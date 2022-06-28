@@ -32,7 +32,11 @@
     transform: translate(-50%, -50%);
 }
 
-
+.rotate-line {
+    height: 1px;
+    background-color: #000;
+    transform: rotate(5deg);
+  }
 
 @media screen and (max-width: 767px) {
     .banner-homepage{

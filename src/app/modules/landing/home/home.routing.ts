@@ -39,7 +39,7 @@ export const landingHomeRoutes: Route[] = [
             component: BlogListComponent,
             children: [],
           },
-          { path: ":id", component: BlogDetailComponent },
+          { path: ":slug", component: BlogDetailComponent },
         ],
       },
       { path: "cart", component: CartComponent },

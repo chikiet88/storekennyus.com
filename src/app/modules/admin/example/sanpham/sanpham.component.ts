@@ -51,8 +51,12 @@ export class SanphamComponent implements OnInit {
     };
 
     onSubmit() {
-        console.log(this.productList.value);
-
+        let GiaSale = this.productList.get('GiaSale').value;
+        if (GiaSale == 0) {
+            this.productList
+                .get('GiaSale')
+                .setValue(this.productList.get('Gia').value);
+        }
         this.sanphamService
             .postProduct(this.productList.value)
             .subscribe((res) => {
@@ -100,20 +104,23 @@ export class SanphamComponent implements OnInit {
             }
         });
     }
-    selectionThuonghieu(value){
-        this.thuonghieus.find(x=>{
-            if( x.Tieude == value){
-                this.productList.get('Thuonghieu').setValue(x.id)
-
+    selectionThuonghieu(value) {
+        this.thuonghieus.find((x) => {
+            if (x.Tieude == value) {
+                this.productList.get('Thuonghieu').setValue(x.id);
             }
-        })
+        });
     }
     selectFile(event: any): void {
         this.selectedFiles = event.target.files;
     }
     onUpdate() {
-        console.log(this.productList.value);
-
+        let GiaSale = this.productList.get('GiaSale').value;
+        if (GiaSale == 0) {
+            this.productList
+                .get('GiaSale')
+                .setValue(this.productList.get('Gia').value);
+        }
         this.sanphamService
             .updateProduct(this.productList.value)
             .subscribe((res) => {
@@ -175,26 +182,17 @@ export class SanphamComponent implements OnInit {
         this.productList = this.fb.group({
             Tieude: [''],
             Mota: [
-                `  <ul class="mr-3 text-md lg:text-base flex items-center my-1">
-            <li class="">
-              <span class="material-icons mr-3 text-md text-green-500">
-                done
-              </span>
-              3 cleaning programs
-            </li>
-            <li class="">
-              <span class="material-icons mr-3 text-md text-green-500">
-                done
-              </span>
-              3 cleaning programs
-            </li>
-            <li class="">
-              <span class="material-icons mr-3 text-md text-green-500">
-                done
-              </span>
-              3 cleaning programs
-            </li>
-          </ul>`,
+                `  <ul>
+                <li class="mr-3 text-md lg:text-base flex items-center my-1">
+                    <span class="material-icons mr-3 text-md text-green-500">done </span>Cải thiện trí nhớ, khả năng tập trung và tập trung
+                </li>
+                <li class="mr-3 text-md lg:text-base flex items-center my-1">
+                    <span class="material-icons mr-3 text-md text-green-500">done </span>Đã được kiểm nghiệm lâm sàng
+                </li>
+                <li class="mr-3 text-md lg:text-base flex items-center my-1">
+                    <span class="material-icons mr-3 text-md text-green-500">done </span>Tăng cường dinh dưỡng có lợi cho não bộ
+                </li>
+            </ul>`,
             ],
             Thanhphan: [''],
             Huongdan: [''],

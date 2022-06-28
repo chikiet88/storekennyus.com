@@ -252,9 +252,9 @@
             >
                 <span matPrefix>Chọn trạng thái</span>
                 <mat-select [formControlName]="'Trangthai'">
-                    <mat-option value="Promo"> Promo </mat-option>
-                    <mat-option value="Best Seller"> Best Seller </mat-option>
-                    <mat-option value="Out of Stock"> Out of stock </mat-option>
+                    <mat-option value="0">Mới</mat-option>
+                    <mat-option value="1">Sale</mat-option>
+                    <mat-option value="2"> Hết hàng</mat-option>
                     <!-- <mat-option
                         [value]="item.id"
                         *ngFor="let item of themes"
@@ -270,8 +270,10 @@
             >
                 <span matPrefix>Chọn nơi hiển thị</span>
                 <mat-select [formControlName]="'Type'">
-                    <mat-option value="More to love">More to love</mat-option>
-                    <mat-option value="Featured">Featured Products</mat-option>
+                    <mat-option value="bestseller">Sản phẩm bán chạy</mat-option>
+                    <mat-option value="Featured">Sản phẩm nổi bật</mat-option>
+                    <mat-option value="combo">Combo ưu đãi</mat-option>
+
                 </mat-select>
             </mat-form-field>
         </div>

@@ -11,11 +11,16 @@ export class HomeService {
 
   private _menu: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _danhmuc: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _cauhinh: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) {}
 
   get menu$(): Observable<any> {
     return this._menu.asObservable();
+  }
+  
+  get cauhinh$(): Observable<any> {
+    return this._cauhinh.asObservable();
   }
  
   // get theme$(): Observable<any>{
@@ -30,5 +35,14 @@ export class HomeService {
         return menu;
       })
     );
+  }
+  getCauhinh(){
+      return this.http.get(this.urlApi+'/cauhinh').pipe(
+        map((cauhinh) => {
+          this._cauhinh.next(cauhinh);
+  
+          return cauhinh;
+        })
+      );
   }
 }

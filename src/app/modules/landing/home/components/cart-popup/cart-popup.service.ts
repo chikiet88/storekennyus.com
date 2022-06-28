@@ -27,7 +27,7 @@ export class CartPopupService {
 
   pushCart(item): Observable<any> {
     let cartNum = 1;
-    this.amount += item.Gia * cartNum;
+    this.amount += item.GiaSale * cartNum;
     this.num += cartNum;
     let index = this.arr.findIndex((e) => e.id == item.id);
     if (index === -1) {
@@ -59,7 +59,7 @@ export class CartPopupService {
       item.cartNum = quantity
       console.log(item.cartNum);
       
-      this.amount += item.Gia * quantity;
+      this.amount += item.GiaSale * quantity;
       this.num += quantity;
       this.arr.push(item);
       this._carts.next(this.arr);
@@ -74,7 +74,7 @@ export class CartPopupService {
       console.log(this.arr[index]);
       
       this.num -= this.arr[index].cartNum;
-      this.amount -= this.arr[index].Gia * this.arr[index].cartNum;
+      this.amount -= this.arr[index].GiaSale * this.arr[index].cartNum;
 
       console.log(this.amount);
       console.log(this.num);
@@ -82,7 +82,7 @@ export class CartPopupService {
       
       this.arr[index].cartNum = quantity;
       this.num += quantity;
-      this.amount += item.Gia * quantity;
+      this.amount += item.GiaSale * quantity;
       this._carts.next(this.arr);
       this._num.next(this.num);
       this._amount.next(this.amount);

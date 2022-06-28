@@ -1,19 +1,20 @@
-<div class="lg:py-10 sm:mx-3 md:px-0">
+<div class="lg:py-10 sm:mx-3 md:mx-0 md:px-0">
   <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10">
     <app-carousel-home></app-carousel-home>
     <div
-      class="mx-auto rounded-3xl bg-white lg:max-w-6xl lg:mx-auto margintop lg:pt-0 md:mx-10"
+      class="mx-auto rounded-xl bg-white lg:max-w-6xl lg:mx-auto border border-white mt-5 lg:pt-0 md:mx-10"
     >
       <div class="flex md:flex-row sm:flex-col items-center py-7 mx-12">
         <p
           class="text-purple-500 text-lg font-bold lg:mr-4 md:w-1/5 md:hidden lg:block sm:block"
         >
-          Select a product
+          Lựa chọn sản phẩm
         </p>
         <form class="lg:w-4/5 w-full">
           <div class="w-full flex items-center sm:flex-col md:flex-row">
             <mat-select
               class="md:mr-3 lg:p-3 px-3 py-2 mt-3 md:mt-0 text-purple-500 text-lg border rounded-3xl bg-gray-200"
+              placeholder="Theo danh mục"
             >
               <mat-option
                 value="Category"
@@ -25,6 +26,7 @@
             </mat-select>
             <mat-select
               class="mx-1 lg:p-3 px-3 py-2 mt-3 md:mt-0 text-purple-500 lg:text-lg border rounded-3xl bg-gray-200"
+              placeholder="Theo thương hiệu"
             >
               <mat-option value="Category" class="text-purple-500 lg:text-lg">
                 Brand</mat-option
@@ -33,17 +35,197 @@
             <p class="text-purple-500 font-bold lg:text-lg mx-1">OR</p>
             <input
               class="mx-1 lg:p-3 px-3 py-2 text-purple-500 lg:text-lg border rounded-3xl bg-gray-200"
+              placeholder="Theo mã sản phẩm"
             />
 
             <button
-              class="border-none text-white bg-orange-500 w-full lg:text-lg text-center h-full lg:py-3 px-3 py-2 mt-3 md:mt-0 font-bold rounded-3xl"
+              class="border-none text-white bg-purple-500 w-full lg:text-lg text-center h-full lg:py-3 px-3 py-2 mt-3 md:mt-0 font-bold rounded-3xl"
             >
-              Show now
+              Tìm kiếm
             </button>
           </div>
         </form>
       </div>
     </div>
+  </div>
+
+  <div class="banner-homepage bg-gray-800 mt-5 p-10 flex" *ngIf="cauhinh.data">
+    <div class="w-1/3 relative">
+      <div class="w-4/5 absolute left-1/2 centerX flex flex-col">
+        <h3 class="text-yellow-500 italic text-center text-lg pb-5">
+          Siêu ưu đãi, nhanh tay nhận ngay giá tốt!
+        </h3>
+        <div class="w-full h-52 bg-red-200"></div>
+
+        <div class="w-full flex items-center justify-center mt-5">
+          <div class="p-2 bg-yellow-500 rounded-xl text-center w-16">
+            <p id="days" class="text-xl font-bold"></p>
+            <p class="text-xs">Days</p>
+          </div>
+          <span class="mx-2 text-yellow-500 font-bold text-2xl text-center">
+            :
+          </span>
+          <div class="p-2 bg-yellow-500 rounded-xl text-center w-16">
+            <p id="hours" class="text-xl font-bold"></p>
+            <p class="text-xs">Hours</p>
+          </div>
+          <span class="mx-2 text-yellow-500 font-bold text-2xl text-center">
+            :
+          </span>
+          <div class="p-2 bg-yellow-500 rounded-xl text-center w-16">
+            <p id="mins" class="text-xl font-bold"></p>
+            <p class="text-xs">Mins</p>
+          </div>
+          <span class="mx-2 text-yellow-500 font-bold text-2xl text-center">
+            :
+          </span>
+          <div class="p-2 bg-yellow-500 rounded-xl text-center w-16">
+            <p id="seconds" class="text-xl font-bold"></p>
+            <p class="text-xs">Seconds</p>
+          </div>
+        </div>
+        <div class="flex relative mt-10 pb-1">
+          <span class="text-white text-lg flex absolute z-10">
+            <span class="z-10">Đặt hàng ngay</span>
+            <span class="ml-1 material-icons text-white">
+              arrow_right_alt
+            </span>
+            <span
+              class="absolute left-0 bottom-0 bg-yellow-500 h-px w-full z-10"
+            ></span>
+            <span
+              class="absolute left-0 bottom-0 bg-black h-full w-2/3 z-0"
+            ></span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="w-2/3">
+      <swiper [config]="config1" [navigation]="true" class="mySwiper">
+        <ng-template swiperSlide *ngFor="let item of productFlashSale">
+          <div class="bg-white">
+            <div
+              class="h-full w-full max-w-sm rounded overflow-hidden sm:mt-10 md:mt-0 product"
+            >
+              <div
+                class="w-full md:h-56 sm:h-40 rounded-xl bg-gray-200 relative text-2xl flex justify-end"
+              >
+                <img src="{{ item.Image }}" alt="" />
+                <div
+                  class="absolute top-3 left-5  py-1 px-2 rounded-2xl text-white sm:text-sm {{
+                    item.Trangthai == 1
+                      ? 'bg-green-500'
+                      : item.Trangthai == 2
+                      ? 'bg-red-500'
+                      : 'hidden'
+                  }}"
+                >
+                  {{
+                    item.Trangthai == 1
+                      ? "Sale"
+                      : item.Trangthai == 2
+                      ? "Hết hàng"
+                      : ""
+                  }}
+                </div>
+              </div>
+              <div class="px-3 pb-3 w-full flex flex-col justify-between h-36">
+                <p class="text-blue-500 text-sm">{{ item?.Tag }}</p>
+                <a
+                  class="font-bold text-purple-500 hover:text-blue-500 cursor-pointer"
+                  routerLink="/sanpham/{{ item.id }}"
+                >
+                  {{ item?.Tieude }}
+                </a>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-yellow-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg
+                    class="w-5 h-5 text-yellow-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg
+                    class="w-5 h-5 text-yellow-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg
+                    class="w-5 h-5 text-yellow-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg
+                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <span
+                      class="text-purple-500 mb-0 pr-3"
+                      *ngIf="item.GiaSale != item.Gia"
+                      >{{ item.GiaSale | currency: "VND" }}
+                    </span>
+                    <span class="mb-0 text-purple-500 relative"
+                      >{{ item.Gia | currency: "VND" }}
+                      <div
+                        class="absolute top-1/2 left-0 w-full rotate-line {{
+                          item.GiaSale == item.Gia ? 'hidden' : 'block'
+                        }}"
+                      ></div>
+                    </span>
+                  </div>
+                  <span
+                    class="material-icons mr-3 p-2 bg-gray-300 rounded-lg hover:bg-purple-500 hover:text-white cursor-pointer"
+                    (click)="addtocart(item)"
+                  >
+                    shopping_cart
+                  </span>
+                </div>
+
+                <!-- <button
+                  class="rounded-3xl text-purple-500 bg-gray-200 flex item-center justify-center hover:text-white hover:bg-purple-500 py-2 font-bold"
+                >
+                  Add To Cart
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </swiper>
+    </div>
+  </div>
+  <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10">
     <div class="pt-10">
       <div class="lg:max-w-7xl lg:mx-auto danhmuc">
         <swiper [config]="config" [navigation]="true" class="mySwiper">
@@ -129,8 +311,11 @@
                   </button>
                 </div>
 
-                <div class="w-48 h-56 bg-gray-400 text-xl text-white">
-                  <img src="../../../../../assets/images/homepage/desktop/Nature-Made-Super-C-With-Vitamin-D3-&-Zinc,-200-viên.jpg" alt="">
+                <div class="w-48 h-56 text-xl text-white">
+                  <img
+                    src="../../../../../assets/images/homepage/desktop/Nature-Made-Super-C-With-Vitamin-D3-&-Zinc,-200-viên.png"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
@@ -200,10 +385,18 @@
       </div>
       <div class="pt-10">
         <div class="flex items-center justify-center md:pb-10 sm:pb-5">
-          <p class="text-3xl text-purple-500 font-bold">Popular Categories</p>
+          <p class="text-3xl text-purple-500 font-bold">Sản phẩm bán chạy</p>
         </div>
 
-        <mat-tab-group
+        <div
+          class="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 lg:gap-5 md:gap-10 gap-5 overflow-y-hidden"
+        >
+          <app-product-popular
+            *ngFor="let product of danhmucBestSeller"
+            [item]="product"
+          ></app-product-popular>
+        </div>
+        <!-- <mat-tab-group
           animationDuration="1000ms"
           class="flex items-center justify-center w-full mat-product"
         >
@@ -212,44 +405,30 @@
             class="w-full"
             *ngFor="let item of danhmucPopular"
           >
-            <div
-              class="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 lg:gap-5 md:gap-10 gap-5 overflow-y-hidden"
-            >
-              <app-product-popular
-                *ngFor="let product of item.products"
-                [item]="product"
-              ></app-product-popular>
-            </div>
+          
           </mat-tab>
-        </mat-tab-group>
+        </mat-tab-group> -->
       </div>
       <div class="pt-10">
         <div
           class="w-full md:h-48 newest-img relative flex sm:flex-col md:flex-row md:items-center md:justify-center sm:justify-between p-8 rounded z-0"
         >
-          <div
-            class="md:w-2/5 relative sm:h-3/5 md:h-full z-10 md:flex md:items-center lg:justify-end"
-          >
-            <div class="bg-red-400" style="width: 200px; height: 170px">
-              200*180
-            </div>
-          </div>
-          <div class="md:w-3/5 sm:h-2/5 sm:h-full relative z-10 lg:ml-5">
-            <div class="sm:pt-5 md:pt-0">
+          <div class="sm:h-full relative z-10 lg:ml-5">
+            <div class="sm:pt-5 md:pt-0 flex items-center flex-col">
               <p
-                class="text-white w-40 flex item-center justify-center rounded-3xl px-2 py-1 bg-orange-500"
+                class="text-white w-40 flex uppercase item-center justify-center rounded-3xl px-2 py-1 bg-orange-500"
               >
-                Newest Products
+                Giảm giá sốc
               </p>
-              <p class="lg:text-xl sm:text-lg text-purple-500 lg:pt-5 pt-2">
-                Save unto <strong>10%</strong> extra enjoy
-                <strong>FREE</strong> delivery with
-                <strong>PLUS</strong> membership
+              <p
+                class="lg:text-xl sm:text-lg text-purple-500 lg:pt-5 pt-2 uppercase font-bold"
+              >
+                giảm thêm 10% sản phẩm TPCN thứ 2 trở đi của đơn hàng
               </p>
               <button
-                class="border-none lg:mt-7 mt-4 px-3 w-36 text-center py-2 md:text-lg font-bold bg-purple-500 rounded-3xl text-white sm:text-md"
+                class="border-none lg:mt-7 mt-4 px-3 uppercase w-36 text-center py-2 md:text-lg font-bold bg-purple-500 rounded-3xl text-white sm:text-md"
               >
-                Buy now >
+                Mua ngay
               </button>
             </div>
           </div>
@@ -262,7 +441,7 @@
       </div>
       <div class="pt-10">
         <div class="flex items-center md:justify-center sm:justify-start">
-          <p class="text-3xl text-purple-500 font-bold">Featured Products</p>
+          <p class="text-3xl text-purple-500 font-bold">Sản phẩm nổi bật</p>
         </div>
         <div
           class="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-5 md:pt-5 lg:pt-10"
@@ -276,7 +455,7 @@
 
       <div class="pt-10">
         <div class="flex items-center justify-center">
-          <p class="text-3xl text-purple-500 font-bold">Special offers</p>
+          <p class="text-3xl text-purple-500 font-bold">Combo ưu đãi</p>
         </div>
         <div class="w-full flex lg:pt-10 pt-5 lg:flex-row flex-col">
           <div
@@ -321,28 +500,16 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="pt-10">
-        <div class="flex items-center justify-center">
-          <p class="text-3xl text-purple-500 font-bold">More to love</p>
-        </div>
         <div
-          class="grid lg:grid-cols-3 md:grid-cols-2 lg:gap-5 md:gap-10 gap-5 pt-10"
+          class="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-5 md:pt-5 lg:pt-10"
         >
-          <app-more-love
-            *ngFor="let item of moreLove"
+          <app-product-popular
+            *ngFor="let item of combo"
             [item]="item"
-          ></app-more-love>
-          <!-- <app-more-love></app-more-love>
-                    <app-more-love></app-more-love>
-                    <app-more-love class="hidden md:block"></app-more-love>
-                    <app-more-love class="hidden md:block"></app-more-love>
-                    <app-more-love class="hidden md:block"></app-more-love>
-                    <app-more-love class="hidden lg:block"></app-more-love>
-                    <app-more-love class="hidden lg:block"></app-more-love>
-                    <app-more-love class="hidden lg:block"></app-more-love> -->
+          ></app-product-popular>
         </div>
       </div>
+
       <div class="pt-10">
         <div class="pt-10 relative">
           <div
@@ -396,10 +563,24 @@
       </div>
       <div class="pt-10">
         <div class="flex items-center justify-center">
-          <p class="text-3xl text-purple-500 font-bold">Best Seller</p>
+          <p class="text-3xl text-purple-500 font-bold uppercase">
+            Góc kiến thức
+          </p>
+        </div>
+        <div class="my-5 py-10 relative">
+          <div class="px-10 grid grid-cols-2 gap-10">
+            <div *ngFor="let item of tintuc" class="h-60">
+              <img
+                src="{{ item.thumbimage }}"
+                class="w-full h-full object-contain"
+              />
+            </div>
+          </div>
+          <div class="absolute w-full h-px bg-gray-300 bottom-0 left-0"></div>
+          <div class="absolute w-full h-px bg-gray-300 top-0 left-0"></div>
         </div>
 
-        <mat-tab-group
+        <!-- <mat-tab-group
           animationDuration="1000ms"
           class="flex items-center justify-center pt-5 mat-product"
         >
@@ -417,7 +598,7 @@
               ></app-product-popular>
             </div>
           </mat-tab>
-        </mat-tab-group>
+        </mat-tab-group> -->
       </div>
     </div>
     <div class="pt-10">
@@ -427,25 +608,25 @@
         <div
           class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
         >
-          <p class="lg:text-5xl text-4xl font-bold text-purple-500">
-            Join our newsletter
+          <p class=" lg:text-4xl font-bold text-purple-500 uppercase">
+            Bảng tin khuyến mãi
           </p>
           <p class="text-purple-500 lg:pt-3 sm:text-center">
-            Join over half a million vitamin lovers and get our latest deals,
-            articles, and resources!
+            Đăng ký email của bạn để nhận mã giảm giá thường xuyên tại Kenny US
+            Store
           </p>
           <div
             class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
           >
             <input
               class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
-              placeholder="Email Address"
+              placeholder="Email Đăng ký"
             />
             <button
               class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
             >
               <span class="material-icons text-white mr-2 text-lg"> send </span>
-              Subrcries
+              <span class="w-16"> Đăng ký</span>
             </button>
           </div>
         </div>

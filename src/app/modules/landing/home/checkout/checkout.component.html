@@ -76,6 +76,7 @@
             >
               <td class="py-2 px-2 text-gray-500">
                 {{ item.Tieude }}
+                {{ item.cartNum ? "Số lượng: " + item.cartNum : "" }}
               </td>
               <td class="py-2 px-2">
                 {{ item.Gia * item.cartNum | currency: "VND" }}
@@ -98,8 +99,9 @@
             <mat-expansion-panel hideToggle class="border-b border-gray-400">
               <mat-expansion-panel-header>
                 <mat-panel-title class="flex items-center">
-                  <input type="radio" class="mr-3" />
-                  <p>Personal data</p>
+                  <mat-radio-button class="example-margin" value="after"
+                    >Personal data</mat-radio-button
+                  >
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
@@ -112,8 +114,9 @@
             <mat-expansion-panel hideToggle class="border-b border-gray-400">
               <mat-expansion-panel-header>
                 <mat-panel-title class="flex items-center">
-                  <input type="radio" class="mr-3" />
-                  <p>Check payments</p>
+                  <mat-radio-button class="example-margin" value="after"
+                    >Check payments</mat-radio-button
+                  >
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
@@ -125,8 +128,9 @@
             <mat-expansion-panel hideToggle class="border-b border-gray-400">
               <mat-expansion-panel-header>
                 <mat-panel-title class="flex items-center">
-                  <input type="radio" class="mr-3" />
-                  <p>Cash on delivery</p>
+                  <mat-radio-button class="example-margin" value="after"
+                    >Cash on delivery</mat-radio-button
+                  >
                 </mat-panel-title>
               </mat-expansion-panel-header>
 

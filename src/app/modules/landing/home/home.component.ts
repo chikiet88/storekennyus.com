@@ -3,6 +3,9 @@ import SwiperCore, { Navigation, Pagination, FreeMode, Autoplay } from "swiper";
 import { ThuonghieuService } from "./thuonghieu/thuonghieu.service";
 import { HomeService } from "./home.service";
 import { ProductListService } from "./product-list/product-list.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { SinginService } from "./signin/singin.service";
+import { ActivatedRoute, Router } from "@angular/router";
 SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
 @Component({
   selector: "landing-home",
@@ -22,16 +25,21 @@ export class LandingHomeComponent implements OnInit {
   MenuActive = true;
   DanhmucActive = false;
   danhmuc: any[];
+  danhmucChild: any[] = [];
   thuonghieus: any[];
   categories: any[];
   products: any[];
   productSearch: any[];
+  signInForm: FormGroup;
+  cauhinh: any;
   searchText: string;
+  user
   danhmucSearch;
   config;
   menu;
   timedOutCloser;
-  productSearchPopup = false
+  productSearchPopup = false;
+  danhmucArr: any[] = [];
   /**
    * Constructor
    */
@@ -45,7 +53,11 @@ export class LandingHomeComponent implements OnInit {
   constructor(
     private _productListService: ProductListService,
     private _thuonghieuService: ThuonghieuService,
-    private _menuService: HomeService
+    private _menuService: HomeService,
+    private _formBuilder: FormBuilder,
+    // private _signinService: SinginService,
+    private _route: ActivatedRoute,
+    private _router: Router
   ) {}
   toggleMenu() {
     this.timedOutCloser = setTimeout(() => {
@@ -62,10 +74,8 @@ export class LandingHomeComponent implements OnInit {
         } else {
           return x.Tieude.toLocaleLowerCase().includes(this.searchText);
         }
-
       });
-      this.productSearchPopup = true
-      
+      this.productSearchPopup = true;
 
       for (let i = 0; i < this.productSearch.length; i++) {
         for (let j = 0; j < this.categories.length; j++) {
@@ -74,11 +84,36 @@ export class LandingHomeComponent implements OnInit {
           }
         }
       }
-
     }
   }
-  selectCategories(item) {
+  selectCategoriesSearch(item) {
     this.danhmucSearch = item;
+  }
+  selectDanhmuc(i) {
+    this.danhmucChild = this.danhmucArr[i];
+    console.log(this.danhmucChild);
+  }
+  signIn(): void {
+    if (this.signInForm.invalid) {
+      return;
+    }
+    // this._signinService.signIn(this.signInForm.value).subscribe(
+    //   (data) => {
+    //     console.log(data);
+
+    //     const redirectURL =
+    //       this._route.snapshot.queryParamMap.get("redirectURL") || "/profile";
+
+    //     this._router.navigateByUrl(redirectURL);
+    //   },
+    //   (response) => {
+    //     console.log(response);
+
+    //     // Re-enable the form
+    //     // this.signInForm.enable();
+    //     // this.signInNgForm.resetForm();
+    //   }
+    // );
   }
   ngOnInit(): void {
     this.num = JSON.parse(localStorage.getItem("sanphamdaxem"))?.length || 0;
@@ -89,11 +124,22 @@ export class LandingHomeComponent implements OnInit {
     this._productListService.getDanhmuc().subscribe();
     this._productListService.danhmuc$.subscribe((res) => {
       this.categories = res;
-      console.log(res);
 
       this.danhmuc = this.nest(res);
+      if (this.danhmuc?.length > 0) {
+        for (let i = 0; i < this.danhmuc.length; i++) {
+          this.danhmucArr.push(this.danhmuc[i].children);
+        }
+        this.danhmucChild = this.danhmucArr[0];
+        console.log(this.danhmucArr);
+      }
     });
 
+    this.signInForm = this._formBuilder.group({
+      SDT: ["", [Validators.required]],
+      password: ["", Validators.required],
+      rememberMe: [""],
+    });
     this.config = {
       loop: true,
       autoplay: {
@@ -122,5 +168,13 @@ export class LandingHomeComponent implements OnInit {
     this._menuService.menu$.subscribe((res) => {
       this.menu = res;
     });
+    this._menuService.getCauhinh().subscribe();
+    this._menuService.cauhinh$.subscribe((res) => {
+      if (res) {
+        this.cauhinh = res[0];
+      }
+    });
+    // this._signinService.get().subscribe((res) =>  this.user = res);
   }
+ 
 }

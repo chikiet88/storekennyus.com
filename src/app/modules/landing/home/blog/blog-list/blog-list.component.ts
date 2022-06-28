@@ -14,6 +14,8 @@ export class BlogListComponent implements OnInit {
     this._tintucService.getTintuc().subscribe();
     this._tintucService.tintucs$.subscribe((res) => {
       this.tintucs = res;
+      console.log(res);
+      
     });
   }
 }

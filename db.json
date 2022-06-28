@@ -285,5 +285,20 @@
       "id": 4
     }
   ],
-  "donhangchitiet": []
+  "donhangchitiet": [],
+  "cauhinh": [
+    {
+      "module": "Cấu hình địa chỉ, số điện thoại fanpage, email",
+      "des": "",
+      "data": {
+        "title": "Due to the COVID 19 epidemic, orders may be processed with a slight delay",
+        "phone": "0368651526",
+        "address": "<p><span>70 Washington Square South,</span><br><span>New York, NY 10012, United States</span></p>",
+        "email": "infor.kennyus@gmail.com",
+        "fb": "https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FKennyUS.Chuyensilehangmy&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId",
+        "iframeAddress": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.4815691665135!2d-73.99940988463452!3d40.72942787932992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2599051e43f09%3A0x73708ab233ccf977!2sBobst%20Library%2C%2070%20Washington%20Square%20S%2C%20New%20York%2C%20NY%2010012%2C%20Hoa%20K%E1%BB%B3!5e0!3m2!1svi!2s!4v1652611493924!5m2!1svi!2s"
+      },
+      "id": 1
+    }
+  ]
 }

@@ -40,6 +40,8 @@ import { ProductItem2Component } from './product-list/product-item2/product-item
 import { SanphamDanhmucComponent } from './product-list/sanpham-danhmuc/sanpham-danhmuc.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { SanphamDaxemComponent } from './sanpham-daxem/sanpham-daxem.component';
+import { FlashSaleComponent } from './components/flash-sale/flash-sale.component';
+import { CustomPipePipe } from '../customs/custom-pipe.pipe';
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
@@ -72,6 +74,8 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
         SanphamDanhmucComponent,
         BlogListComponent,
         SanphamDaxemComponent,
+        FlashSaleComponent,
+        CustomPipePipe
       
     ],
     providers: [
@@ -88,8 +92,7 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
         MaterialExampleModule,
         NgxSliderModule,
         SwiperModule,
-        NgxStarRatingModule
-        
+        NgxStarRatingModule,
         
     ]
 })

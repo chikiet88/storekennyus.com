@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment.prod';
 import { identity } from 'lodash';
 import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
 import { Khoahoc } from './theme.types';
@@ -9,8 +10,8 @@ import { Khoahoc } from './theme.types';
 })
 export class ThemeService {
 
-  // private urlApi = 'https://v2api.timona.edu.vn/theme'
-  private urlApi = 'http://localhost:3000/theme'
+  // private urlApi = 'http://localhost:3000/theme'
+  private urlApi = environment.url+'/theme'
 
   post: any;
   private _themes: BehaviorSubject<any | null> = new BehaviorSubject(null);

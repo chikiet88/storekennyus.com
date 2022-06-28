@@ -22,15 +22,16 @@ export class BlogDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const slug = this.route.snapshot.paramMap.get("id");
+    const slug = this.route.snapshot.paramMap.get("slug");
 
     this._sanphamService.getProduct().subscribe();
     this._sanphamService.products$.subscribe((res) => {
       this.products = res?.filter((res) => res.Type == "Featured");
     });
-    this._blogService
-      .getTintucChitiet(slug)
-      .subscribe((res) => (this.baiviet = res));
+    this._blogService.getTintucChitiet(slug).subscribe((res) => {
+      this.baiviet = res;
+      console.log(res);
+    });
     this.config = {
       loop: true,
       autoplay: {
