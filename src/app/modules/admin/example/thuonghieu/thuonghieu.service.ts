@@ -75,7 +75,7 @@ export class ThuonghieuService {
                   map((updatethuonghieu) => {
                       // Find the index of the updated tag
                       const index = thuonghieus.findIndex(
-                          (item) => item.id === item.id
+                          (item) => item.id === data.id
                       );
 
                       // Update the tag

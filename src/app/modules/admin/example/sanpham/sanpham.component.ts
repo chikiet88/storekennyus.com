@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import ClassicEditor from 'ckeditor5/build/ckEditor';
 
 import { SanphamService } from './sanpham.service';
 import { FileUploadService } from '../services/file-upload.service';
 import { FileUpload } from '../models/file-upload.model';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 import { DanhmucService } from '../danhmuc/danhmuc.service';
 import { MyUploadAdapter } from '../MyUploadAdapter';
 import { ThuonghieuService } from '../thuonghieu/thuonghieu.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
     selector: 'app-sanpham',
@@ -27,9 +30,28 @@ export class SanphamComponent implements OnInit {
     danhmucs: any[];
     thuonghieus: any[];
     tenDMcha: string;
+    listKeyRemove: any[] = [];
+    listkey: any = {};
+    listimage: any[] = [];
+    isupdateListImage = false;
+    tenThuonghieu
+    Danhmuc;
     // thumb = {};
     thumb;
     i = 0;
+    displayedColumns: string[] = [
+        'sku',
+        'danhmuc',
+        'name',
+        "thuonghieu",
+        'status',
+        'price',
+        'Image',
+        'action',
+    ];
+    dataSource: MatTableDataSource<any>;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
     constructor(
         private fb: FormBuilder,
         private sanphamService: SanphamService,
@@ -51,6 +73,16 @@ export class SanphamComponent implements OnInit {
     };
 
     onSubmit() {
+        let SKU;
+        let a = this.products.filter((x) => x.idDM == this.Danhmuc?.id);
+
+        if (this.Danhmuc.Code == undefined) {
+            SKU = '00' + a.length;
+        } else {
+            SKU = this.Danhmuc.Code + '00' + a.length;
+        }
+        this.productList.get('ListImage').setValue(this.listkey);
+        this.productList.get('SKU').setValue(SKU);
         let GiaSale = this.productList.get('GiaSale').value;
         if (GiaSale == 0) {
             this.productList
@@ -63,6 +95,14 @@ export class SanphamComponent implements OnInit {
                 alert('Tạo sản phẩm thành công');
             });
         this.resetForm();
+    }
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+
+        if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+        }
     }
     public onReady(editor) {
         editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -77,11 +117,11 @@ export class SanphamComponent implements OnInit {
             );
     }
     selectProduct(item) {
+        this.listimage = [];
         this.isSelectProduct = true;
         this.productList.addControl('id', new FormControl(item.id));
         this.productList.get('Tieude').setValue(item.Tieude);
         this.productList.get('idDM').setValue(item.idDM);
-
         this.productList.get('Mota').setValue(item.Mota);
         this.productList.get('Type').setValue(item.Type);
         this.productList.get('Image').setValue(item.Image);
@@ -89,6 +129,16 @@ export class SanphamComponent implements OnInit {
         this.productList.get('GiaSale').setValue(item.GiaSale);
         this.productList.get('Slug').setValue(item.Slug);
         this.productList.get('Thuonghieu').setValue(item.Thuonghieu);
+        this.productList.get('ListImage').setValue(item.ListImage);
+        this.productList
+            .get('ContentImage.contentImage1')
+            .setValue(item.ContentImage.contentImage1);
+        this.productList
+            .get('ContentImage.contentImage2')
+            .setValue(item.ContentImage.contentImag2);
+        this.productList
+            .get('ContentImage.contentImage3')
+            .setValue(item.ContentImage.contentImage3);
 
         this.productList.get('Khoiluong').setValue(item.Khoiluong);
         this.productList.get('Thongtin').setValue(item.Thongtin);
@@ -96,6 +146,8 @@ export class SanphamComponent implements OnInit {
         this.productList.get('Huongdan').setValue(item.Huongdan);
         this.productList.get('Ordering').setValue(item.Ordering);
         this.productList.get('Trangthai').setValue(item.Trangthai);
+        this.productList.get('SKU').setValue(item.SKU);
+
         this.thumb = item.Image;
         this.danhmucs.find((x) => {
             if (x.id == item.idDM) {
@@ -103,6 +155,26 @@ export class SanphamComponent implements OnInit {
                 console.log(x.Tieude);
             }
         });
+        this.thuonghieus.find((x)=>{
+            if(x.id == item.Thuonghieu){
+                this.tenThuonghieu = x.Tieude
+            }
+        })
+
+        this.listkey = item.ListImage || {};
+
+        if (Object.keys(item.ListImage).length > 0) {
+            this.isupdateListImage = true;
+
+            for (const property in item.ListImage) {
+                this.uploadService
+                    .getValueByKey(item.ListImage[property])
+                    .subscribe((res) => {
+                        this.listimage.push([...res, item.ListImage[property]]);
+                        console.log(this.listimage);
+                    });
+            }
+        }
     }
     selectionThuonghieu(value) {
         this.thuonghieus.find((x) => {
@@ -115,6 +187,9 @@ export class SanphamComponent implements OnInit {
         this.selectedFiles = event.target.files;
     }
     onUpdate() {
+        if (this.listimage.length > 0) {
+            this.productList.get('ListImage').setValue(this.listkey);
+        }
         let GiaSale = this.productList.get('GiaSale').value;
         if (GiaSale == 0) {
             this.productList
@@ -124,11 +199,17 @@ export class SanphamComponent implements OnInit {
         this.sanphamService
             .updateProduct(this.productList.value)
             .subscribe((res) => {
+                this.listimage = [];
                 alert('Cập nhật thành công');
                 this.resetForm();
                 this.isSelectProduct = false;
                 this.tenDMcha = '';
             });
+
+        this.listKeyRemove.forEach((x) => {
+            this.uploadService.deleteFile(x);
+        });
+        this.listkey = {};
     }
     onDelete() {
         this.sanphamService
@@ -140,33 +221,188 @@ export class SanphamComponent implements OnInit {
             });
     }
     upload(): void {
-        this.i++;
-
+        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+            this.productList.get('Image').setValue(x.url);
+            this.thumb = x.url;
+            console.log(this.thumb);
+        });
+        return;
+    }
+    upload2(): void {
         if (this.selectedFiles) {
-            const file: File | null = this.selectedFiles.item(0);
-            this.selectedFiles = undefined;
-            if (file) {
-                this.currentFileUpload = new FileUpload(file);
-                this.uploadService
-                    .pushFileToStorage(this.currentFileUpload)
-                    .subscribe(
-                        (percentage) => {
-                            this.percentage = Math.round(
-                                percentage ? percentage : 0
-                            );
-                        },
-                        (error) => {
-                            console.log(error);
-                        }
-                    );
+            console.log(this.selectedFiles);
+            if (
+                Object.keys(this.listkey).length == 0 &&
+                this.isupdateListImage == false
+            ) {
+                console.log('truong hop 1');
+
+                for (
+                    let i = 0, p = Promise.resolve();
+                    i < this.selectedFiles.length;
+                    i++
+                ) {
+                    p = p
+                        .then(() =>
+                            this.callback(this.selectedFiles.item(i), i)
+                        )
+                        .then((x: any) => {
+                            this.listkey[i] = x.key;
+                            if (
+                                Object.keys(this.listkey).length ==
+                                this.selectedFiles.length
+                            ) {
+                                for (const property in this.listkey) {
+                                    this.uploadService
+                                        .getValueByKey(this.listkey[property])
+                                        .pipe(take(1))
+                                        .subscribe((res) => {
+                                            this.listimage.push([
+                                                ...res,
+                                                this.listkey[property],
+                                            ]);
+                                            this.isupdateListImage = true;
+                                        });
+                                }
+                            }
+                        });
+                }
+            } else if (
+                Object.keys(this.listkey).length != 0 &&
+                this.isupdateListImage == true
+            ) {
+                console.log('truong hop 2');
+
+                let index = Object.keys(this.listkey).length;
+
+                for (
+                    let i = 0, p = Promise.resolve();
+                    i < this.selectedFiles.length;
+                    i++
+                ) {
+                    p = p
+                        .then(() =>
+                            this.callback(this.selectedFiles.item(i), i)
+                        )
+                        .then((x: any) => {
+                            index++;
+                            this.listkey[index] = x.key;
+
+                            let a =
+                                this.listimage.length +
+                                this.selectedFiles.length;
+                            console.log(this.listkey);
+
+                            console.log(Object.keys(this.listkey).length);
+
+                            console.log(a);
+                            if (
+                                Object.keys(this.listkey).length ==
+                                this.listimage.length +
+                                    this.selectedFiles.length
+                            ) {
+                                let a =
+                                    this.listimage.length +
+                                    this.selectedFiles.length;
+                                console.log(a);
+
+                                this.listimage = [];
+                                for (const property in this.listkey) {
+                                    this.uploadService
+                                        .getValueByKey(this.listkey[property])
+                                        .pipe(take(1))
+                                        .subscribe((res) => {
+                                            this.listimage.push([
+                                                ...res,
+                                                this.listkey[property],
+                                            ]);
+                                        });
+                                }
+                            }
+                        });
+                }
             }
         }
-        this.uploadService._thumb$.subscribe((res) => {
-            let a = {};
-            a[this.i] = res;
-            this.thumb = res?.url;
-            // Object.assign(this.thumb, a);
-            this.productList.get('Image').setValue(res?.url);
+
+        return;
+    }
+    deleteImageFirebase(item, i) {
+        console.log(item);
+        console.log(this.listkey);
+        this.listKeyRemove.push(item[2]);
+
+        for (const i in this.listkey) {
+            console.log(this.listkey[i]);
+
+            if (this.listkey[i] == item[2]) {
+                delete this.listkey[i];
+            }
+        }
+        this.listimage = this.listimage.filter((x) => x[2] != item[2]);
+    }
+    getLinkImage(number) {
+        this.uploadService
+            .getFiles(number) //lấy file  chứa key từ firebase về
+            .snapshotChanges()
+            .pipe(
+                map((changes) =>
+                    // store the key
+                    changes.map((c) => ({
+                        key: c.payload.key,
+                        ...c.payload.val(),
+                    }))
+                )
+            )
+            .subscribe((fileUploads) => {
+                console.log(fileUploads);
+            });
+    }
+    callback(item, i) {
+        return new Promise((resolve, reject) => {
+            const file: File | null = item;
+
+            this.currentFileUpload = new FileUpload(file);
+            this.uploadService
+                .pushFileToStorage(this.currentFileUpload)
+                .subscribe(
+                    (percentage) => {
+                        this.percentage = Math.round(
+                            percentage ? percentage : 0
+                        );
+
+                        if (percentage == 100) {
+                            setTimeout(() => {
+                                this.uploadService
+                                    .getFiles(1) //lấy file  chứa key từ firebase về
+                                    .snapshotChanges()
+                                    .pipe(
+                                        take(1),
+                                        map((changes) =>
+                                            // store the key
+                                            changes.map((c) => ({
+                                                key: c.payload.key,
+                                                ...c.payload.val(),
+                                            }))
+                                        )
+                                    )
+                                    .subscribe((fileUploads) => {
+                                        if (fileUploads[0]?.key) {
+                                            fileUploads = fileUploads.reverse();
+                                            resolve(fileUploads[0]);
+                                        }
+                                    });
+                            }, 1000);
+                        }
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+            // if (this.percentage == 100) {
+            //     resolve(this.percentage);
+            // } else {
+            //     reject('sss');
+            // }
         });
     }
     selectionDanhmuc(item) {
@@ -174,7 +410,7 @@ export class SanphamComponent implements OnInit {
             if (x.Tieude == item) {
                 this.productList.get('idDM').setValue(x.id);
                 this.tenDMcha = x.Tieude;
-                console.log(x.Tieude);
+                this.Danhmuc = x;
             }
         });
     }
@@ -202,6 +438,12 @@ export class SanphamComponent implements OnInit {
             Code: [''],
             Slug: [''],
             SKU: [0],
+            ListImage: [{}],
+            ContentImage: this.fb.group({
+                contentImage1: [''],
+                contentImage2: [''],
+                contentImage3: [''],
+            }),
             Tag: [''],
             GiaSale: [0],
             Gia: [0],
@@ -215,8 +457,36 @@ export class SanphamComponent implements OnInit {
 
     ngOnInit(): void {
         this.resetForm();
+        this._thuonghieuService.getThuonghieu().subscribe();
+        this._thuonghieuService.thuonghieus$.subscribe(
+            (res) => (this.thuonghieus = res)
+        );
+        this._danhmucService.getDanhmuc().subscribe();
+        this._danhmucService.danhmucs$.subscribe(
+            (res) => (this.danhmucs = res)
+        );
         this.sanphamService.getProduct().subscribe();
-        this.sanphamService.products$.subscribe((res) => (this.products = res));
+        this.sanphamService.products$.subscribe((res) => {
+            res?.forEach(
+                (v) =>
+                    (v.TenDM = this.danhmucs?.find(
+                        (x) => x.id == v.idDM
+                    )?.Tieude)
+            );
+            res?.forEach(
+                (v) =>
+                    (v.Tenthuonghieu = this.thuonghieus?.find(
+                        (x) => x.id == v.Thuonghieu
+                    )?.Tieude)
+            );
+            
+            if (res) {
+                this.products = res;
+                this.dataSource = new MatTableDataSource(res);
+            }
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+        });
         this.uploadService
             .getFiles(1)
             .snapshotChanges()
@@ -235,13 +505,7 @@ export class SanphamComponent implements OnInit {
                 return fileUploads;
             });
 
-        this._danhmucService.getDanhmuc().subscribe();
-        this._danhmucService.danhmucs$.subscribe(
-            (res) => (this.danhmucs = res)
-        );
-        this._thuonghieuService.getThuonghieu().subscribe();
-        this._thuonghieuService.thuonghieus$.subscribe(
-            (res) => (this.thuonghieus = res)
-        );
+       
+       
     }
 }

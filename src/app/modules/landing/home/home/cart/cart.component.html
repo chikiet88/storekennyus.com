@@ -1,0 +1,140 @@
+<div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-10 md:mt-10 px-3">
+  <div class="flex lg:flex-row flex-col">
+    <div class="lg:w-4/5 w-full lg:pr-10">
+      <table class="w-full cart-table">
+        <thead class="w-full">
+          <tr>
+            <th></th>
+
+            <th></th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody class="w-full">
+          <tr class="rounded-xl border border-gray-300 w-full" *ngFor="let item of carts" >
+            <td class="">
+              <div class="md:hidden"></div>
+
+              <div
+                class="w-7 h-7 ml-3 bg-gray-200 rounded-full flex items-center mb-2 md:mb-0 justify-center flex-col text-purple-500 hover:text-white hover:bg-purple-500"
+                (click)="removeCartitem(item)"
+                >
+                x
+              </div>
+            </td>
+            <td class="sm:flex md:inline-flex items-center justify-center py-3 border-t md:border-t-none border-gray-300">
+              <div class="w-24 h-28 my-2 rounded-xl ">
+                <img src="{{item.Image}}" alt="">
+              </div>
+            </td>
+            <td class="py-3 border-t md:border-t-none border-gray-300">
+              <p class=" font-bold text-purple-500 md:hidden">Product:</p>
+              <a class="text-purple-500 hover:underline text-center" routerLink="/sanpham/{{item.id}}">
+               {{item.Tieude}}
+              </a>
+            </td>
+            <td class="py-3 border-t md:border-t-none border-gray-300">
+                <p class=" font-bold text-purple-500 md:hidden">Price:</p>
+                <p class="text-purple-500 hover:underline text-center">
+                  {{item.Gia | currency:'VND'}}
+                </p>
+              </td>
+            <td class="py-3 border-t md:border-t-none border-gray-300">
+              <div class="flex md:flex-col items-center justify-between md:justify-center w-full">
+                <p class=" font-bold text-purple-500 md:hidden">Quantity:</p>
+
+                <input
+                  class="text-purple-500 text-center py-3 w-36 md:mx-auto bg-gray-200 rounded-xl"
+                  type="number"
+                  (change)="changeQuantity(item, $event)"
+                  [value]="item.cartNum"
+                />
+              </div>
+            </td>
+            <td class="py-3 border-t md:border-t-none border-gray-300">
+                <p class=" font-bold text-purple-500 md:hidden">Subtotal:</p>
+                <p class="text-purple-500 hover:underline text-center">
+                  {{item.price * item.cartNum |currency:'VND'}}
+                </p>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <div class="md:pt-10 pt-7 flex justify-between md:flex-row flex-col">
+        <div class="flex discount md:flex-row flex-col">
+          <input
+            class="text-purple-500 px-3 w-72 bg-gray-200 rounded-2xl py-2 font-bold border focus:border-blue-500"
+            placeholder="Coupon code"
+          />
+          <div
+            class="md:ml-3 sm:my-5 md:my-0 px-3 py-2 w-32 text-center text-white cursor-pointer bg-orange-500 font-bold rounded-2xl hover:bg-purple-500"
+          >
+            Apply coupon
+          </div>
+        </div>
+        <div class="h-px w-full bg-gray-200 mb-5 md:hidden "></div>
+        <div
+          class=" px-3 py-2 w-32 text-center text-white bg-orange-500 cursor-pointer font-bold rounded-2xl hover:bg-purple-500"
+          (click)="updateCart()"
+          >
+          Update cart
+        </div>
+      </div>
+    </div>
+    <div class="lg:w-1/5 w-full pt-7 lg:pt-0">
+      <div class="">
+        <p class="text-lg text-purple-500 font-bold pl-3">Cart totals</p>
+        <div class="border border-gray-300 rounded-xl px-3">
+          <div class="flex justify-between border-b border-gray-300 py-3">
+            <p class="text-purple-500 font-bold">Subtotal</p>
+            <p class="text-purple-500 font-bold">{{amount}}</p>
+          </div>
+          <div class="flex justify-between border-b border-gray-300 py-3">
+            <p class="text-purple-500 font-bold">Total</p>
+            <p class="text-purple-500 font-bold text-lg">{{amount}}</p>
+          </div>
+          <div
+            class="my-5 px-3 py-2 w-44 text-center text-white  bg-orange-500 cursor-pointer font-bold rounded-2xl hover:bg-purple-500"
+          >
+            Proceed to checkout
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pt-10">
+  <div
+    class="w-full md:h-56 sm:h-72 bg-gray-200 relative flex flex-col items-center justify-center"
+  >
+    <div
+      class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
+    >
+      <p class="lg:text-5xl text-4xl font-bold text-purple-500">
+        Join our newsletter
+      </p>
+      <p class="text-purple-500 lg:pt-3 sm:text-center">
+        Join over half a million vitamin lovers and get our latest deals,
+        articles, and resources!
+      </p>
+      <div
+        class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
+      >
+        <input
+          class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
+          placeholder="Email Address"
+        />
+        <button
+          class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
+        >
+          <span class="material-icons text-white mr-2 text-lg"> send </span>
+          Subrcries
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

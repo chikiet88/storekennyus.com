@@ -1,309 +1,616 @@
-<div class="lg:px-10 px-3">
-    <form class="w-full pt-10" [formGroup]="productList">
-        <div class="flex">
-            <mat-form-field
-                class="fuse-mat-emphasized-affix lg:w-1/2 w-full"
-                appearance="fill"
+<div class="flex w-full">
+    <mat-drawer-container class="example-container w-full" autosize>
+        <mat-drawer #drawer class="example-sidenav w-full" mode="side">
+            <button
+                type="button"
+                (click)="drawer.toggle(); resetForm(); isSelectProduct = false"
+                class="p-5"
             >
-                <span matPrefix>Cập nhật hoặc xóa sản phẩm </span>
-                <mat-select (selectionChange)="selectProduct($event.value)">
-                    <mat-option [value]="item" *ngFor="let item of products">{{
-                        item.Tieude ? item.Tieude : ""
-                    }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field
-                class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pl-3 h-12"
-                appearance="fill"
-            >
-                <span matPrefix>Danh mục sản phấm</span>
-                <mat-select
-                    (selectionChange)="selectionDanhmuc($event.value)"
-                    [(value)]="tenDMcha"
-                >
-                    <mat-option
-                        [value]="item.Tieude"
-                        *ngFor="let item of danhmucs"
-                        >{{ item.Tieude }}</mat-option
+                <span class="material-icons"> close </span>
+            </button>
+            <form class="w-full p-10 overflow-hidden" [formGroup]="productList">
+                <div class="flex overflow-hidden mb-6">
+                    <!-- <mat-form-field
+                        class="fuse-mat-emphasized-affix lg:w-1/2 w-full"
+                        appearance="fill"
                     >
-                </mat-select>
-            </mat-form-field>
+                        <span matPrefix>Cập nhật hoặc xóa sản phẩm </span>
+                        <mat-select
+                            (selectionChange)="selectProduct($event.value)"
+                        >
+                            <mat-option
+                                [value]="item"
+                                *ngFor="let item of products"
+                                >{{
+                                    item.Tieude ? item.Tieude : ""
+                                }}</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field> -->
 
-            <mat-form-field
-            class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pl-3 h-12"
-            appearance="fill"
-        >
-            <span matPrefix>Chọn thương hiệu</span>
-            <mat-select
-                (selectionChange)="selectionThuonghieu($event.value)"
-            >
-                <mat-option
-                    [value]="item.Tieude"
-                    *ngFor="let item of thuonghieus"
-                    >{{ item.Tieude }}</mat-option
-                >
-            </mat-select>
-        </mat-form-field>
-        </div>
-        <div class="flex mb-3 lg:flex-row flex-col">
-            <div class="lg:w-1/2 w-full mb-3 lg:mr-2 md:mb-0">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-first-name"
-                >
-                    tên sản phẩm
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="text"
-                    placeholder="DNA Sharyn"
-                    [formControlName]="'Tieude'"
-                    name="title"
-                />
-                <p class="text-red-500 text-xs italic">
-                    Please fill out this field.
-                </p>
-            </div>
-            <div class="lg:w-1/2 w-full mb-3 lg:ml-2 md:mb-0">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-first-name"
-                >
-                    Giá tiền
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="number"
-                    placeholder="2000000"
-                    [formControlName]="'Gia'"
-                    name="number"
-                />
-                <p class="text-red-500 text-xs italic">
-                    Please fill out this field.
-                </p>
-            </div>
-            <div class="lg:w-1/2 w-full mb-3 lg:ml-2 md:mb-0">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-first-name"
-                >
-                    Giá Sale
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="number"
-                    placeholder="2000000"
-                    [formControlName]="'GiaSale'"
-                    name="number"
-                />
-                <p class="text-red-500 text-xs italic">
-                    Please fill out this field.
-                </p>
-            </div>
-        </div>
-
-        <div class="flex mb-6">
-            <div class="w-full">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-password"
-                >
-                    Giới thiệu
-                </label>
-                <ckeditor
-                    [editor]="Editor"
-                    #editer
-                    [config]="config"
-                    [formControlName]="'Mota'"
-                ></ckeditor>
-            </div>
-        </div>
-        <div class="flex flex-wrap mb-6">
-            <div class="w-full">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-password"
-                >
-                    Mô tả
-                </label>
-                <ckeditor
-                    [editor]="Editor"
-                    #editer
-                    (ready)="onReady($event)"
-                    [config]="config"
-                    [formControlName]="'Thongtin'"
-                ></ckeditor>
-            </div>
-        </div>
-        <div class="flex flex-wrap mb-6">
-            <div class="w-full">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-password"
-                >
-                    Thành phần
-                </label>
-                <ckeditor
-                    [editor]="Editor"
-                    #editer
-                    (ready)="onReady($event)"
-                    [config]="config"
-                    [formControlName]="'Thanhphan'"
-                ></ckeditor>
-            </div>
-        </div>
-        <div class="flex flex-wrap mb-6">
-            <div class="w-full">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-password"
-                >
-                    Hướng dẫn sử dụng
-                </label>
-                <ckeditor
-                    [editor]="Editor"
-                    #editer
-                    (ready)="onReady($event)"
-                    [config]="config"
-                    [formControlName]="'Huongdan'"
-                ></ckeditor>
-            </div>
-        </div>
-        <div class="flex lg:flex-row flex-col pt-5">
-            <div class="lg:w-1/2 w-full lg:pr-3 mb-3 md:mb-0">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-first-name"
-                >
-                    Slug
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="text"
-                    placeholder="dna-sharyn"
-                    [formControlName]="'Slug'"
-                    name="Slug"
-                />
-            </div>
-            <div class="lg:w-1/2 w-full lg:pl-3 mb-3 md:mb-0">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-first-name"
-                >
-                    Khối lượng
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="text"
-                    placeholder="dna-sharyn"
-                    [formControlName]="'Khoiluong'"
-                    name="Khoiluong"
-                />
-            </div>
-        </div>
-        <div class="flex">
-            <div class="w-full mb-3 md:mb-0 flex">
-                <label>
-                    <input
-                        type="file"
-                        class="text-nowrap text-truncate"
-                        (change)="selectFile($event)"
-                    />
-                </label>
-                <button
-                    class="btn btn-success btn-sm p-2 bg-green-500 rounded-xl text-white font-bold"
-                    [disabled]="!selectedFiles"
-                    (click)="upload()"
-                >
-                    Upload
-                </button>
-                <div *ngIf="currentFileUpload" class="progress mt-2">
-                    <div
-                        class="progress-bar progress-bar-info"
-                        role="progressbar"
-                        attr.aria-valuenow="{{ percentage }}"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        [ngStyle]="{ width: percentage + '%' }"
+                    <mat-form-field
+                        class="fuse-mat-emphasized-affix w-full lg:w-1/2  h-12"
+                        appearance="fill"
                     >
-                        {{ percentage }}%
+                        <span matPrefix>Danh mục sản phấm</span>
+                        <mat-select
+                            (selectionChange)="selectionDanhmuc($event.value)"
+                            [(value)]="tenDMcha"
+                        >
+                            <mat-option
+                                [value]="item.Tieude"
+                                *ngFor="let item of danhmucs"
+                                >{{ item.Tieude }}</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pl-3 h-12"
+                        appearance="fill"
+                    >
+                        <span matPrefix>Chọn thương hiệu</span>
+                        <mat-select
+                        [(value)]="tenThuonghieu"
+                            (selectionChange)="
+                                selectionThuonghieu($event.value)
+                            "
+                        >
+                            <mat-option
+                                [value]="item.Tieude"
+                                *ngFor="let item of thuonghieus"
+                                >{{ item.Tieude }}</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="flex mb-3 lg:flex-row flex-col">
+                    <div class="lg:w-1/2 w-full mb-3 lg:mr-2 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            tên sản phẩm
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="text"
+                            placeholder="DNA Sharyn"
+                            [formControlName]="'Tieude'"
+                            name="title"
+                        />
+                        <p class="text-red-500 text-xs italic">
+                            Please fill out this field.
+                        </p>
                     </div>
+                    <div class="lg:w-1/2 w-full mb-3 lg:ml-2 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            Giá tiền
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="number"
+                            placeholder="2000000"
+                            [formControlName]="'Gia'"
+                            name="number"
+                        />
+                        <p class="text-red-500 text-xs italic">
+                            Please fill out this field.
+                        </p>
+                    </div>
+                    <div class="lg:w-1/2 w-full mb-3 lg:ml-2 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            Giá Sale
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="number"
+                            placeholder="2000000"
+                            [formControlName]="'GiaSale'"
+                            name="number"
+                        />
+                        <p class="text-red-500 text-xs italic">
+                            Please fill out this field.
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row mb-6"
+                    [formGroupName]="'ContentImage'"
+                >
+                    <div class="lg:w-1/3 w-full mb-3 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            nội dung hình ảnh 1
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="text"
+                            placeholder="dna-sharyn"
+                            [formControlName]="'contentImage1'"
+                            name="Slug"
+                        />
+                    </div>
+                    <div class="lg:w-1/3 w-full md:mx-3 mb-3 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            nội dung hình ảnh 2
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="text"
+                            placeholder="dna-sharyn"
+                            [formControlName]="'contentImage2'"
+                            name="Slug"
+                        />
+                    </div>
+                    <div class="lg:w-1/3 w-full lg:pr-3 mb-3 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            nội dung hình ảnh 3
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="text"
+                            placeholder="dna-sharyn"
+                            [formControlName]="'contentImage2'"
+                            name="Slug"
+                        />
+                    </div>
+                </div>
+                <div class="flex mb-6">
+                    <div class="w-full">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-password"
+                        >
+                            Giới thiệu
+                        </label>
+                        <ckeditor
+                            [editor]="Editor"
+                            #editer
+                            [config]="config"
+                            [formControlName]="'Mota'"
+                        ></ckeditor>
+                    </div>
+                </div>
+                <div class="flex flex-wrap mb-6">
+                    <div class="w-full">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-password"
+                        >
+                            Mô tả
+                        </label>
+                        <ckeditor
+                            [editor]="Editor"
+                            #editer
+                            (ready)="onReady($event)"
+                            [config]="config"
+                            [formControlName]="'Thongtin'"
+                        ></ckeditor>
+                    </div>
+                </div>
+                <div class="flex flex-wrap mb-6">
+                    <div class="w-full">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-password"
+                        >
+                            Thành phần
+                        </label>
+                        <ckeditor
+                            [editor]="Editor"
+                            #editer
+                            (ready)="onReady($event)"
+                            [config]="config"
+                            [formControlName]="'Thanhphan'"
+                        ></ckeditor>
+                    </div>
+                </div>
+                <div class="flex flex-wrap mb-6">
+                    <div class="w-full">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-password"
+                        >
+                            Hướng dẫn sử dụng
+                        </label>
+                        <ckeditor
+                            [editor]="Editor"
+                            #editer
+                            (ready)="onReady($event)"
+                            [config]="config"
+                            [formControlName]="'Huongdan'"
+                        ></ckeditor>
+                    </div>
+                </div>
+                <div class="flex lg:flex-row flex-col pt-5">
+                    <div class="lg:w-1/2 w-full lg:pr-3 mb-3 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            Slug
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="text"
+                            placeholder="dna-sharyn"
+                            [formControlName]="'Slug'"
+                            name="Slug"
+                        />
+                    </div>
+                    <div class="lg:w-1/2 w-full lg:pl-3 mb-3 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            Khối lượng
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="text"
+                            placeholder="dna-sharyn"
+                            [formControlName]="'Khoiluong'"
+                            name="Khoiluong"
+                        />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-full mb-3 md:mb-0 flex">
+                        <div>Hình thumbnail</div>
+                        <label>
+                            <input
+                                type="file"
+                                class="text-nowrap text-truncate"
+                                (change)="selectFile($event)"
+                            />
+                        </label>
+                        <button
+                            class="btn btn-success btn-sm p-2 bg-green-500 rounded-xl text-white font-bold"
+                            [disabled]="!selectedFiles"
+                            (click)="upload()"
+                        >
+                            Upload
+                        </button>
+                        <div *ngIf="currentFileUpload" class="progress mt-2">
+                            <div
+                                class="progress-bar progress-bar-info"
+                                role="progressbar"
+                                attr.aria-valuenow="{{ percentage }}"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                                [ngStyle]="{ width: percentage + '%' }"
+                            >
+                                {{ percentage }}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full mb-3 md:mb-0 flex">
+                        <div>Danh sách hình</div>
+                        <label>
+                            <input
+                                type="file"
+                                class="text-nowrap text-truncate"
+                                (change)="selectFile($event)"
+                                multiple
+                            />
+                        </label>
+                        <button
+                            class="btn btn-success btn-sm p-2 bg-green-500 rounded-xl text-white font-bold"
+                            [disabled]="!selectedFiles"
+                            (click)="upload2()"
+                        >
+                            Upload
+                        </button>
+                        <div *ngIf="currentFileUpload" class="progress mt-2">
+                            <div
+                                class="progress-bar progress-bar-info"
+                                role="progressbar"
+                                attr.aria-valuenow="{{ percentage }}"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                                [ngStyle]="{ width: percentage + '%' }"
+                            >
+                                {{ percentage }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="card w-full my-5">
+                        <div class="card-header">Image Upload</div>
+                        <ul class="list-group list-group-flush" *ngIf="thumb">
+                            <li class="list-group-item">
+                                <img
+                                    src="{{ thumb }}"
+                                    class="w-20 h-20"
+                                    alt=""
+                                />
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        class="card w-full ml-5 my-5"
+                        *ngIf="listimage?.length > 0"
+                    >
+                        <div class="card-header">Image Upload</div>
+                        <ul class="grid grid-cols-5 gap-5">
+                            <li
+                                class="list-group-item relative my-2"
+                                *ngFor="let item of listimage; let i = index"
+                            >
+                                <!-- item[1] url image ở firebase -->
+
+                                <img
+                                    src="{{ item[1] }}"
+                                    class="w-20 h-20"
+                                    alt=""
+                                />
+                                <div
+                                    class="absolute right-3 top-3 cursor-pointer"
+                                >
+                                    <!-- item[2] key image ở firebase -->
+                                    <span
+                                        class="material-icons"
+                                        (click)="deleteImageFirebase(item, i)"
+                                    >
+                                        close
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="flex lg:flex-row flex-col lg:pt-5">
+                    <mat-form-field
+                        class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pr-3 h-12 mb-5 lg:mb-0"
+                        appearance="fill"
+                    >
+                        <span matPrefix>Chọn trạng thái</span>
+                        <mat-select [formControlName]="'Trangthai'">
+                            <mat-option value="0">Mới</mat-option>
+                            <mat-option value="1">Sale</mat-option>
+                            <mat-option value="2"> Hết hàng</mat-option>
+                            <!-- <mat-option
+                                [value]="item.id"
+                                *ngFor="let item of themes"
+                                (click)="onSelect(item)"
+                                >{{ item.title ? item.title : "" }}</mat-option
+                            > -->
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pl-3 h-12"
+                        appearance="fill"
+                    >
+                        <span matPrefix>Chọn nơi hiển thị</span>
+                        <mat-select [formControlName]="'Type'">
+                            <mat-option value="bestseller"
+                                >Sản phẩm bán chạy</mat-option
+                            >
+                            <mat-option value="Featured"
+                                >Sản phẩm nổi bật</mat-option
+                            >
+                            <mat-option value="combo">Combo ưu đãi</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group mr-3 mb-3 pt-5">
+                    <button
+                        type="submit"
+                        (click)="onSubmit()"
+                        (click)="drawer.toggle()"
+                        [disabled]="!productList.valid"
+                        class="px-3 py-1 bg-green-600 rounded-lg text-white"
+                        *ngIf="!isSelectProduct"
+                    >
+                        Submit
+                    </button>
+                    <button
+                        type="update"
+                        class="px-3 py-1 bg-indigo-600 rounded-lg mx-10 text-white"
+                        (click)="onUpdate()"
+                        *ngIf="isSelectProduct"
+                    >
+                        Update
+                    </button>
+                    <button
+                        type="update"
+                        class="px-3 py-1 bg-red-600 rounded-lg text-white"
+                        (click)="onDelete()"
+                        *ngIf="isSelectProduct"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </form>
+        </mat-drawer>
+
+        <div class="example-sidenav-content w-full flex h-full">
+            <div class="w-full bg-card shadow p-5">
+                <button
+                    type="button"
+                    (click)="drawer.toggle()"
+                    class="px-0 pb-5"
+                >
+                    <div class="space-y-2">
+                        <div
+                            class="w-28 bg-green-500 text-white font-bold rounded-2xl text-center px-3 py-2"
+                        >
+                            Tạo mới
+                        </div>
+                    </div>
+                </button>
+
+                <div class="mat-elevation-z8 w-full pt-5">
+                    <table
+                        mat-table
+                        [dataSource]="dataSource"
+                        matSort
+                        class="w-full product-table"
+                    >
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="sku">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                mat-sort-header
+                            >
+                                SKU
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{ row.SKU }}</td>
+                        </ng-container>
+
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="danhmuc">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <input
+                                    (keyup)="applyFilter($event)"
+                                    placeholder="Danh mục"
+                                    #input
+                                />
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.TenDM }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="thuonghieu">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <input
+                                    (keyup)="applyFilter($event)"
+                                    placeholder="Thương hiệu"
+                                    #input
+                                />
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.Tenthuonghieu }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <input
+                                    (keyup)="applyFilter($event)"
+                                    placeholder="Name"
+                                    #input
+                                />
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.Tieude }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                class="text-center"
+                            >
+                                Trạng thái
+                            </th>
+                            <td
+                                mat-cell
+                                *matCellDef="let row"
+                                class="text-center"
+                            >
+                                {{
+                                    row.Trangthai == 1
+                                        ? "Sale"
+                                        : row.Trangthai == 2
+                                        ? "Hết hàng"
+                                        : "Mới"
+                                }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="price">
+                            <th mat-header-cell *matHeaderCellDef>Giá</th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.Gia | currency: "VND" }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Image">
+                            <th mat-header-cell *matHeaderCellDef>Hình ảnh</th>
+                            <td mat-cell *matCellDef="let row">
+                                <img
+                                    class="w-24 h-24"
+                                    src="{{ row.Image }}"
+                                    [ngClass]="{ hidden: row.image == '' }"
+                                />
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let row">
+                                <button
+                                    class="text-blue-400 flex items-center"
+                                    (click)="drawer.toggle()"
+                                    (click)="selectProduct(row)"
+                                >
+                                    <span class="material-icons text-lg mr-2">
+                                        edit
+                                    </span>
+                                    Edit
+                                </button>
+                            </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button
+                            class="px-4 py-1 rounded-2xl bg-blue-700 text-white"
+                        >
+                            Create Flow
+                        </button>
+                    </td>
+                </ng-container> -->
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns"
+                        ></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"
+                        ></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <!-- <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">
+                        No data matching the filter "{{ input.value }}"
+                    </td>
+                </tr> -->
+                    </table>
+
+                    <mat-paginator
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        aria-label="Select page of users"
+                    ></mat-paginator>
                 </div>
             </div>
         </div>
-        <div class="card w-full my-5">
-            <div class="card-header">Image Upload</div>
-            <ul class="list-group list-group-flush" *ngIf="thumb">
-                <li class="list-group-item">
-                    <img src="{{ thumb }}" class="w-20 h-20" alt="" />
-                </li>
-            </ul>
-        </div>
-        <div class="flex lg:flex-row flex-col lg:pt-5">
-            <mat-form-field
-                class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pr-3 h-12 mb-5 lg:mb-0"
-                appearance="fill"
-            >
-                <span matPrefix>Chọn trạng thái</span>
-                <mat-select [formControlName]="'Trangthai'">
-                    <mat-option value="0">Mới</mat-option>
-                    <mat-option value="1">Sale</mat-option>
-                    <mat-option value="2"> Hết hàng</mat-option>
-                    <!-- <mat-option
-                        [value]="item.id"
-                        *ngFor="let item of themes"
-                        (click)="onSelect(item)"
-                        >{{ item.title ? item.title : "" }}</mat-option
-                    > -->
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field
-                class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pl-3 h-12"
-                appearance="fill"
-            >
-                <span matPrefix>Chọn nơi hiển thị</span>
-                <mat-select [formControlName]="'Type'">
-                    <mat-option value="bestseller">Sản phẩm bán chạy</mat-option>
-                    <mat-option value="Featured">Sản phẩm nổi bật</mat-option>
-                    <mat-option value="combo">Combo ưu đãi</mat-option>
-
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div class="form-group mr-3 mb-3 pt-5">
-            <button
-                type="submit"
-                (click)="onSubmit()"
-                [disabled]="!productList.valid"
-                class="px-3 py-1 bg-green-600 rounded-lg text-white"
-                *ngIf="!isSelectProduct"
-            >
-                Submit
-            </button>
-            <button
-                type="update"
-                class="px-3 py-1 bg-indigo-600 rounded-lg mx-10 text-white"
-                (click)="onUpdate()"
-                *ngIf="isSelectProduct"
-            >
-                Update
-            </button>
-            <button
-                type="update"
-                class="px-3 py-1 bg-red-600 rounded-lg text-white"
-                (click)="onDelete()"
-                *ngIf="isSelectProduct"
-            >
-                Delete
-            </button>
-        </div>
-    </form>
+    </mat-drawer-container>
 </div>

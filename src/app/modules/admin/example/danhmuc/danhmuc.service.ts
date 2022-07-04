@@ -73,11 +73,12 @@ export class DanhmucService {
                     map((updatedanhmuc) => {
                         // Find the index of the updated tag
                         const index = danhmucs.findIndex(
-                            (item) => item.id === item.id
+                            (item) => item.id == data.id
                         );
-
+                            console.log(index);
+                            
                         // Update the tag
-                        danhmucs[index] = data;
+                        danhmucs[index] = updatedanhmuc;
 
                         // Update the tags
                         this._danhmucs.next(danhmucs);

@@ -1,0 +1,9 @@
+.button-contact {
+    right: 0;
+    bottom: 0;
+}
+@media screen and (max-width: 468px) {
+    .button-contact {
+        left: 0;
+    }
+}

@@ -49,7 +49,7 @@ export class SanphamService {
                     map((updateCourse) => {
                         // Find the index of the updated tag
                         const index = courses.findIndex(
-                            (item) => item.id === item.id
+                            (item) => item.id === data.id
                         );
 
                         // Update the tag

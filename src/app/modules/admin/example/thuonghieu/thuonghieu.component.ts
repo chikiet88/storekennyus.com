@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { map, take } from 'rxjs';
 import { FileUpload } from '../models/file-upload.model';
 import { FileUploadService } from '../services/file-upload.service';
 import { ThuonghieuService } from './thuonghieu.service';
@@ -88,37 +89,60 @@ export class ThuonghieuComponent implements OnInit {
         });
     }
     upload(): void {
-        if (this.selectedFiles) {
-            const file: File | null = this.selectedFiles.item(0);
-            this.selectedFiles = undefined;
-            if (file) {
-                this.currentFileUpload = new FileUpload(file);
-                console.log(this.currentFileUpload);
+        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+            this.ThuonghieuForm.get('Image').setValue(x.url);
+            this.thumb = x.url;
+        });
+        return;
+    }
+    callback(item, i) {
+        return new Promise((resolve, reject) => {
+            const file: File | null = item;
 
-                this.uploadService
-                    .pushFileToStorage(this.currentFileUpload)
-                    .subscribe(
-                        (percentage) => {
-                            this.percentage = Math.round(
-                                percentage ? percentage : 0
-                            );
-                        },
-                        (error) => {
-                            console.log(error);
+            this.currentFileUpload = new FileUpload(file);
+            this.uploadService
+                .pushFileToStorage(this.currentFileUpload)
+                .subscribe(
+                    (percentage) => {
+                        this.percentage = Math.round(
+                            percentage ? percentage : 0
+                        );
+
+                        if (percentage == 100) {
+                            setTimeout(() => {
+                                this.uploadService
+                                    .getFiles(1) //lấy file  chứa key từ firebase về
+                                    .snapshotChanges()
+                                    .pipe(
+                                        take(1),
+                                        map((changes) =>
+                                            // store the key
+                                            changes.map((c) => ({
+                                                key: c.payload.key,
+                                                ...c.payload.val(),
+                                            }))
+                                        )
+                                    )
+                                    .subscribe((fileUploads) => {
+                                        if (fileUploads[0]?.key) {
+                                            fileUploads = fileUploads.reverse();
+                                            resolve(fileUploads[0]);
+                                        }
+                                    });
+                            }, 1000);
                         }
-                    );
-            }
-        }
-        this.uploadService._thumb$.subscribe((res) => {
-            if (res) {
-                console.log(res);
-
-                this.thumb = res.url;
-                this.ThuonghieuForm.get('Image').setValue(res.url);
-            }
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+            // if (this.percentage == 100) {
+            //     resolve(this.percentage);
+            // } else {
+            //     reject('sss');
+            // }
         });
     }
-
     selectFile(event: any): void {
         this.selectedFiles = event.target.files;
     }

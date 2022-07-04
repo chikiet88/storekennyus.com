@@ -22,6 +22,8 @@ const exampleRoutes: Route[] = [
         path: '',
         component: ExampleComponent,
         children: [
+            { path: '', component: DonhangComponent },
+            // { path: 'donhang/:id', component: DonhangDetailComponent },
             { path: 'sanpham', component: SanphamComponent },
             { path: 'sanphamchitiet', component: SanphamchitietComponent },
             {
@@ -34,8 +36,7 @@ const exampleRoutes: Route[] = [
 
             { path: 'thuonghieu', component: ThuonghieuComponent },
             { path: 'menu', component: MenuComponent },
-            { path: 'donhang', component: DonhangComponent },
-            { path: 'donhang/:id', component: DonhangDetailComponent },
+  
             { path: 'cauhinh', component: CauhinhComponent },
 
         ],

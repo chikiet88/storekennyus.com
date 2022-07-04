@@ -5,7 +5,18 @@ import { FileUploadService } from '../services/file-upload.service';
 import { DanhmucService } from './danhmuc.service';
 // import { DanhmucService } from './danhmuc.service';
 import ClassicEditor from 'ckeditor5/build/ckEditor';
-
+import { map, take } from 'rxjs';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import {
+    MatTreeFlatDataSource,
+    MatTreeFlattener,
+} from '@angular/material/tree';
+interface ExampleFlatNode {
+    expandable: boolean;
+    name: string;
+    level: number;
+    id:string,
+}
 @Component({
     selector: 'app-danhmuc',
     templateUrl: './danhmuc.component.html',
@@ -38,14 +49,38 @@ export class DanhmucComponent implements OnInit {
             ],
         },
     };
+    private _transformer = (node: any, level: number) => {
+        console.log(node);
+        node.expandable = !!node.children && node.children.length > 0;
+        node.level = level;
+        return node;
+    };
 
+    treeControl = new FlatTreeControl<ExampleFlatNode>(
+        (node) => node.level,
+        (node) => node.expandable
+    );
+
+    treeFlattener = new MatTreeFlattener(
+        this._transformer,
+        (node) => node.level,
+        (node) => node.expandable,
+        (node) => node.children
+    );
+
+    dataSource = new MatTreeFlatDataSource(
+        this.treeControl,
+        this.treeFlattener
+    );
     constructor(
         private DanhmucService: DanhmucService,
         private fb: FormBuilder,
         private uploadService: FileUploadService
     ) {}
+    hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
     onSubmit() {
+
         this.DanhmucList.removeControl('tenDMcha');
         this.DanhmucList.removeControl('id');
 
@@ -75,7 +110,7 @@ export class DanhmucComponent implements OnInit {
         this.DanhmucList.get('Icon').setValue(item.Icon);
 
         this.DanhmucList.get('pid').setValue(item.pid);
-        this.DanhmucList.get('code').setValue(item.code);
+        this.DanhmucList.get('Code').setValue(item.Code);
         this.DanhmucList.get('Type').setValue(item.Type);
         this.DanhmucList.get('Slug').setValue(item.Slug);
         this.danhmuc.find((x) => {
@@ -97,9 +132,19 @@ export class DanhmucComponent implements OnInit {
     }
     updateDanhmuc() {
         this.DanhmucList.removeControl('tenDMcha');
-
+        let node = this.DanhmucList.value
         this.DanhmucService.updateDanhmuc(this.DanhmucList.value).subscribe(
             (res) => {
+                this.treeControl.expand(
+                    this.treeControl.dataNodes.find((v) => v.id == node.id)
+                );
+                let x = this.danhmuc.find((v) => v.id == node.idDM);
+                while (x) {
+                    this.treeControl.expand(
+                        this.treeControl.dataNodes.find((v) => v.id == x.id)
+                    );
+                    x = this.danhmuc.find((v) => v.id == x.pid);
+                }
                 if (res) {
                     alert('Cập nhật Danh mục thành công');
                     this.resetForm();
@@ -120,91 +165,129 @@ export class DanhmucComponent implements OnInit {
             Type: [''],
             Icon: [''],
             pid: [''],
-            code: [''],
+            Code: [''],
+            Module:[0],
+            Trangthai:[0],
             Slug: [''],
             tenDMcha: [''],
         });
     }
     upload(): void {
-        if (this.selectedFiles) {
-            const file: File | null = this.selectedFiles.item(0);
-            this.selectedFiles = undefined;
-            if (file) {
-                this.currentFileUpload = new FileUpload(file);
-                console.log(this.currentFileUpload);
+        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+            this.DanhmucList.get('Image').setValue(x.url);
+            this.thumb = x.url;
+        });
+        return;
+    }
+    callback(item, i) {
+        return new Promise((resolve, reject) => {
+            const file: File | null = item;
 
-                this.uploadService
-                    .pushFileToStorage(this.currentFileUpload)
-                    .subscribe(
-                        (percentage) => {
-                            this.percentage = Math.round(
-                                percentage ? percentage : 0
-                            );
-                            if (percentage) {
-                                this.selectedFiles = undefined;
-                            }
-                        },
-                        (error) => {
-                            console.log(error);
+            this.currentFileUpload = new FileUpload(file);
+            this.uploadService
+                .pushFileToStorage(this.currentFileUpload)
+                .subscribe(
+                    (percentage) => {
+                        this.percentage = Math.round(
+                            percentage ? percentage : 0
+                        );
+
+                        if (percentage == 100) {
+                            setTimeout(() => {
+                                this.uploadService
+                                    .getFiles(1) //lấy file  chứa key từ firebase về
+                                    .snapshotChanges()
+                                    .pipe(
+                                        take(1),
+                                        map((changes) =>
+                                            // store the key
+                                            changes.map((c) => ({
+                                                key: c.payload.key,
+                                                ...c.payload.val(),
+                                            }))
+                                        )
+                                    )
+                                    .subscribe((fileUploads) => {
+                                        if (fileUploads[0]?.key) {
+                                            fileUploads = fileUploads.reverse();
+                                            resolve(fileUploads[0]);
+                                        }
+                                    });
+                            }, 1000);
                         }
-                    );
-            }
-        }
-        this.uploadService._thumb$.subscribe((res) => {
-            if (res) {
-                console.log(res);
-
-                this.thumb = res;
-                this.DanhmucList.get('Image').setValue(res);
-            }
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+            // if (this.percentage == 100) {
+            //     resolve(this.percentage);
+            // } else {
+            //     reject('sss');
+            // }
         });
     }
+    // upload(): void {
+    //     if (this.selectedFiles) {
+    //         const file: File | null = this.selectedFiles.item(0);
+    //         this.selectedFiles = undefined;
+    //         if (file) {
+    //             this.currentFileUpload = new FileUpload(file);
+    //             console.log(this.currentFileUpload);
+
+    //             this.uploadService
+    //                 .pushFileToStorage(this.currentFileUpload)
+    //                 .subscribe(
+    //                     (percentage) => {
+    //                         this.percentage = Math.round(
+    //                             percentage ? percentage : 0
+    //                         );
+    //                         if (percentage) {
+    //                             this.selectedFiles = undefined;
+    //                         }
+    //                     },
+    //                     (error) => {
+    //                         console.log(error);
+    //                     }
+    //                 );
+    //         }
+    //     }
+    //     this.uploadService._thumb$.subscribe((res) => {
+    //         if (res) {
+    //             console.log(res);
+
+    //             this.thumb = res;
+    //             this.DanhmucList.get('Image').setValue(res);
+    //         }
+    //     });
+    // }
 
     uploadIcon(): void {
-        if (this.selectedFiles) {
-            const file: File | null = this.selectedFiles.item(0);
-            this.selectedFiles = undefined;
-            if (file) {
-                this.currentFileUpload = new FileUpload(file);
-                console.log(this.currentFileUpload);
-
-                this.uploadService
-                    .pushFileToStorage(this.currentFileUpload)
-                    .subscribe(
-                        (percentage) => {
-                            this.percentage = Math.round(
-                                percentage ? percentage : 0
-                            );
-                            if (percentage) {
-                                this.selectedFiles = undefined;
-                            }
-                        },
-                        (error) => {
-                            console.log(error);
-                        }
-                    );
-            }
-        }
-        this.uploadService._thumb$.subscribe((res) => {
-            if (res) {
-                console.log(res);
-
-                this.icon = res;
-                this.DanhmucList.get('Icon').setValue(res.url);
-            }
+        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+            this.DanhmucList.get('Icon').setValue(x.url);
+            this.Icon = x.url;
         });
+        return;
     }
     selectFile(event: any): void {
         this.selectedFiles = event.target.files;
     }
+    nest = (items, id = '', link = 'pid') =>
+        items
+            ?.filter((item) => item[link] == id)
+            .map((item) => ({
+                ...item,
+                children: this.nest(items, item.id),
+            }));
     ngOnInit(): void {
         this.resetForm();
 
         this.DanhmucService.getDanhmuc().subscribe();
         this.DanhmucService.danhmucs$.subscribe((danhmuc) => {
-            console.log(danhmuc);
-
             this.danhmuc = danhmuc;
+            if (danhmuc?.length > 0) {
+                this.dataSource.data = this.nest(danhmuc);
+            }
         });
 
         // this.addheaderService.getHeader().subscribe();

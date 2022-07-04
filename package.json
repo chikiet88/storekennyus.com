@@ -39,6 +39,7 @@
         "moment": "2.29.1",
         "ng-apexcharts": "1.5.12",
         "ngx-facebook": "^3.0.0-0",
+        "ngx-image-zoom": "^1.0.1",
         "ngx-markdown": "13.0.0",
         "ngx-quill": "16.0.1",
         "ngx-star-rating": "^2.1.0",

@@ -6,4 +6,8 @@ export interface Product{
     price: number;
     status:string;
     image:string;
+    TenDM:string;
+    idDM:string;
+    Tenthuonghieu:string;
+    Thuonghieu:string;
 }

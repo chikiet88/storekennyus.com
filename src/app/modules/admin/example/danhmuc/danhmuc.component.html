@@ -1,235 +1,313 @@
-<div class="container px-10">
-    <form class="w-full pt-10" [formGroup]="DanhmucList">
-        <div class="flex flex-wrap">
-            <div
-                class="flex md:mx-3 md:flex-row flex-col mb-6 justify-between w-full"
-            >
-                <mat-form-field
-                    class="fuse-mat-emphasized-affix md:w-80 w-76 md:mb-0 mb-6"
-                    appearance="fill"
-                    style="height: 50px"
-                >
-                    <span matPrefix>Danh mục cha</span>
-                    <mat-select [formControlName]="'tenDMcha'">
-                        <mat-option value=""></mat-option>
-                        <mat-option
-                            [value]="item.Tieude"
-                            *ngFor="let item of danhmuc"
-                            (click)="onSelectDanhmucCha(item)"
-                            >{{ item.Tieude }}</mat-option
+<div class="flex w-full">
+    <mat-drawer-container class="example-container w-full" autosize>
+        <mat-drawer
+            #drawer
+            opened
+            class="example-sidenav lg:w-1/4 w-full"
+            mode="side"
+        >
+            <button type="button" (click)="drawer.toggle()" class="p-5">
+                <span class="material-icons"> close </span>
+            </button>
+            <div class="p-5">
+                <p class="text-2xl text-center py-5">Danh sách các danh mục</p>
+                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                    <mat-tree-node
+                        *matTreeNodeDef="let node"
+                        matTreeNodePadding
+                    >
+                        <button mat-icon-button disabled></button>
+                        <span (click)="onSelectDanhmucEdit(node)">{{
+                            node.Tieude || node.title
+                        }}</span>
+                    </mat-tree-node>
+                    <mat-tree-node
+                        *matTreeNodeDef="let node; when: hasChild"
+                        matTreeNodePadding
+                    >
+                        <button
+                            mat-icon-button
+                            matTreeNodeToggle
+                            [attr.aria-label]="'Toggle ' + node.Tieude || node.title"
                         >
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field
-                    class="fuse-mat-emphasized-affix md:w-80 w-76"
-                    appearance="fill"
-                    style="height: 50px"
-                >
-                    <span matPrefix>Type</span>
-                    <mat-select placeholder="" [formControlName]="'Type'">
-                        <mat-option value=""></mat-option>
+                            <mat-icon class="mat-icon-rtl-mirror">
+                                {{
+                                    treeControl.isExpanded(node)
+                                        ? "expand_more"
+                                        : "chevron_right"
+                                }}
+                            </mat-icon>
+                        </button>
+                        <span (click)="onSelectDanhmucEdit(node)">{{
+                            node.Tieude || node.title
+                        }}</span>
+                    </mat-tree-node>
+                </mat-tree>
+            </div>
+        </mat-drawer>
 
-                        <mat-option value="Popular"
-                            >Nổi Bật</mat-option
-                        >
-                        <mat-option value="Seller">Bán Chạy</mat-option>
-                      
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field
-                    class="fuse-mat-emphasized-affix md:w-80 w-76 md:mt-0 mt-6"
-                    appearance="fill"
-                    style="height: 50px"
+        <div class="example-sidenav-content w-full flex h-full">
+            <div class="w-full bg-card shadow p-5">
+                <button
+                    type="button"
+                    (click)="drawer.toggle()"
+                    class="px-0 pb-5"
                 >
-                    <span matPrefix>Edit Danh mục</span>
-                    <mat-select
-                        (selectionChange)="onSelectDanhmucEdit($event.value)"
-                    >
-                        <mat-option value=""></mat-option>
-                        <mat-option
-                            [value]="item"
-                            *ngFor="let item of danhmuc"
-                            >{{ item.Tieude }}</mat-option
-                        >
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div class="w-full md:px-3 mb-6 md:mb-0">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-first-name"
-                >
-                    Tiêu đề
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="text"
-                    placeholder="Chăm sóc cá nhân"
-                    formControlName="Tieude"
-                    name="title"
-                />
-                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-            </div>
-            <div class="w-full md:px-3 mb-6 md:mb-0">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-first-name"
-                >
-                    slug
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="text"
-                    placeholder="gioi-thieu"
-                    formControlName="Slug"
-                    name="title"
-                />
-                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-            </div>
-            <div class="w-full md:px-3 mb-6 md:mb-0">
-                <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-first-name"
-                >
-                    Code
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
-                    type="text"
-                    placeholder="CSCN"
-                    formControlName="code"
-                    name="code"
-                />
-                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-            </div>
-            <div class="flex flex-wrap my-4 md:px-3 w-full">
-                <div class="w-full">
-                    <label
-                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-password"
-                    >
-                        Mô tả
-                    </label>
-                    <ckeditor
-                        [editor]="Editor"
-                        #editer
-                        [config]="config"
-                        [formControlName]="'Mota'"
-                    ></ckeditor>
-                </div>
-            </div>
-            <div class="flex flex-wrap md:mb-6">
-                <div class="w-full md:px-3 mb-6 md:mb-0">
-                    <label>
-                        <input
-                            type="file"
-                            class="text-nowrap text-truncate"
-                            (change)="selectFile($event)"
-                        />
-                    </label>
-                    <button
-                        class="px-3 py-1 bg-green-600 rounded-lg text-white"
-                        [disabled]="!selectedFiles"
-                        (click)="upload()"
-                    >
-                        Upload
-                    </button>
-                    <div *ngIf="currentFileUpload" class="progress mt-2">
+                    <div class="space-y-2">
+                        <span class="material-icons"> menu </span>
+                    </div>
+                </button>
+                <form class="w-full pt-10" [formGroup]="DanhmucList">
+                    <div class="flex flex-wrap">
                         <div
-                            class="progress-bar progress-bar-info"
-                            role="progressbar"
-                            attr.aria-valuenow="{{ percentage }}"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            [ngStyle]="{ width: percentage + '%' }"
+                            class="flex md:mx-3 md:flex-row flex-col mb-6 justify-between w-full"
                         >
-                            {{ percentage }}%
+                            <mat-form-field
+                                class="fuse-mat-emphasized-affix md:w-80 w-76 md:mb-0 mb-6"
+                                appearance="fill"
+                                style="height: 50px"
+                            >
+                                <span matPrefix>Danh mục cha</span>
+                                <mat-select [formControlName]="'tenDMcha'">
+                                    <mat-option value=""></mat-option>
+                                    <mat-option
+                                        [value]="item.Tieude"
+                                        *ngFor="let item of danhmuc"
+                                        (click)="onSelectDanhmucCha(item)"
+                                        >{{ item.Tieude }}</mat-option
+                                    >
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field
+                                class="fuse-mat-emphasized-affix md:w-80 w-76"
+                                appearance="fill"
+                                style="height: 50px"
+                            >
+                                <span matPrefix>Type</span>
+                                <mat-select
+                                    placeholder=""
+                                    [formControlName]="'Type'"
+                                >
+                                    <mat-option value=""></mat-option>
+
+                                    <mat-option value="Popular"
+                                        >Nổi Bật</mat-option
+                                    >
+                                    <mat-option value="Seller"
+                                        >Bán Chạy</mat-option
+                                    >
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field
+                                class="fuse-mat-emphasized-affix md:w-80 w-76 md:mt-0 mt-6"
+                                appearance="fill"
+                                style="height: 50px"
+                            >
+                                <span matPrefix>Edit Danh mục</span>
+                                <mat-select
+                                    (selectionChange)="
+                                        onSelectDanhmucEdit($event.value)
+                                    "
+                                >
+                                    <mat-option value=""></mat-option>
+                                    <mat-option
+                                        [value]="item"
+                                        *ngFor="let item of danhmuc"
+                                        >{{ item.Tieude }}</mat-option
+                                    >
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full md:px-3 mb-6 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name"
+                            >
+                                Tiêu đề
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name"
+                                type="text"
+                                placeholder="Chăm sóc cá nhân"
+                                formControlName="Tieude"
+                                name="title"
+                            />
+                            <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                        </div>
+                        <div class="w-full md:px-3 mb-6 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name"
+                            >
+                                slug
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name"
+                                type="text"
+                                placeholder="gioi-thieu"
+                                formControlName="Slug"
+                                name="title"
+                            />
+                            <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                        </div>
+                        <div class="w-full md:px-3 mb-6 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name"
+                            >
+                                Code
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name"
+                                type="text"
+                                placeholder="CSCN"
+                                formControlName="Code"
+                                name="code"
+                            />
+                            <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                        </div>
+                        <div class="flex flex-wrap my-4 md:px-3 w-full">
+                            <div class="w-full">
+                                <label
+                                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    for="grid-password"
+                                >
+                                    Mô tả
+                                </label>
+                                <ckeditor
+                                    [editor]="Editor"
+                                    #editer
+                                    [config]="config"
+                                    [formControlName]="'Mota'"
+                                ></ckeditor>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap md:mb-6">
+                            <div class="w-full md:px-3 mb-6 md:mb-0">
+                                <label>
+                                    <input
+                                        type="file"
+                                        class="text-nowrap text-truncate"
+                                        (change)="selectFile($event)"
+                                    />
+                                </label>
+                                <button
+                                    class="px-3 py-1 bg-green-600 rounded-lg text-white"
+                                    [disabled]="!selectedFiles"
+                                    (click)="upload()"
+                                >
+                                    Upload
+                                </button>
+                                <div
+                                    *ngIf="currentFileUpload"
+                                    class="progress mt-2"
+                                >
+                                    <div
+                                        class="progress-bar progress-bar-info"
+                                        role="progressbar"
+                                        attr.aria-valuenow="{{ percentage }}"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        [ngStyle]="{ width: percentage + '%' }"
+                                    >
+                                        {{ percentage }}%
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card w-full mt-5" *ngIf="thumb">
+                                <div class="card-header">Image Upload</div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <img
+                                            src="{{ thumb }}"
+                                            class="w-20 h-20"
+                                            alt=""
+                                        />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap md:mb-6">
+                            <div class="w-full md:px-3 mb-6 md:mb-0">
+                                <label>
+                                    <input
+                                        type="file"
+                                        class="text-nowrap text-truncate"
+                                        (change)="selectFile($event)"
+                                    />
+                                </label>
+                                <button
+                                    class="px-3 py-1 bg-green-600 rounded-lg text-white"
+                                    [disabled]="!selectedFiles"
+                                    (click)="uploadIcon()"
+                                >
+                                    Upload Icon
+                                </button>
+                                <div
+                                    *ngIf="currentFileUpload"
+                                    class="progress mt-2"
+                                >
+                                    <div
+                                        class="progress-bar progress-bar-info"
+                                        role="progressbar"
+                                        attr.aria-valuenow="{{ percentage }}"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        [ngStyle]="{ width: percentage + '%' }"
+                                    >
+                                        {{ percentage }}%
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card w-full mt-5" *ngIf="Icon">
+                                <div class="card-header">Image Upload</div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <img
+                                            src="{{ Icon }}"
+                                            class="w-20 h-20"
+                                            alt=""
+                                        />
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card w-full mt-5" *ngIf="thumb">
-                    <div class="card-header">Image Upload</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <img src="{{ thumb }}" class="w-20 h-20" alt="" />
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="flex flex-wrap md:mb-6">
-                
-                <div class="w-full md:px-3 mb-6 md:mb-0">
-                    <label>
-                        <input
-                            type="file"
-                            class="text-nowrap text-truncate"
-                            (change)="selectFile($event)"
-                        />
-                    </label>
-                    <button
-                        class="px-3 py-1 bg-green-600 rounded-lg text-white"
-                        [disabled]="!selectedFiles"
-                        (click)="uploadIcon()"
-                    >
-                        Upload Icon
-                    </button>
-                    <div *ngIf="currentFileUpload" class="progress mt-2">
-                        <div
-                            class="progress-bar progress-bar-info"
-                            role="progressbar"
-                            attr.aria-valuenow="{{ percentage }}"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            [ngStyle]="{ width: percentage + '%' }"
+                    <div class="form-group md:mx-3 mb-6">
+                        <button
+                            type="submit"
+                            (click)="onSubmit()"
+                            *ngIf="!idSelect"
+                            class="px-3 py-1 bg-green-600 rounded-lg text-white"
                         >
-                            {{ percentage }}%
-                        </div>
+                            Submit
+                        </button>
+                        <button
+                            type="update"
+                            class="px-3 py-1 bg-indigo-600 rounded-lg mr-10 text-white"
+                            (click)="updateDanhmuc()"
+                            *ngIf="idSelect != undefined"
+                        >
+                            Update
+                        </button>
+                        <button
+                            type="update"
+                            class="px-3 py-1 bg-red-600 rounded-lg text-white"
+                            (click)="deleteDanhmuc()"
+                            *ngIf="idSelect != undefined"
+                        >
+                            Delete
+                        </button>
                     </div>
-                </div>
-
-                <div class="card w-full mt-5" *ngIf="Icon">
-                    <div class="card-header">Image Upload</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <img src="{{ Icon }}" class="w-20 h-20" alt="" />
-                        </li>
-                    </ul>
-                </div>
+                </form>
             </div>
         </div>
-
-        <div class="form-group md:mx-3 mb-6">
-            <button
-                type="submit"
-                (click)="onSubmit()"
-                *ngIf="!idSelect"
-                class="px-3 py-1 bg-green-600 rounded-lg text-white"
-            >
-                Submit
-            </button>
-            <button
-                type="update"
-                class="px-3 py-1 bg-indigo-600 rounded-lg mr-10 text-white"
-                (click)="updateDanhmuc()"
-                *ngIf="idSelect != undefined"
-            >
-                Update
-            </button>
-            <button
-                type="update"
-                class="px-3 py-1 bg-red-600 rounded-lg text-white"
-                (click)="deleteDanhmuc()"
-                *ngIf="idSelect != undefined"
-            >
-                Delete
-            </button>
-        </div>
-    </form>
-
-    <div></div>
+    </mat-drawer-container>
 </div>

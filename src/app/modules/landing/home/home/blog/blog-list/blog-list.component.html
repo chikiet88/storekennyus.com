@@ -1,0 +1,109 @@
+<div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-3 mt-10 px-3">
+  <nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+      <li class="inline-flex items-center">
+        <a
+          routerLink=""
+          class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+        >
+          Home
+        </a>
+      </li>
+
+      <li aria-current="page">
+        <div class="flex items-center">
+          <svg
+            class="w-4 h-4 text-gray-400"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span
+            class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500"
+            >Blog</span
+          >
+        </div>
+      </li>
+    </ol>
+  </nav>
+  <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
+    <div class="w-full pt-3" *ngFor="let item of tintucs">
+      <div class="h-60 rounded-xl bg-gray-200 relative">
+        <div
+          class="absolute left-5 top-5 leading-5 text-white text-xl w-16 bg-blue-500 font-bold px-2 py-4 text-center rounded-xl"
+        >
+          08 Dec
+        </div>
+        <img src="{{ item.thumbimage }}" class="w-full h-full" />
+      </div>
+      <div class="h-36 mt-4 flex flex-col justify-between">
+        <span
+          class="p-1 bg-gray-200 rounded-xl text-blue-500 text-sm font-bold w-32 text-center"
+          >Community Impact</span
+        >
+        <a
+          routerLink="tintucdetail"
+          class="text-xl font-bold hover:text-blue-500"
+          routerLink="{{ item.slug }}"
+        >
+          {{ item.title }}
+        </a>
+        <a
+          class="font-bold text-blue-500 hover:text-purple-500"
+          routerLink="{{ item.slug }}"
+        >
+          Read more ></a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="pt-5 flex justify-end">
+    <nav aria-label="Page navigation example">
+      <ul class="inline-flex -space-x-px">
+        <li>
+          <a
+            href="#"
+            class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            &#60;
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="py-2 px-3 leading-tight text-white bg-blue-500 rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >1</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >2</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            aria-current="page"
+            class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >3</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >&#62;
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

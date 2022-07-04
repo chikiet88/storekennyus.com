@@ -1,0 +1,25 @@
+.wishlist_item{
+    transition: all ease 0.3s;
+    .close{
+        display: none;
+    transition: all ease 0.3s;
+
+    }
+    
+}
+.wishlist_item:hover{
+    .close{
+        display: flex;
+    transition: all ease 0.3s;
+
+    }
+}
+@media screen and (max-width: 996px) {
+    .wishlist_item{
+        .close{
+            display: flex;
+        transition: all ease 0.3s;
+    
+        }
+    }
+}
