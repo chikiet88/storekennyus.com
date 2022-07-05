@@ -3,19 +3,11 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
     {
-        id: 'example',
-        title: 'Example',
-        type: 'group',
+        id: 'donhang',
+        title: 'Đơn hàng',
+        type: 'aside',
         icon: 'heroicons_outline:chart-pie',
-        children: [
-            {
-                id: 'danhmuc',
-                title: 'Danh mục',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
-                link: '/admin/danhmuc',
-            },
-        ],
+        link: '/admin',
     },
     {
         id: 'menu',
@@ -56,11 +48,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
-        id: 'example',
-        title: 'Example',
-        type: 'aside',
+        id: 'donhang',
+        title: 'Đơn hàng',
+        type: 'basic',
         icon: 'heroicons_outline:chart-pie',
-        children: [],
+        link: '/admin',
     },
     {
         id: 'danhmuc',
