@@ -1,463 +1,469 @@
 <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-3 mt-5 px-3">
-  <nav class="flex mb-5" aria-label="Breadcrumb">
-    <ol class="inline-flex items-center space-x-1 md:space-x-3">
-      <li class="inline-flex items-center">
-        <a
-          routerLink=""
-          class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-        >
-          Home
-        </a>
-      </li>
-      <li>
-        <div class="flex items-center">
-          <svg
-            class="w-4 h-4 text-gray-400"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <a
-            routerLink="/blog"
-            class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
-            >Sản phẩm</a
-          >
-        </div>
-      </li>
-    </ol>
-  </nav>
-  <div class="flex">
-    <mat-drawer-container class="example-container" autosize>
-      <mat-drawer #drawer class="example-sidenav" mode="side">
-        <div class="pr-5 lg:hidden relative">
-          <p class="text-xl text-purple-500 font-bold">Shop by Categories</p>
-          <!-- <mat-accordion>
-            <mat-expansion-panel
-              *ngFor="let itemmenu of danhmuc; let i = index"
-              (opened)="panelOpenState = true"
-              (closed)="panelOpenState = false"
-            >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <div *ngIf="itemmenu?.children.length > 0; else notparent">
-                    <span
-                      (click)="onSelectDanhmuc(itemmenu, i)"
-                      [ngClass]="{ active: selectedIndex == i }"
-                      class="text-purple-500 font-bold"
-                      >{{ itemmenu.Tieude }}</span
+    <nav class="flex mb-5" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a
+                    routerLink=""
+                    class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                >
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg
+                        class="w-4 h-4 text-gray-400"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
                     >
-                  </div>
-                  <ng-template #notparent>
-                    <span
-                      class="text-purple-500 font-bold"
-                      (click)="onSelectDanhmuc(itemmenu, i)"
-                      >{{ itemmenu.Tieude }}</span
+                        <path
+                            fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"
+                        ></path>
+                    </svg>
+                    <a
+                        routerLink="/blog"
+                        class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
+                        >Sản phẩm</a
                     >
-                  </ng-template>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <div *ngIf="itemmenu?.children.length > 0">
-                <div class="flex flex-col" *ngFor="let item of itemmenu.children">
-                  <span
-                    (click)="onSelectDanhmuc(item, i)"
-                    class="text-purple-500 font-bold"
-                    >{{ item.Tieude }}</span
-                  >
                 </div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion> -->
-          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-              <button mat-icon-button disabled></button>
-              <span
-                (click)="onSelectDanhmuc(node.item)"
-                class="cursor-pointer"
-                >{{ node.name }}</span
-              >
-            </mat-tree-node>
-            <mat-tree-node
-              *matTreeNodeDef="let node; when: hasChild"
-              matTreeNodePadding
-            >
-              <button
-                mat-icon-button
-                matTreeNodeToggle
-                [attr.aria-label]="'Toggle ' + node.name"
-              >
-                <mat-icon class="mat-icon-rtl-mirror">
-                  {{
-                    treeControl.isExpanded(node)
-                      ? "expand_more"
-                      : "chevron_right"
-                  }}
-                </mat-icon>
-              </button>
-              <span
-                class="cursor-pointer"
-                (click)="onSelectDanhmuc(node.item)"
-                >{{ node.name }}</span
-              >
-            </mat-tree-node>
-          </mat-tree>
-          <div class="pt-5">
-            <button
-              class="text-purple-500 text-lg font-bold hover:text-blue-500"
-              [matMenuTriggerFor]="menu"
-            >
-              Menu
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>Item 1</button>
-              <button mat-menu-item>Item 2</button>
-            </mat-menu>
-          </div>
+            </li>
+        </ol>
+    </nav>
+    <div class="flex">
+        <mat-drawer-container class="example-container" autosize>
+            <mat-drawer #drawer class="example-sidenav" mode="side">
+                <div class="pr-5 lg:hidden relative">
+                    <p class="text-xl text-purple-500 font-bold">
+                        Shop by Categories
+                    </p>
 
-          <div class="pt-10">
-            <p class="text-purple-500 font-bold text-xl pb-5">Price</p>
-            <ngx-slider
-              [(value)]="minValue"
-              [(highValue)]="maxValue"
-              [options]="options"
-              (keyup.enter)="changePrice(maxValue - minValue)"
-            ></ngx-slider>
-          </div>
-
-          <div class="pt-10">
-            <p class="text-xl text-purple-500 font-bold">Thương hiệu</p>
-            <div class="h-48 overflow-auto">
-              <ul>
-                <li *ngFor="let item of thuonghieus; let i = index">
-                  <mat-checkbox (click)="checkboxThuonghieu(item, i)">
-                    {{ item.Tieude }}
-                  </mat-checkbox>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="pt-10">
-            <p class="text-xl text-purple-500 font-bold">Condition</p>
-            <div class="pt-5 flex flex-wrap">
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Acid reflux
-              </p>
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Anxiety
-              </p>
-
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Cold
-              </p>
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Covid 19
-              </p>
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Acid reflux
-              </p>
-            </div>
-          </div>
-
-          <div class="pt-10">
-            <div class="w-full bg-gray-200 rounded-xl" style="height: 425px">
-              <div class="p-5 flex flex-col items-center">
-                <div class="w-full h-52 bg-red-200"></div>
-                <div class="w-full h-1/2 flex flex-col items-center pt-5">
-                  <p class="text-purple-500">Pyridoxine Vitamin B6</p>
-                  <p class="text-3xl font-bold text-purple-500 text-center">
-                    Vitamin & <br />
-                    Supplements
-                  </p>
-                  <button
-                    class="text-white font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
-                  >
-                    Shop now >
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="absolute right-5 top-5" (click)="drawer.toggle()">
-            <span class="material-icons"> close </span>
-          </div>
-        </div>
-      </mat-drawer>
-
-      <div class="example-sidenav-content flex">
-        <div class="w-1/5 pr-5 hidden lg:block">
-          <p class="text-xl text-purple-500 font-bold">Shop by Categories</p>
-          <!-- <mat-accordion>
-            <mat-expansion-panel
-              *ngFor="let itemmenu of danhmuc; let i = index"
-              (opened)="panelOpenState = true"
-              (closed)="panelOpenState = false"
-            >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <div *ngIf="itemmenu?.children.length > 0; else notparent">
-                    <span
-                      (click)="onSelectDanhmuc(itemmenu, i)"
-                      [ngClass]="{ active: selectedIndex == i }"
-                      class="text-purple-500 font-bold"
-                      >{{ itemmenu.Tieude }}</span
+                    <mat-tree
+                        [dataSource]="dataSource"
+                        [treeControl]="treeControl"
                     >
-                  </div>
-                  <ng-template #notparent>
-                    <span
-                      class="text-purple-500 font-bold"
-                      (click)="onSelectDanhmuc(itemmenu, i)"
-                      >{{ itemmenu.Tieude }}</span
+                        <mat-tree-node
+                            *matTreeNodeDef="let node"
+                            matTreeNodePadding
+                        >
+                            <button mat-icon-button disabled></button>
+                            <div class="cursor-pointer">
+                                <a
+                                    class="link"
+                                    routerLink="../{{ node.item.id }}"
+                                    routerLinkActive="active-link"
+                                    >{{ node.name }}</a
+                                >
+                            </div>
+                        </mat-tree-node>
+                        <mat-tree-node
+                            *matTreeNodeDef="let node; when: hasChild"
+                            matTreeNodePadding
+                        >
+                            <button
+                                mat-icon-button
+                                matTreeNodeToggle
+                                [attr.aria-label]="'Toggle ' + node.name"
+                            >
+                                <mat-icon class="mat-icon-rtl-mirror">
+                                    {{
+                                        treeControl.isExpanded(node)
+                                            ? "expand_more"
+                                            : "chevron_right"
+                                    }}
+                                </mat-icon>
+                            </button>
+                            <div class="cursor-pointer">
+                                <a
+                                    class="link"
+                                    routerLink="../{{ node.item.id }}"
+                                    routerLinkActive="active-link"
+                                    >{{ node.name }}</a
+                                >
+                            </div>
+                        </mat-tree-node>
+                    </mat-tree>
+
+                    <div class="pt-10">
+                        <p class="text-purple-500 font-bold text-xl pb-5">
+                            Price
+                        </p>
+                        <ngx-slider
+                            [(value)]="minValue"
+                            [(highValue)]="maxValue"
+                            [options]="options"
+                            (keyup.enter)="changePrice(maxValue - minValue)"
+                        ></ngx-slider>
+                    </div>
+
+                    <div class="pt-10">
+                        <p class="text-xl text-purple-500 font-bold">
+                            Thương hiệu
+                        </p>
+                        <div class="h-48 overflow-auto">
+                            <ul>
+                                <li
+                                    *ngFor="
+                                        let item of thuonghieus;
+                                        let i = index
+                                    "
+                                >
+                                    <mat-checkbox
+                                        (click)="checkboxThuonghieu(item, i)"
+                                    >
+                                        {{ item.Tieude }}
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pt-10">
+                        <p class="text-xl text-purple-500 font-bold">
+                            Condition
+                        </p>
+                        <div class="pt-5 flex flex-wrap">
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Acid reflux
+                            </p>
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Anxiety
+                            </p>
+
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Cold
+                            </p>
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Covid 19
+                            </p>
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Acid reflux
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-10">
+                        <div
+                            class="w-full bg-gray-200 rounded-xl"
+                            style="height: 425px"
+                        >
+                            <div class="p-5 flex flex-col items-center">
+                                <div class="w-full h-52 bg-red-200"></div>
+                                <div
+                                    class="w-full h-1/2 flex flex-col items-center pt-5"
+                                >
+                                    <p class="text-purple-500">
+                                        Pyridoxine Vitamin B6
+                                    </p>
+                                    <p
+                                        class="text-3xl font-bold text-purple-500 text-center"
+                                    >
+                                        Vitamin & <br />
+                                        Supplements
+                                    </p>
+                                    <button
+                                        class="text-white font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
+                                    >
+                                        Shop now >
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute right-5 top-5"
+                        (click)="drawer.toggle()"
                     >
-                  </ng-template>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <div *ngIf="itemmenu?.children.length > 0">
-                <div class="flex flex-col" *ngFor="let item of itemmenu.children">
-                  <span
-                    (click)="onSelectDanhmuc(item, i)"
-                    class="text-purple-500 font-bold"
-                    >{{ item.Tieude }}</span
-                  >
+                        <span class="material-icons"> close </span>
+                    </div>
                 </div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion> -->
-          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-              <button mat-icon-button disabled></button>
-              <span
-                (click)="onSelectDanhmuc(node.item)"
-                class="cursor-pointer"
-                >{{ node.name }}</span
-              >
-            </mat-tree-node>
-            <mat-tree-node
-              *matTreeNodeDef="let node; when: hasChild"
-              matTreeNodePadding
-            >
-              <button
-                mat-icon-button
-                matTreeNodeToggle
-                [attr.aria-label]="'Toggle ' + node.name"
-              >
-                <mat-icon class="mat-icon-rtl-mirror">
-                  {{
-                    treeControl.isExpanded(node)
-                      ? "expand_more"
-                      : "chevron_right"
-                  }}
-                </mat-icon>
-              </button>
-              <span
-                class="cursor-pointer"
-                (click)="onSelectDanhmuc(node.item)"
-                >{{ node.name }}</span
-              >
-            </mat-tree-node>
-          </mat-tree>
-          <div class="pt-5">
-            <button
-              class="text-purple-500 text-lg font-bold hover:text-blue-500"
-              [matMenuTriggerFor]="menu"
-            >
-              Menu
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>Item 1</button>
-              <button mat-menu-item>Item 2</button>
-            </mat-menu>
-          </div>
+            </mat-drawer>
 
-          <div class="pt-10">
-            <p class="text-purple-500 font-bold text-xl pb-5">Price</p>
-            <ngx-slider
-              [(value)]="minValue"
-              [(highValue)]="maxValue"
-              [options]="options"
-              (keyup.enter)="changePrice(maxValue - minValue)"
-            ></ngx-slider>
-          </div>
+            <div class="example-sidenav-content flex">
+                <div class="w-1/5 pr-5 hidden lg:block">
+                    <p class="text-xl text-purple-500 font-bold">
+                        Shop by Categories
+                    </p>
 
-          <div class="pt-10">
-            <p class="text-xl text-purple-500 font-bold">Thương hiệu</p>
-            <div class="h-48 overflow-auto">
-              <ul>
-                <li *ngFor="let item of thuonghieus; let i = index">
-                  <mat-checkbox (click)="checkboxThuonghieu(item, i)">
-                    {{ item.Tieude }}
-                  </mat-checkbox>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="pt-10">
-            <p class="text-xl text-purple-500 font-bold">Condition</p>
-            <div class="pt-5 flex flex-wrap">
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Acid reflux
-              </p>
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Anxiety
-              </p>
+                    <mat-tree
+                        [dataSource]="dataSource"
+                        [treeControl]="treeControl"
+                    >
+                        <mat-tree-node
+                            *matTreeNodeDef="let node"
+                            matTreeNodePadding
+                        >
+                            <button mat-icon-button disabled></button>
+                            <div class="cursor-pointer">
+                                <a
+                                    class="link"
+                                    routerLink="../{{ node.item.id }}"
+                                    routerLinkActive="active-link"
+                                    >{{ node.name }}</a
+                                >
+                            </div>
+                        </mat-tree-node>
+                        <mat-tree-node
+                            *matTreeNodeDef="let node; when: hasChild"
+                            matTreeNodePadding
+                        >
+                            <a
+                                mat-icon-button
+                                matTreeNodeToggle
+                                routerLink="../{{ node.item.id }}"
+                                [attr.aria-label]="'Toggle ' + node.name"
+                            >
+                                <mat-icon class="mat-icon-rtl-mirror">
+                                    {{
+                                        treeControl.isExpanded(node)
+                                            ? "expand_more"
+                                            : "chevron_right"
+                                    }}
+                                </mat-icon>
+                            </a>
+                            <div class="cursor-pointer">
+                                <a
+                                    class="link"
+                                    routerLink="../{{ node.item.id }}"
+                                    routerLinkActive="active-link"
+                                    >{{ node.name }}</a
+                                >
+                            </div>
+                        </mat-tree-node>
+                    </mat-tree>
 
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Cold
-              </p>
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Covid 19
-              </p>
-              <p
-                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
-              >
-                Acid reflux
-              </p>
-            </div>
-          </div>
+                    <div class="pt-10">
+                        <p class="text-purple-500 font-bold text-xl pb-5">
+                            Price
+                        </p>
+                        <ngx-slider
+                            [(value)]="minValue"
+                            [(highValue)]="maxValue"
+                            [options]="options"
+                            (keyup.enter)="changePrice(maxValue - minValue)"
+                        ></ngx-slider>
+                    </div>
 
-          <div class="pt-10">
-            <div class="w-full bg-gray-200 rounded-xl" style="height: 425px">
-              <div class="p-5 flex flex-col items-center">
-                <div class="w-full h-52 bg-red-200"></div>
-                <div class="w-full h-1/2 flex flex-col items-center pt-5">
-                  <p class="text-purple-500">Pyridoxine Vitamin B6</p>
-                  <p class="text-3xl font-bold text-purple-500 text-center">
-                    Vitamin & <br />
-                    Supplements
-                  </p>
-                  <button
-                    class="text-white font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
-                  >
-                    Shop now >
-                  </button>
+                    <div class="pt-10">
+                        <p class="text-xl text-purple-500 font-bold">
+                            Thương hiệu
+                        </p>
+                        <div class="h-48 overflow-auto">
+                            <ul>
+                                <li
+                                    *ngFor="
+                                        let item of thuonghieus;
+                                        let i = index
+                                    "
+                                >
+                                    <mat-checkbox
+                                        (click)="checkboxThuonghieu(item, i)"
+                                    >
+                                        {{ item.Tieude }}
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pt-10">
+                        <p class="text-xl text-purple-500 font-bold">
+                            Condition
+                        </p>
+                        <div class="pt-5 flex flex-wrap">
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Acid reflux
+                            </p>
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Anxiety
+                            </p>
+
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Cold
+                            </p>
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Covid 19
+                            </p>
+                            <p
+                                class="text-lg p-3 bg-gray-200 rounded-lg text-purple-500 font-bold m-1"
+                            >
+                                Acid reflux
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-10">
+                        <div
+                            class="w-full bg-gray-200 rounded-xl"
+                            style="height: 425px"
+                        >
+                            <div class="p-5 flex flex-col items-center">
+                                <div class="w-full h-52 bg-red-200"></div>
+                                <div
+                                    class="w-full h-1/2 flex flex-col items-center pt-5"
+                                >
+                                    <p class="text-purple-500">
+                                        Pyridoxine Vitamin B6
+                                    </p>
+                                    <p
+                                        class="text-3xl font-bold text-purple-500 text-center"
+                                    >
+                                        Vitamin & <br />
+                                        Supplements
+                                    </p>
+                                    <button
+                                        class="text-white font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
+                                    >
+                                        Shop now >
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="lg:w-4/5 w-full lg:pl-5">
-          <div
-            class="w-full bg-gray-200 lg:hidden py-2 flex justify-center items-center mb-3"
-          >
-            <span
-              class="material-icons text-purple-500 text-xl"
-              (click)="drawer.toggle()"
-            >
-              tune
-            </span>
-          </div>
-          <div class="flex justify-between items-center md:flex-row flex-col">
-            <div class="items-center md:flex hidden">
-              <div
-                class="flex bg-gray-200 rounded-xl items-center p-2 justify-center"
-              >
-                <div
-                  class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
-                  (click)="productListtoggle(1)"
-                >
-                  1
-                </div>
-                <div
-                  class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
-                  (click)="productListtoggle(2)"
-                >
-                  2
-                </div>
-                <div
-                  class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
-                  (click)="productListtoggle(3)"
-                >
-                  3
-                </div>
-              </div>
-              <div class="ml-5 flex items-center">
-                <mat-select
-                  class="p-2 text-purple-500 rounded-xl text-lg border w-40 h-full bg-gray-200"
-                  value="Default sorting"
-                  (selectionChange)="sapxepgiatri($event.value)"
-                >
-                  <mat-option value="low" class="text-purple-500 text-xl">
-                    Tìm giá thấp đến cao</mat-option
-                  >
-                  <mat-option value="high" class="text-purple-500 text-xl">
-                    Tìm giá cao đến thấp</mat-option
-                  >
-                </mat-select>
-              </div>
-            </div>
-            <div class="flex items-center">
-              <div class="text-gray-500 mr-3">
-                Hiển thị {{ productDM?.length }} sản phẩm
-              </div>
-              <div class="flex items-center">
-                <input type="checkbox" class="mr-2" (click)="selectSale()" />
-                <p class="text-gray-500">chỉ những sản phẩm đang sale</p>
-              </div>
-            </div>
-          </div>
-          <div class="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-10">
-            <div
-              class="w-full bg-red-200 flex rounded-2xl md:px-8 pl-8 pt-8 sm:flex-row-reverse md:flex-row"
-            >
-              <div class="lg:w-1/2 md:w-1/3 w-1/2 h-56 bg-gray-200"></div>
-              <div
-                class="lg:w-1/2 md:w-2/3 w-1/2 flex justify-center flex-col pl-3"
-              >
-                <p class="text-lg text-purple-500">Save up to 10%</p>
-                <p class="text-2xl text-purple-500">
-                  <strong>Vitamins &</strong> Supplements
-                </p>
-                <button
-                  class="text-white font-bold text-lg p-2 bg-green-500 rounded-2xl w-28"
-                >
-                  Buy now >
-                </button>
-              </div>
-            </div>
-            <div class="w-full bg-red-200 lg:flex hidden rounded-2xl px-8 pt-8">
-              <div class="w-1/2 h-56 bg-gray-200"></div>
-              <div class="w-1/2 flex justify-center flex-col pl-3">
-                <p
-                  class="text-sm p-1 font-bold bg-orange-500 text-white rounded-xl w-16 text-center"
-                >
-                  New
-                </p>
-                <p class="text-2xl text-purple-500">
-                  <strong>Vitamins &</strong> Supplements
-                </p>
-                <button
-                  class="text-white font-bold text-lg p-2 bg-green-500 rounded-2xl w-28"
-                >
-                  Buy now >
-                </button>
-              </div>
-            </div>
-          </div>
+                <div class="lg:w-4/5 w-full lg:pl-5">
+                    <div
+                        class="w-full bg-gray-200 lg:hidden py-2 flex justify-center items-center mb-3"
+                    >
+                        <span
+                            class="material-icons text-purple-500 text-xl"
+                            (click)="drawer.toggle()"
+                        >
+                            tune
+                        </span>
+                    </div>
+                    <div
+                        class="flex justify-between items-center md:flex-row flex-col"
+                    >
+                        <div class="items-center md:flex hidden">
+                            <div
+                                class="flex bg-gray-200 rounded-xl items-center p-2 justify-center"
+                            >
+                                <div
+                                    class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+                                    (click)="productListtoggle(1)"
+                                >
+                                    1
+                                </div>
+                                <div
+                                    class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+                                    (click)="productListtoggle(2)"
+                                >
+                                    2
+                                </div>
+                                <div
+                                    class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+                                    (click)="productListtoggle(3)"
+                                >
+                                    3
+                                </div>
+                            </div>
+                            <div class="ml-5 flex items-center">
+                                <mat-select
+                                    class="p-2 text-purple-500 rounded-xl text-lg border w-40 h-full bg-gray-200"
+                                    value="Default sorting"
+                                    (selectionChange)="
+                                        sapxepgiatri($event.value)
+                                    "
+                                >
+                                    <mat-option
+                                        value="low"
+                                        class="text-purple-500 text-xl"
+                                    >
+                                        Tìm giá thấp đến cao</mat-option
+                                    >
+                                    <mat-option
+                                        value="high"
+                                        class="text-purple-500 text-xl"
+                                    >
+                                        Tìm giá cao đến thấp</mat-option
+                                    >
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="text-gray-500 mr-3">
+                                Hiển thị {{ productDM?.length }} sản phẩm
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    class="mr-2"
+                                    (click)="selectSale()"
+                                />
+                                <p class="text-gray-500">
+                                    chỉ những sản phẩm đang sale
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-10">
+                        <div
+                            class="w-full bg-red-200 flex rounded-2xl md:px-8 pl-8 pt-8 sm:flex-row-reverse md:flex-row"
+                        >
+                            <div
+                                class="lg:w-1/2 md:w-1/3 w-1/2 h-56 bg-gray-200"
+                            ></div>
+                            <div
+                                class="lg:w-1/2 md:w-2/3 w-1/2 flex justify-center flex-col pl-3"
+                            >
+                                <p class="text-lg text-purple-500">
+                                    Save up to 10%
+                                </p>
+                                <p class="text-2xl text-purple-500">
+                                    <strong>Vitamins &</strong> Supplements
+                                </p>
+                                <button
+                                    class="text-white font-bold text-lg p-2 bg-green-500 rounded-2xl w-28"
+                                >
+                                    Buy now >
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                            class="w-full bg-red-200 lg:flex hidden rounded-2xl px-8 pt-8"
+                        >
+                            <div class="w-1/2 h-56 bg-gray-200"></div>
+                            <div
+                                class="w-1/2 flex justify-center flex-col pl-3"
+                            >
+                                <p
+                                    class="text-sm p-1 font-bold bg-orange-500 text-white rounded-xl w-16 text-center"
+                                >
+                                    New
+                                </p>
+                                <p class="text-2xl text-purple-500">
+                                    <strong>Vitamins &</strong> Supplements
+                                </p>
+                                <button
+                                    class="text-white font-bold text-lg p-2 bg-green-500 rounded-2xl w-28"
+                                >
+                                    Buy now >
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-          <!-- <div
+                    <!-- <div
             class="grid grid-cols-4 gap-5 mt-10"
             [ngClass]="{ hidden: productListhide != 1 }"
             *ngIf="productListhide == 1"
@@ -467,15 +473,15 @@
               [item]="item"
             ></app-product-list>
           </div> -->
-          <div
-            class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 mt-10"
-          >
-            <app-product-list
-              *ngFor="let item of productDM"
-              [item]="item"
-            ></app-product-list>
-          </div>
-          <!-- <div
+                    <div
+                        class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 mt-10"
+                    >
+                        <app-product-list
+                            *ngFor="let item of productDM"
+                            [item]="item"
+                        ></app-product-list>
+                    </div>
+                    <!-- <div
             class="grid grid-cols-1 gap-5 mt-10"
             [ngClass]="{ hidden: productListhide != 3 }"
             *ngIf="productListhide == 3"
@@ -485,110 +491,122 @@
               [item]="item"
             ></app-product-item1>
           </div> -->
-          <div class="pt-5 flex justify-end">
-            <nav aria-label="Page navigation example">
-              <ul class="inline-flex -space-x-px">
-                <li>
-                  <a
-                    href="#"
-                    class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    &#60;
-                  </a>
-                </li>
-                <li
-                  *ngFor="let item of tempProductSplice; let i = index"
-                  (click)="paginateNumber(i)"
-                >
-                  <span
-                    class="py-2 px-3 leading-tight  rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
+                    <div class="pt-5 flex justify-end">
+                        <nav aria-label="Page navigation example">
+                            <ul class="inline-flex -space-x-px">
+                                <li>
+                                    <a
+                                        href="#"
+                                        class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                    >
+                                        &#60;
+                                    </a>
+                                </li>
+                                <li
+                                    *ngFor="
+                                        let item of tempProductSplice;
+                                        let i = index
+                                    "
+                                    (click)="paginateNumber(i)"
+                                >
+                                    <span
+                                        class="py-2 px-3 leading-tight  rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
                     {{ indexPaginate == i ? 'bg-blue-500 text-white' : '' }}
                       "
-                    >{{ i + 1 }}</span
-                  >
-                </li>
+                                        >{{ i + 1 }}</span
+                                    >
+                                </li>
 
-                <li>
-                  <a
-                    href="#"
-                    class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >&#62;
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div class="pt-16">
-            <div
-              class="w-full md:h-48 newest-img relative flex sm:flex-col md:flex-row md:items-center md:justify-center sm:justify-between p-8 rounded z-0"
-            >
-              <div
-                class="md:w-2/5 relative sm:h-3/5 md:h-full z-10 md:flex md:items-center lg:justify-end"
-              >
-                <div class="bg-red-400" style="width: 200px; height: 170px">
-                  200*180
-                </div>
-              </div>
-              <div class="md:w-3/5 sm:h-2/5 sm:h-full relative z-10 lg:ml-5">
-                <div class="sm:pt-5 md:pt-0">
-                  <p
-                    class="text-white w-40 flex item-center justify-center rounded-3xl px-2 py-1 bg-orange-500"
-                  >
-                    Newest Products
-                  </p>
-                  <p class="lg:text-xl sm:text-lg text-purple-500 lg:pt-3 pt-2">
-                    Save unto <strong>10%</strong> extra enjoy
-                    <strong>FREE</strong> delivery with
-                    <strong>PLUS</strong> membership
-                  </p>
-                  <button
-                    class="border-none mt-3 px-3 w-36 text-center py-2 md:text-lg font-bold bg-purple-500 rounded-3xl text-white sm:text-md"
-                  >
-                    Buy now >
-                  </button>
-                </div>
-              </div>
+                                <li>
+                                    <a
+                                        href="#"
+                                        class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        >&#62;
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="pt-16">
+                        <div
+                            class="w-full md:h-48 newest-img relative flex sm:flex-col md:flex-row md:items-center md:justify-center sm:justify-between p-8 rounded z-0"
+                        >
+                            <div
+                                class="md:w-2/5 relative sm:h-3/5 md:h-full z-10 md:flex md:items-center lg:justify-end"
+                            >
+                                <div
+                                    class="bg-red-400"
+                                    style="width: 200px; height: 170px"
+                                >
+                                    200*180
+                                </div>
+                            </div>
+                            <div
+                                class="md:w-3/5 sm:h-2/5 sm:h-full relative z-10 lg:ml-5"
+                            >
+                                <div class="sm:pt-5 md:pt-0">
+                                    <p
+                                        class="text-white w-40 flex item-center justify-center rounded-3xl px-2 py-1 bg-orange-500"
+                                    >
+                                        Newest Products
+                                    </p>
+                                    <p
+                                        class="lg:text-xl sm:text-lg text-purple-500 lg:pt-3 pt-2"
+                                    >
+                                        Save unto <strong>10%</strong> extra
+                                        enjoy <strong>FREE</strong> delivery
+                                        with <strong>PLUS</strong> membership
+                                    </p>
+                                    <button
+                                        class="border-none mt-3 px-3 w-36 text-center py-2 md:text-lg font-bold bg-purple-500 rounded-3xl text-white sm:text-md"
+                                    >
+                                        Buy now >
+                                    </button>
+                                </div>
+                            </div>
 
-              <div
-                class="absolute w-full left-0 bg-blue-200 h-full md:h-48 newest-img z-0 top-0 rounded-xl text-xl"
-              >
-                1250*200
-              </div>
+                            <div
+                                class="absolute w-full left-0 bg-blue-200 h-full md:h-48 newest-img z-0 top-0 rounded-xl text-xl"
+                            >
+                                1250*200
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </mat-drawer-container>
-  </div>
+        </mat-drawer-container>
+    </div>
 </div>
 <div class="pt-10">
-  <div
-    class="w-full md:h-56 sm:h-72 bg-gray-200 relative flex flex-col items-center justify-center"
-  >
     <div
-      class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
+        class="w-full md:h-56 sm:h-72 bg-gray-200 relative flex flex-col items-center justify-center"
     >
-      <p class="lg:text-5xl text-4xl font-bold text-purple-500">
-        Join our newsletter
-      </p>
-      <p class="text-purple-500 lg:pt-3 sm:text-center">
-        Join over half a million vitamin lovers and get our latest deals,
-        articles, and resources!
-      </p>
-      <div
-        class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
-      >
-        <input
-          class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
-          placeholder="Email Address"
-        />
-        <button
-          class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
+        <div
+            class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
         >
-          <span class="material-icons text-white mr-2 text-lg"> send </span>
-          Subrcries
-        </button>
-      </div>
+            <p class="lg:text-5xl text-4xl font-bold text-purple-500">
+                Join our newsletter
+            </p>
+            <p class="text-purple-500 lg:pt-3 sm:text-center">
+                Join over half a million vitamin lovers and get our latest
+                deals, articles, and resources!
+            </p>
+            <div
+                class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
+            >
+                <input
+                    class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
+                    placeholder="Email Address"
+                />
+                <button
+                    class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
+                >
+                    <span class="material-icons text-white mr-2 text-lg">
+                        send
+                    </span>
+                    Subrcries
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
