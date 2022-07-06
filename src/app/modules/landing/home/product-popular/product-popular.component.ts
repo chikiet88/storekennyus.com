@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { CartPopupService } from "../components/cart-popup/cart-popup.service";
 import { PopupProductComponent } from "../components/popup-product/popup-product.component";
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: "app-product-popular",
@@ -9,12 +10,19 @@ import { PopupProductComponent } from "../components/popup-product/popup-product
   styleUrls: ["./product-popular.component.scss"],
 })
 export class ProductPopularComponent implements OnInit {
+  private readonly notifier: NotifierService;
+
   @Input() item;
   contentImage =false
   constructor(
     public dialog: MatDialog,
-    private _cartService: CartPopupService
-  ) {}
+    private _cartService: CartPopupService,
+    notifierService: NotifierService
+
+  ) {
+    this.notifier = notifierService;
+
+  }
   openDialog() {
     const dialogRef = this.dialog.open(PopupProductComponent, {
       data: { dulieu: this.item },
@@ -33,7 +41,7 @@ export class ProductPopularComponent implements OnInit {
   addtocart(item) {
   
     this._cartService.pushCart(item).subscribe((res) => {
-      alert("Thêm sản phẩm thành công");
+      this.notifier.notify('success', 'Thêm sản phẩm thành công');
     });
    
 

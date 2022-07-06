@@ -40,13 +40,13 @@ export class CauhinhService {
     )
   }
 
-  deleteCauhinh(id){
+  deleteCauhinh(data){
 
     return this.cauhinhs$.pipe(
       take(1),
-      switchMap(courses=>this.http.delete(this.urlApi+`/${id}`).pipe(map((isDelete => {
+      switchMap(courses=>this.http.delete(this.urlApi+`/${data.id}`).pipe(map((isDelete => {
         
-       const updateCourses =  courses.filter(e => e.id != id);
+       const updateCourses =  courses.filter(e => e.id != data.id);
         
         this._cauhinhs.next(updateCourses)
         return isDelete

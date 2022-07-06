@@ -446,22 +446,17 @@
                           </ul>
                         </div>
 
-                        <div class="w-56 h-96 bg-gray-300 rounded-xl relative">
-                          <div
-                            class="absolute top-10 left-1/2 centerX w-44 h-1/2 bg-red-200"
-                          >
-                            200*200
-                          </div>
+                        <div class="w-56 h-96 bg-gray-300 rounded-xl relative" >
+                         <img src="{{danhmuc[i]?.sanphamnoibat?.Image}}" alt="">
                           <div
                             class="top-1/2 absolute mt-10 w-full z-10 left-1/2 centerX centerY"
                           >
-                            <span class="text-purple-500"
-                              >Pyridoxine Vitamon B6</span
-                            >
+                           
                             <h3 class="text-purple-500 font-bold text-2xl">
-                              Vitamins & Supplements
+                              {{danhmuc[i]?.sanphamnoibat?.Tieude}}
                             </h3>
                             <div
+                            routerLink="sanpham"
                               class="w-1/2 mt-3 mx-auto py-2 text-center bg-orange-500 text-white text-lg rounded-2xl"
                             >
                               Show now

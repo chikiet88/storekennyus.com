@@ -8,6 +8,7 @@ import { FileUpload } from '../models/file-upload.model';
 import { FileUploadService } from '../services/file-upload.service';
 import { MyUploadAdapter } from '../MyUploadAdapter';
 import { DanhmucService } from '../danhmuc/danhmuc.service';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
     selector: 'app-add-baiviet',
@@ -16,6 +17,7 @@ import { DanhmucService } from '../danhmuc/danhmuc.service';
     encapsulation: ViewEncapsulation.None,
 })
 export class AddBaivietComponent implements OnInit {
+    private readonly notifier: NotifierService;
     fileUploads?: any[];
     public html: string;
     selectedFiles?: FileList;
@@ -206,10 +208,13 @@ export class AddBaivietComponent implements OnInit {
         private baivietService: AddBaivietService,
         private fb: FormBuilder,
         private uploadService: FileUploadService,
-        private _danhmucService: DanhmucService
+        private _danhmucService: DanhmucService,
+        notifierService: NotifierService
+
     ) {
         this.html = '';
         this.Editor = ClassicEditor;
+        
     }
     getLinkImage(number) {
         this.uploadService
@@ -239,7 +244,7 @@ export class AddBaivietComponent implements OnInit {
             .postCourse(this.baivietForm.value)
             .subscribe((res) => {
                 if (res) {
-                    alert('Tạo nội dung thành công');
+                    this.notifier.notify('success', 'Tạo nội dung thành công');
                     this.listimage = [];
                     this.resetForm();
                 }

@@ -457,7 +457,105 @@
             </div>
           </div>
 
-        <app-danhsach-sanpham [productDM]="productDM" [tempProductSplice]="tempProductSplice" ></app-danhsach-sanpham>
+          <!-- <div
+            class="grid grid-cols-4 gap-5 mt-10"
+            [ngClass]="{ hidden: productListhide != 1 }"
+            *ngIf="productListhide == 1"
+          >
+            <app-product-list
+              *ngFor="let item of productDM"
+              [item]="item"
+            ></app-product-list>
+          </div> -->
+          <div
+            class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 mt-10"
+          >
+            <app-product-list
+              *ngFor="let item of productDM"
+              [item]="item"
+            ></app-product-list>
+          </div>
+          <!-- <div
+            class="grid grid-cols-1 gap-5 mt-10"
+            [ngClass]="{ hidden: productListhide != 3 }"
+            *ngIf="productListhide == 3"
+          >
+            <app-product-item1
+              *ngFor="let item of productDM"
+              [item]="item"
+            ></app-product-item1>
+          </div> -->
+          <div class="pt-5 flex justify-end">
+            <nav aria-label="Page navigation example">
+              <ul class="inline-flex -space-x-px">
+                <li>
+                  <a
+                    href="#"
+                    class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  >
+                    &#60;
+                  </a>
+                </li>
+                <li
+                  *ngFor="let item of tempProductSplice; let i = index"
+                  (click)="paginateNumber(i)"
+                >
+                  <span
+                    class="py-2 px-3 leading-tight  rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
+                    {{ indexPaginate == i ? 'bg-blue-500 text-white' : '' }}
+                      "
+                    >{{ i + 1 }}</span
+                  >
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >&#62;
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="pt-16">
+            <div
+              class="w-full md:h-48 newest-img relative flex sm:flex-col md:flex-row md:items-center md:justify-center sm:justify-between p-8 rounded z-0"
+            >
+              <div
+                class="md:w-2/5 relative sm:h-3/5 md:h-full z-10 md:flex md:items-center lg:justify-end"
+              >
+                <div class="bg-red-400" style="width: 200px; height: 170px">
+                  200*180
+                </div>
+              </div>
+              <div class="md:w-3/5 sm:h-2/5 sm:h-full relative z-10 lg:ml-5">
+                <div class="sm:pt-5 md:pt-0">
+                  <p
+                    class="text-white w-40 flex item-center justify-center rounded-3xl px-2 py-1 bg-orange-500"
+                  >
+                    Newest Products
+                  </p>
+                  <p class="lg:text-xl sm:text-lg text-purple-500 lg:pt-3 pt-2">
+                    Save unto <strong>10%</strong> extra enjoy
+                    <strong>FREE</strong> delivery with
+                    <strong>PLUS</strong> membership
+                  </p>
+                  <button
+                    class="border-none mt-3 px-3 w-36 text-center py-2 md:text-lg font-bold bg-purple-500 rounded-3xl text-white sm:text-md"
+                  >
+                    Buy now >
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class="absolute w-full left-0 bg-blue-200 h-full md:h-48 newest-img z-0 top-0 rounded-xl text-xl"
+              >
+                1250*200
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </mat-drawer-container>

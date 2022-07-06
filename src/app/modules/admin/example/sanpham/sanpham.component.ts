@@ -199,6 +199,8 @@ export class SanphamComponent implements OnInit {
         this.sanphamService
             .updateProduct(this.productList.value)
             .subscribe((res) => {
+                console.log(res);
+                
                 this.listimage = [];
                 alert('Cập nhật thành công');
                 this.resetForm();
@@ -216,6 +218,8 @@ export class SanphamComponent implements OnInit {
             .deleteSanpham(this.productList.value)
             .subscribe((res) => {
                 this.resetForm();
+                alert('Xóa sản phẩm thành công');
+
                 this.isSelectProduct = false;
                 this.thumb = '';
             });

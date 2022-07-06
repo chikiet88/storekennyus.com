@@ -15,15 +15,22 @@ import { FileUpload } from '../models/file-upload.model';
 export class CauhinhComponent implements OnInit {
     selectedFiles?: FileList;
     currentFileUpload?: FileUpload;
-    idSelect;
+    idSelect = false;
     theme: any;
+    listImageCarousel: any = {};
     message: 'chon theme';
     cauhinhList: FormGroup;
     footer: any;
-    isUpdate = false
+    i = 0;
+    isUpdate = false;
     percentage;
-    listKeyRemove = []
-    isupdateListImage = false
+    listKeyRemove = [];
+    thumb1;
+    thumb2;
+    thumb3;
+    thumb4;
+    thumb5;
+    isupdateListImage = false;
     listkey: any = {};
     listimage: any[] = [];
     public Editor = ClassicEditor;
@@ -43,119 +50,60 @@ export class CauhinhComponent implements OnInit {
         private cauhinhService: CauhinhService,
         private fb: FormBuilder,
         private uploadService: FileUploadService
-        
     ) {}
 
-    // upload(): void {
-    //     this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
-    //         this.cauhinhList.get('Image').setValue(x.url);
-    //         this.thumb = x.url;
-    //         console.log(this.thumb);
-    //     });
-    //     return;
-    // }
-    upload2(): void {
-        if (this.selectedFiles) {
-            console.log(this.selectedFiles);
-            if (
-                Object.keys(this.listkey).length == 0 &&
-                this.isupdateListImage == false
-            ) {
-                console.log('truong hop 1');
-
-                for (
-                    let i = 0, p = Promise.resolve();
-                    i < this.selectedFiles.length;
-                    i++
-                ) {
-                    p = p
-                        .then(() =>
-                            this.callback(this.selectedFiles.item(i), i)
-                        )
-                        .then((x: any) => {
-                            this.listkey[i] = x.key;
-                            if (
-                                Object.keys(this.listkey).length ==
-                                this.selectedFiles.length
-                            ) {
-                                for (const property in this.listkey) {
-                                    this.uploadService
-                                        .getValueByKey(this.listkey[property])
-                                        .pipe(take(1))
-                                        .subscribe((res) => {
-                                            this.listimage.push([
-                                                ...res,
-                                                this.listkey[property],
-                                            ]);
-                                            this.isupdateListImage = true;
-                                        });
-                                }
-                            }
-                        });
-                }
-            } else if (
-                Object.keys(this.listkey).length != 0 &&
-                this.isupdateListImage == true
-            ) {
-                console.log('truong hop 2');
-
-                let index = Object.keys(this.listkey).length;
-
-                for (
-                    let i = 0, p = Promise.resolve();
-                    i < this.selectedFiles.length;
-                    i++
-                ) {
-                    p = p
-                        .then(() =>
-                            this.callback(this.selectedFiles.item(i), i)
-                        )
-                        .then((x: any) => {
-                            index++;
-                            this.listkey[index] = x.key;
-
-                            let a =
-                                this.listimage.length +
-                                this.selectedFiles.length;
-                            console.log(this.listkey);
-
-                            console.log(Object.keys(this.listkey).length);
-
-                            console.log(a);
-                            if (
-                                Object.keys(this.listkey).length ==
-                                this.listimage.length +
-                                    this.selectedFiles.length
-                            ) {
-                                let a =
-                                    this.listimage.length +
-                                    this.selectedFiles.length;
-                                console.log(a);
-
-                                this.listimage = [];
-                                for (const property in this.listkey) {
-                                    this.uploadService
-                                        .getValueByKey(this.listkey[property])
-                                        .pipe(take(1))
-                                        .subscribe((res) => {
-                                            this.listimage.push([
-                                                ...res,
-                                                this.listkey[property],
-                                            ]);
-                                        });
-                                }
-                            }
-                        });
-                }
+    uploadbanner(i): void {
+        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+            if (i == 1) {
+                this.cauhinhList.get('data.Image1').setValue(x.url);
+                this.thumb1 = x.url;
             }
-        }
-
+            if (i == 2) {
+                this.cauhinhList.get('data.Image2').setValue(x.url);
+                this.thumb2 = x.url;
+            }
+            if (i == 3) {
+                this.cauhinhList.get('data.Image3').setValue(x.url);
+                this.thumb3 = x.url;
+            }
+            if (i == 4) {
+                this.cauhinhList.get('data.Image4').setValue(x.url);
+                this.thumb4 = x.url;
+            }
+            if (i == 5) {
+                this.cauhinhList.get('data.Image5').setValue(x.url);
+                this.thumb5 = x.url;
+            }
+        });
+        return;
+    }
+    upload(): void {
+        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+            this.listImageCarousel[this.i] = x.key;
+            this.i++;
+        });
         return;
     }
 
-    deleteImageFirebase(item, i) {
-        console.log(item);
+    updateCauhinh() {
         console.log(this.listkey);
+
+        if (this.listimage.length > 0) {
+            this.cauhinhList.get('data.imageCarousel').setValue(this.listkey);
+        }
+        this.cauhinhService
+            .updateCauhinh(this.cauhinhList.value)
+            .subscribe((res) => {
+                this.resetForm();
+                alert('Cập nhật thành công');
+                this.idSelect = false;
+            });
+        this.listKeyRemove.forEach((x) => {
+            this.uploadService.deleteFile(x);
+        });
+        this.listkey = {};
+    }
+    deleteImageFirebase(item, i) {
         this.listKeyRemove.push(item[2]);
 
         for (const i in this.listkey) {
@@ -232,22 +180,12 @@ export class CauhinhComponent implements OnInit {
             // }
         });
     }
-    onSubmit() {
-        this.cauhinhList.removeControl('id');
-        this.cauhinhList.get('data.imageCarousel').setValue(this.listkey)
-        this.cauhinhService
-            .addCauhinh(this.cauhinhList.value)
-            .subscribe((res) => {
-                alert('Tạo nội dung thành công');
-                this.resetForm();
-            });
-    }
-    
+
     selectFile(event: any): void {
         this.selectedFiles = event.target.files;
     }
     onSelect(item) {
-        
+        this.i = Object.keys(item.data.imageCarousel).length - 1;
         this.cauhinhList.get('id').setValue(item.id);
         this.cauhinhList.get('module').setValue(item.module);
         this.cauhinhList.get('des').setValue(item.des);
@@ -264,39 +202,55 @@ export class CauhinhComponent implements OnInit {
         this.cauhinhList.get('data.date').setValue(item.data.date);
         this.cauhinhList.get('data.endDate').setValue(item.data.endDate);
         this.cauhinhList.get('data.address').setValue(item.data.address);
-        this.cauhinhList.get('data.imageCarousel').setValue(item.data.imageCarousel);
+        this.cauhinhList.get('data.Tieude1').setValue(item.data.Tieude1);
+        this.cauhinhList.get('data.Tieude2').setValue(item.data.Tieude2);
+        this.cauhinhList.get('data.Tieude3').setValue(item.data.Tieude3);
+        this.cauhinhList.get('data.Tieude4').setValue(item.data.Tieude4);
+        this.cauhinhList.get('data.Tieude5').setValue(item.data.Tieude5);
+        this.cauhinhList.get('data.Image1').setValue(item.data.Image1);
+        this.cauhinhList.get('data.Image2').setValue(item.data.Image2);
+        this.cauhinhList.get('data.Image3').setValue(item.data.Image3);
+        this.cauhinhList.get('data.Image4').setValue(item.data.Image4);
+        this.cauhinhList.get('data.Image5').setValue(item.data.Image5);
+        this.thumb1 = item.data.Image1;
+        this.thumb2 = item.data.Image2;
+        this.thumb3 = item.data.Image3;
+        this.thumb4 = item.data.Image4;
+        this.thumb5 = item.data.Image5;
+        if (item.data.imageCarousel) {
+            this.cauhinhList
+                .get('data.imageCarousel')
+                .setValue(item.data.imageCarousel);
+        }
+        this.idSelect = true;
+        this.listkey = item.data.imageCarousel || {};
 
-        this.idSelect = item.id;
-        this.listkey = item.ListImage || {};
-
-        if (Object.keys(item.ListImage).length > 0) {
+        if (Object.keys(item.data.imageCarousel).length > 0) {
             this.isupdateListImage = true;
 
-            for (const property in item.ListImage) {
+            for (const property in item.data.imageCarousel) {
                 this.uploadService
-                    .getValueByKey(item.ListImage[property])
+                    .getValueByKey(item.data.imageCarousel[property])
                     .subscribe((res) => {
-                        this.listimage.push([...res, item.ListImage[property]]);
+                        this.listimage.push([
+                            ...res,
+                            item.data.imageCarousel[property],
+                        ]);
                         console.log(this.listimage);
                     });
             }
         }
     }
-    updateCauhinh() {
-        this.cauhinhService
-            .updateCauhinh(this.cauhinhList.value)
-            .subscribe((res) => {
-                this.resetForm();
-                alert('Cập nhật thành công');
-                this.idSelect = undefined
-            });
-    }
 
     deleteCauhinh() {
-        this.cauhinhService.deleteCauhinh(this.idSelect).subscribe((res) => {
-            alert('Xóa bài thành công');
-            this.resetForm();
-        });
+        this.cauhinhService
+            .deleteCauhinh(this.cauhinhList.value)
+            .subscribe((res) => {
+                alert('Xóa bài thành công');
+                this.idSelect = false;
+
+                this.resetForm();
+            });
     }
     // updateBaiviet() {
     //     alert('Cập nhật thành công');
@@ -306,7 +260,7 @@ export class CauhinhComponent implements OnInit {
 
     resetForm() {
         this.cauhinhList = this.fb.group({
-            id:[''],
+            id: [''],
             module: [''],
             des: [''],
             data: this.fb.group({
@@ -322,12 +276,27 @@ export class CauhinhComponent implements OnInit {
                 month: [0],
                 year: [0],
                 iframeAddress: [''],
+                imageCarousel: [''],
+                Tieude1: [''],
+                Image1: [''],
+                slug1: [''],
+                Tieude2: [''],
+                Image2: [''],
+                slug2: [''],
+                Tieude3: [''],
+                Image3: [''],
+                slug3: [''],
+                Tieude4: [''],
+                Image4: [''],
+                slug4: [''],
+                Tieude5: [''],
+                Image5: [''],
+                slug5: [''],
             }),
         });
     }
     ngOnInit(): void {
         this.resetForm();
-
         this.cauhinhService.getCauhinh().subscribe();
         this.cauhinhService.cauhinhs$.subscribe((result) => {
             this.footer = result;
