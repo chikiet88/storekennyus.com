@@ -5,7 +5,7 @@
     <div class="lg:w-1/2 w-full lg:pr-10">
       <div class="flex md:flex-row flex-col w-full bg-gray-200 rounded-xl p-5">
         <div class="md:w-1/2 w-full mr-2">
-          <p class="text-2xl text-2xl font-bold">Billing details</p>
+          <p class="text-2xl text-2xl font-bold">Thanh toán</p>
 
           <form class="pt-7" [formGroup]="khachhangForm">
             <div class="flex flex-col">
@@ -13,7 +13,7 @@
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
                 type="text"
-                [formControlName]="'hoten'"
+                [formControlName]="'Hoten'"
               />
             </div>
             <div class="flex flex-col pt-3">
@@ -21,7 +21,7 @@
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
                 type="number"
-                [formControlName]="'phone'"
+                [formControlName]="'SDT'"
               />
             </div>
             <div class="flex flex-col pt-3">
@@ -29,7 +29,7 @@
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
                 type="email"
-                [formControlName]="'email'"
+                [formControlName]="'Email'"
               />
             </div>
             <div class="flex flex-col pt-3">
@@ -37,21 +37,21 @@
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
                 type="text"
-                [formControlName]="'diachi'"
+                [formControlName]="'Diachi'"
               />
             </div>
           </form>
         </div>
         <div class="md:w-1/2 w-full ml-2 pt-5 md:pt-0">
-          <p class="text-2xl text-2xl font-bold">Additional information</p>
+          <p class="text-2xl text-2xl font-bold">Thông tin thêm</p>
           <form class="pt-7">
             <div class="flex flex-col">
-              <label class="text-gray-400">Order notes (optional)</label>
+              <label class="text-gray-400">Ghi chú</label>
               <textarea
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl h-28"
                 type="text"
-                placeholder="Notes"
-                [formControlName]="'ghichu'"
+                placeholder="Ghi chú"
+                [formControlName]="'Ghichu'"
               ></textarea>
             </div>
           </form>
@@ -59,14 +59,14 @@
       </div>
     </div>
     <div class="lg:w-1/2 w-full pt-7 lg:pt-0">
-      <p class="text-2xl text-purple-500 font-bold">Your Order</p>
+      <p class="text-2xl text-purple-500 font-bold">Sản phẩm đã đặt</p>
 
       <div class="pt-5">
         <table class="w-full">
           <thead>
             <tr class="text-left">
-              <th class="text-purple-500 font-bold pl-2">Product</th>
-              <th class="text-purple-500 font-bold pr-2">Subtotal</th>
+              <th class="text-purple-500 font-bold pl-2">Sản phẩm</th>
+              <th class="text-purple-500 font-bold pr-2">Giá tiền</th>
             </tr>
           </thead>
           <tbody class="border border-gray-200 rounded-xl">
@@ -75,7 +75,7 @@
               *ngFor="let item of carts"
             >
               <td class="py-2 px-2 text-gray-500">
-                {{ item.Tieude }}
+                {{ item.Tieude }} |
                 {{ item.cartNum ? "Số lượng: " + item.cartNum : "" }}
               </td>
               <td class="py-2 px-2">
@@ -83,7 +83,7 @@
               </td>
             </tr>
             <tr class="border-b border-gray-200 px-2">
-              <td class="py-2 px-2 text-purple-500 font-bold">Subtotal</td>
+              <td class="py-2 px-2 text-purple-500 font-bold">Tổng cộng</td>
               <td class="py-2 px-2">{{ amount | currency: "VND" }}</td>
             </tr>
             <tr class="border-b border-gray-200 px-2">

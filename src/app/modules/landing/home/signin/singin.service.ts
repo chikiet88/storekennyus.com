@@ -92,24 +92,14 @@ export class SinginService {
                     .pipe(
                         map((result) => {
                             console.log(result);
-                            if (result == 1) {
-                                this.notifier.notify(
-                                    'error',
-                                    'Số Điện Thoại Đã Tồn Tại'
-                                );
-                            } else if (result == 2) {
-                                this.notifier.notify(
-                                    'error',
-                                    'Email Đã Tồn Tại'
-                                );
-                            } else {
+                            
                                 const newNhanvien = result;
-                                this._nhanviens.next([
-                                    newNhanvien,
-                                    ...nhanviens,
-                                ]);
+                                // this._nhanviens.next([
+                                //     newNhanvien,
+                                //     ...nhanviens,
+                                // ]);
                                 return newNhanvien;
-                            }
+                            
                         })
                     )
             )

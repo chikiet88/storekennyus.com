@@ -474,14 +474,17 @@
                                                             let i = index
                                                         "
                                                     >
-                                                        <span
+                                                        <a
+                                                            routerLink="sanpham/{{
+                                                                item.id
+                                                            }}"
                                                             class="text-gray-500 hover:text-purple-500"
                                                             (click)="
                                                                 selectDanhmuc(i)
                                                             "
                                                             >{{
                                                                 item.Tieude
-                                                            }}</span
+                                                            }}</a
                                                         >
                                                     </li>
                                                 </ul>
@@ -599,7 +602,7 @@
                                 >
                                     <div class="links relative">
                                         <a
-                                            routerLink="/sanpham"
+                                            routerLink="/sanpham/{{danhmuc[0].id}}"
                                             class="text-lg text-purple-500 font-bold text-center block line-hover"
                                         >
                                             Sản Phẩm

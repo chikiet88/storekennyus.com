@@ -24,24 +24,26 @@ interface ExampleFlatNode {
 })
 export class SanphamDanhmucComponent implements OnInit {
     selectedSendingFeatures;
-    products: any[];
     iCheckbox = [];
     tempProductSplice: any[] = [];
     productDM: any[];
     danhmuc: any[];
-    valuePrice: number;
+    danhmucdetail: any;
+    selectCheckboxThuonghieu: any[] = [];
     selectedIndex: number;
     productListhide: number;
-    minValue: number = 0;
     temp: any[];
-    maxValue: number = 100;
     isChecked = false;
     indexPaginate: number = 0;
-    arrCheckboxThuonghieu = [];
+    arrcheckbox = {};
     filterThuonghieu = [];
     tempAllProducts: any[] = [];
     tempDM: any[] = [];
+    min = 0;
+    max = 2000000 ;
+    thumbLabel = true;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    valuePrice: number;
 
     private _transformer = (node: any, level: number) => {
         return {
@@ -69,30 +71,12 @@ export class SanphamDanhmucComponent implements OnInit {
         this.treeFlattener
     );
 
-    options: Options = {
-        floor: 0,
-        ceil: 100,
-        translate: (value: number, label: LabelType): string => {
-            switch (label) {
-                case LabelType.Low:
-                    return '<b>Min price:</b>' + value + 'đ';
-                case LabelType.High:
-                    return '<b>Max price:</b>' + value + 'đ';
-                default:
-                    this.valuePrice = value;
-
-                    return value + 'đ';
-            }
-        },
-    };
     thuonghieus: string[] = [];
-    changePrice(value) {
-        this._productService.products$.pipe(take(1)).subscribe((res) => {
-            let arr = res.filter((x) => x.Gia <= value);
-            if (arr.length > 0) {
-                this.splceArr(arr);
-            }
-        });
+    changePrice() {
+      console.log(this.valuePrice);
+      
+        this._productService.getPriceFilter(this.valuePrice).subscribe();
+        
     }
     productListtoggle(number) {
         this.productListhide = number;
@@ -155,40 +139,23 @@ export class SanphamDanhmucComponent implements OnInit {
         }
     }
     checkboxThuonghieu(item, i) {
-        this._productService.products$.pipe(take(1)).subscribe((res) => {
-            let arr = res.filter((x) => x.Thuonghieu == item.id);
-            if (arr.length > 0) {
-                this.splceArr(arr);
+        let id = item.id;
+
+        if (Object.keys(this.arrcheckbox).length > 0) {
+            for (const [key, value] of Object.entries(this.arrcheckbox)) {
+                if (key == id) {
+                    delete this.arrcheckbox[key];
+                } else {
+                    this.arrcheckbox[id] = true;
+                }
             }
-        });
-    }
-
-    sapxepgiatri(value) {
-        if (value == 'low') {
-            let arr;
-            this._productService.products$.subscribe(
-                (res) =>
-                    (arr = res.sort((a, b) => {
-                        return a.Gia - b.Gia;
-                    }))
-            );
-            console.log(arr);
-
-            this.splceArr(arr);
+        } else {
+            this.arrcheckbox[id] = true;
         }
+
+        this._productService.getThuonghieuFilter(this.arrcheckbox).subscribe();
     }
 
-    splceArr(arr) {
-        this.tempProductSplice = [];
-        let x = arr.length / 12;
-        if (arr.length > 0) {
-            for (let i = 0; i < x; i++) {
-                this.tempProductSplice.push(arr.splice(0, 12));
-                console.log(this.tempProductSplice);
-            }
-        }
-        this.productDM = this.tempProductSplice[0];
-    }
     nest = (items, id = '', link = 'pid') =>
         items
             ?.filter((item) => item[link] == id)
@@ -198,36 +165,18 @@ export class SanphamDanhmucComponent implements OnInit {
             }));
 
     ngOnInit(): void {
-        this._route.params.subscribe((data) => {
-            this._productService.getDanhmuc().pipe(take(1)).subscribe();
-            this._productService.danhmuc$.subscribe((res) => {
-                this.tempDM = res;
+        this._productService.getDanhmuc().pipe(take(1)).subscribe();
+        this._productService.danhmuc$.subscribe((res) => {
+            this.tempDM = res;
+            if (res) {
                 this.danhmuc = this.nest(res);
                 this.dataSource.data = this.danhmuc;
-            });
-            this._productService.getProduct().subscribe();
-            this._productService.products$.pipe(take(1)).subscribe((res) => {
-                if (res) {
-                    this.products = res.filter((x) => x.idDM == data.id);
-                    console.log(this.products);
-
-                    let x = this.products?.length / 12;
-
-                    if (this.products?.length > 0) {
-                        for (let i = 0; i < x; i++) {
-                            this.tempProductSplice.push(
-                                this.products.splice(0, 12)
-                            );
-                        }
-                    }
-                }
-                this.productDM = this.tempProductSplice[0];
-                this.temp = this.productDM;
-            });
-            this._thuonghieuService.getThuonghieu().subscribe();
-            this._thuonghieuService.thuonghieus$.subscribe(
-                (res) => (this.thuonghieus = res)
-            );
+            }
         });
+
+        this._thuonghieuService.getThuonghieu().subscribe();
+        this._thuonghieuService.thuonghieus$.subscribe(
+            (res) => (this.thuonghieus = res)
+        );
     }
 }

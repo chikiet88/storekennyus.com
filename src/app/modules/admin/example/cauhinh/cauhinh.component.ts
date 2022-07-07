@@ -79,8 +79,29 @@ export class CauhinhComponent implements OnInit {
     }
     upload(): void {
         this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
-            this.listImageCarousel[this.i] = x.key;
-            this.i++;
+            let kiemtracohinhkhong = Object.keys(this.listkey).length;
+            if (kiemtracohinhkhong > 0) {
+                this.listkey[kiemtracohinhkhong] = x.key;
+            } else {
+                this.listkey[0] = x.key; //vị trí đầu tiên
+            }
+            let keydetail = x.key;
+            console.log(keydetail);
+
+            this.uploadService
+                .getValueByKey(x.key)
+                .pipe(take(1))
+                .subscribe((res) => {
+                    console.log(res);
+
+                    this.listimage.push({
+                        ...res,
+                        2: keydetail,
+                    });
+                    console.log(this.listimage);
+
+                    this.isupdateListImage = true;
+                });
         });
         return;
     }
@@ -94,44 +115,27 @@ export class CauhinhComponent implements OnInit {
         this.cauhinhService
             .updateCauhinh(this.cauhinhList.value)
             .subscribe((res) => {
-                this.resetForm();
                 alert('Cập nhật thành công');
                 this.idSelect = false;
+                this.listimage = [];
             });
         this.listKeyRemove.forEach((x) => {
             this.uploadService.deleteFile(x);
         });
-        this.listkey = {};
+        this.listImageCarousel = {};
     }
     deleteImageFirebase(item, i) {
         this.listKeyRemove.push(item[2]);
 
-        for (const i in this.listkey) {
-            console.log(this.listkey[i]);
-
-            if (this.listkey[i] == item[2]) {
-                delete this.listkey[i];
+        for (let index in this.listkey) {
+            if (this.listkey[index] == item[2]) {
+                delete this.listkey[index];
             }
         }
+
         this.listimage = this.listimage.filter((x) => x[2] != item[2]);
     }
-    getLinkImage(number) {
-        this.uploadService
-            .getFiles(number) //lấy file  chứa key từ firebase về
-            .snapshotChanges()
-            .pipe(
-                map((changes) =>
-                    // store the key
-                    changes.map((c) => ({
-                        key: c.payload.key,
-                        ...c.payload.val(),
-                    }))
-                )
-            )
-            .subscribe((fileUploads) => {
-                console.log(fileUploads);
-            });
-    }
+
     callback(item, i) {
         return new Promise((resolve, reject) => {
             const file: File | null = item;
@@ -224,6 +228,7 @@ export class CauhinhComponent implements OnInit {
         }
         this.idSelect = true;
         this.listkey = item.data.imageCarousel || {};
+        console.log(this.listkey);
 
         if (Object.keys(item.data.imageCarousel).length > 0) {
             this.isupdateListImage = true;
@@ -232,11 +237,10 @@ export class CauhinhComponent implements OnInit {
                 this.uploadService
                     .getValueByKey(item.data.imageCarousel[property])
                     .subscribe((res) => {
-                        this.listimage.push([
+                        this.listimage.push({
                             ...res,
-                            item.data.imageCarousel[property],
-                        ]);
-                        console.log(this.listimage);
+                            2: this.listkey[property],
+                        });
                     });
             }
         }
@@ -299,7 +303,10 @@ export class CauhinhComponent implements OnInit {
         this.resetForm();
         this.cauhinhService.getCauhinh().subscribe();
         this.cauhinhService.cauhinhs$.subscribe((result) => {
-            this.footer = result;
+            if (result) {
+                this.footer = result[0];
+                this.onSelect(this.footer);
+            }
         });
     }
 }

@@ -557,7 +557,7 @@
                             type="submit"
                             (click)="onSubmit()"
                             [disabled]="!baivietForm.valid"
-                            class="btn btn-success bg-indigo-900"
+                            class="px-3 py-1 bg-green-500 rounded-lg mr-10 text-white"
                             *ngIf="!idSelect"
                         >
                             Tạo mới
@@ -565,7 +565,7 @@
 
                         <button
                             type="update"
-                            class="btn btn-primary md:mr-10 mr-5"
+                            class="px-3 py-1 bg-blue-500 rounded-lg mr-10 text-white"
                             (click)="updateBaiviet()"
                             *ngIf="idSelect"
                         >
@@ -574,7 +574,7 @@
 
                         <button
                             type="delete"
-                            class="btn btn-danger"
+                            class="px-3 py-1 bg-red-500 rounded-lg mr-10 text-white"
                             (click)="deleteBaiviet()"
                             *ngIf="idSelect"
                         >

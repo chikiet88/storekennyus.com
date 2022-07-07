@@ -1,16 +1,16 @@
 <div class="container px-10">
     <form class="w-full pt-10" [formGroup]="cauhinhList">
-        <mat-select placeholder="Chọn Footer" class="p-3 mb-3 bg-white">
+        <!-- <mat-select placeholder="Chọn Footer" class="p-3 mb-3 bg-white">
             <mat-option
                 [value]="item.id"
                 *ngFor="let item of footer"
                 (click)="onSelect(item)"
                 >{{ item.data.title }}</mat-option
             >
-        </mat-select>
+        </mat-select> -->
 
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3 mb-6 md:mb-0">
+        <!-- <div class="flex flex-wrap mb-3">
+            <div class="w-full mb-3 md:mb-0">
                 <label
                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="grid-first-name"
@@ -25,12 +25,11 @@
                     [formControlName]="'des'"
                     name="title"
                 />
-                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
             </div>
-        </div>
+        </div> -->
         <div [formGroupName]="'data'">
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 mb-6 md:mb-0">
+            <div class="flex flex-wrap mb-3">
+                <div class="w-full mb-3 md:mb-0">
                     <label
                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-first-name"
@@ -48,8 +47,8 @@
                     <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 mb-6 md:mb-0">
+            <div class="flex flex-wrap mb-3">
+                <div class="w-full mb-3 md:mb-0">
                     <label
                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-first-name"
@@ -68,8 +67,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 mb-6 md:mb-0">
+            <div class="flex flex-wrap mb-3">
+                <div class="w-full mb-3 md:mb-0">
                     <label
                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-first-name"
@@ -87,8 +86,8 @@
                     <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 mb-6 md:mb-0">
+            <div class="flex flex-wrap mb-3">
+                <div class="w-full mb-3 md:mb-0">
                     <label
                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-first-name"
@@ -106,8 +105,8 @@
                     <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
+            <div class="flex flex-wrap mb-3">
+                <div class="w-full">
                     <label
                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-password"
@@ -122,8 +121,8 @@
                     ></ckeditor>
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 mb-6 md:mb-0">
+            <div class="flex flex-wrap mb-3">
+                <div class="w-full mb-3 md:mb-0">
                     <label
                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-first-name"
@@ -159,7 +158,7 @@
             </div>
             <div class="flex flex-wrap mb-6">
                 <div>
-                    <div class="w-full mb-6 md:mb-0">
+                    <div class="w-full mb-3 md:mb-0">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
@@ -175,7 +174,7 @@
                             />
                         </label>
                         <button
-                            class="px-3 py-1 bg-green-500 rounded-lg mx-10 text-white"
+                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
                             [disabled]="!selectedFiles"
                             (click)="upload()"
                         >
@@ -197,8 +196,8 @@
                     </div>
 
                     <div
-                        class="card w-full mt-5 flex"
-                        *ngIf="listImageCarousel?.length > 0"
+                        class="card w-full mt-5 "
+                        
                     >
                         <div class="card-header">Image Upload</div>
                         <ul class="grid grid-cols-5 gap-5">
@@ -229,27 +228,25 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-wrap mb-6 justify-between">
-                <div class=" ">
-                    <div class="w-full mb-6 md:mb-0">
+            <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-5 ">
+                <div class="mb-5">
+                    <div class="w-full">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
                         >
-                            Tiêu đề sản phẩm
+                            Tiêu đề sản phẩm banner 1
                         </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="Fanpage"
-                            [formControlName]="'Tieude1'"
-                            name="title"
-                        />
+                        <ckeditor
+                        [editor]="Editor"
+                        #editer
+                        [config]="config"
+                        [formControlName]="'Tieude1'"
+                    ></ckeditor>
                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                     </div>
-    
-                    <div class="w-full mb-6 md:mb-0">
+
+                    <div class="w-full mb-3 md:mb-0">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
@@ -264,7 +261,7 @@
                             />
                         </label>
                         <button
-                            class="px-3 py-1 bg-green-500 rounded-lg mx-10 text-white"
+                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
                             [disabled]="!selectedFiles"
                             (click)="uploadbanner(1)"
                         >
@@ -297,26 +294,24 @@
                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                     </div>
                 </div>
-                <div class=" ">
-                    <div class="w-full mb-6 md:mb-0">
+                <div class="mb-5">
+                    <div class="w-full">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
                         >
-                            Tiêu đề sản phẩm
+                            Tiêu đề sản phẩm banner 2
                         </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="Fanpage"
-                            [formControlName]="'Tieude2'"
-                            name="title"
-                        />
+                        <ckeditor
+                        [editor]="Editor"
+                        #editer
+                        [config]="config"
+                        [formControlName]="'Tieude2'"
+                    ></ckeditor>
                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                     </div>
-    
-                    <div class="w-full mb-6 md:mb-0">
+
+                    <div class="w-full mb-3 md:mb-0">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
@@ -331,7 +326,7 @@
                             />
                         </label>
                         <button
-                            class="px-3 py-1 bg-green-500 rounded-lg mx-10 text-white"
+                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
                             [disabled]="!selectedFiles"
                             (click)="uploadbanner(2)"
                         >
@@ -364,26 +359,24 @@
                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                     </div>
                 </div>
-                <div class=" ">
-                    <div class="w-full mb-6 md:mb-0">
+                <div class="mb-5">
+                    <div class="w-full">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
                         >
-                            Tiêu đề sản phẩm
+                            Tiêu đề sản phẩm 3
                         </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="Fanpage"
-                            [formControlName]="'Tieude3'"
-                            name="title"
-                        />
+                        <ckeditor
+                        [editor]="Editor"
+                        #editer
+                        [config]="config"
+                        [formControlName]="'Tieude3'"
+                    ></ckeditor>
                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                     </div>
-    
-                    <div class="w-full mb-6 md:mb-0">
+
+                    <div class="w-full mb-3 md:mb-0">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
@@ -398,7 +391,7 @@
                             />
                         </label>
                         <button
-                            class="px-3 py-1 bg-green-500 rounded-lg mx-10 text-white"
+                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
                             [disabled]="!selectedFiles"
                             (click)="uploadbanner(3)"
                         >
@@ -432,25 +425,23 @@
                     </div>
                 </div>
                 <div class=" ">
-                    <div class="w-full mb-6 md:mb-0">
+                    <div class="w-full mb-3 md:mb-0">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
                         >
-                            Tiêu đề sản phẩm
+                            Tiêu đề sản phẩm banner 4
                         </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="Fanpage"
-                            [formControlName]="'Tieude4'"
-                            name="title"
-                        />
+                        <ckeditor
+                        [editor]="Editor"
+                        #editer
+                        [config]="config"
+                        [formControlName]="'Tieude4'"
+                    ></ckeditor>
                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                     </div>
-    
-                    <div class="w-full mb-6 md:mb-0">
+
+                    <div class="w-full mb-3 md:mb-0">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
@@ -462,10 +453,10 @@
                                 type="file"
                                 class="text-nowrap text-truncate"
                                 (change)="selectFile($event)"
-                            />
+                            />          
                         </label>
                         <button
-                            class="px-3 py-1 bg-green-500 rounded-lg mx-10 text-white"
+                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
                             [disabled]="!selectedFiles"
                             (click)="uploadbanner(4)"
                         >
@@ -498,26 +489,24 @@
                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                     </div>
                 </div>
-                <div class=" ">
-                    <div class="w-full mb-6 md:mb-0">
+                <div class="mb-5">
+                    <div class="w-full">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
                         >
-                            Tiêu đề sản phẩm
+                            Tiêu đề sản phẩm banner 5
                         </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="Fanpage"
-                            [formControlName]="'Tieude5'"
-                            name="title"
-                        />
+                        <ckeditor
+                        [editor]="Editor"
+                        #editer
+                        [config]="config"
+                        [formControlName]="'Tieude5'"
+                    ></ckeditor>
                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                     </div>
-    
-                    <div class="w-full mb-6 md:mb-0">
+
+                    <div class="w-full mb-3 md:mb-0">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
@@ -532,7 +521,7 @@
                             />
                         </label>
                         <button
-                            class="px-3 py-1 bg-green-500 rounded-lg mx-10 text-white"
+                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
                             [disabled]="!selectedFiles"
                             (click)="uploadbanner(5)"
                         >
@@ -568,10 +557,8 @@
             </div>
         </div>
 
-       
-
         <div class="form-group py-5">
-            <button
+            <!-- <button
                 type="submit"
                 (click)="onSubmit()"
                 [disabled]="!cauhinhList.valid"
@@ -579,25 +566,24 @@
                 *ngIf="!idSelect"
             >
                 Submit
-            </button>
+            </button> -->
 
             <button
                 type="update"
                 class="px-3 py-1 bg-blue-500 rounded-lg mr-10 text-white"
                 (click)="updateCauhinh()"
-                *ngIf="idSelect"
             >
                 Update
             </button>
 
-            <button
+            <!-- <button
                 type="delete"
                 class="px-3 py-1 bg-red-500 rounded-lg text-white"
                 (click)="deleteCauhinh()"
                 *ngIf="idSelect"
             >
                 Delete
-            </button>
+            </button> -->
         </div>
     </form>
 

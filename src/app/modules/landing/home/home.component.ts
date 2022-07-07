@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, DoCheck, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    DoCheck,
+    OnInit,
+    ViewEncapsulation,
+} from '@angular/core';
 import SwiperCore, { Navigation, Pagination, FreeMode, Autoplay } from 'swiper';
 import { ThuonghieuService } from './thuonghieu/thuonghieu.service';
 import { HomeService } from './home.service';
@@ -16,7 +22,7 @@ SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
 
     encapsulation: ViewEncapsulation.None,
 })
-export class LandingHomeComponent implements OnInit, AfterViewInit{
+export class LandingHomeComponent implements OnInit, AfterViewInit {
     isShowLogin = false;
     isShow = true;
     num;
@@ -25,10 +31,10 @@ export class LandingHomeComponent implements OnInit, AfterViewInit{
     isShowMenuBrand = false;
     panelOpenState = false;
     MenuActive = true;
-    i = 0
+    i = 0;
     DanhmucActive = false;
     isLogin = false;
-    danhmuc: any[];
+    danhmuc: any[] = [];
     danhmucChild: any[] = [];
     thuonghieus: any[];
     categories: any[];
@@ -39,7 +45,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit{
     cauhinh: any;
     searchText: string;
     user;
-    sanphamdanhmuc:any [] = []
+    sanphamdanhmuc: any[] = [];
     danhmucSearch;
     config;
     menu;
@@ -61,7 +67,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit{
     nest = (items, id = '', link = 'pid') => {
         if (items) {
             return items
-                .filter((item) => item[link] == id)
+                ?.filter((item) => item[link] == id)
                 .map((item) => ({
                     ...item,
                     children: this.nest(items, item.id),
@@ -104,7 +110,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit{
         this.danhmucSearch = item;
     }
     selectDanhmuc(i) {
-      this.i = i
+        this.i = i;
         this.danhmucChild = this.danhmucArr[i];
     }
     signIn(): void {
@@ -113,14 +119,16 @@ export class LandingHomeComponent implements OnInit, AfterViewInit{
         }
         this._signinService.signIn(this.signInForm.value).subscribe(
             (data) => {
-                this.isLogin = true;
-                this.user = data.user;
+                if (data != 1 && data != 2) {
+                    this.isLogin = true;
+                    this.user = data.user;
 
-                const redirectURL =
-                    this._route.snapshot.queryParamMap.get('redirectURL') ||
-                    '/profile';
+                    const redirectURL =
+                        this._route.snapshot.queryParamMap.get('redirectURL') ||
+                        '/profile';
 
-                this._router.navigateByUrl(redirectURL);
+                    this._router.navigateByUrl(redirectURL);
+                }
             },
             (response) => {
                 console.log(response);
@@ -131,13 +139,12 @@ export class LandingHomeComponent implements OnInit, AfterViewInit{
             }
         );
     }
-    ngAfterViewInit(): void {
-      
-    }
+    ngAfterViewInit(): void {}
     signout() {
         this._signinService.signOut().subscribe((res) => {
             if (res == true) {
                 this.isLogin = false;
+                this.signInForm.reset
             }
         });
     }
@@ -145,30 +152,28 @@ export class LandingHomeComponent implements OnInit, AfterViewInit{
         this.num =
             JSON.parse(localStorage.getItem('sanphamdaxem'))?.length || 0;
         this._productListService.getProduct().subscribe();
-        this._productListService.products$.subscribe(
-            (res) => {
-              (this.products = res)
-              this.sanphamdanhmuc = res?.filter(x=> x.Type == 'danhmucnoibat')
-            }
-        );
+        this._productListService.products$.subscribe((res) => {
+            this.products = res;
+            this.sanphamdanhmuc = res?.filter((x) => x.Type == 'danhmucnoibat');
+        });
         this._productListService.getDanhmuc().pipe(take(1)).subscribe();
         this._productListService.danhmuc$.subscribe((res) => {
             this.categories = res;
-            this.danhmuc = res
+            this.danhmuc = res;
             if (this.products?.length > 0) {
                 this.sanphamdanhmuc.filter((x) => {
                     this.danhmuc?.forEach((v) => {
-                        if (x.idDM == v.id ) {
+                        if (x.idDM == v.id) {
                             v.sanphamnoibat = x;
-                            console.log(v);
                         } else {
                             return;
                         }
                     });
                 });
             }
-            this.danhmuc = this.nest(res);
-
+            if (res) {
+                this.danhmuc = this.nest(res);
+            }
             if (this.danhmuc?.length > 0) {
                 for (let i = 0; i < this.danhmuc.length; i++) {
                     this.danhmucArr.push(this.danhmuc[i].children);

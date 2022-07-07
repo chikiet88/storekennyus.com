@@ -35,6 +35,8 @@ export class DanhmucDetailResolver implements Resolve<any>
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>
     {
         const id = route.paramMap.get('id');
+        console.log(id);
+        
         return this._productService.getDanhmucDetail(id)
                    .pipe(
                        // Error here means the requested contact is not available

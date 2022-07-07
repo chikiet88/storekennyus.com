@@ -13,9 +13,7 @@ export class BlogListComponent implements OnInit {
   ngOnInit(): void {
     this._tintucService.getTintuc().subscribe();
     this._tintucService.tintucs$.subscribe((res) => {
-      this.tintucs = res;
-      console.log(res);
-      
+      this.tintucs = res.filter(x=> x.slug != 'gioithieu');
     });
   }
 }

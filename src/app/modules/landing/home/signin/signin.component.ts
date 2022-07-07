@@ -119,10 +119,30 @@ export class SigninComponent implements OnInit {
         ) {
             this.notifier.notify('error', ` Password không đúng`);
         } else {
+            if (this.signUpForm.invalid) {
+                return;
+            }
             this.signUpForm.removeControl('confirmPassword');
             this._signinService
                 .createNhanvien(this.signUpForm.value)
-                .subscribe((res) => console.log(res));
+                .subscribe((res) => {
+                    if (res == 1) {
+                        this.notifier.notify(
+                            'error',
+                            'Số Điện Thoại Đã Tồn Tại'
+                        );
+                    } else if (res == 2) {
+                        this.notifier.notify(
+                            'error',
+                            'Email Đã Tồn Tại'
+                        );
+                    } else {
+                        this.notifier.notify(
+                            'success',
+                            'Tạo tài khoản thành công'
+                        );
+                    }
+                });
         }
     }
 }

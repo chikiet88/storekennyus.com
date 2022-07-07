@@ -60,13 +60,9 @@ export class DonhangComponent implements AfterViewInit, OnInit {
     }
     SelectDonhang(item)
     {
-        this.donhangService.getAllDonhangChitiet(item.id).subscribe((data)=>
+        this.donhangService.getDonhangchitiet(item.id).subscribe((data)=>
         {
-         
-            console.log(data);
-            console.log(item);
-            
-            this.CDonhang = data.filter(x=> x.idDH == item.id);
+            this.CDonhang = data;
         }
 
         );

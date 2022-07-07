@@ -18,3 +18,13 @@
     color: #3B82F6 !important;
     font-weight: bold;
 }
+.mat-slider{
+}
+.mat-slider-thumb, .mat-slider-focus-ring, .mat-slider-thumb-label{
+    background-color: #3B82F6 !important;
+}
+.mat-slider-thumb-label{
+    top: -60px !important;
+    width: 50px !important;
+    height: 50px !important;
+}

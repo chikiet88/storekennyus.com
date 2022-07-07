@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,11 +16,8 @@ import { SanphamService } from '../sanpham/sanpham.service';
     selector: 'app-donhang',
     templateUrl: './donhang.component.html',
     styleUrls: ['./donhang.component.scss'],
-    encapsulation:ViewEncapsulation.None
 })
 export class DonhangComponent implements AfterViewInit, OnInit {
-    displayedColumns: string[] = [ 'idNhanvien','idKH', 'Hoten', 'SDT', 'Diachi'];
-  
     trangthai: any[] = [
         { id: 1, title: 'New' },
         { id: 2, title: 'Đơn Rác' },
@@ -29,18 +26,15 @@ export class DonhangComponent implements AfterViewInit, OnInit {
         { id: 5, title: 'Hủy Đơn' },
     ];
     isOpen = false;
-    CDonhang:any;
-    DonHangs:any[]=[];
     products;
-    // displayedColumns: string[] = [
-    //     'idDH',
-    //     'hovaten',
-    //     'phone',
-    //     'TenSP',
-    //     // 'status',
-    //     'price',
-    // ];
-    users = {'51ccb531-c131-497e-b8f8-b7eec027c83b':"Test1",'72b693af-0dde-4654-9492-1d159e911a42':"Test2"}
+    displayedColumns: string[] = [
+        'idDH',
+        'hovaten',
+        'phone',
+        'TenSP',
+        // 'status',
+        'price',
+    ];
     landingpageForm: FormGroup;
     selectRow;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -58,21 +52,9 @@ export class DonhangComponent implements AfterViewInit, OnInit {
         this.isOpen = false;
         this.donhangService.updateDonhang(this.selectRow).subscribe();
     }
-    SelectDonhang(item)
-    {
-        this.donhangService.getAllDonhangChitiet(item.id).subscribe((data)=>
-        {
-         
-            console.log(data);
-            console.log(item);
-            
-            this.CDonhang = data.filter(x=> x.idDH == item.id);
-        }
 
-        );
-       
-    }
     ngAfterViewInit(): void {}
+
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -110,7 +92,7 @@ export class DonhangComponent implements AfterViewInit, OnInit {
                     }
                 }
             }
-            this.DonHangs = res;
+
             this.dataSource = new MatTableDataSource(res);
             console.log(res);
 

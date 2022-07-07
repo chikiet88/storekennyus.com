@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment.prod';
 import {
     BehaviorSubject,
     map,
@@ -15,8 +14,7 @@ import {
     providedIn: 'root',
 })
 export class DonhangService {
-   // private urlApi = 'http://localhost:3000/donhang';
-    private urlApi = environment.url;
+    private urlApi = 'http://localhost:3000/donhang';
     private _donhang: BehaviorSubject<any | null> = new BehaviorSubject(null);
     private _donhangchitiet: BehaviorSubject<any | null> = new BehaviorSubject(
         null
@@ -48,30 +46,12 @@ export class DonhangService {
     }
 
     getDonhang() {
-        return this.http.get(this.urlApi+`/donhang`).pipe(
+        return this.http.get(this.urlApi).pipe(
             map((donhangs) => {
                 console.log(donhangs);
 
                 this._donhang.next(donhangs);
                 return donhangs;
-            })
-        );
-    }
-    getAllDonhangChitiet(id: string): Observable<any> {
-        return this.http.get<any>(this.urlApi + `/donhangchitiet`).pipe(
-            map((donhangchitiet) => {
-                this._donhangchitiet.next(donhangchitiet);
-
-                return donhangchitiet;
-            }),
-            switchMap((donhangchitiet) => {
-                if (!donhangchitiet) {
-                    return throwError(
-                        'Could not found course with id of ' + id + '!'
-                    );
-                }
-
-                return of(donhangchitiet);
             })
         );
     }

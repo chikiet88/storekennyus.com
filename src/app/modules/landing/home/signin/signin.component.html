@@ -13,7 +13,6 @@
                             placeholder="0912345678"
                             [formControlName]="'SDT'"
                         />
-                       
                     </div>
                     <div class="flex flex-col py-4">
                         <label class="text-gray-400">Password *</label>
@@ -55,7 +54,6 @@
                                 [formControlName]="'SDT'"
                                 placeholder="012345678"
                             />
-                            
                         </div>
 
                         <div class="flex flex-col mb-2">
@@ -68,8 +66,6 @@
                                 placeholder="abc@gmail.com"
                                 [formControlName]="'email'"
                             />
-                           
-                          
                         </div>
                         <div class="flex flex-col mb-2">
                             <label class="text-gray-400">Nhập Họ và tên</label>
@@ -79,34 +75,34 @@
                                 [formControlName]="'name'"
                                 placeholder="Họ và tên"
                             />
-                           
                         </div>
                         <div class="flex flex-col mb-2 relative">
                             <label class="text-gray-400">Nhập Password</label>
                             <input
                                 class="p-2 mt-1 text-purple-500 bg-gray-200 focus:bg-white focus:border-blue-500 border rounded-xl"
                                 type="password"
+                                #passwordField1
                                 [formControlName]="'password'"
                             />
                             <button
                                 mat-icon-button
                                 type="button"
-                                class="absolute top-1/2 right-3 centerY"
+                                class="absolute top-11 right-3 centerY"
                                 (click)="
-                                    passwordField.type === 'password'
-                                        ? (passwordField.type = 'text')
-                                        : (passwordField.type = 'password')
+                                    passwordField1.type === 'password'
+                                        ? (passwordField1.type = 'text')
+                                        : (passwordField1.type = 'password')
                                 "
                                 matSuffix
                             >
                                 <mat-icon
                                     class="icon-size-5"
-                                    *ngIf="passwordField.type === 'password'"
+                                    *ngIf="passwordField1.type === 'password'"
                                     [svgIcon]="'heroicons_solid:eye'"
                                 ></mat-icon>
                                 <mat-icon
                                     class="icon-size-5"
-                                    *ngIf="passwordField.type === 'text'"
+                                    *ngIf="passwordField1.type === 'text'"
                                     [svgIcon]="'heroicons_solid:eye-off'"
                                 ></mat-icon>
                             </button>
@@ -124,7 +120,7 @@
                             <button
                                 mat-icon-button
                                 type="button"
-                                class="absolute top-1/2 right-3 centerY"
+                                class="absolute top-11 right-3 centerY"
                                 (click)="
                                     passwordField.type === 'password'
                                         ? (passwordField.type = 'text')
@@ -143,7 +139,6 @@
                                     [svgIcon]="'heroicons_solid:eye-off'"
                                 ></mat-icon>
                             </button>
-                            
                         </div>
                     </div>
                     <!-- <p class="text-gray-400 py-4">
@@ -175,19 +170,19 @@
         <div
             class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
         >
-            <p class="lg:text-5xl text-4xl font-bold text-purple-500">
-                Join our newsletter
+            <p class="lg:text-4xl font-bold text-purple-500 uppercase">
+                Bảng tin khuyến mãi
             </p>
             <p class="text-purple-500 lg:pt-3 sm:text-center">
-                Join over half a million vitamin lovers and get our latest
-                deals, articles, and resources!
+                Đăng ký email của bạn để nhận mã giảm giá thường xuyên tại Kenny
+                US Store
             </p>
             <div
                 class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
             >
                 <input
                     class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
-                    placeholder="Email Address"
+                    placeholder="Email Đăng ký"
                 />
                 <button
                     class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
@@ -195,7 +190,7 @@
                     <span class="material-icons text-white mr-2 text-lg">
                         send
                     </span>
-                    Subrcries
+                    <span class="w-16"> Đăng ký</span>
                 </button>
             </div>
         </div>

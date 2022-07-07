@@ -1,58 +1,152 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { CartPopupService } from "../components/cart-popup/cart-popup.service";
-import { CheckoutService } from "./checkout.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
+import { CartPopupService } from '../components/cart-popup/cart-popup.service';
+import { SinginService } from '../signin/singin.service';
+import { CheckoutService } from './checkout.service';
 
 @Component({
-  selector: "app-checkout",
-  templateUrl: "./checkout.component.html",
-  styleUrls: ["./checkout.component.scss"],
+    selector: 'app-checkout',
+    templateUrl: './checkout.component.html',
+    styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
-  carts: any[];
-  amount: number;
-  khachhangForm: FormGroup;
+    private readonly notifier: NotifierService;
+    token = localStorage.getItem('accessToken') || null;
 
-  constructor(private cartService: CartPopupService, private fb: FormBuilder, private _donhangService : CheckoutService) {}
-  resetForm() {
-    this.khachhangForm = this.fb.group({
-      hoten: [""],
-      phone: [0],
-      email: [""],
-      diachi:[""],
-      ghichu:[''],
-      idP:[0],
-      idUser:[],
-      soluong:[0],
-      Giatien:[0],
+    emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
 
-    });
-  }
-  ngOnInit(): void {
-    this.resetForm()
-    this.cartService.getCart().subscribe();
-    this.cartService.carts$.subscribe((res) => {
-      console.log(res);
-      
-      this.carts = res;
-    });
-    this.cartService.amount$.subscribe((res) => (this.amount = res));
-  }
-  
-  datHang(){
-    this.carts.forEach(x=>{
-      this.khachhangForm.get('idP').setValue(x.id)
-      this.khachhangForm.get('soluong').setValue(x.cartNum)
-      this.khachhangForm.get('Giatien').setValue(x.Gia)
+    phoneRegex =
+        /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
+    carts: any[];
+    amount: number;
+    khachhangForm: FormGroup;
+    donhangForm: FormGroup;
+    constructor(
+        private cartService: CartPopupService,
+        private fb: FormBuilder,
+        private _checkoutService: CheckoutService,
+        notifierService: NotifierService,
+        private _signinService: SinginService,
+        private _route: ActivatedRoute,
+        private _router: Router
+    ) {
+        this.notifier = notifierService;
+    }
+    resetForm() {
+        this.khachhangForm = this.fb.group({
+            Hoten: ['', Validators.required],
+            Email: [
+                '',
+                [Validators.required, Validators.pattern(this.emailPattern)],
+            ],
+            SDT: [
+                '',
+                [Validators.required, Validators.pattern(this.phoneRegex)],
+            ],
+            Diachi: ['', Validators.required],
+            ghichu: [''],
+            idKH: [],
+        });
+        this.donhangForm = this.fb.group({
+            idDH: [''],
+            idSP: [''],
+            Soluong: [''],
+            Dongia: [''],
+            Khuyenmai: [''],
+            Ghichu: [''],
+        });
+    }
+    ngOnInit(): void {
+        this.resetForm();
+        this.cartService.getCart().subscribe();
+        this.cartService.carts$.subscribe((res) => {
+            this.carts = res;
+            console.log(res);
+        });
+        this.cartService.amount$.subscribe((res) => (this.amount = res));
+        if (this.token != null) {
+            this._signinService.get().subscribe();
+            this._signinService.user$.subscribe((res) => {
+                if (res) {
+                    this.khachhangForm.get('idKH').setValue(res.id);
+                    this.khachhangForm.get('Hoten').setValue(res.name);
+                    this.khachhangForm.get('Email').setValue(res.email);
+                    this.khachhangForm.get('SDT').setValue(res.SDT);
+                }
+            });
+        } else {
+            const redirectURL =
+                this._route.snapshot.queryParamMap.get('redirectURL') || '/';
+            this._router.navigateByUrl(redirectURL);
+        }
+    }
 
-    
-    this._donhangService.postdonhang(this.khachhangForm.value).subscribe(res=>{
-      alert('Đặt hàng thành công')
-      this.carts.forEach(x=>{
-        this.cartService.removeCart(x).subscribe()
-      })
-    })
+    datHang() {
+        if (this.khachhangForm.get('Hoten').hasError('required')) {
+            this.notifier.notify('error', `Vui lòng nhập ho và tên`);
+        }
+        if (this.khachhangForm.get('SDT').hasError('required')) {
+            this.notifier.notify('error', `Vui lòng nhập SDT`);
+        }
+        if (this.khachhangForm.get('SDT').hasError('pattern')) {
+            this.notifier.notify('error', `Số điện thoại không đúng định dạng`);
+        }
+        if (this.khachhangForm.get('Email').hasError('required')) {
+            this.notifier.notify('error', `Vui lòng nhập Email`);
+        }
+        if (this.khachhangForm.get('Email').hasError('pattern')) {
+            this.notifier.notify('error', `Email không đúng định dạng`);
+        }
+        if (this.khachhangForm.get('Diachi').hasError('required')) {
+            this.notifier.notify('error', `Vui lòng nhập địa chỉ`);
+        }
+        if (this.khachhangForm.invalid) {
+            return;
+        }
+        if (this.carts.length > 0) {
+            this._checkoutService
+                .postdonhang(this.khachhangForm.value)
+                .subscribe((res) => {
+                    console.log(res);
+                    this.notifier.notify('success', `Đặt hàng thành công`);
 
-    })
-  }
+                    if (res) {
+                        console.log(res);
+
+                        // let idDH = res.id;
+
+                        this.carts.forEach((x) => {
+
+                            // this.donhangForm.get('idDH').setValue(idDH);
+                            this.donhangForm.get('idSP').setValue(x.id);
+                            this.donhangForm.get('Soluong').setValue(x.cartNum);
+                            this.donhangForm.get('Dongia').setValue(x.GiaSale);
+                            this._checkoutService
+                                .postdonhangchitiet(this.donhangForm.value)
+                                .subscribe((res) => {
+                                    this.cartService.removeCart(x).subscribe();
+                                    if (this.carts.length == 0) {
+                                        const redirectURL =
+                                            this._route.snapshot.queryParamMap.get(
+                                                'redirectURL'
+                                            ) || '/';
+                                        this._router.navigateByUrl(redirectURL);
+                                    }
+                                });
+                        });
+                    }
+                });
+                
+        } else {
+            this.notifier.notify('error', `Bạn chưa đơn hàng`);
+        }
+
+        // this.carts.forEach((x) => {
+        //     this.khachhangForm.get('idP').setValue(x.id);
+        //     this.khachhangForm.get('soluong').setValue(x.cartNum);
+        //     this.khachhangForm.get('Giatien').setValue(x.Gia);
+        // });
+    }
 }

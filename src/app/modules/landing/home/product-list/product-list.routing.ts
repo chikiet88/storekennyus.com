@@ -7,12 +7,18 @@ import { SanphamDanhmucComponent } from './sanpham-danhmuc/sanpham-danhmuc.compo
 
 export const samphamRoutes: Route[] = [
     {
-        path: ':id',
+        path: '',
         component: SanphamDanhmucComponent,
-        resolve: {
-            detail: DanhmucDetailResolver,
-        },
-        // children: [{ path: '', component: DanhsachSanphamComponent }],
+
+        children: [
+            {
+                path: ':id',
+                component: DanhsachSanphamComponent,
+                resolve: {
+                    detail: DanhmucDetailResolver,
+                },
+            },
+        ],
     },
-    // { path: ":id", component: ProductDetailComponent },
+    { path: "sanphamchitiet/:id", component: ProductDetailComponent },
 ];
