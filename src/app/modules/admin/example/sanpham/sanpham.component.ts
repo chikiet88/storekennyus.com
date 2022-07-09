@@ -73,16 +73,8 @@ export class SanphamComponent implements OnInit {
     };
 
     onSubmit() {
-        let SKU;
-        let a = this.products.filter((x) => x.idDM == this.Danhmuc?.id);
-
-        if (this.Danhmuc.Code == undefined) {
-            SKU = '00' + a.length;
-        } else {
-            SKU = this.Danhmuc.Code + '00' + a.length;
-        }
+       
         this.productList.get('ListImage').setValue(this.listkey);
-        this.productList.get('SKU').setValue(SKU);
         let GiaSale = this.productList.get('GiaSale').value;
         if (GiaSale == 0) {
             this.productList
@@ -167,11 +159,13 @@ export class SanphamComponent implements OnInit {
             this.isupdateListImage = true;
 
             for (const property in item.ListImage) {
+                console.log(item.ListImage[property]);
+                
                 this.uploadService
                     .getValueByKey(item.ListImage[property])
                     .subscribe((res) => {
+                        
                         this.listimage.push([...res, item.ListImage[property]]);
-                        console.log(this.listimage);
                     });
             }
         }
@@ -441,7 +435,7 @@ export class SanphamComponent implements OnInit {
             Thuonghieu: [''],
             Code: [''],
             Slug: [''],
-            SKU: [0],
+            SKU: [''],
             ListImage: [{}],
             ContentImage: this.fb.group({
                 contentImage1: [''],
@@ -457,6 +451,9 @@ export class SanphamComponent implements OnInit {
             Ordering: [0],
             Trangthai: [''],
         });
+        this.productList.removeControl('id')
+        this.listkey = {}
+        this.listimage = []
     }
 
     ngOnInit(): void {

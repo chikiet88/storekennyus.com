@@ -4,6 +4,7 @@ import { ProductListComponent } from './product-list.component';
 import { DanhmucDetailResolver } from './product-list.resolvers';
 import { DanhsachSanphamComponent } from './sanpham-danhmuc/danhsach-sanpham/danhsach-sanpham.component';
 import { SanphamDanhmucComponent } from './sanpham-danhmuc/sanpham-danhmuc.component';
+import { TatcasanphamComponent } from './tatcasanpham/tatcasanpham.component';
 
 export const samphamRoutes: Route[] = [
     {
@@ -11,6 +12,7 @@ export const samphamRoutes: Route[] = [
         component: SanphamDanhmucComponent,
 
         children: [
+            { path: '', component: TatcasanphamComponent },
             {
                 path: ':id',
                 component: DanhsachSanphamComponent,
@@ -20,5 +22,5 @@ export const samphamRoutes: Route[] = [
             },
         ],
     },
-    { path: "sanphamchitiet/:id", component: ProductDetailComponent },
+    { path: 'sanphamchitiet/:id', component: ProductDetailComponent },
 ];

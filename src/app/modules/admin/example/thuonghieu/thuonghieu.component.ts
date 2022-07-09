@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { map, take } from 'rxjs';
 import { FileUpload } from '../models/file-upload.model';
+import { SanphamService } from '../sanpham/sanpham.service';
 import { FileUploadService } from '../services/file-upload.service';
 import { ThuonghieuService } from './thuonghieu.service';
 
@@ -19,11 +20,12 @@ export class ThuonghieuComponent implements OnInit {
     message: 'chon theme';
     ThuonghieuForm: FormGroup;
     idSelect;
-
+    products: any[] = []
     constructor(
         private _thuonghieuService: ThuonghieuService,
         private fb: FormBuilder,
-        private uploadService: FileUploadService
+        private uploadService: FileUploadService,
+        private _sanphamService: SanphamService
     ) {}
 
     onSubmit() {
@@ -155,5 +157,7 @@ export class ThuonghieuComponent implements OnInit {
 
             this.thuonghieu = res;
         });
+        this._sanphamService.getProduct().subscribe()
+        this._sanphamService.products$.subscribe(res=> this.products = res)
     }
 }

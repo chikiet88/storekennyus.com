@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { ExampleComponent } from 'app/modules/admin/example/example.component';
 import { DanhmucComponent } from './danhmuc/danhmuc.component';
@@ -57,6 +57,12 @@ const exampleRoutes: Route[] = [
         DonhangComponent,
         DonhangDetailComponent,
         CauhinhComponent
+    ],
+    providers: [
+        {
+            provide: LOCALE_ID,
+            useValue: 'de-DE',
+        },
     ],
     imports: [
         RouterModule.forChild(exampleRoutes),

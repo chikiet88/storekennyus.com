@@ -60,6 +60,7 @@ export class CheckoutComponent implements OnInit {
     }
     ngOnInit(): void {
         this.resetForm();
+        this._checkoutService.getDiachi().subscribe()
         this.cartService.getCart().subscribe();
         this.cartService.carts$.subscribe((res) => {
             this.carts = res;
@@ -71,9 +72,12 @@ export class CheckoutComponent implements OnInit {
             this._signinService.user$.subscribe((res) => {
                 if (res) {
                     this.khachhangForm.get('idKH').setValue(res.id);
-                    this.khachhangForm.get('Hoten').setValue(res.name);
+                    this.khachhangForm.get('Hoten').setValue(res.profile.Hoten);
                     this.khachhangForm.get('Email').setValue(res.email);
                     this.khachhangForm.get('SDT').setValue(res.SDT);
+                    this.khachhangForm
+                        .get('Diachi')
+                        .setValue(res.profile.Diachi);
                 }
             });
         } else {
@@ -114,12 +118,17 @@ export class CheckoutComponent implements OnInit {
 
                     if (res) {
                         console.log(res);
+                        let idDH;
 
-                        // let idDH = res.id;
+                        this._checkoutService.donhang$.subscribe((donhang) => {
+                            console.log(donhang);
+                            idDH = donhang.id;
+                        });
 
                         this.carts.forEach((x) => {
+                            console.log(idDH);
 
-                            // this.donhangForm.get('idDH').setValue(idDH);
+                            this.donhangForm.get('idDH').setValue(idDH);
                             this.donhangForm.get('idSP').setValue(x.id);
                             this.donhangForm.get('Soluong').setValue(x.cartNum);
                             this.donhangForm.get('Dongia').setValue(x.GiaSale);
@@ -138,7 +147,6 @@ export class CheckoutComponent implements OnInit {
                         });
                     }
                 });
-                
         } else {
             this.notifier.notify('error', `Bạn chưa đơn hàng`);
         }

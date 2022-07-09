@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ViewChild, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ViewChild,
+    OnInit,
+    ViewEncapsulation,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,11 +22,17 @@ import { SanphamService } from '../sanpham/sanpham.service';
     selector: 'app-donhang',
     templateUrl: './donhang.component.html',
     styleUrls: ['./donhang.component.scss'],
-    encapsulation:ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class DonhangComponent implements AfterViewInit, OnInit {
-    displayedColumns: string[] = [ 'idNhanvien','idKH', 'Hoten', 'SDT', 'Diachi'];
-  
+    displayedColumns: string[] = [
+        'idNhanvien',
+        'idKH',
+        'Hoten',
+        'SDT',
+        'Diachi',
+    ];
+
     trangthai: any[] = [
         { id: 1, title: 'New' },
         { id: 2, title: 'Đơn Rác' },
@@ -29,8 +41,8 @@ export class DonhangComponent implements AfterViewInit, OnInit {
         { id: 5, title: 'Hủy Đơn' },
     ];
     isOpen = false;
-    CDonhang:any;
-    DonHangs:any[]=[];
+    CDonhang: any;
+    DonHangs: any[] = [];
     products;
     // displayedColumns: string[] = [
     //     'idDH',
@@ -40,7 +52,9 @@ export class DonhangComponent implements AfterViewInit, OnInit {
     //     // 'status',
     //     'price',
     // ];
-    users = {'51ccb531-c131-497e-b8f8-b7eec027c83b':"Test1",'72b693af-0dde-4654-9492-1d159e911a42':"Test2"}
+    users = {
+       
+    };
     landingpageForm: FormGroup;
     selectRow;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -58,19 +72,16 @@ export class DonhangComponent implements AfterViewInit, OnInit {
         this.isOpen = false;
         this.donhangService.updateDonhang(this.selectRow).subscribe();
     }
-    SelectDonhang(item)
-    {
-        this.donhangService.getAllDonhangChitiet(item.id).subscribe((data)=>
-        {
-         
-            console.log(data);
-            console.log(item);
-            
-            this.CDonhang = data.filter(x=> x.idDH == item.id);
-        }
-
-        );
-       
+    SelectDonhang(item) {
+        this.donhangService.getAllDonhangChitiet(item.id).subscribe((data) => {
+            this.CDonhang = data.filter((x) => x.idDH == item.id);
+            this.CDonhang.forEach((x) => {
+                this._sanphamService.getProductDetail(x.idSP).subscribe();
+                this._sanphamService.product$.subscribe((product) => {
+                    x.TenSP = product.Tieude;
+                });
+            });
+        });
     }
     ngAfterViewInit(): void {}
     applyFilter(event: Event) {
@@ -94,26 +105,22 @@ export class DonhangComponent implements AfterViewInit, OnInit {
         );
         this.donhangService.getDonhang().subscribe();
         this.donhangService.donhang$.subscribe((res) => {
-            
-            if(res){
+            if (res) {
                 for (let i = 0; i <= this.products?.length; i++) {
                     for (let j = 0; j <= res?.length; j++) {
                         if (this.products[i]?.id == res[j]?.idP) {
-                            let a = this.products[i]?.Tieude
-                            if(res[j]){
+                            let a = this.products[i]?.Tieude;
+                            if (res[j]) {
                                 Object.assign(res[j], {
                                     tenSp: a,
                                 });
                             }
-                            
                         }
                     }
                 }
             }
             this.DonHangs = res;
             this.dataSource = new MatTableDataSource(res);
-            console.log(res);
-
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
         });

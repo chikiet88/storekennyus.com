@@ -1,17 +1,19 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { take } from 'rxjs';
-import { ProductListService } from '../../product-list.service';
+import { Subject, take } from 'rxjs';
+import { ProductListService } from '../product-list.service';
 
 @Component({
-    selector: 'app-danhsach-sanpham',
-    templateUrl: './danhsach-sanpham.component.html',
-    styleUrls: ['./danhsach-sanpham.component.scss'],
+    selector: 'app-tatcasanpham',
+    templateUrl: './tatcasanpham.component.html',
+    styleUrls: ['./tatcasanpham.component.scss'],
 })
-export class DanhsachSanphamComponent implements OnInit, DoCheck {
+export class TatcasanphamComponent implements OnInit, DoCheck {
     danhmucdetail;
     temp: any[];
     valuePrice;
+    idThuonghieu = JSON.parse(localStorage.getItem('thuonghieu')) || '';
+
     tempAllProducts: any[] = [];
     products;
     productListhide = 1;
@@ -31,14 +33,12 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
             (res) => (this.productPriceFilter = res)
         );
         this._productService.thuonghieu$.subscribe(
-            (res) => {
-                (this.thuonghieuFilter = res)
-            }
+            (res) => (this.thuonghieuFilter = res)
         );
         let temp;
         this._productService.products$.subscribe((res) => {
             if (res) {
-                temp = res.filter((x) => x.idDM == this.danhmucdetail);
+                temp = res;
             }
         });
         if (this.productPriceFilter != null && this.thuonghieuFilter != null) {
@@ -86,30 +86,32 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
         }
     }
     ngOnInit(): void {
-        
         // this.route.params.subscribe((data) => (this.danhmucdetail = data.id));
-        this._productService.danhmucdetail$.subscribe((res) => {
-            this.danhmucdetail = res.id;
-            this._productService.getProduct().subscribe();
-            this._productService.products$.pipe(take(1)).subscribe((res) => {
-                if (res) {
-                    this.tempProductSplice = [];
-                    this.products = res.filter(
-                        (x) => x.idDM == this.danhmucdetail
-                    );
 
-                    let x = this.products?.length / 12;
-                    if (this.products?.length > 0) {
-                        for (let i = 0; i < x; i++) {
-                            this.tempProductSplice.push(
-                                this.products.splice(0, 12)
-                            );
-                        }
+        this._productService.getProduct().subscribe();
+        this._productService.products$.pipe(take(1)).subscribe((res) => {
+            if (res) {
+                this.tempProductSplice = [];
+                if (this.idThuonghieu != '') {
+                    this.products = res.filter(
+                        (x) => x.Thuonghieu == this.idThuonghieu
+                    );
+                    localStorage.setItem('thuonghieu', JSON.stringify(""));
+                } else {
+                    this.products = res;
+                }
+
+                let x = this.products?.length / 12;
+                if (this.products?.length > 0) {
+                    for (let i = 0; i < x; i++) {
+                        this.tempProductSplice.push(
+                            this.products.splice(0, 12)
+                        );
                     }
                 }
-                this.productDM = this.tempProductSplice[0];
-                this.temp = this.productDM;
-            });
+            }
+            this.productDM = this.tempProductSplice[0];
+            this.temp = this.productDM;
         });
     }
     splceArr(arr) {
@@ -130,17 +132,25 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
         let arr;
 
         this._productService.products$.subscribe((res) => {
-            products = res.filter((x) => x.idDM == this.danhmucdetail);
+            products = res;
         });
 
         if (value == 'low') {
             arr = products.sort((a, b) => {
-                return a.Gia - b.Gia;
+                if (a.GiaSale != 0) {
+                    return a.GiaSale - b.GiaSale;
+                } else {
+                    return a.Gia - b.Gia;
+                }
             });
         }
         if (value == 'high') {
             arr = products.sort((a, b) => {
-                return b.Gia - a.Gia;
+                if (b.GiaSale != 0) {
+                    return b.GiaSale - a.GiaSale;
+                } else {
+                    return b.Gia - a.Gia;
+                }
             });
         }
         this.splceArr(arr);

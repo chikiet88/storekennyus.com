@@ -111,7 +111,7 @@
 
             <div class="flex pt-3">
               <p
-                class="text-3xl text-blue-500 mr-3 font-bold"
+                class="text-3xl text-red-500 mr-3 font-bold"
                 *ngIf="product?.GiaSale != 0"
               >
                 {{ product?.GiaSale | currency: "VND" }}
@@ -208,7 +208,7 @@
         </mat-tab-group>
       </div>
       <div class="md:pt-10 pt-10">
-        <p class="text-3xl text-purple-500 font-bold">Related products</p>
+        <p class="text-3xl text-purple-500 font-bold">Sản phẩm liên quan</p>
         <swiper [config]="config1" [navigation]="true" class="mySwiper pt-5">
           <ng-template swiperSlide *ngFor="let item of products">
             <app-product-list [item]="item"></app-product-list>

@@ -4,6 +4,7 @@ import { NotifierService } from 'angular-notifier';
 import { environment } from 'environments/environment.prod';
 import {
     BehaviorSubject,
+    filter,
     map,
     Observable,
     of,
@@ -18,7 +19,11 @@ import {
     providedIn: 'root',
 })
 export class SinginService {
-    private _authenticated: boolean = false;
+    private _authenticate: boolean = false;
+    private _authenticated: BehaviorSubject<boolean> = new BehaviorSubject(
+        false
+    );
+
     private readonly notifier: NotifierService;
     private _nhanvien: BehaviorSubject<any | null> = new BehaviorSubject(null);
     private _nhanviens: BehaviorSubject<any[] | null> = new BehaviorSubject(
@@ -39,6 +44,9 @@ export class SinginService {
     ) {
         this.notifier = notifierService;
     }
+    get authenticated$(): Observable<boolean> {
+        return this._authenticated.asObservable();
+    }
     get nhanvien$(): Observable<any> {
         return this._nhanvien.asObservable();
     }
@@ -55,7 +63,7 @@ export class SinginService {
         username: string;
         password: string;
     }): Observable<any> {
-        if (this._authenticated) {
+        if (this._authenticate) {
             return throwError('User is already logged in.');
         }
         return this._httpClient
@@ -75,7 +83,8 @@ export class SinginService {
                         return of(response);
                     } else {
                         this.accessToken = response.access_token;
-                        // this._authenticated = true;
+                        this._authenticate = true;
+                        this._authenticated.next(true);
                         // this._userService.user = response.user;
                     }
                     return of(response);
@@ -92,15 +101,40 @@ export class SinginService {
                     .pipe(
                         map((result) => {
                             console.log(result);
-                            
-                                const newNhanvien = result;
-                                // this._nhanviens.next([
-                                //     newNhanvien,
-                                //     ...nhanviens,
-                                // ]);
-                                return newNhanvien;
-                            
+
+                            const newNhanvien = result;
+                            // this._nhanviens.next([
+                            //     newNhanvien,
+                            //     ...nhanviens,
+                            // ]);
+                            return newNhanvien;
                         })
+                    )
+            )
+        );
+    }
+    updateNhanvien(id: string, data): Observable<any> {
+        return this.nhanviens$.pipe(
+            take(1),
+            switchMap((nhanviens) =>
+                this._httpClient
+                    .patch<any>(`${environment.url}/users/${id}`, data)
+                    .pipe(
+                        map((updatedNhanvien) => {
+                            console.log(updatedNhanvien);
+                         
+                            return updatedNhanvien;
+                        }),
+                        switchMap((updatedNhanvien) =>
+                            this.nhanvien$.pipe(
+                                take(1),
+                                filter((item) => item && item.id === id),
+                                tap(() => {
+                                    this._nhanvien.next(updatedNhanvien);
+                                    return updatedNhanvien;
+                                })
+                            )
+                        )
                     )
             )
         );
@@ -124,7 +158,9 @@ export class SinginService {
             .pipe(
                 switchMap((response: any) => {
                     if (response !== false) {
-                        this._authenticated = true;
+                        this._authenticate = true;
+
+                        this._authenticated.next(true);
                         this.user = response.user;
 
                         return of(true);
@@ -132,9 +168,27 @@ export class SinginService {
                 })
             );
     }
+    changepass(data: {
+        user: any;
+        oldpass: string;
+        newpass: string;
+    }): Observable<any> {
+        console.log(data);
+        return this._httpClient
+            .post(`${environment.url}/auth/changepass`, data)
+            .pipe(
+                tap((response: any) => {
+                    console.log(response);
+
+                    return response;
+                })
+            );
+    }
     signOut(): Observable<any> {
         localStorage.removeItem('accessToken');
-        this._authenticated = false;
+        this._authenticated.next(false);
+        this._authenticate = false;
+
         return of(true);
     }
 

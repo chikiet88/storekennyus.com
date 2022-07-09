@@ -13,3 +13,13 @@
   background-color: #000;
   transform: rotate(5deg);
 }
+.text-image{
+  font-size: 0.625rem;
+}
+@media screen and (max-width: 767px) {
+ 
+  .text-image{
+      font-size: 0.5rem;
+  }
+ 
+}

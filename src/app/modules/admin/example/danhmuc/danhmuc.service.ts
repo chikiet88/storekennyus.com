@@ -29,7 +29,7 @@ export class DanhmucService {
             switchMap((danhmucs) =>
                 this.http.post(this.urlApi, data).pipe(
                     map((danhmuc) => {
-                        this._danhmucs.next([danhmuc, ...danhmucs]);
+                        this._danhmucs.next([...danhmucs,danhmuc ]);
 
                         return danhmuc;
                     })

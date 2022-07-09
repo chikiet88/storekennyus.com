@@ -1,57 +1,148 @@
 <mat-drawer-container class="mat-drawer-container flex w-full h-full" autosize>
-    <mat-drawer #drawer class="example-sidenav w-1/2" mode="side" position="end">
+    <mat-drawer
+        #drawer
+        class="example-sidenav md:w-1/2"
+        mode="side"
+        position="end"
+    >
         <div class="flex flex-col">
-        <div class="text-2xl font-bold text-center p-3">Chi Tiết Đơn hàng</div>
-        {{CDonhang|json}}
+            <div class="text-2xl font-bold text-center p-3">Đơn hàng</div>
+
+            <div class="flex flex-col">
+          
+                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="overflow-hidden">
+                            <table class="min-w-full">
+                                <thead class="border-b">
+                                    <tr>
+                                        <th
+                                            scope="col"
+                                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                        >
+                                            Tên sản phẩm
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                        >
+                                            Số lượng
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                        >
+                                            Giá
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                        >
+                                            Tổng tiền
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        class="border-b"
+                                        *ngFor="let item of CDonhang"
+                                    >
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                                        >
+                                            {{ item.TenSP }}
+                                        </td>
+                                        <td
+                                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                        >
+                                            {{ item.Soluong }}
+                                        </td>
+                                        <td
+                                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                        >
+                                            {{ item.Dongia | currency: "VND" }}
+                                        </td>
+                                        <td
+                                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                        >
+                                            {{
+                                                item.Soluong * item.Dongia
+                                                    | currency: "VND"
+                                            }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
     </mat-drawer>
-  
+
     <mat-drawer-content class="w-full">
         <div class="example-sidenav-content flex flex-col w-full">
             <mat-form-field appearance="standard" class="px-5">
-              <mat-label>Tìm Kiếm</mat-label>
-              <input matInput (keyup)="applyFilter($event)" #input>
+                <mat-label>Tìm Kiếm</mat-label>
+                <input matInput (keyup)="applyFilter($event)" #input />
             </mat-form-field>
-            
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
-            
+
+            <table
+                mat-table
+                [dataSource]="dataSource"
+                class="mat-elevation-z8 w-full"
+            >
                 <ng-container matColumnDef="idNhanvien">
-                    <th mat-header-cell *matHeaderCellDef> Nhân Viên </th>
-                    <td mat-cell *matCellDef="let element"> {{users[element.idNhanvien]}} </td>
-                  </ng-container>
+                    <th mat-header-cell *matHeaderCellDef>Nhân Viên</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.id }}
+                    </td>
+                </ng-container>
 
-              <ng-container matColumnDef="idKH">
-                <th mat-header-cell *matHeaderCellDef>Khách Hàng </th>
-                <td mat-cell *matCellDef="let element"  (click)="drawer.open();SelectDonhang(element)"> {{users[element.idKH]}} </td>
-              </ng-container>
+                <ng-container matColumnDef="idKH">
+                    <th mat-header-cell *matHeaderCellDef>Khách Hàng</th>
+                    <td
+                        mat-cell
+                        *matCellDef="let element"
+                        (click)="drawer.open(); SelectDonhang(element)"
+                    >
+                        {{ element.Hoten }}
+                    </td>
+                </ng-container>
 
-              <ng-container matColumnDef="Hoten">
-                <th mat-header-cell *matHeaderCellDef> Họ Tên </th>
-                <td mat-cell *matCellDef="let element"> {{element.Hoten}} </td>
-              </ng-container>
-            
-              <ng-container matColumnDef="SDT">
-                <th mat-header-cell *matHeaderCellDef> SĐT </th>
-                <td mat-cell *matCellDef="let element"> {{element.SDT}} </td>
-              </ng-container>
+                <ng-container matColumnDef="Hoten">
+                    <th mat-header-cell *matHeaderCellDef>Họ Tên</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.Hoten }}
+                    </td>
+                </ng-container>
 
-              <ng-container matColumnDef="Diachi">
-                <th mat-header-cell *matHeaderCellDef> Địa Chỉ </th>
-                <td mat-cell *matCellDef="let element"> {{element.Diachi}} </td>
-              </ng-container>
-            
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            
-              <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-              </tr>
+                <ng-container matColumnDef="SDT">
+                    <th mat-header-cell *matHeaderCellDef>SĐT</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.SDT }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Diachi">
+                    <th mat-header-cell *matHeaderCellDef>Địa Chỉ</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.Diachi }}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">
+                        No data matching the filter "{{ input.value }}"
+                    </td>
+                </tr>
             </table>
-            
-          </div>
-    </mat-drawer-content>  
-
-  
-  </mat-drawer-container>
-  
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

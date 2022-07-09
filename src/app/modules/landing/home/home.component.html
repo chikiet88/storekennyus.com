@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container" autosize>
+<mat-drawer-container class="example-container bg-white" autosize>
     <mat-drawer #drawer class="example-sidenav z-20 lg:hidden" mode="over">
         <div class="mobile-header" id="mobile-menu">
             <div class="">
@@ -265,7 +265,7 @@
                                             routerLink="profile"
                                             class="text-white bg-orange-500 p-2 hover:bg-purple-500 w-full cursor-pointer mt-3 text-center rounded-2xl text-md"
                                         >
-                                            Dashbord
+                                            Tài khoản
                                         </a>
                                         <div
                                             class="text-white bg-orange-500 cursor-pointer p-2 hover:bg-purple-500 w-full cursor-pointer mt-3 text-center rounded-2xl text-md"
@@ -312,7 +312,7 @@
                     <div class="hidden lg:block relative">
                         <div class="flex items-center w-full">
                             <mat-select
-                                class="p-3 text-purple-500 rounded-l-3xl text-lg border w-28 h-full bg-gray-200"
+                                class="p-3 text-purple-500 rounded-l-3xl text-lg border  h-full bg-gray-200"
                                 placeholder="Tìm Kiếm"
                                 (selectionChange)="
                                     selectCategoriesSearch($event.value)
@@ -586,35 +586,35 @@
                         <div class="flex justify-between w-full">
                             <div class="flex items-center">
                                 <div
-                                    class="text-lg text-purple-500 font-bold w-28 mx-2"
+                                    class="text-lg text-purple-500 font-bold  mx-4"
                                 >
                                     <div class="links relative">
                                         <a
                                             routerLink=""
-                                            class="text-lg text-purple-500 font-bold text-center block line-hover"
+                                            class="text-lg text-purple-500 font-bold  block line-hover"
                                         >
                                             Trang Chủ
                                         </a>
                                     </div>
                                 </div>
                                 <div
-                                    class="text-lg text-purple-500 font-bold w-28 mx-2"
+                                    class="text-lg text-purple-500 font-bold  mx-4"
                                 >
                                     <div class="links relative">
                                         <a
-                                            routerLink="/sanpham/{{danhmuc[0].id}}"
-                                            class="text-lg text-purple-500 font-bold text-center block line-hover"
+                                            routerLink="sanpham"
+                                            class="text-lg text-purple-500 font-bold  block line-hover"
                                         >
                                             Sản Phẩm
                                         </a>
                                     </div>
                                 </div>
                                 <div
-                                    class="text-lg text-purple-500 font-bold thuonghieu group py-4 w-28 mx-2"
+                                    class="text-lg text-purple-500 font-bold thuonghieu group py-4  mx-4"
                                 >
                                     <div class="links">
                                         <a
-                                            class="text-lg text-purple-500 font-bold text-center block"
+                                            class="text-lg text-purple-500 font-bold  block"
                                         >
                                             Thương Hiệu
                                         </a>
@@ -653,7 +653,7 @@
                                     </div>
                                 </div>
 
-                                <div class="links flex w-28 mx-2">
+                                <div class="links flex  mx-4">
                                     <div
                                         class="dropdown relative gioithieu-menu"
                                     >
@@ -667,7 +667,7 @@
                                             >
                                                 <a
                                                     routerLink=""
-                                                    class="block text-purple-500 font-bold text-center lg:inline-block lg:mt-0 line-hover text-lg line-hover"
+                                                    class="block text-purple-500 font-bold lg:inline-block lg:mt-0 line-hover text-lg line-hover"
                                                 >
                                                     Về Chúng Tôi
                                                 </a>
@@ -697,7 +697,7 @@
                                 </div>
 
                                 <div
-                                    class="text-lg text-purple-500 font-bold w-28 mx-2 py-4"
+                                    class="text-lg text-purple-500 font-bold  mx-4 py-4"
                                 >
                                     <div class="links relative">
                                         <a

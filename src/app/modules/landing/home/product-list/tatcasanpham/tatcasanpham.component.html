@@ -1,0 +1,175 @@
+<div class="flex justify-between items-center md:flex-row flex-col">
+    <div class="items-center md:flex hidden">
+        <!-- <div
+        class="flex bg-gray-200 rounded-xl items-center p-2 justify-center"
+    >
+        <div
+            class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+            (click)="productListtoggle(1)"
+        >
+            1
+        </div>
+        <div
+            class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+            (click)="productListtoggle(2)"
+        >
+            2
+        </div>
+        <div
+            class="w-7 h-7 mx-1 bg-red-200 cursos-pointer focus:bg:red-500"
+            (click)="productListtoggle(3)"
+        >
+            3
+        </div>
+    </div> -->
+        <div class="flex items-center">
+            <mat-select
+                class="p-2 text-purple-500 rounded-xl text-lg border w-40 h-full bg-gray-200"
+                value="Default sorting"
+                placeholder="Tìm theo giá"
+                (selectionChange)="sapxepgiatri($event.value)"
+            >
+                <mat-option value="low" class="text-purple-500 text-xl">
+                    Tìm giá thấp đến cao</mat-option
+                >
+                <mat-option value="high" class="text-purple-500 text-xl">
+                    Tìm giá cao đến thấp</mat-option
+                >
+            </mat-select>
+        </div>
+    </div>
+    <div class="flex items-center">
+        <div class="text-gray-500 mr-3">
+            Hiển thị {{ productDM?.length }} sản phẩm
+        </div>
+        <div class="flex items-center">
+            <input type="checkbox" class="mr-2" (click)="selectSale()" />
+            <p class="text-gray-500">chỉ những sản phẩm đang sale</p>
+        </div>
+    </div>
+</div>
+<div class="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-10">
+    <div
+        class="w-full bg-red-200 flex rounded-2xl md:px-8 pl-8 pt-8 sm:flex-row-reverse md:flex-row"
+    >
+        <div class="lg:w-1/2 md:w-1/3 w-1/2 h-56 bg-gray-200"></div>
+        <div class="lg:w-1/2 md:w-2/3 w-1/2 flex justify-center flex-col pl-3">
+            <p class="text-lg text-purple-500">Save up to 10%</p>
+            <p class="text-2xl text-purple-500">
+                <strong>Vitamins &</strong> Supplements
+            </p>
+            <button
+                class="text-white font-bold text-lg p-2 bg-green-500 rounded-2xl w-28"
+            >
+                Buy now >
+            </button>
+        </div>
+    </div>
+    <div class="w-full bg-red-200 lg:flex hidden rounded-2xl px-8 pt-8">
+        <div class="w-1/2 h-56 bg-gray-200"></div>
+        <div class="w-1/2 flex justify-center flex-col pl-3">
+            <p
+                class="text-sm p-1 font-bold bg-orange-500 text-white rounded-xl w-16 text-center"
+            >
+                New
+            </p>
+            <p class="text-2xl text-purple-500">
+                <strong>Vitamins &</strong> Supplements
+            </p>
+            <button
+                class="text-white font-bold text-lg p-2 bg-green-500 rounded-2xl w-28"
+            >
+                Buy now >
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- <div
+class="grid grid-cols-4 gap-5 mt-10"
+[ngClass]="{ hidden: productListhide != 1 }"
+*ngIf="productListhide == 1"
+>
+<app-product-list
+*ngFor="let item of productDM"
+[item]="item"
+></app-product-list>
+</div> -->
+<div class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 mt-10">
+    <app-product-list
+        *ngFor="let item of productDM"
+        [item]="item"
+    ></app-product-list>
+</div>
+<!-- <div
+class="grid grid-cols-1 gap-5 mt-10"
+[ngClass]="{ hidden: productListhide != 3 }"
+*ngIf="productListhide == 3"
+>
+<app-product-item1
+*ngFor="let item of productDM"
+[item]="item"
+></app-product-item1>
+</div> -->
+<div class="pt-5 flex justify-end">
+    <nav aria-label="Page navigation example">
+        <ul class="inline-flex -space-x-px">
+            <li>
+                <a
+                    href="#"
+                    class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                    &#60;
+                </a>
+            </li>
+            <li
+                *ngFor="let item of tempProductSplice; let i = index"
+                (click)="paginateNumber(i)"
+            >
+                <span
+                    class="py-2 px-3 leading-tight  rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
+{{ indexPaginate == i ? 'bg-blue-500 text-white' : '' }}
+"
+                    >{{ i + 1 }}</span
+                >
+            </li>
+
+            <li>
+                <a
+                    href="#"
+                    class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-full ml-2 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >&#62;
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="pt-16">
+    <div
+        class="w-full h-48 newest-img relative flex sm:flex-col md:flex-row md:items-center md:justify-center sm:justify-between p-8 rounded z-0"
+    >
+        <div class="sm:h-full relative z-10 lg:ml-5">
+            <div class="flex items-center flex-col">
+                <p
+                    class="text-white w-40 flex uppercase item-center justify-center rounded-3xl px-2 py-1 bg-orange-500"
+                >
+                    Giảm giá sốc
+                </p>
+                <p
+                    class="lg:text-xl sm:text-lg md:text-left text-center text-purple-500 lg:pt-5 pt-2 uppercase font-bold"
+                >
+                    giảm thêm 10% sản phẩm TPCN thứ 2 trở đi của đơn hàng
+                </p>
+                <a
+                    routerLink="sanpham/ca432157-d65f-426e-acd1-9034208c8ad0"
+                    class="border-none lg:mt-7 mt-4 px-3 uppercase w-36 text-center py-2 md:text-lg font-bold bg-purple-500 rounded-3xl text-white sm:text-md"
+                >
+                    Mua ngay
+                </a>
+            </div>
+        </div>
+        <div
+            class="absolute w-full left-0 bg-blue-200 h-48 newest-img z-0 top-0 rounded-xl text-xl"
+        ></div>
+    </div>
+</div>

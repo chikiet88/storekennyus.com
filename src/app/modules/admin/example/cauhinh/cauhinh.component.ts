@@ -30,6 +30,7 @@ export class CauhinhComponent implements OnInit {
     thumb3;
     thumb4;
     thumb5;
+    thumb6
     isupdateListImage = false;
     listkey: any = {};
     listimage: any[] = [];
@@ -73,6 +74,10 @@ export class CauhinhComponent implements OnInit {
             if (i == 5) {
                 this.cauhinhList.get('data.Image5').setValue(x.url);
                 this.thumb5 = x.url;
+            }
+            if (i == 6) {
+                this.cauhinhList.get('data.Imageflashsale').setValue(x.url);
+                this.thumb6 = x.url;
             }
         });
         return;
@@ -216,11 +221,15 @@ export class CauhinhComponent implements OnInit {
         this.cauhinhList.get('data.Image3').setValue(item.data.Image3);
         this.cauhinhList.get('data.Image4').setValue(item.data.Image4);
         this.cauhinhList.get('data.Image5').setValue(item.data.Image5);
+        this.cauhinhList.get('data.Imageflashsale').setValue(item.data.Imageflashsale);
+
         this.thumb1 = item.data.Image1;
         this.thumb2 = item.data.Image2;
         this.thumb3 = item.data.Image3;
         this.thumb4 = item.data.Image4;
         this.thumb5 = item.data.Image5;
+        this.thumb6 = item.data.Imageflashsale;
+
         if (item.data.imageCarousel) {
             this.cauhinhList
                 .get('data.imageCarousel')
@@ -296,6 +305,7 @@ export class CauhinhComponent implements OnInit {
                 Tieude5: [''],
                 Image5: [''],
                 slug5: [''],
+                Imageflashsale:[''],
             }),
         });
     }

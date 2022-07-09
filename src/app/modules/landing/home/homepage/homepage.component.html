@@ -50,7 +50,7 @@
                         />
 
                         <div
-                            class="border-none text-white bg-purple-500 lg:text-lg text-center h-full lg:py-3 px-3 py-2 mt-3 md:mt-0 font-bold rounded-3xl"
+                            class="border-none cursor-pointer text-white bg-purple-500 lg:text-lg text-center h-full lg:py-3 px-3 py-2 mt-3 md:mt-0 font-bold rounded-3xl"
                             (click)="searchProduct()"
                         >
                             <p>Tìm kiếm</p>
@@ -70,7 +70,9 @@
                 <h3 class="text-yellow-500 italic text-center text-lg pb-5">
                     Siêu ưu đãi, nhanh tay nhận ngay giá tốt!
                 </h3>
-                <div class="w-full h-52 bg-red-200">450*250</div>
+                <div class="w-full  bg-red-200">
+                    <img src="{{ cauhinh.data.Imageflashsale }}" alt="" />
+                </div>
 
                 <div class="w-full flex items-center justify-center mt-5">
                     <div class="p-2 bg-yellow-500 rounded-xl text-center w-16">
@@ -129,13 +131,17 @@
                             class="h-full w-full max-w-sm rounded overflow-hidden sm:mt-10 md:mt-0 product"
                         >
                             <div
-                                class="w-full md:h-56 sm:h-40 rounded-xl bg-gray-200 relative text-2xl flex justify-end"
+                                class="w-full md:h-56 sm:h-40 rounded-xl bg-gray-200 relative text-2xl flex flex-col justify-center"
                             >
-                                <img src="{{ item.Image }}" alt="" />
+                                <img
+                                    src="{{ item.Image }}"
+                                    class="w-2/3 h-2/3"
+                                    alt=""
+                                />
                                 <div
                                     class="absolute top-3 left-5  py-1 px-2 rounded-2xl text-white sm:text-sm {{
                                         item.Trangthai == 1
-                                            ? 'bg-green-500'
+                                            ? 'bg-red-500'
                                             : item.Trangthai == 2
                                             ? 'bg-red-500'
                                             : 'hidden'
@@ -148,6 +154,44 @@
                                             ? "Hết hàng"
                                             : ""
                                     }}
+                                </div>
+                                <div [ngClass]="{ hidden: !contentImage }">
+                                    <div
+                                        class="absolute md:w-16 w-10 flex flex-col justify-center md:h-16 h-10 rounded-lg top-3 right-3 justify-around"
+                                        style="background: #f8f8f8"
+                                    >
+                                        <p
+                                            class=" text-center font-bold text-image"
+                                        >
+                                            {{
+                                                item.ContentImage.contentImage1
+                                            }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="absolute md:w-16 w-10 flex flex-col justify-center md:h-16 h-10 rounded-lg top-1/2 centerY right-3 justify-around"
+                                        style="background: #f8f8f8"
+                                    >
+                                        <p
+                                            class=" text-center font-bold text-image"
+                                        >
+                                            {{
+                                                item.ContentImage.contentImage2
+                                            }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="absolute md:w-16 w-10 flex flex-col justify-center md:h-16 h-10 rounded-lg bottom-3 right-3 justify-around"
+                                        style="background: #f8f8f8"
+                                    >
+                                        <p
+                                            class=" text-center font-bold text-image"
+                                        >
+                                            {{
+                                                item.ContentImage.contentImage3
+                                            }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             <div
@@ -289,7 +333,7 @@
                         >
                             <img
                                 src="{{ cauhinh.data.Image1 }}"
-                                class="w-full h-full rounded-xl"
+                                class="w-full rounded-xl object-contain"
                                 alt=""
                             />
                             <div class="absolute left-1/2 top-1/2 centerY-img">
@@ -329,7 +373,7 @@
                                     <div class="w-full text-xl image-margin">
                                         <img
                                             src="{{ cauhinh.data.Image2 }}"
-                                            class="ng-red-500"
+                                            class="object-contain"
                                             alt=""
                                         />
                                     </div>
@@ -363,7 +407,7 @@
                                     <img
                                         src="{{ cauhinh.data.Image4 }}"
                                         alt=""
-                                        class="w-full h-full"
+                                        class="w-full h-full object-contain"
                                     />
                                 </div>
                             </div>
@@ -391,6 +435,7 @@
                                     <img
                                         src="{{ cauhinh.data.Image3 }}"
                                         alt=""
+                                        class="w-full object-contain"
                                     />
                                 </div>
                             </div>
@@ -403,7 +448,10 @@
                     <div
                         class="md:w-full h-full rounded-xl relative overflow-hidden"
                     >
-                        <img src="{{ cauhinh.data.Image5 }}" alt="md:h-96" />
+                        <img
+                            src="{{ cauhinh.data.Image5 }}"
+                            class="md: h-full h-96"
+                        />
 
                         <div
                             class="absolute left-0 md:top-0 top-10 center-img-gallery p-8"

@@ -19,6 +19,7 @@ export class SanphamService {
         return this._product.asObservable();
     }
     constructor(private http: HttpClient) {}
+
     postProduct(data) {
         return this.products$.pipe(
             take(1),
@@ -38,6 +39,14 @@ export class SanphamService {
             map((products) => {
                 this._products.next(products);
                 return products;
+            })
+        );
+    }
+    getProductDetail(id) {
+        return this.http.get(this.urlApi + `/${id}`).pipe(
+            map((product) => {
+                this._product.next(product);
+                return product;
             })
         );
     }

@@ -144,7 +144,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         this._signinService.signOut().subscribe((res) => {
             if (res == true) {
                 this.isLogin = false;
-                this.signInForm.reset
+                this.signInForm.reset;
             }
         });
     }
@@ -181,7 +181,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
                 this.danhmucChild = this.danhmucArr[0];
             }
         });
-
+       
         this.signInForm = this._formBuilder.group({
             SDT: ['', [Validators.required]],
             password: ['', Validators.required],
@@ -230,6 +230,10 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
                     console.log(this.user);
                 });
             }
+        });
+        this._signinService.authenticated$.subscribe((res) => {
+            this.isLogin = res;
+            console.log(res);
         });
         // this._signinService.get().subscribe((res) =>  this.user = res);
     }

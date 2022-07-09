@@ -4,7 +4,7 @@
   }}</mat-icon>
 </p>
 <div
-  class="absolute w-80 h-auto right-0 bg-white rounded-xl z-30 {{
+  class="absolute border border-gray-200 w-80 h-auto right-0 bg-white rounded-xl z-30 {{
     isShowCart ? 'block' : 'hidden'
   }}"
 >
@@ -18,7 +18,7 @@
           <p class="text-purple-500 font-bold text-md des">{{ item.Tieude }}</p>
           <div class="flex">
             <p class="text-gray-500 text-md mr-1">
-              Quantity: {{ item.cartNum }} *
+              Số lượng: {{ item.cartNum }} *
             </p>
             <p class="text-gray-500 text-md">
               {{ item.GiaSale | currency: "VND" }}
@@ -32,20 +32,20 @@
     </div>
     <div class="m-3 pt-5 border-t border-black">
       <p class="text-gray-600 font-bold">
-        Subtotal: {{ amount | currency: "VND" }}
+        Tổng cộng: {{ amount | currency: "VND" }}
       </p>
       <div class="flex">
         <a
           routerLink="cart"
           class="w-1/2 bg-orange-500 py-2 rounded-2xl text-white font-bold text-center mr-2"
         >
-          View cart
+          Giỏ hàng
         </a>
         <a
           routerLink="checkout"
           class="w-1/2 bg-orange-500 py-2 rounded-2xl text-white font-bold text-center ml-2"
         >
-          Checkout
+          Đặt hàng ngay
         </a>
       </div>
     </div>

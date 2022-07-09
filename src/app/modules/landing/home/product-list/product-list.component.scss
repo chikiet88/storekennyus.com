@@ -14,5 +14,7 @@
   height: 40px;
 }
 .mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{
-  background: #F1F5F9 !important;
+}
+body.light .mat-drawer-container, body .light .mat-drawer-container{
+  background-color: white !important;
 }

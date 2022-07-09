@@ -2,9 +2,9 @@
   class="h-full w-full max-w-sm rounded overflow-hidden sm:mt-10 md:mt-0 product"
 >
   <div
-    class="w-full md:h-56 sm:h-40 rounded-xl bg-gray-200 relative text-2xl flex justify-end"
+    class="w-full md:h-56 sm:h-40 rounded-xl bg-gray-200 relative text-2xl flex flex-col justify-center"
   >
-    <img src="{{ item.Image }}" alt="" />
+    <img src="{{ item.Image }}" class="w-2/3 h-2/3" alt="" />
     <div
       class="absolute top-3 left-5  py-1 px-2 rounded-2xl text-white sm:text-sm {{
         item.Trangthai == 1
@@ -18,35 +18,22 @@
     </div>
    <div [ngClass]="{hidden: !contentImage}">
     <div class="absolute md:w-16 w-10 flex flex-col justify-center  md:h-16 h-10 rounded-lg top-3 right-3 justify-around" style="background: #F8F8F8;">
-      <p class="text-xs text-center font-bold">{{item.ContentImage.contentImage1}}</p>
+      <p class="text-image text-center font-bold">{{item.ContentImage.contentImage1}}</p>
     </div>
     <div class="absolute md:w-16 w-10 flex flex-col justify-center  md:h-16 h-10 rounded-lg top-1/2 centerY right-3 justify-around" style="background: #F8F8F8;">
-      <p class="text-xs text-center font-bold">{{item.ContentImage.contentImage2}}</p>
+      <p class="text-image text-center font-bold">{{item.ContentImage.contentImage2}}</p>
     </div>
     <div class="absolute md:w-16 w-10 flex flex-col justify-center  md:h-16 h-10 rounded-lg bottom-3 right-3 justify-around" style="background: #F8F8F8;">
-      <p class="text-xs text-center font-bold">{{item.ContentImage.contentImage3}}</p>
+      <p class="text-image text-center font-bold">{{item.ContentImage.contentImage3}}</p>
     </div>
    </div>
-    <!-- <div class="absolute right-3 top-3 flex flex-col z-10 icon">
-      <div class="bg-white rounded-full mt-3 flex flex-col items-center">
-        <span class="material-icons text-blue-500"> favorite_border </span>
-      </div>
-      <div class="bg-white rounded-full mt-3 flex flex-col items-center">
-        <span class="material-icons text-blue-500"> compare_arrows </span>
-      </div>
-      <div
-        class="bg-white rounded-full mt-3 flex flex-col items-center"
-        (click)="openDialog()"
-      >
-        <span class="material-icons text-blue-500"> search </span>
-      </div>
-    </div> -->
+
   </div>
   <div class="pt-5 w-full flex flex-col justify-between h-36">
     <p class="text-blue-500 text-sm">{{ item?.Tag }}</p>
     <a
-      class="font-bold text-purple-500 hover:text-blue-500 cursor-pointer"
-      routerLink="/sanpham/{{ item.id }}"
+      class="font-bold text-purple-500 hover:text-blue-500 cursor-pointer three-dot" href="{{item?.Tieude}}"
+      routerLink="/sanpham/sanphamchitiet/{{ item.id }}"
     >
       {{ item?.Tieude }}
     </a>

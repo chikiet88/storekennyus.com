@@ -1,14 +1,14 @@
 <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-10 md:mt-10 px-3">
     <div class="flex md:flex-row flex-col">
         <div class="md:w-1/2 w-full lg:pr-10">
-            <p class="text-2xl text-purple-500 font-bold">Login</p>
+            <p class="text-2xl text-purple-500 font-bold">Đăng nhập</p>
 
             <div class="md:w-2/3">
                 <form class="pt-7 lg:mr-5" [formGroup]="signInForm">
                     <div class="flex flex-col">
                         <label class="text-gray-400">Số điện thoại</label>
                         <input
-                            class="p-2 mt-1 text-purple-500 bg-gray-200 focus:bg-white focus:border-blue-500 border rounded-xl"
+                            class="p-2 mt-1 text-purple-500 bg-gray-100 border border-black focus:bg-white focus:border-blue-500 border rounded-xl"
                             type="number"
                             placeholder="0912345678"
                             [formControlName]="'SDT'"
@@ -17,7 +17,7 @@
                     <div class="flex flex-col py-4">
                         <label class="text-gray-400">Password *</label>
                         <input
-                            class="p-2 mt-1 text-purple-500 bg-gray-200 focus:bg-white focus:border-blue-500 border rounded-xl"
+                            class="p-2 mt-1 text-purple-500 bg-gray-100 border border-black focus:bg-white focus:border-blue-500 border rounded-xl"
                             type="password"
                             [formControlName]="'password'"
                             (keyup.enter)="signIn()"
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="md:w-1/2 w-full pt-3 md:pt-0">
-            <p class="text-2xl text-purple-500 font-bold">Register</p>
+            <p class="text-2xl text-purple-500 font-bold">Đăng ký</p>
 
             <div class="">
                 <form class="pt-7" [formGroup]="signUpForm">
@@ -49,7 +49,7 @@
                                 >Nhập Số điện thoai</label
                             >
                             <input
-                                class="p-2 mt-1 text-purple-500 bg-gray-200 focus:bg-white focus:border-blue-500 border rounded-xl"
+                                class="p-2 mt-1 text-purple-500 bg-gray-100 border border-black focus:bg-white focus:border-blue-500 border rounded-xl"
                                 type="text"
                                 [formControlName]="'SDT'"
                                 placeholder="012345678"
@@ -61,7 +61,7 @@
                                 >Nhập địa chỉ email</label
                             >
                             <input
-                                class="p-2 mt-1 text-purple-500 bg-gray-200 focus:bg-white focus:border-blue-500 border rounded-xl"
+                                class="p-2 mt-1 text-purple-500 bg-gray-100 border border-black focus:bg-white focus:border-blue-500 border rounded-xl"
                                 type="text"
                                 placeholder="abc@gmail.com"
                                 [formControlName]="'email'"
@@ -70,7 +70,7 @@
                         <div class="flex flex-col mb-2">
                             <label class="text-gray-400">Nhập Họ và tên</label>
                             <input
-                                class="p-2 mt-1 text-purple-500 bg-gray-200 focus:bg-white focus:border-blue-500 border rounded-xl"
+                                class="p-2 mt-1 text-purple-500 bg-gray-100 border border-black focus:bg-white focus:border-blue-500 border rounded-xl"
                                 type="text"
                                 [formControlName]="'name'"
                                 placeholder="Họ và tên"
@@ -79,7 +79,7 @@
                         <div class="flex flex-col mb-2 relative">
                             <label class="text-gray-400">Nhập Password</label>
                             <input
-                                class="p-2 mt-1 text-purple-500 bg-gray-200 focus:bg-white focus:border-blue-500 border rounded-xl"
+                                class="p-2 mt-1 text-purple-500 bg-gray-100 border border-black focus:bg-white focus:border-blue-500 border rounded-xl"
                                 type="password"
                                 #passwordField1
                                 [formControlName]="'password'"
@@ -112,7 +112,7 @@
                                 >Nhập lại Password</label
                             >
                             <input
-                                class="p-2 mt-1 text-purple-500 bg-gray-200 focus:bg-white focus:border-blue-500 border rounded-xl"
+                                class="p-2 mt-1 text-purple-500 bg-gray-100 border border-black focus:bg-white focus:border-blue-500 border rounded-xl"
                                 type="password"
                                 [formControlName]="'confirmPassword'"
                                 #passwordField

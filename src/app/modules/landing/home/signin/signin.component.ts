@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
+    FormControl,
     FormGroup,
+    ValidatorFn,
     Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SinginService } from './singin.service';
-import { ConfirmedValidator } from './ConfirmedValidator';
+import Validation from './ConfirmedValidator';
 import { NotifierService } from 'angular-notifier';
+
 @Component({
     selector: 'app-signin',
     templateUrl: './signin.component.html',
@@ -46,12 +49,22 @@ export class SigninComponent implements OnInit {
                 '',
                 [Validators.required, Validators.pattern(this.emailPattern)],
             ],
-            password: ['', Validators.required],
+            password: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(6),
+                    Validators.maxLength(40),
+                ],
+            ],
             SDT: [
                 '',
                 [Validators.required, Validators.pattern(this.phoneRegex)],
             ],
-            confirmPassword: ['', Validators.required],
+            confirmPassword: [
+                '',
+                Validators.required,
+            ],
         });
         // this._signinService.signIn().subscribe()
     }
@@ -84,10 +97,6 @@ export class SigninComponent implements OnInit {
                 },
                 (response) => {
                     console.log(response);
-
-                    // Re-enable the form
-                    // this.signInForm.enable();
-                    // this.signInNgForm.resetForm();
                 }
             );
         }
@@ -109,6 +118,16 @@ export class SigninComponent implements OnInit {
         if (this.signUpForm.get('password').hasError('required')) {
             this.notifier.notify('error', `Vui lòng nhập password`);
         }
+        let password = this.signUpForm.get('password').value;
+        password = password.split('');
+        console.log(password);
+        
+        if (password.length < 6) {
+            this.notifier.notify('error', `Vui lòng nhập mật khẩu lớn hơn 6 ký tự`);
+        }
+        if (password.length > 20) {
+            this.notifier.notify('error', `Vui lòng nhập mật khẩu nhỏ 20 ký tự`);
+        }
         if (this.signUpForm.get('confirmPassword').hasError('required')) {
             this.notifier.notify('error', `Vui lòng xác nhận password`);
         }
@@ -122,7 +141,6 @@ export class SigninComponent implements OnInit {
             if (this.signUpForm.invalid) {
                 return;
             }
-            this.signUpForm.removeControl('confirmPassword');
             this._signinService
                 .createNhanvien(this.signUpForm.value)
                 .subscribe((res) => {
@@ -132,15 +150,13 @@ export class SigninComponent implements OnInit {
                             'Số Điện Thoại Đã Tồn Tại'
                         );
                     } else if (res == 2) {
-                        this.notifier.notify(
-                            'error',
-                            'Email Đã Tồn Tại'
-                        );
+                        this.notifier.notify('error', 'Email Đã Tồn Tại');
                     } else {
                         this.notifier.notify(
                             'success',
                             'Tạo tài khoản thành công'
                         );
+                        this.signUpForm.reset();
                     }
                 });
         }

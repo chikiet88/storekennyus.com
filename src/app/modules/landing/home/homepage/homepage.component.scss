@@ -37,10 +37,15 @@
     background-color: #000;
     transform: rotate(5deg);
   }
-
+.text-image{
+    font-size: 0.625rem;
+}
 @media screen and (max-width: 767px) {
     .banner-homepage{
         margin-top: 25px;
+    }
+    .text-image{
+        font-size: 0.5rem;
     }
    
 }

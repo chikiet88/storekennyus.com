@@ -7,10 +7,10 @@
             <th></th>
 
             <th></th>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
+            <th>Sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Tổng tiền</th>
           </tr>
         </thead>
         <tbody class="w-full">
@@ -31,20 +31,20 @@
               </div>
             </td>
             <td class="py-3 border-t md:border-t-none border-gray-300">
-              <p class=" font-bold text-purple-500 md:hidden">Product:</p>
+              <p class=" font-bold text-purple-500 md:hidden">Sản phẩm:</p>
               <a class="text-purple-500 hover:underline text-center" routerLink="/sanpham/{{item.id}}">
                {{item.Tieude}}
               </a>
             </td>
             <td class="py-3 border-t md:border-t-none border-gray-300">
-                <p class=" font-bold text-purple-500 md:hidden">Price:</p>
+                <p class=" font-bold text-purple-500 md:hidden">Giá:</p>
                 <p class="text-purple-500 hover:underline text-center">
-                  {{item.Gia | currency:'VND'}}
+                  {{item.GiaSale | currency:'VND'}}
                 </p>
               </td>
             <td class="py-3 border-t md:border-t-none border-gray-300">
               <div class="flex md:flex-col items-center justify-between md:justify-center w-full">
-                <p class=" font-bold text-purple-500 md:hidden">Quantity:</p>
+                <p class=" font-bold text-purple-500 md:hidden">Số lượng:</p>
 
                 <input
                   class="text-purple-500 text-center py-3 w-36 md:mx-auto bg-gray-200 rounded-xl"
@@ -57,7 +57,7 @@
             <td class="py-3 border-t md:border-t-none border-gray-300">
                 <p class=" font-bold text-purple-500 md:hidden">Subtotal:</p>
                 <p class="text-purple-500 hover:underline text-center">
-                  {{item.price * item.cartNum |currency:'VND'}}
+                  {{item.GiaSale * item.cartNum |currency:'VND'}}
                 </p>
             </td>
           </tr>
@@ -71,14 +71,14 @@
             placeholder="Coupon code"
           />
           <div
-            class="md:ml-3 sm:my-5 md:my-0 px-3 py-2 w-32 text-center text-white cursor-pointer bg-orange-500 font-bold rounded-2xl hover:bg-purple-500"
+            class="md:ml-3 sm:my-5 md:my-0 px-3 py-2 w-32 text-center text-white cursor-pointer  font-bold rounded-2xl bg-purple-500"
           >
             Apply coupon
           </div>
         </div>
         <div class="h-px w-full bg-gray-200 mb-5 md:hidden "></div>
         <div
-          class=" px-3 py-2 w-32 text-center text-white bg-orange-500 cursor-pointer font-bold rounded-2xl hover:bg-purple-500"
+          class=" px-3 py-2 w-32 text-center text-white  cursor-pointer font-bold rounded-2xl bg-purple-500"
           (click)="updateCart()"
           >
           Update cart
@@ -87,21 +87,19 @@
     </div>
     <div class="lg:w-1/5 w-full pt-7 lg:pt-0">
       <div class="">
-        <p class="text-lg text-purple-500 font-bold pl-3">Cart totals</p>
+        <p class="text-lg text-purple-500 font-bold pl-3">Tổng đơn hàng</p>
         <div class="border border-gray-300 rounded-xl px-3">
           <div class="flex justify-between border-b border-gray-300 py-3">
-            <p class="text-purple-500 font-bold">Subtotal</p>
-            <p class="text-purple-500 font-bold">{{amount}}</p>
+            <p class="text-purple-500 font-bold">Tổng cộng</p>
+            <p class="text-purple-500 font-bold">{{amount |currency:'VND'}}</p>
           </div>
-          <div class="flex justify-between border-b border-gray-300 py-3">
-            <p class="text-purple-500 font-bold">Total</p>
-            <p class="text-purple-500 font-bold text-lg">{{amount}}</p>
-          </div>
+         
           <div
-            class="my-5 px-3 py-2 w-44 text-center text-white  bg-orange-500 cursor-pointer font-bold rounded-2xl hover:bg-purple-500"
+          routerLink="/checkout"
+            class="my-5 px-3 py-2 w-44 text-center text-white  cursor-pointer font-bold rounded-2xl bg-purple-500"
           >
-            Proceed to checkout
-          </div>
+            Đặt hàng ngay
+        </div>
         </div>
       </div>
     </div>

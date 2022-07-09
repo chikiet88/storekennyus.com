@@ -17,6 +17,7 @@ import { NgxSliderModule } from "@angular-slider/ngx-slider";
 import { ProductPopularComponent } from "./product-popular/product-popular.component";
 import { DanhsachSanphamComponent } from './sanpham-danhmuc/danhsach-sanpham/danhsach-sanpham.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { TatcasanphamComponent } from './tatcasanpham/tatcasanpham.component';
 @NgModule({
   declarations: [
     ProductItem1Component,
@@ -24,7 +25,8 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
     ProductDetailComponent,
     SanphamDanhmucComponent,
     ProductPopularComponent,
-    DanhsachSanphamComponent
+    DanhsachSanphamComponent,
+    TatcasanphamComponent
   ],
   imports: [
     CommonModule,
