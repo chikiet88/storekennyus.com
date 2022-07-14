@@ -94,34 +94,6 @@ export class SanphamDanhmucComponent implements OnInit {
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
-    // onSelectDanhmuc(item, i) {
-    //     this.tempProductSplice = [];
-    //     this.selectedIndex = i;
-    //     let a = [];
-    //     this.tempDM.filter((x) => {
-    //         if (x.pid == item.id) {
-    //             a.push(x);
-    //         }
-    //     });
-    //     if (a.length > 1) {
-    //         a = [...a, item];
-    //     } else {
-    //         a = [item];
-    //     }
-
-    //     let b = [];
-
-    //     this._productService.products$.subscribe((res) => {
-    //         res.filter((x) => {
-    //             a.forEach((v) => {
-    //                 if (x.idDM == v.id) {
-    //                     b.push(x);
-    //                 }
-    //             });
-    //         });
-    //     });
-    //     this.splceArr(b);
-    // }
 
     paginateNumber(i) {
         this.indexPaginate = i;

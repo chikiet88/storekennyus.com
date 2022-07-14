@@ -16,6 +16,7 @@ import { ThemeComponent } from './theme/theme.component';
 import { DonhangComponent } from './donhang/donhang.component';
 import { DonhangDetailComponent } from './donhang-detail/donhang-detail.component';
 import { CauhinhComponent } from './cauhinh/cauhinh.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 const exampleRoutes: Route[] = [
     {
@@ -71,6 +72,7 @@ const exampleRoutes: Route[] = [
         MaterialExampleModule,
         CommonModule,
         CKEditorModule,
+        ColorPickerModule
     ],
 })
 export class ExampleModule {}

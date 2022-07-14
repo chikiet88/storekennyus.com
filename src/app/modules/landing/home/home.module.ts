@@ -38,7 +38,7 @@ import { SanphamDaxemComponent } from './sanpham-daxem/sanpham-daxem.component';
 import { FlashSaleComponent } from './components/flash-sale/flash-sale.component';
 import { CustomPipePipe } from '../customs/custom-pipe.pipe';
 import { ProductListComponent } from './product-list/product-list.component';
-import { NgxImageZoomModule } from 'ngx-image-zoom';
+
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
 @NgModule({

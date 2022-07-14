@@ -64,7 +64,6 @@ export class CheckoutComponent implements OnInit {
         this.cartService.getCart().subscribe();
         this.cartService.carts$.subscribe((res) => {
             this.carts = res;
-            console.log(res);
         });
         this.cartService.amount$.subscribe((res) => (this.amount = res));
         if (this.token != null) {
@@ -80,10 +79,6 @@ export class CheckoutComponent implements OnInit {
                         .setValue(res.profile.Diachi);
                 }
             });
-        } else {
-            const redirectURL =
-                this._route.snapshot.queryParamMap.get('redirectURL') || '/';
-            this._router.navigateByUrl(redirectURL);
         }
     }
 
@@ -113,7 +108,6 @@ export class CheckoutComponent implements OnInit {
             this._checkoutService
                 .postdonhang(this.khachhangForm.value)
                 .subscribe((res) => {
-                    console.log(res);
                     this.notifier.notify('success', `Đặt hàng thành công`);
 
                     if (res) {
@@ -126,7 +120,6 @@ export class CheckoutComponent implements OnInit {
                         });
 
                         this.carts.forEach((x) => {
-                            console.log(idDH);
 
                             this.donhangForm.get('idDH').setValue(idDH);
                             this.donhangForm.get('idSP').setValue(x.id);

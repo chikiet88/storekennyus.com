@@ -1,5 +1,5 @@
 <div class="lg:py-10 sm:mx-3 md:mx-0 md:px-0">
-    <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10">
+    <div class="lg:max-w-7xl lg:mx-auto lg:px-5">
         <app-carousel-home></app-carousel-home>
         <div
             class="mx-auto rounded-xl bg-white lg:max-w-6xl lg:mx-auto border border-white mt-5 lg:pt-0 lg:mx-10"
@@ -62,7 +62,7 @@
     </div>
 
     <div
-        class="banner-homepage bg-gray-800 mt-5 p-10 flex md:flex-row flex-col"
+        class="banner-homepage bg-gray-800 mt-5 md:p-10 p-5 flex md:flex-row flex-col"
         *ngIf="isFlashSale"
     >
         <div class="lg:w-1/3 md:w-1/2 w-full relative">
@@ -70,7 +70,7 @@
                 <h3 class="text-yellow-500 italic text-center text-lg pb-5">
                     Siêu ưu đãi, nhanh tay nhận ngay giá tốt!
                 </h3>
-                <div class="w-full  bg-red-200">
+                <div class="w-full bg-red-200">
                     <img src="{{ cauhinh.data.Imageflashsale }}" alt="" />
                 </div>
 
@@ -161,7 +161,7 @@
                                         style="background: #f8f8f8"
                                     >
                                         <p
-                                            class=" text-center font-bold text-image"
+                                            class="text-center font-bold text-image"
                                         >
                                             {{
                                                 item.ContentImage.contentImage1
@@ -173,7 +173,7 @@
                                         style="background: #f8f8f8"
                                     >
                                         <p
-                                            class=" text-center font-bold text-image"
+                                            class="text-center font-bold text-image"
                                         >
                                             {{
                                                 item.ContentImage.contentImage2
@@ -185,7 +185,7 @@
                                         style="background: #f8f8f8"
                                     >
                                         <p
-                                            class=" text-center font-bold text-image"
+                                            class="text-center font-bold text-image"
                                         >
                                             {{
                                                 item.ContentImage.contentImage3
@@ -324,16 +324,25 @@
                 <div class="flex items-center justify-center"></div>
             </div>
         </div>
-        <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10">
+        <div class="lg:max-w-7xl lg:mx-auto lg:px-5">
             <div class="flex pt-10 h-full lg:flex-row flex-col">
                 <div class="lg:w-4/6 md:w-full flex flex-col">
                     <div class="w-full flex md:flex-row flex-col">
-                        <div
-                            class="md:w-4/6 w-full md:mr-3 rounded-xl relative flex lg:flex-row sm:flex-row-reverse overflow-hidden"
+                        <a
+                            href="{{ cauhinh.data.Link1 }}"
+                            class="md:w-4/6 w-full banner1 md:mr-3 rounded-xl relative flex lg:flex-row sm:flex-row-reverse overflow-hidden"
+                            [ngStyle]="{
+                                'background-color': cauhinh.data.Color1
+                            }"
                         >
                             <img
                                 src="{{ cauhinh.data.Image1 }}"
-                                class="w-full rounded-xl object-contain"
+                                class="w-full rounded-xl object-contain hidden md:block"
+                                alt=""
+                            />
+                            <img
+                                src="{{ cauhinh.data.Imagemobile1 }}"
+                                class="w-full rounded-xl md:hidden"
                                 alt=""
                             />
                             <div class="absolute left-1/2 top-1/2 centerY-img">
@@ -343,26 +352,31 @@
                                     </p>
                                     <div
                                         [innerHTML]="cauhinh.data.Tieude1"
-                                        class="text-xl py-2 text-white font-bold"
+                                        class="md:text-lg text-xl py-2 text-white font-bold"
                                     ></div>
 
                                     <button
                                         class="border-none md:mt-7 mt-4 px-3 w-36 text-center py-2 md:text-lg sm:text-md md:text-lg font-bold bg-green-500 rounded-3xl text-white"
                                     >
-                                        Buy now >
+                                        Mua ngay >
                                     </button>
                                 </div>
                             </div>
                             <div class="absolute text-xl z-0"></div>
-                        </div>
+                        </a>
                         <div
-                            class="md:w-2/6 w-full mt-5 md:mt-0 md:ml-2 h-72 bg-red-500 rounded-xl relative"
+                            class="md:w-2/6 w-full mt-5 md:mt-0 md:ml-2 h-72 rounded-xl relative banner2"
+                            [ngStyle]="{
+                                'background-color': cauhinh.data.Color2
+                            }"
                         >
                             <div
                                 class="py-8 pl-8 w-full h-full overflow-hidden"
                             >
                                 <div class="h-1/2">
-                                    <div class="w-full h-full text-xl">
+                                    <div
+                                        class="w-full h-full md:text-lg text-xl"
+                                    >
                                         <div
                                             [innerHTML]="cauhinh.data.Tieude2"
                                             class="text-lg text-purple-500 font-bold"
@@ -373,7 +387,14 @@
                                     <div class="w-full text-xl image-margin">
                                         <img
                                             src="{{ cauhinh.data.Image2 }}"
-                                            class="object-contain"
+                                            class="object-contain hidden md:block"
+                                            alt=""
+                                        />
+                                        <img
+                                            src="{{
+                                                cauhinh.data.Imagemobile2
+                                            }}"
+                                            class="w-full rounded-xl md:hidden"
                                             alt=""
                                         />
                                     </div>
@@ -383,23 +404,27 @@
                     </div>
                     <div class="w-full flex pt-5 md:flex-row-reverse flex-col">
                         <div
-                            class="md:w-7/12 py-8 pr-5 w-full md:ml-3 h-72 bg-orange-600 ounded-xl relative"
+                            class="md:w-7/12 py-8 pr-5 w-full md:ml-3 h-72 rounded-xl relative banner4"
+                            [ngStyle]="{
+                                'background-color': cauhinh.data.Color4
+                            }"
                         >
-                            <div
+                            <a
                                 class="relative w-full h-full flex flex-row-reverse justify-between"
+                                href="{{ cauhinh.data.Link4 }}"
                             >
                                 <div class="flex flex-col pl-5 justify-around">
                                     <div>
                                         <div
                                             [innerHTML]="cauhinh.data.Tieude4"
-                                            class="text-lg text-purple-500 font-bold leading-5"
+                                            class="md:text-lg text-xl text-purple-500 font-bold leading-5"
                                         ></div>
                                     </div>
 
                                     <button
                                         class="border-none px-3 w-36 text-center py-2 md:text-lg sm:text-md text-lg font-bold bg-green-500 rounded-3xl text-white"
                                     >
-                                        Buy now >
+                                        Mua ngay >
                                     </button>
                                 </div>
 
@@ -407,50 +432,71 @@
                                     <img
                                         src="{{ cauhinh.data.Image4 }}"
                                         alt=""
-                                        class="w-full h-full object-contain"
+                                        class="w-full h-full object-contain hidden md:block"
+                                    />
+                                    <img
+                                        src="{{ cauhinh.data.Imagemobile4 }}"
+                                        class="w-full h-full rounded-xl md:hidden"
+                                        alt=""
                                     />
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div
-                            class="md:w-5/12 w-full py-8 pl-8 h-72 bg-red-500 mt-5 md:mt-0 rounded-xl relative flex overflow-hidden"
+                            class="md:w-5/12 banner3 w-full py-8 pl-8 h-72 mt-5 md:mt-0 rounded-xl relative flex overflow-hidden"
+                            [ngStyle]="{
+                                'background-color': cauhinh.data.Color3
+                            }"
                         >
-                            <div
+                            <a
+                                href="{{ cauhinh.data.Link3 }}"
                                 class="relative w-full h-full overflow-hidden flex"
                             >
                                 <div class="w-2/3">
                                     <div>
                                         <div
                                             [innerHTML]="cauhinh.data.Tieude3"
-                                            class="text-lg text-purple-500 font-bold leading-5"
+                                            class="md:text-lg text-xl text-purple-500 font-bold leading-5"
                                         ></div>
                                     </div>
                                     <button
                                         class="border-none mt-7 px-3 w-36 text-center py-2 md:text-lg font-bold bg-green-500 rounded-3xl text-white sm:text-md"
                                     >
-                                        Buy now >
+                                        Mua ngay >
                                     </button>
                                 </div>
                                 <div class="md:w-1/3 w-24">
                                     <img
                                         src="{{ cauhinh.data.Image3 }}"
                                         alt=""
-                                        class="w-full object-contain"
+                                        class="w-full object-contain hidden md:block"
+                                    />
+                                    <img
+                                        src="{{ cauhinh.data.Imagemobile3 }}"
+                                        class="w-full h-full rounded-xl md:hidden"
+                                        alt=""
                                     />
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div
-                    class="lg:w-2/6 md:w-full lg:ml-5 rounded-2xl relative md:mt-10 lg:mt-0 item-image mt-5 overflow-hidden"
+                <a
+                    href="{{ cauhinh.data.Link5 }}"
+                    class="lg:w-2/6 md:w-full lg:ml-5 rounded-2xl relative md:mt-10 lg:mt-0 item-image mt-5 overflow-hidden banner5"
+                    [ngStyle]="{ 'background-color': cauhinh.data.Color5 }"
                 >
                     <div
                         class="md:w-full h-full rounded-xl relative overflow-hidden"
                     >
                         <img
                             src="{{ cauhinh.data.Image5 }}"
-                            class="md: h-full h-96"
+                            class="md:h-full hidden md:block"
+                        />
+                        <img
+                            src="{{ cauhinh.data.Imagemobile5 }}"
+                            class="w-full h-full rounded-xl md:hidden"
+                            alt=""
                         />
 
                         <div
@@ -463,17 +509,17 @@
                             </p>
                             <div
                                 [innerHTML]="cauhinh.data.Tieude5"
-                                class="text-lg my-1 text-purple-500 font-bold my-5"
+                                class="md:text-lg text-xl my-1 text-purple-500 font-bold my-5"
                             ></div>
 
                             <button
                                 class="border-none px-3 w-36 text-center py-2 md:text-lg font-bold bg-green-500 rounded-3xl text-white sm:text-md"
                             >
-                                Buy now >
+                                Mua ngay >
                             </button>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="pt-10">
                 <div class="flex items-center justify-center md:pb-10 sm:pb-5">
@@ -713,6 +759,23 @@
         </mat-tab-group> -->
             </div>
         </div>
+
+        <div class="pt-10">
+            <div class="flex items-center md:justify-center sm:justify-start">
+                <p class="text-3xl text-purple-500 font-bold">
+                    Sản phẩm đã xem
+                </p>
+            </div>
+            <div
+                class="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-5 md:pt-5 lg:pt-10"
+            >
+                <app-product-popular
+                    *ngFor="let item of sanphamdaxem"
+                    [item]="item"
+                ></app-product-popular>
+            </div>
+        </div>
+
         <div class="pt-10">
             <div
                 class="w-full md:h-56 sm:h-72 bg-gray-200 relative flex flex-col items-center justify-center"

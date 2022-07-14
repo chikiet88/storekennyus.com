@@ -43,7 +43,7 @@ export class CheckoutService {
     //   return this._themes.asObservable();
     // }
     getDiachi() {
-        return this.http.get('https://provinces.open-api.vn/api/p').pipe(
+        return this.http.get('https://online-gateway.ghn.vn/shiip/public-api/master-data/district').pipe(
             map((diachi) => {
                 console.log(diachi);
                 // this._donhangs.next(donhangs);

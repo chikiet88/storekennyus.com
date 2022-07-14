@@ -33,62 +33,53 @@
                 </div>
 
                 <div class="py-5 px-3" *ngIf="DanhmucActive == true">
-                    <mat-accordion>
-                        <mat-expansion-panel
-                            *ngFor="let itemmenu of danhmuc"
-                            (opened)="panelOpenState = true"
-                            (closed)="panelOpenState = false"
+                    <mat-tree
+                        [dataSource]="dataSource"
+                        [treeControl]="treeControl"
+                    >
+                        <mat-tree-node
+                            *matTreeNodeDef="let node"
+                            matTreeNodePadding
                         >
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    <div
-                                        *ngIf="
-                                            itemmenu?.children.length > 0;
-                                            else notparent
-                                        "
-                                    >
-                                        <a
-                                            routerLink="/{{ itemmenu.Slug }}"
-                                            class="text-purple-500 text-2xl font-bold"
-                                            >{{ itemmenu.Tieude }}</a
-                                        >
-                                    </div>
-                                    <ng-template #notparent>
-                                        <a
-                                            routerLink="/{{ itemmenu.Slug }}"
-                                            class="text-purple-500 text-2xl font-bold"
-                                            (click)="drawer.toggle()"
-                                            >{{ itemmenu.Tieude }}</a
-                                        >
-                                    </ng-template>
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <div *ngIf="itemmenu?.children.length > 0">
-                                <div
-                                    class="flex flex-col"
-                                    *ngFor="let item of itemmenu.children"
+                            <button mat-icon-button disabled></button>
+                            <div class="cursor-pointer">
+                                <a
+                                    (click)="drawer.toggle()"
+                                    class="text-purple-500 text-2xl font-bold"
+                                    [routerLink]="['/sanpham/', node.item.id]"
+                                    routerLinkActive="active-link"
+                                    >{{ node.name }}</a
                                 >
-                                    <a
-                                        class="text-purple-500 text-2xl font-bold"
-                                        routerLink="/{{ item.Slug }}"
-                                        (click)="drawer.toggle()"
-                                        >{{ item.Tieude }}</a
-                                    >
-                                </div>
                             </div>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                    <!-- <ul class="nav-mobile">
-            
-            <li
-              class="text-purple-500  text-2xl font-bold"
-              *ngFor="let item of danhmuc"
-            >
-              <a routerLink="sanpham" (click)="drawer.toggle()">{{
-                item.Tieude
-              }}</a>
-            </li>
-          </ul> -->
+                        </mat-tree-node>
+                        <mat-tree-node
+                            *matTreeNodeDef="let node; when: hasChild"
+                            matTreeNodePadding
+                        >
+                            <button
+                                mat-icon-button
+                                matTreeNodeToggle
+                                [attr.aria-label]="'Toggle ' + node.name"
+                            >
+                                <mat-icon class="mat-icon-rtl-mirror">
+                                    {{
+                                        treeControl.isExpanded(node)
+                                            ? "expand_more"
+                                            : "chevron_right"
+                                    }}
+                                </mat-icon>
+                            </button>
+                            <div class="cursor-pointer">
+                                <a
+                                    (click)="drawer.toggle()"
+                                    class="text-purple-500 text-2xl font-bold"
+                                    [routerLink]="['sanpham/', node.item.id]"
+                                    routerLinkActive="active-link"
+                                    >{{ node.name }}</a
+                                >
+                            </div>
+                        </mat-tree-node>
+                    </mat-tree>
                 </div>
                 <div class="py-5 px-3" *ngIf="MenuActive == true">
                     <ul class="nav-mobile">
@@ -281,7 +272,7 @@
                 </div>
             </div>
             <div
-                class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 px-3 py-3 nav-header"
+                class="lg:max-w-7xl lg:mx-auto lg:px-5  px-3 py-3 nav-header"
             >
                 <div class="flex items-center justify-between">
                     <div class="text-2xl h-12 lg:w-2/12 md:w-3/12">
@@ -312,7 +303,7 @@
                     <div class="hidden lg:block relative">
                         <div class="flex items-center w-full">
                             <mat-select
-                                class="p-3 text-purple-500 rounded-l-3xl text-lg border  h-full bg-gray-200"
+                                class="p-3 text-purple-500 rounded-l-3xl text-lg border h-full bg-gray-200"
                                 placeholder="Tìm Kiếm"
                                 (selectionChange)="
                                     selectCategoriesSearch($event.value)
@@ -586,35 +577,35 @@
                         <div class="flex justify-between w-full">
                             <div class="flex items-center">
                                 <div
-                                    class="text-lg text-purple-500 font-bold  mx-4"
+                                    class="text-lg text-purple-500 font-bold mx-4"
                                 >
                                     <div class="links relative">
                                         <a
                                             routerLink=""
-                                            class="text-lg text-purple-500 font-bold  block line-hover"
+                                            class="text-lg text-purple-500 font-bold block line-hover"
                                         >
                                             Trang Chủ
                                         </a>
                                     </div>
                                 </div>
                                 <div
-                                    class="text-lg text-purple-500 font-bold  mx-4"
+                                    class="text-lg text-purple-500 font-bold mx-4"
                                 >
                                     <div class="links relative">
                                         <a
                                             routerLink="sanpham"
-                                            class="text-lg text-purple-500 font-bold  block line-hover"
+                                            class="text-lg text-purple-500 font-bold block line-hover"
                                         >
                                             Sản Phẩm
                                         </a>
                                     </div>
                                 </div>
                                 <div
-                                    class="text-lg text-purple-500 font-bold thuonghieu group py-4  mx-4"
+                                    class="text-lg text-purple-500 font-bold thuonghieu group py-4 mx-4"
                                 >
                                     <div class="links">
                                         <a
-                                            class="text-lg text-purple-500 font-bold  block"
+                                            class="text-lg text-purple-500 font-bold block"
                                         >
                                             Thương Hiệu
                                         </a>
@@ -653,7 +644,7 @@
                                     </div>
                                 </div>
 
-                                <div class="links flex  mx-4">
+                                <div class="links flex mx-4">
                                     <div
                                         class="dropdown relative gioithieu-menu"
                                     >
@@ -697,7 +688,7 @@
                                 </div>
 
                                 <div
-                                    class="text-lg text-purple-500 font-bold  mx-4 py-4"
+                                    class="text-lg text-purple-500 font-bold mx-4 py-4"
                                 >
                                     <div class="links relative">
                                         <a
@@ -751,38 +742,51 @@
                     class="flex items-center justify-center flex-col"
                 >
                     <a routerLink=""
-                        ><span class="material-icons"> home </span></a
+                        ><span class="material-icons text-purple-500">
+                            home
+                        </span></a
                     >
                 </div>
                 <div
-                    class="w-10 h-10 flex items-center justify-center flex-col bg-red-200"
+                    class="w-10 h-10 flex items-center justify-center flex-col"
                 >
-                    <a
-                        routerLink="sanpham"
-                        class="flex items-center justify-center flex-col"
-                    ></a>
-                </div>
-                <div
-                    class="w-10 h-10 flex items-center justify-center flex-col bg-red-200"
-                >
-                    <a
-                        routerLink="gioithieu"
-                        class="flex items-center justify-center flex-col"
-                    ></a>
-                </div>
-                <div
-                    class="w-10 h-10 flex items-center justify-center flex-col bg-red-200"
-                >
-                    <a
+                    <a routerLink="cart">
+                        <mat-icon
+                            matBadge="{{ cartnum }}"
+                            matBadgeColor="warn"
+                            class="text-purple-500"
+                            >shopping_cart</mat-icon
+                        >
+                    </a>
+                    <!-- <a
                         routerLink="checkout"
                         class="flex items-center justify-center flex-col"
                         ><span class="material-icons"> shopping_cart </span></a
-                    >
+                    > -->
                 </div>
                 <div
-                    class="w-10 h-10 flex items-center justify-center flex-col bg-red-200"
-                    class="flex items-center justify-center flex-col"
-                ></div>
+                    class="w-10 h-10 flex items-center justify-center flex-col"
+                >
+                    <div
+                        class="flex items-center justify-center flex-col"
+                        (click)="clickMenuProfileMobile()"
+                    >
+                        <span class="material-icons text-purple-500">
+                            person
+                        </span>
+                    </div>
+                </div>
+                <div
+                    class="w-10 h-10 flex items-center justify-center flex-col"
+                >
+                    <a
+                        routerLink="san-pham-da-xem"
+                        class="flex items-center justify-center flex-col"
+                        ><span class="material-icons text-purple-500">
+                            swap_horiz
+                        </span></a
+                    >
+                </div>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@ import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
     providedIn: 'root',
 })
 export class DanhmucService {
-    private urlApi = environment.url+'/danhmuc';
+    private urlApi = environment.url + '/danhmuc';
     post: any;
     private _danhmucs: BehaviorSubject<any | null> = new BehaviorSubject(null);
     private _danhmuc: BehaviorSubject<any | null> = new BehaviorSubject(null);
@@ -17,8 +17,8 @@ export class DanhmucService {
         return this._danhmucs.asObservable();
     }
     get danhmuc$(): Observable<any> {
-      return this._danhmuc.asObservable();
-  }
+        return this._danhmuc.asObservable();
+    }
     // get theme$(): Observable<any>{
     //   return this._themes.asObservable();
     // }
@@ -29,7 +29,7 @@ export class DanhmucService {
             switchMap((danhmucs) =>
                 this.http.post(this.urlApi, data).pipe(
                     map((danhmuc) => {
-                        this._danhmucs.next([...danhmucs,danhmuc ]);
+                        this._danhmucs.next([...danhmucs, danhmuc]);
 
                         return danhmuc;
                     })
@@ -75,8 +75,8 @@ export class DanhmucService {
                         const index = danhmucs.findIndex(
                             (item) => item.id == data.id
                         );
-                            console.log(index);
-                            
+                        console.log(index);
+
                         // Update the tag
                         danhmucs[index] = updatedanhmuc;
 

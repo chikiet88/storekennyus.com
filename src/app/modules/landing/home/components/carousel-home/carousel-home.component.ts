@@ -1,9 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    DoCheck,
+    ElementRef,
+    OnInit,
+    ViewChild,
+    ViewEncapsulation,
+} from '@angular/core';
 import { take } from 'rxjs';
 import SwiperCore, { Navigation, Pagination, FreeMode, Autoplay } from 'swiper';
 import { HomeService } from '../../home.service';
 import { FileUploadService } from '../../services/file-upload.service';
-
+import gsap from 'gsap';
 SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
 
 @Component({
@@ -11,7 +19,8 @@ SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
     templateUrl: './carousel-home.component.html',
     styleUrls: ['./carousel-home.component.scss'],
 })
-export class CarouselHomeComponent implements OnInit {
+export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
+    @ViewChild('animeObject') AnimationObject: ElementRef;
     config;
     listimage: any[] = [];
     constructor(
@@ -33,10 +42,6 @@ export class CarouselHomeComponent implements OnInit {
         this.config = {
             loop: true,
             speed: 1000,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
         };
         this._homeService.getCauhinh().subscribe();
         this._homeService.cauhinh$.pipe(take(1)).subscribe((res) => {
@@ -57,6 +62,44 @@ export class CarouselHomeComponent implements OnInit {
                     );
                 }
             }
+        });
+    }
+    ngDoCheck(): void {
+        document
+            .querySelector('.swiper-button-prev')
+            .addEventListener('click', function () {
+                console.log('sss');
+
+                gsap.from('.image-1', {
+                    x: 200,
+                    duration: 1,
+                    delay: 1,
+                    opacity: 0,
+                    ease: 'bounce',
+                });
+                gsap.from('.image-2', {
+                    x: 200,
+                    duration: 1,
+                    delay: 1,
+                    opacity: 0,
+                    ease: 'bounce',
+                });
+            });
+    }
+    ngAfterViewInit(): void {
+        gsap.from('.image-1', {
+            x: 200,
+            duration: 1,
+            delay: 1,
+            opacity: 0,
+            ease: 'bounce',
+        });
+        gsap.from('.image-2', {
+            x: 200,
+            duration: 1,
+            delay: 1,
+            opacity: 0,
+            ease: 'bounce',
         });
     }
 }

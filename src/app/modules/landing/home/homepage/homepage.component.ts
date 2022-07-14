@@ -10,6 +10,7 @@ import { CartPopupService } from '../components/cart-popup/cart-popup.service';
 import { log } from 'console';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { gsap } from 'gsap';
 SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
 @Component({
     selector: 'app-homepage',
@@ -18,7 +19,7 @@ SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
 })
 export class HomepageComponent implements OnInit, AfterViewInit {
     private readonly notifier: NotifierService;
-
+    sanphamdaxem: any[] = []
     danhmuc: any[];
     products: any[];
     moreLove: any[];
@@ -35,6 +36,11 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     itemThuonghieu;
     itemDanhmuc;
     isFlashSale = false;
+    Color1
+    Color2
+    Color3
+    Color4
+    Color5
     constructor(
         private _productListService: ProductListService,
         private _thuonghieuService: ThuonghieuService,
@@ -50,7 +56,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         localStorage.setItem('thuonghieu', JSON.stringify(''));
-
+        this.sanphamdaxem = JSON.parse(localStorage.getItem("sanphamdaxem")) || [];
+       
         this.config1 = {
             loop: true,
 
@@ -141,6 +148,13 @@ export class HomepageComponent implements OnInit, AfterViewInit {
         this._homeService.cauhinh$.subscribe((res) => {
             this.cauhinh = res[0];
             this.cauhinh.data.date;
+          
+            this.Color1 = `background-color: ${this.cauhinh.data.Color1}`
+            this.Color2 = `background-color: ${this.cauhinh.data.Color2}`
+            this.Color3 = `background-color: ${this.cauhinh.data.Color3}`
+            this.Color4 = `background-color: ${this.cauhinh.data.Color4}`
+            this.Color5 = `background-color: ${this.cauhinh.data.Color5}`
+
         });
         this._blogService.getTintuc().subscribe();
         this._blogService.tintucs$.subscribe((res) => {

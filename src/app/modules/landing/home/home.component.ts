@@ -13,8 +13,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SinginService } from './signin/singin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
-import { log } from 'console';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { CartPopupService } from './components/cart-popup/cart-popup.service';
 SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
+interface ExampleFlatNode {
+    expandable: boolean;
+    name: string;
+    level: number;
+}
 @Component({
     selector: 'landing-home',
     templateUrl: './home.component.html',
@@ -26,6 +33,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
     isShowLogin = false;
     isShow = true;
     num;
+    cartnum
     isShowCart = false;
     isShowMenuHome = false;
     isShowMenuBrand = false;
@@ -62,8 +70,37 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         private _formBuilder: FormBuilder,
         private _signinService: SinginService,
         private _route: ActivatedRoute,
-        private _router: Router
+        private _router: Router,
+        private _cartService: CartPopupService
     ) {}
+
+    private _transformer = (node: any, level: number) => {
+        return {
+            expandable: !!node.children && node.children.length > 0,
+            name: node.Tieude || node.title,
+            level: level,
+            item: node,
+        };
+    };
+
+    treeControl = new FlatTreeControl<ExampleFlatNode>(
+        (node) => node.level,
+        (node) => node.expandable
+    );
+
+    treeFlattener = new MatTreeFlattener(
+        this._transformer,
+        (node) => node.level,
+        (node) => node.expandable,
+        (node) => node.children
+    );
+
+    dataSource = new MatTreeFlatDataSource(
+        this.treeControl,
+        this.treeFlattener
+    );
+    hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
     nest = (items, id = '', link = 'pid') => {
         if (items) {
             return items
@@ -113,6 +150,24 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         this.i = i;
         this.danhmucChild = this.danhmucArr[i];
     }
+    clickMenuProfileMobile(){
+        this._signinService.authenticated$.subscribe((res) => {
+            this.isLogin = res;
+            if(res == true){
+                const redirectURL =
+                this._route.snapshot.queryParamMap.get('redirectURL') ||
+                '/profile';
+
+            this._router.navigateByUrl(redirectURL);
+            }else{
+                const redirectURL =
+                this._route.snapshot.queryParamMap.get('redirectURL') ||
+                '/singin';
+
+            this._router.navigateByUrl(redirectURL);
+            }
+        });
+    }
     signIn(): void {
         if (this.signInForm.invalid) {
             return;
@@ -140,6 +195,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         );
     }
     ngAfterViewInit(): void {}
+
     signout() {
         this._signinService.signOut().subscribe((res) => {
             if (res == true) {
@@ -173,6 +229,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
             }
             if (res) {
                 this.danhmuc = this.nest(res);
+                this.dataSource.data = this.danhmuc;
             }
             if (this.danhmuc?.length > 0) {
                 for (let i = 0; i < this.danhmuc.length; i++) {
@@ -233,8 +290,13 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         });
         this._signinService.authenticated$.subscribe((res) => {
             this.isLogin = res;
-            console.log(res);
         });
+        this._cartService.getCart().subscribe();
+    
+    this._cartService.num$.subscribe((res) => {
+      this.cartnum = res;
+    });
+    
         // this._signinService.get().subscribe((res) =>  this.user = res);
     }
 }

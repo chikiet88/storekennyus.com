@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { map, take } from 'rxjs';
 import { FileUpload } from '../models/file-upload.model';
 import { SanphamService } from '../sanpham/sanpham.service';
@@ -20,14 +23,29 @@ export class ThuonghieuComponent implements OnInit {
     message: 'chon theme';
     ThuonghieuForm: FormGroup;
     idSelect;
-    products: any[] = []
+    products: any[] = [];
+    displayedColumns: string[] = [
+        'thuonghieu',
+        'Image',
+        'action',
+    ];
+    dataSource: MatTableDataSource<any>;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
     constructor(
         private _thuonghieuService: ThuonghieuService,
         private fb: FormBuilder,
         private uploadService: FileUploadService,
         private _sanphamService: SanphamService
     ) {}
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
 
+        if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+        }
+    }
     onSubmit() {
         this.ThuonghieuForm.removeControl('id');
 
@@ -53,7 +71,6 @@ export class ThuonghieuComponent implements OnInit {
         this.ThuonghieuForm.get('id').setValue(item.id);
         this.ThuonghieuForm.get('Tieude').setValue(item.Tieude);
         this.ThuonghieuForm.get('Image').setValue(item.Image);
-
 
         this.idSelect = item.id;
         this.thumb = item.Image;
@@ -89,6 +106,9 @@ export class ThuonghieuComponent implements OnInit {
             Trangthai: [1],
             id: [''],
         });
+        this.thumb = ''
+        this.idSelect = undefined
+        this.ThuonghieuForm.removeControl('id')
     }
     upload(): void {
         this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
@@ -154,10 +174,14 @@ export class ThuonghieuComponent implements OnInit {
         this._thuonghieuService.getThuonghieu().subscribe();
         this._thuonghieuService.thuonghieus$.subscribe((res) => {
             console.log(res);
+            this.dataSource = new MatTableDataSource(res);
 
-            this.thuonghieu = res;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
         });
-        this._sanphamService.getProduct().subscribe()
-        this._sanphamService.products$.subscribe(res=> this.products = res)
+        this._sanphamService.getProduct().subscribe();
+        this._sanphamService.products$.subscribe(
+            (res) => (this.products = res)
+        );
     }
 }
