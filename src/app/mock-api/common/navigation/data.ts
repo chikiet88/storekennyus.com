@@ -55,6 +55,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         link: '/admin',
     },
     {
+        id: 'menu',
+        title: 'Menu',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/admin/menu',
+    },
+    {
         id: 'danhmuc',
         title: 'Danh mục',
         type: 'basic',

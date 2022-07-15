@@ -14,15 +14,19 @@ import { CheckoutService } from './checkout.service';
 export class CheckoutComponent implements OnInit {
     private readonly notifier: NotifierService;
     token = localStorage.getItem('accessToken') || null;
-
+    diachi
     emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
-
+    codeTp
+    diachichitiet
     phoneRegex =
         /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
     carts: any[];
     amount: number;
     khachhangForm: FormGroup;
     donhangForm: FormGroup;
+    TenTP
+    TenQuanHuyen
+    phiship:number
     constructor(
         private cartService: CartPopupService,
         private fb: FormBuilder,
@@ -58,9 +62,48 @@ export class CheckoutComponent implements OnInit {
             Ghichu: [''],
         });
     }
+    getCodeTp(e){
+        this.diachi.filter(x=>{
+            if(x.name == e.value){
+                this.codeTp = x.code
+                if(this.amount >=999000){
+                    this.phiship = 0
+                    this.amount += this.phiship
+                }
+                else if(x.code == 79){
+                    this.phiship = 30000
+                    this.amount += this.phiship
+
+                }else{
+                    this.phiship = 40000
+                    this.amount += this.phiship
+
+                }
+                this._checkoutService.getDiachichitiet(x.code).subscribe()
+                this._checkoutService.diachichitiet$.subscribe(res=>{
+                    if(res){
+                        this.diachichitiet = res
+                        this.diachichitiet = this.diachichitiet.results
+                    }
+                
+                })
+            }
+            
+        })
+        
+    
+    }
     ngOnInit(): void {
         this.resetForm();
         this._checkoutService.getDiachi().subscribe()
+        this._checkoutService.diachi$.subscribe(res=>{
+            if(res){
+                this.diachi = res
+                this.diachi = this.diachi.results
+
+            }
+            
+        })
         this.cartService.getCart().subscribe();
         this.cartService.carts$.subscribe((res) => {
             this.carts = res;
@@ -83,6 +126,8 @@ export class CheckoutComponent implements OnInit {
     }
 
     datHang() {
+        
+        
         if (this.khachhangForm.get('Hoten').hasError('required')) {
             this.notifier.notify('error', `Vui lòng nhập ho và tên`);
         }
@@ -101,6 +146,9 @@ export class CheckoutComponent implements OnInit {
         if (this.khachhangForm.get('Diachi').hasError('required')) {
             this.notifier.notify('error', `Vui lòng nhập địa chỉ`);
         }
+        let diachi = this.khachhangForm.get('Diachi').value
+        diachi = diachi +''+ this.TenQuanHuyen + ''+ this.TenTP
+        
         if (this.khachhangForm.invalid) {
             return;
         }
@@ -111,7 +159,6 @@ export class CheckoutComponent implements OnInit {
                     this.notifier.notify('success', `Đặt hàng thành công`);
 
                     if (res) {
-                        console.log(res);
                         let idDH;
 
                         this._checkoutService.donhang$.subscribe((donhang) => {
@@ -141,7 +188,7 @@ export class CheckoutComponent implements OnInit {
                     }
                 });
         } else {
-            this.notifier.notify('error', `Bạn chưa đơn hàng`);
+            this.notifier.notify('error', `Bạn chưa có đơn hàng`);
         }
 
         // this.carts.forEach((x) => {

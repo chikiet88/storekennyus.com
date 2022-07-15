@@ -23,6 +23,8 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
     @ViewChild('animeObject') AnimationObject: ElementRef;
     config;
     listimage: any[] = [];
+    listimageMobile: any[] = [];
+
     constructor(
         private _homeService: HomeService,
         private _uploadService: FileUploadService
@@ -42,6 +44,10 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
         this.config = {
             loop: true,
             speed: 1000,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
         };
         this._homeService.getCauhinh().subscribe();
         this._homeService.cauhinh$.pipe(take(1)).subscribe((res) => {
@@ -61,30 +67,44 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
                         })
                     );
                 }
+                for (
+                    let i = 0, p = Promise.resolve();
+                    i < Object.keys(res[0].data.imageCarouselMobile).length;
+                    i++
+                ) {
+                    p = p.then(() =>
+                        this.callback(
+                            Object.values(res[0].data.imageCarouselMobile)[i]
+                        ).then((x) => {
+                            this.listimageMobile.push(x);
+                            console.log(this.listimageMobile);
+                        })
+                    );
+                }
             }
         });
     }
     ngDoCheck(): void {
-        document
-            .querySelector('.swiper-button-prev')
-            .addEventListener('click', function () {
-                console.log('sss');
+        // document
+        //     .querySelector('.swiper-button-prev')
+        //     .addEventListener('click', function () {
+        //         console.log('sss');
 
-                gsap.from('.image-1', {
-                    x: 200,
-                    duration: 1,
-                    delay: 1,
-                    opacity: 0,
-                    ease: 'bounce',
-                });
-                gsap.from('.image-2', {
-                    x: 200,
-                    duration: 1,
-                    delay: 1,
-                    opacity: 0,
-                    ease: 'bounce',
-                });
-            });
+        //         gsap.from('.image-1', {
+        //             x: 200,
+        //             duration: 1,
+        //             delay: 1,
+        //             opacity: 0,
+        //             ease: 'bounce',
+        //         });
+        //         gsap.from('.image-2', {
+        //             x: 200,
+        //             duration: 1,
+        //             delay: 1,
+        //             opacity: 0,
+        //             ease: 'bounce',
+        //         });
+        //     });
     }
     ngAfterViewInit(): void {
         gsap.from('.image-1', {
@@ -95,6 +115,13 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
             ease: 'bounce',
         });
         gsap.from('.image-2', {
+            x: 200,
+            duration: 1,
+            delay: 1,
+            opacity: 0,
+            ease: 'bounce',
+        });
+        gsap.from('.sale', {
             x: 200,
             duration: 1,
             delay: 1,

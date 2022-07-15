@@ -79,11 +79,11 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                 spaceBetween: 20,
             },
             760: {
-                slidesPerView: 3,
-                spaceBetween: 50,
+                slidesPerView: 2,
+                spaceBetween: 20,
             },
             982: {
-                slidesPerView: 1,
+                slidesPerView: 2,
                 spaceBetween: 20,
             },
         };

@@ -195,21 +195,21 @@
                 ></mat-tab>
                 <mat-tab label="Trang Chủ">
                     <div>
-                        <div class="flex flex-wrap mb-6">
+                        <div class=" mb-6">
+                           <div class="flex mb-6">
                             <div>
                                 <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
                                     >
-                                        Upload File Hình
+                                        Upload Carousel Hình Desktop
                                     </label>
                                     <label>
                                         <input
                                             type="file"
                                             class="text-nowrap text-truncate"
                                             (change)="selectFile($event)"
-                                            multiple
                                         />
                                     </label>
                                     <button
@@ -278,6 +278,106 @@
                                     </ul>
                                 </div>
                             </div>
+                            <div>
+                                <div class="w-full mb-3">
+                                    <label
+                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                        for="grid-first-name"
+                                    >
+                                        Upload Carousel Hình Mobile
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="file"
+                                            class="text-nowrap text-truncate"
+                                            (change)="selectFile($event)"
+                                        />
+                                    </label>
+                                    <button
+                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                        [disabled]="!selectedFiles"
+                                        (click)="uploadMobile()"
+                                    >
+                                        Upload Carousel
+                                    </button>
+                                    <div
+                                        *ngIf="currentFileUpload"
+                                        class="progress mt-2"
+                                    >
+                                        <div
+                                            class="progress-bar progress-bar-info"
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{
+                                                percentage
+                                            }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            [ngStyle]="{
+                                                width: percentage + '%'
+                                            }"
+                                        >
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
+                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                </div>
+
+                                <div class="card w-full mt-5">
+                                    <div class="card-header">Image Upload</div>
+                                    <ul class="grid grid-cols-5 gap-5">
+                                        <li
+                                            class="list-group-item relative my-2"
+                                            *ngFor="
+                                                let item of listimageMobile;
+                                                let i = index
+                                            "
+                                        >
+                                            <!-- item[1] url image ở firebase -->
+
+                                            <img
+                                                src="{{ item[1] }}"
+                                                class="w-20 h-20"
+                                                alt=""
+                                            />
+                                            <div
+                                                class="absolute right-3 top-3 cursor-pointer"
+                                            >
+                                                <!-- item[2] key image ở firebase -->
+                                                <span
+                                                    class="material-icons"
+                                                    (click)="
+                                                        deleteImageFirebaseMobile(
+                                                            item,
+                                                            i
+                                                        )
+                                                    "
+                                                >
+                                                    close
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                           </div>
+                           <div>
+                            <!-- <div class="w-full ">
+                                <label
+                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    for="grid-first-name"
+                                >
+                                    Link Carousel
+                                </label>
+                                <input
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    id="grid-first-name"
+                                    *ngFor="let item of listimage; let i = index"
+                                    type="text"
+                                    placeholder="Link Carousel"
+                                    name="Link"
+                                />
+                            </div> -->
+                           </div>
                         </div>
                         <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div class="mb-5 border-b border-black">
@@ -295,7 +395,7 @@
                                         [config]="config"
                                         [formControlName]="'Tieude1'"
                                     ></ckeditor>
-                                    <div class=" w-full mb-3">
+                                    <div class="w-full mb-3">
                                         <label
                                             class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                             for="grid-first-name"
@@ -313,26 +413,28 @@
                                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
                                 </div>
-                                <input 
-                                (colorPickerChange)="handleChange($event,1)"
-                                [style.background]="Color1" 
-                                [(colorPicker)]="Color1"
-                                [cpOKButton] = "true"
-                                [cpOKButtonText] = "'Select'"
-                                [cpCancelButton] = "true"
-                                [cpSaveClickOutside] = "'false'"
-                                [cpDisableInput]="false"
-                                [cpAlphaChannel]="'disabled'" 
-                                [cpOutputFormat]="'hex'"
-                                [cpPresetColors]="presetValues"
-                            />
-                                <div class="w-full mb-3 ">
+                                <input
+                                    (colorPickerChange)="
+                                        handleChange($event, 1)
+                                    "
+                                    [style.background]="Color1"
+                                    [(colorPicker)]="Color1"
+                                    [cpOKButton]="true"
+                                    [cpOKButtonText]="'Select'"
+                                    [cpCancelButton]="true"
+                                    [cpSaveClickOutside]="'false'"
+                                    [cpDisableInput]="false"
+                                    [cpAlphaChannel]="'disabled'"
+                                    [cpOutputFormat]="'hex'"
+                                    [cpPresetColors]="presetValues"
+                                />
+                                <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Upload Banner hình 1 Desktop
-                                    </label> 
+                                    </label>
                                     <label>
                                         <input
                                             type="file"
@@ -385,13 +487,13 @@
                                     </div>
                                     <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                 </div>
-                                <div class="w-full mb-3 ">
+                                <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Upload Banner hình 1 Mobile
-                                    </label> 
+                                    </label>
                                     <label>
                                         <input
                                             type="file"
@@ -460,7 +562,7 @@
                                         [config]="config"
                                         [formControlName]="'Tieude2'"
                                     ></ckeditor>
-                                    <div class=" w-full mb-3">
+                                    <div class="w-full mb-3">
                                         <label
                                             class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                             for="grid-first-name"
@@ -478,26 +580,28 @@
                                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
                                 </div>
-                                <input 
-                                (colorPickerChange)="handleChange($event,2)"
-                                [style.background]="Color2" 
-                                [(colorPicker)]="Color2"
-                                [cpOKButton] = "true"
-                                [cpOKButtonText] = "'Select'"
-                                [cpCancelButton] = "true"
-                                [cpSaveClickOutside] = "'false'"
-                                [cpDisableInput]="false"
-                                [cpAlphaChannel]="'disabled'" 
-                                [cpOutputFormat]="'hex'"
-                                [cpPresetColors]="presetValues"
-                            />
-                                <div class="w-full mb-3 ">
+                                <input
+                                    (colorPickerChange)="
+                                        handleChange($event, 2)
+                                    "
+                                    [style.background]="Color2"
+                                    [(colorPicker)]="Color2"
+                                    [cpOKButton]="true"
+                                    [cpOKButtonText]="'Select'"
+                                    [cpCancelButton]="true"
+                                    [cpSaveClickOutside]="'false'"
+                                    [cpDisableInput]="false"
+                                    [cpAlphaChannel]="'disabled'"
+                                    [cpOutputFormat]="'hex'"
+                                    [cpPresetColors]="presetValues"
+                                />
+                                <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Upload Banner hình 2 Desktop
-                                    </label> 
+                                    </label>
                                     <label>
                                         <input
                                             type="file"
@@ -550,13 +654,13 @@
                                     </div>
                                     <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                 </div>
-                                <div class="w-full mb-3 ">
+                                <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Upload Banner hình 2 Mobile
-                                    </label> 
+                                    </label>
                                     <label>
                                         <input
                                             type="file"
@@ -625,7 +729,7 @@
                                         [config]="config"
                                         [formControlName]="'Tieude3'"
                                     ></ckeditor>
-                                    <div class=" w-full mb-3">
+                                    <div class="w-full mb-3">
                                         <label
                                             class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                             for="grid-first-name"
@@ -643,20 +747,22 @@
                                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
                                 </div>
-                                <input 
-                                (colorPickerChange)="handleChange($event,3)"
-                                [style.background]="Color3" 
-                                [(colorPicker)]="Color3"
-                                [cpOKButton] = "true"
-                                [cpOKButtonText] = "'Select'"
-                                [cpCancelButton] = "true"
-                                [cpSaveClickOutside] = "'false'"
-                                [cpDisableInput]="false"
-                                [cpAlphaChannel]="'disabled'" 
-                                [cpOutputFormat]="'hex'"
-                                [cpPresetColors]="presetValues"
-                            />
-                                <div class="w-full mb-3 ">
+                                <input
+                                    (colorPickerChange)="
+                                        handleChange($event, 3)
+                                    "
+                                    [style.background]="Color3"
+                                    [(colorPicker)]="Color3"
+                                    [cpOKButton]="true"
+                                    [cpOKButtonText]="'Select'"
+                                    [cpCancelButton]="true"
+                                    [cpSaveClickOutside]="'false'"
+                                    [cpDisableInput]="false"
+                                    [cpAlphaChannel]="'disabled'"
+                                    [cpOutputFormat]="'hex'"
+                                    [cpPresetColors]="presetValues"
+                                />
+                                <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
@@ -675,7 +781,7 @@
                                         [disabled]="!selectedFiles"
                                         (click)="uploadbanner(3)"
                                     >
-                                        Upload Banner 3 
+                                        Upload Banner 3
                                     </button>
                                     <div
                                         *ngIf="currentFileUpload"
@@ -715,13 +821,13 @@
                                     </div>
                                     <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                 </div>
-                                <div class="w-full ">
+                                <div class="w-full">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Upload Banner hình 3 Mobile
-                                    </label> 
+                                    </label>
                                     <label>
                                         <input
                                             type="file"
@@ -790,7 +896,7 @@
                                         [config]="config"
                                         [formControlName]="'Tieude4'"
                                     ></ckeditor>
-                                    <div class=" w-full mb-3">
+                                    <div class="w-full mb-3">
                                         <label
                                             class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                             for="grid-first-name"
@@ -808,20 +914,22 @@
                                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
                                 </div>
-                                <input 
-                                (colorPickerChange)="handleChange($event,4)"
-                                [style.background]="Color4" 
-                                [(colorPicker)]="Color4"
-                                [cpOKButton] = "true"
-                                [cpOKButtonText] = "'Select'"
-                                [cpCancelButton] = "true"
-                                [cpSaveClickOutside] = "'false'"
-                                [cpDisableInput]="false"
-                                [cpAlphaChannel]="'disabled'" 
-                                [cpOutputFormat]="'hex'"
-                                [cpPresetColors]="presetValues"
-                            />
-                                <div class="w-full mb-3 ">
+                                <input
+                                    (colorPickerChange)="
+                                        handleChange($event, 4)
+                                    "
+                                    [style.background]="Color4"
+                                    [(colorPicker)]="Color4"
+                                    [cpOKButton]="true"
+                                    [cpOKButtonText]="'Select'"
+                                    [cpCancelButton]="true"
+                                    [cpSaveClickOutside]="'false'"
+                                    [cpDisableInput]="false"
+                                    [cpAlphaChannel]="'disabled'"
+                                    [cpOutputFormat]="'hex'"
+                                    [cpPresetColors]="presetValues"
+                                />
+                                <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
@@ -880,13 +988,13 @@
                                     </div>
                                     <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                 </div>
-                                <div class="w-full mb-3 ">
+                                <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Upload Banner hình 4 Mobile
-                                    </label> 
+                                    </label>
                                     <label>
                                         <input
                                             type="file"
@@ -940,7 +1048,7 @@
                                     <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                 </div>
                             </div>
-                            <div class="mb-5 border-b ">
+                            <div class="mb-5 border-b">
                                 <div class="w-full">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
@@ -955,7 +1063,7 @@
                                         [config]="config"
                                         [formControlName]="'Tieude5'"
                                     ></ckeditor>
-                                    <div class=" w-full mb-3">
+                                    <div class="w-full mb-3">
                                         <label
                                             class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                             for="grid-first-name"
@@ -973,20 +1081,22 @@
                                         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
                                 </div>
-                                <input 
-                                (colorPickerChange)="handleChange($event,5)"
-                                [style.background]="Color5" 
-                                [(colorPicker)]="Color5"
-                                [cpOKButton] = "true"
-                                [cpOKButtonText] = "'Select'"
-                                [cpCancelButton] = "true"
-                                [cpSaveClickOutside] = "'false'"
-                                [cpDisableInput]="false"
-                                [cpAlphaChannel]="'disabled'" 
-                                [cpOutputFormat]="'hex'"
-                                [cpPresetColors]="presetValues"
-                            />
-                                <div class="w-full mb-3 ">
+                                <input
+                                    (colorPickerChange)="
+                                        handleChange($event, 5)
+                                    "
+                                    [style.background]="Color5"
+                                    [(colorPicker)]="Color5"
+                                    [cpOKButton]="true"
+                                    [cpOKButtonText]="'Select'"
+                                    [cpCancelButton]="true"
+                                    [cpSaveClickOutside]="'false'"
+                                    [cpDisableInput]="false"
+                                    [cpAlphaChannel]="'disabled'"
+                                    [cpOutputFormat]="'hex'"
+                                    [cpPresetColors]="presetValues"
+                                />
+                                <div class="w-full mb-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                         for="grid-first-name"
@@ -1051,7 +1161,7 @@
                                         for="grid-first-name"
                                     >
                                         Upload Banner hình 5 Mobile
-                                    </label> 
+                                    </label>
                                     <label>
                                         <input
                                             type="file"
@@ -1112,13 +1222,11 @@
         </div>
 
         <button
-        type="update"
-        class="px-3 py-1 bg-blue-500 rounded-lg mr-10 text-white"
-        (click)="updateCauhinh()"
-    >
-        Update
-    </button>
+            type="update"
+            class="px-3 py-1 bg-blue-500 rounded-lg mr-10 text-white"
+            (click)="updateCauhinh()"
+        >
+            Update
+        </button>
     </form>
-
-
 </div>

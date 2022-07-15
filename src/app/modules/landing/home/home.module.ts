@@ -38,6 +38,7 @@ import { SanphamDaxemComponent } from './sanpham-daxem/sanpham-daxem.component';
 import { FlashSaleComponent } from './components/flash-sale/flash-sale.component';
 import { CustomPipePipe } from '../customs/custom-pipe.pipe';
 import { ProductListComponent } from './product-list/product-list.component';
+import { SearchMobileComponent } from './components/search-mobile/search-mobile.component';
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
@@ -67,7 +68,8 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
         SanphamDaxemComponent,
         FlashSaleComponent,
         CustomPipePipe,
-        ProductListComponent
+        ProductListComponent,
+        SearchMobileComponent
     ],
     providers: [
         {

@@ -16,6 +16,8 @@ import { take } from 'rxjs';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { CartPopupService } from './components/cart-popup/cart-popup.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SearchMobileComponent } from './components/search-mobile/search-mobile.component';
 SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
 interface ExampleFlatNode {
     expandable: boolean;
@@ -49,12 +51,13 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
     token = localStorage.getItem('accessToken');
     products: any[];
     productSearch: any[];
+    searchText: string;
+    danhmucSearch;
+
     signInForm: FormGroup;
     cauhinh: any;
-    searchText: string;
     user;
     sanphamdanhmuc: any[] = [];
-    danhmucSearch;
     config;
     menu;
     timedOutCloser;
@@ -71,6 +74,8 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         private _signinService: SinginService,
         private _route: ActivatedRoute,
         private _router: Router,
+        public dialog: MatDialog,
+
         private _cartService: CartPopupService
     ) {}
 
@@ -101,16 +106,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
     );
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-    nest = (items, id = '', link = 'pid') => {
-        if (items) {
-            return items
-                ?.filter((item) => item[link] == id)
-                .map((item) => ({
-                    ...item,
-                    children: this.nest(items, item.id),
-                }));
-        }
-    };
+    
 
     toggleMenu() {
         this.timedOutCloser = setTimeout(() => {
@@ -132,7 +128,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
                     );
                 }
             });
-            this.productSearchPopup = true;
+            this.productSearchPopup = true; 
 
             for (let i = 0; i < this.productSearch.length; i++) {
                 for (let j = 0; j < this.categories.length; j++) {
@@ -150,10 +146,13 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         this.i = i;
         this.danhmucChild = this.danhmucArr[i];
     }
+    openDialog() {
+        const dialogRef = this.dialog.open(SearchMobileComponent);
+    }
     clickMenuProfileMobile(){
         this._signinService.authenticated$.subscribe((res) => {
             this.isLogin = res;
-            if(res == true){
+            if(this.isLogin == true){
                 const redirectURL =
                 this._route.snapshot.queryParamMap.get('redirectURL') ||
                 '/profile';
@@ -204,6 +203,26 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
             }
         });
     }
+    nest = (items, id = '', link = 'pid') => {
+        if (items) {
+            return items
+                ?.filter((item) => item[link] == id)
+                .map((item) => ({
+                    ...item,
+                    children: this.nest(items, item.id),
+                }));
+        }
+    };
+    nestMenu = (items, id = '', link = 'parentid') => {
+        if (items) {
+            return items
+                ?.filter((item) => item[link] == id)
+                .map((item) => ({
+                    ...item,
+                    children: this.nestMenu(items, item.id),
+                }));
+        }
+    };
     ngOnInit(): void {
         this.num =
             JSON.parse(localStorage.getItem('sanphamdaxem'))?.length || 0;
@@ -270,7 +289,11 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         });
         this._menuService.getMenu().subscribe();
         this._menuService.menu$.subscribe((res) => {
-            this.menu = res;
+            console.log(res);
+            
+            this.menu = this.nestMenu(res.reverse());
+            console.log(this.menu);
+
         });
         this._menuService.getCauhinh().subscribe();
         this._menuService.cauhinh$.subscribe((res) => {
@@ -284,7 +307,6 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
                 this._signinService.get().subscribe();
                 this._signinService.user$.subscribe((res) => {
                     this.user = res;
-                    console.log(this.user);
                 });
             }
         });

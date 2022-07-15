@@ -34,16 +34,18 @@ export class SanphamComponent implements OnInit {
     listkey: any = {};
     listimage: any[] = [];
     isupdateListImage = false;
-    tenThuonghieu
+    tenThuonghieu;
     Danhmuc;
     // thumb = {};
     thumb;
+    chipsnhan = [];
+    Tags = {};
     i = 0;
     displayedColumns: string[] = [
         'sku',
         'danhmuc',
         'name',
-        "thuonghieu",
+        'thuonghieu',
         'status',
         'price',
         'Image',
@@ -73,7 +75,6 @@ export class SanphamComponent implements OnInit {
     };
 
     onSubmit() {
-       
         this.productList.get('ListImage').setValue(this.listkey);
         let GiaSale = this.productList.get('GiaSale').value;
         if (GiaSale == 0) {
@@ -108,7 +109,38 @@ export class SanphamComponent implements OnInit {
                 editor.ui.getEditableElement()
             );
     }
+    selectNhan(item) {
+        let id = item.id;
+        if (Object.keys(this.Tags).length > 0) {
+            for (const [key, value] of Object.entries(this.Tags)) {
+                if (key == id) {
+                    delete this.Tags[key];
+                } else {
+                    this.Tags[id] = true;
+                }
+            }
+        } else {
+            this.Tags[id] = true;
+        }
+        if (this.chipsnhan.length > 0) {
+            let index = this.chipsnhan.findIndex((x) => x.id == item.id);
+            if (index === -1) {
+                this.chipsnhan.push(item);
+            } else {
+                this.chipsnhan = this.chipsnhan.filter((x) => x.id != item.id);
+            }
+        } else {
+            this.chipsnhan.push(item);
+        }
+    }
+    removeChipsnhan(item) {
+        delete this.Tags[item.id];
+        console.log(this.Tags);
+        this.chipsnhan = this.chipsnhan.filter((x) => x.id != item.id);
+    }
     selectProduct(item) {
+        console.log(item);
+
         this.listimage = [];
         this.isSelectProduct = true;
         this.productList.addControl('id', new FormControl(item.id));
@@ -122,6 +154,8 @@ export class SanphamComponent implements OnInit {
         this.productList.get('Slug').setValue(item.Slug);
         this.productList.get('Thuonghieu').setValue(item.Thuonghieu);
         this.productList.get('ListImage').setValue(item.ListImage);
+        this.productList.get('Tags').setValue(item.Tags);
+
         this.productList
             .get('ContentImage.contentImage1')
             .setValue(item.ContentImage.contentImage1);
@@ -147,24 +181,33 @@ export class SanphamComponent implements OnInit {
                 console.log(x.Tieude);
             }
         });
-        this.thuonghieus.find((x)=>{
-            if(x.id == item.Thuonghieu){
-                this.tenThuonghieu = x.Tieude
+        this.thuonghieus.find((x) => {
+            if (x.id == item.Thuonghieu) {
+                this.tenThuonghieu = x.Tieude;
             }
-        })
+        });
 
         this.listkey = item.ListImage || {};
-
+        this.Tags = item.Tags;
+        if (Object.keys(item.Tags).length > 0) {
+            for (const property in item.Tags) {
+                this.danhmucs.filter((x) => {
+                    if (x.id == property) {
+                        this.chipsnhan.push(x);
+                        console.log(x);
+                    }
+                });
+            }
+        }
         if (Object.keys(item.ListImage).length > 0) {
             this.isupdateListImage = true;
 
             for (const property in item.ListImage) {
                 console.log(item.ListImage[property]);
-                
+
                 this.uploadService
                     .getValueByKey(item.ListImage[property])
                     .subscribe((res) => {
-                        
                         this.listimage.push([...res, item.ListImage[property]]);
                     });
             }
@@ -181,8 +224,12 @@ export class SanphamComponent implements OnInit {
         this.selectedFiles = event.target.files;
     }
     onUpdate() {
+
         if (this.listimage.length > 0) {
             this.productList.get('ListImage').setValue(this.listkey);
+        }
+        if (this.chipsnhan.length > 0) {
+            this.productList.get('Tags').setValue(this.Tags);
         }
         let GiaSale = this.productList.get('GiaSale').value;
         if (GiaSale == 0) {
@@ -190,12 +237,17 @@ export class SanphamComponent implements OnInit {
                 .get('GiaSale')
                 .setValue(this.productList.get('Gia').value);
         }
+
         this.sanphamService
             .updateProduct(this.productList.value)
             .subscribe((res) => {
                 console.log(res);
-                
+
                 this.listimage = [];
+                this.listkey = {};
+                this.Tags = {};
+                this.chipsnhan = [];
+                this.thumb = ''
                 alert('Cập nhật thành công');
                 this.resetForm();
                 this.isSelectProduct = false;
@@ -205,7 +257,6 @@ export class SanphamComponent implements OnInit {
         this.listKeyRemove.forEach((x) => {
             this.uploadService.deleteFile(x);
         });
-        this.listkey = {};
     }
     onDelete() {
         this.sanphamService
@@ -436,13 +487,13 @@ export class SanphamComponent implements OnInit {
             Code: [''],
             Slug: [''],
             SKU: [''],
+            Tags: [''],
             ListImage: [{}],
             ContentImage: this.fb.group({
                 contentImage1: [''],
                 contentImage2: [''],
                 contentImage3: [''],
             }),
-            Tag: [''],
             GiaSale: [0],
             Gia: [0],
             Image: [''],
@@ -451,9 +502,9 @@ export class SanphamComponent implements OnInit {
             Ordering: [0],
             Trangthai: [''],
         });
-        this.productList.removeControl('id')
-        this.listkey = {}
-        this.listimage = []
+        this.productList.removeControl('id');
+        this.listkey = {};
+        this.listimage = [];
     }
 
     ngOnInit(): void {
@@ -480,7 +531,7 @@ export class SanphamComponent implements OnInit {
                         (x) => x.id == v.Thuonghieu
                     )?.Tieude)
             );
-            
+
             if (res) {
                 this.products = res;
                 this.dataSource = new MatTableDataSource(res);
@@ -505,8 +556,5 @@ export class SanphamComponent implements OnInit {
                 // console.log(fileUploads);
                 return fileUploads;
             });
-
-       
-       
     }
 }

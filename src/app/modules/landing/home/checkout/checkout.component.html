@@ -33,7 +33,21 @@
               />
             </div>
             <div class="flex flex-col pt-3">
-              <label class="text-gray-400">Địa chỉ giao hàng</label>
+              <label class="text-gray-400">Thành phố/Tỉnh</label>
+
+             <mat-select [(value)]="TenTP" placeholder="Thành phố" (selectionChange)="getCodeTp($event)" class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl">
+              <mat-option [value]="item.name" *ngFor="let item of diachi">{{item.name}}</mat-option>
+             </mat-select>
+            </div>
+            <div class="flex flex-col pt-3">
+              <label class="text-gray-400">Quận/Huyện</label>
+
+             <mat-select [(value)]="TenQuanHuyen" placeholder="Quận Huyện" class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl">
+              <mat-option [value]="item.name" *ngFor="let item of diachichitiet">{{item.name}}</mat-option>
+             </mat-select>
+            </div>
+            <div class="flex flex-col pt-3">
+              <label class="text-gray-400">Tên đường và số nhà</label>
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
                 type="text"
@@ -81,6 +95,10 @@
               <td class="py-2 px-2">
                 {{ item.GiaSale * item.cartNum | currency: "VND" }}
               </td>
+            </tr>
+            <tr class="border-b border-gray-200 px-2">
+              <td class="py-2 px-2 text-purple-500 font-bold">Tiền ship</td>
+              <td class="py-2 px-2">{{ phiship | currency: "VND" }}</td>
             </tr>
             <tr class="border-b border-gray-200 px-2">
               <td class="py-2 px-2 text-purple-500 font-bold">Tổng cộng</td>
@@ -139,7 +157,7 @@
       </div> -->
       <div class="pt-10">
         <p class="text-gray-500">
-          Đơn hàng từ 999K trở lên sẽ được miễn phí vẫn chuyển, còn lại Hồ Chí Minh: 30k, tỉnh 40k 
+          Đơn hàng từ 999K trở lên sẽ được miễn phí vận chuyển, còn lại Hồ Chí Minh: 30k, tỉnh 40k 
           <!-- <a href="#" class="text-purple-500">privacy policy.</a> -->
         </p>
         <div

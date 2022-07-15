@@ -1,0 +1,106 @@
+<div class="flex items-center flex-col w-full">
+    <mat-select
+        class=" p-3 mb-5 w-full text-purple-500 rounded-2xl text-lg border h-full bg-gray-200"
+        placeholder="Tìm Kiếm"
+        (selectionChange)="
+            selectCategoriesSearch($event.value)
+        "
+    >
+        <mat-option
+            [value]="item"
+            class="text-purple-500 text-lg"
+            *ngFor="let item of categories"
+        >
+            {{ item.Tieude }}</mat-option
+        >
+    </mat-select>
+    <div class="w-full mb-5" style="height: 50px">
+        <input
+            class="p-3 bg-gray-200 rounded-2xl text-purple-500 text-lg w-full h-full"
+            placeholder="Bạn muốn tìm kiếm sản phẩm nào?"
+            [(ngModel)]="searchText"
+            (keyup.Enter)="searchSanpham()"
+        />
+    </div>
+    <button
+        class="bg-orange-500 text-white text-lg py-3 px-1 w-48 h-full rounded-2xl flex items-center justify-center"
+        (keyup.Enter)="searchSanpham()"
+    >
+        <span class="material-icons text-white">
+            search
+        </span>
+    </button>
+</div>
+<div
+    class="absolute w-full left-0 bg-white rounded-2xl z-20 {{
+        productSearch > 3 ? 'h-80' : 'h-auto'
+    }} overflow-auto"
+    *ngIf="productSearchPopup == true"
+    (mouseleave)="productSearchPopup = false"
+>
+    <div
+        class="p-3 flex flex-col w-full"
+        (mouseenter)="productSearchPopup = true"
+        *ngIf="productSearch?.length > 0"
+    >
+        <div
+            class="flex items-center"
+            *ngFor="let item of productSearch"
+        >
+            <div class="pr-2">
+                <div class="h-20 w-20">
+                    <img
+                        src="{{ item.Image }}"
+                        class="w-full h-full"
+                    />
+                </div>
+                <div
+                    class="rounded-xl text-center text-white mt-1 bg-green-500 rounded-2xl text-xs"
+                >
+                    Sale
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <p class="text-gray-300">
+                    {{ item.tenDm }}
+                </p>
+                <a
+                    routerLink="sanpham/{{ item.id }}"
+                    class="text-purple-500 hover:text-purple-900 mt-1"
+                    >{{ item.Tieude }}</a
+                >
+                <p class="mt-1 text-gray-300">
+                    SKU: {{ item.SKU }}
+                </p>
+                <div class="flex">
+                    <div
+                        class="text-blue-500 text-lg mr-2"
+                    >
+                        {{
+                            item.GiaSale
+                                ? item.GiaSale
+                                : (item.Gia
+                                  | currency: "VND")
+                        }}
+                    </div>
+                    <span
+                        class="text-lg relative"
+                        *ngIf="item.GiaSale != 0"
+                        >{{
+                            item.Gia | currency: "VND"
+                        }}
+                        <div
+                            class="absolute left-0 top-1/2 centerY w-full h-px bg-black"
+                        ></div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p
+        class="text-purple-500 p-3 text-center w-full text-xl"
+        *ngIf="productSearch?.length == 0"
+    >
+        Không tìm thấy sản phẩm
+    </p>
+</div>

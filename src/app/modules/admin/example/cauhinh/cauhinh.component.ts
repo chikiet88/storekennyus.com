@@ -32,7 +32,6 @@ export class CauhinhComponent implements OnInit {
     isUpdate = false;
     hexColor;
     percentage;
-    listKeyRemove = [];
     thumb1;
     thumb2;
     thumb3;
@@ -62,7 +61,13 @@ export class CauhinhComponent implements OnInit {
 
     isupdateListImage = false;
     listkey: any = {};
+    listkeyMobile: any = {};
+
     listimage: any[] = [];
+    listimageMobile: any[] = [];
+    listKeyRemove = [];
+    listKeyRemoveMobile = [];
+
     public Editor = ClassicEditor;
     public config = {
         htmlSupport: {
@@ -226,20 +231,21 @@ export class CauhinhComponent implements OnInit {
 
             for (const [key, value] of Object.entries(this.listkey)) {
                 if (Number(key) > max) {
+                    console.log(key);
+                    
                     max = Number(key);
                 }
             }
-
+           
             if (max > 0) {
                 this.listkey[max + 1] = x.key;
 
                 // Object.assign(this.listkey, kiemtracohinhkhong: x.key );
                 console.log(this.listkey);
             } else {
-                this.listkey[0] = x.key; //vị trí đầu tiên
+                this.listkey[1] = x.key; //vị trí đầu tiên
             }
             let keydetail = x.key;
-            console.log(this.listkey);
 
             this.uploadService
                 .getValueByKey(x.key)
@@ -259,11 +265,50 @@ export class CauhinhComponent implements OnInit {
         return;
     }
 
+    uploadMobile(): void {
+        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+            let max = 0;
+
+            for (const [key, value] of Object.entries(this.listkeyMobile)) {
+                if (Number(key) > max) {
+                    max = Number(key);
+                }
+            }
+
+            if (max > 0) {
+                this.listkeyMobile[max + 1] = x.key;
+
+                // Object.assign(this.listkeyMobile, kiemtracohinhkhong: x.key );
+                console.log(this.listkeyMobile);
+            } else {
+                this.listkeyMobile[1] = x.key; //vị trí đầu tiên
+            }
+            let keydetail = x.key;
+
+            this.uploadService
+                .getValueByKey(x.key)
+                .pipe(take(1))
+                .subscribe((res) => {
+
+                    this.listimageMobile.push({
+                        ...res,
+                        2: keydetail,
+                    });
+                    console.log(this.listimageMobile);
+
+                });
+        });
+        return;
+    }
+
     updateCauhinh() {
         console.log(this.listkey);
 
         if (this.listimage.length > 0) {
             this.cauhinhList.get('data.imageCarousel').setValue(this.listkey);
+        }
+        if (this.listimageMobile.length > 0) {
+            this.cauhinhList.get('data.imageCarouselMobile').setValue(this.listkeyMobile);
         }
         this.cauhinhService
             .updateCauhinh(this.cauhinhList.value)
@@ -271,11 +316,14 @@ export class CauhinhComponent implements OnInit {
                 alert('Cập nhật thành công');
                 this.idSelect = false;
                 this.listimage = [];
+                this.listimageMobile = [];
+
             });
         this.listKeyRemove.forEach((x) => {
             this.uploadService.deleteFile(x);
         });
         this.listImageCarousel = {};
+
     }
     deleteImageFirebase(item, i) {
         this.listKeyRemove.push(item[2]);
@@ -287,6 +335,17 @@ export class CauhinhComponent implements OnInit {
         }
 
         this.listimage = this.listimage.filter((x) => x[2] != item[2]);
+    }
+    deleteImageFirebaseMobile(item, i) {
+        this.listKeyRemoveMobile.push(item[2]);
+
+        for (let index in this.listkeyMobile) {
+            if (this.listkeyMobile[index] == item[2]) {
+                delete this.listkeyMobile[index];
+            }
+        }
+
+        this.listimageMobile = this.listimageMobile.filter((x) => x[2] != item[2]);
     }
 
     callback(item, i) {
@@ -427,8 +486,7 @@ export class CauhinhComponent implements OnInit {
         }
         this.idSelect = true;
         this.listkey = item.data.imageCarousel || {};
-        console.log(this.listkey);
-
+this.listkeyMobile = item.data.imageCarouselMobile || {}
         if (Object.keys(item.data.imageCarousel).length > 0) {
             this.isupdateListImage = true;
 
@@ -439,6 +497,20 @@ export class CauhinhComponent implements OnInit {
                         this.listimage.push({
                             ...res,
                             2: this.listkey[property],
+                        });
+                    });
+            }
+        }
+        if (Object.keys(item.data.imageCarouselMobile).length > 0) {
+            this.isupdateListImage = true;
+
+            for (const property in item.data.imageCarouselMobile) {
+                this.uploadService
+                    .getValueByKey(item.data.imageCarouselMobile[property])
+                    .subscribe((res) => {
+                        this.listimageMobile.push({
+                            ...res,
+                            2: this.listkeyMobile[property],
                         });
                     });
             }
@@ -480,6 +552,7 @@ export class CauhinhComponent implements OnInit {
                 year: [0],
                 iframeAddress: [''],
                 imageCarousel: [''],
+                imageCarouselMobile: [''],
                 imageCarouselLink:[''],
                 Tieude1: [''],
                 Image1: [''],

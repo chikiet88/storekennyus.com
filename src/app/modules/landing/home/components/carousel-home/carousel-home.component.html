@@ -127,7 +127,7 @@
               />
             </div>
             <div
-              class="absolute font-bold left-1/2 lg:top-20 md:top-10 top-5 centerX-img lg:text-lg text-md sm:text-md text-white text-center rounded-full lg:h-24 lg:w-24 md:h-20 md:w-20 h-16 w-16 flex items-center justify-center bg-red-500 border border-white"
+              class="absolute sale font-bold left-1/2 lg:top-20 md:top-10 top-5 centerX-img lg:text-lg text-md sm:text-md text-white text-center rounded-full lg:h-24 lg:w-24 md:h-20 md:w-20 h-16 w-16 flex items-center justify-center bg-red-500 border border-white"
             >
               Save <br />
               65% OFF
@@ -145,16 +145,35 @@
   </ng-template>
   <ng-template
     swiperSlide
-    class="flex items-center justify-center md:flex-row flex-col"
+    class="flex items-center justify-center md:flex-row flex-col md:block hidden"
     *ngFor="let item of listimage"
   >
     <div class="w-full banner-homepage relative flex">
       <div class="w-full z-0 rounded-lg text-3xl absolute left-0 top-0">
+       <a routerLink="sanpham">
         <img
+        src="{{item}}"
+        class="w-full"
+        alt=""
+      />
+       </a>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template
+    swiperSlide
+    class="flex items-center justify-center md:flex-row flex-col md:hidden "
+    *ngFor="let item of listimageMobile"
+  >
+    <div class="w-full banner-homepage relative flex">
+      <div class="w-full z-0 rounded-lg text-3xl cursor-pointer absolute left-0 top-0">
+        <a routerLink="sanpham" >
+          <img
           src="{{item}}"
           class="w-full"
           alt=""
         />
+         </a>
       </div>
     </div>
   </ng-template>

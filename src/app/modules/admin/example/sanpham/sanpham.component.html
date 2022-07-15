@@ -10,23 +10,6 @@
             </button>
             <form class="w-full p-10 overflow-hidden" [formGroup]="productList">
                 <div class="flex overflow-hidden mb-6">
-                    <!-- <mat-form-field
-                        class="fuse-mat-emphasized-affix lg:w-1/2 w-full"
-                        appearance="fill"
-                    >
-                        <span matPrefix>Cập nhật hoặc xóa sản phẩm </span>
-                        <mat-select
-                            (selectionChange)="selectProduct($event.value)"
-                        >
-                            <mat-option
-                                [value]="item"
-                                *ngFor="let item of products"
-                                >{{
-                                    item.Tieude ? item.Tieude : ""
-                                }}</mat-option
-                            >
-                        </mat-select>
-                    </mat-form-field> -->
 
                     <mat-form-field
                         class="fuse-mat-emphasized-affix w-full lg:w-1/2 h-12"
@@ -293,7 +276,33 @@
                         />
                     </div>
                 </div>
-                <div class="flex">
+                <div class="flex lg:flex-row flex-col pt-5">
+                    <div class="lg:w-1/2 w-full lg:pl-3 mb-3 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            Chọn nhãn
+                        </label>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin mr-2" *ngFor="let item of danhmucs" (click)="selectNhan(item)">{{item.Tieude}}</mat-checkbox>
+                          </section>
+                          
+                    </div>
+                    <div class="lg:w-1/2 w-full lg:pl-3 mb-3 md:mb-0">
+                        <mat-chip-list #chipList aria-label="Fruit selection">
+                            <mat-chip
+                              *ngFor="let item of chipsnhan"
+                             >
+                              {{item.Tieude}}
+                              <button matChipRemove class="flex items-center" (click)="removeChipsnhan(item)">
+                                <mat-icon>cancel</mat-icon>
+                              </button>
+                            </mat-chip>
+                          </mat-chip-list>
+                    </div>
+                </div>
+                <div class="flex pt-5">
                     <div class="w-full mb-3 md:mb-0 flex">
                         <div>Hình thumbnail</div>
                         <label>
@@ -453,6 +462,8 @@
                         type="update"
                         class="px-3 py-1 bg-indigo-600 rounded-lg mx-10 text-white"
                         (click)="onUpdate()"
+                        (click)="drawer.toggle()"
+
                         *ngIf="isSelectProduct"
                     >
                         Update
@@ -461,6 +472,8 @@
                         type="update"
                         class="px-3 py-1 bg-red-600 rounded-lg text-white"
                         (click)="onDelete()"
+                        (click)="drawer.toggle()"
+
                         *ngIf="isSelectProduct"
                     >
                         Delete
