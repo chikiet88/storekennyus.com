@@ -151,10 +151,7 @@ export class MenuComponent implements OnInit {
         this.menuForm.slug = this.menuForm.slug + '/' + e.slug;
         console.log(this.menuForm.slug);
     }
-    onSelectdanhmuc(e) {
-        this.menuForm.slug = this.menuForm.slug + '/' + e.Slug;
-        console.log(this.menuForm.slug);
-    }
+   
     deleteMenu() {
         this.MenuList.removeControl('tenMenuCha');
 

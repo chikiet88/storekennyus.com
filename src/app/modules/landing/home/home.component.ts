@@ -289,11 +289,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         });
         this._menuService.getMenu().subscribe();
         this._menuService.menu$.subscribe((res) => {
-            console.log(res);
-            
             this.menu = this.nestMenu(res.reverse());
-            console.log(this.menu);
-
         });
         this._menuService.getCauhinh().subscribe();
         this._menuService.cauhinh$.subscribe((res) => {

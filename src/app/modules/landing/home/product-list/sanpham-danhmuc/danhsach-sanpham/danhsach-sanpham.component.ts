@@ -155,9 +155,17 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
         }
     }
     paginateNumber(i) {
-        console.log(i);
         this.indexPaginate = i;
+
+
+        if (i == -1) {
+            i = this.tempProductSplice.length - 1;
+            this.indexPaginate = i;
+        }
+        if (i > this.tempProductSplice.length - 1) {
+            i = 0;
+            this.indexPaginate = i;
+        }
         this.productDM = this.tempProductSplice[i];
-        console.log(this.productDM);
     }
 }

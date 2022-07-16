@@ -1,6 +1,6 @@
 import { FileUploadService } from './services/file-upload.service';
 import { FileUpload } from './models/file-upload.model';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 
 export class MyUploadAdapter {
     public loader: any;
@@ -86,17 +86,28 @@ export class MyUploadAdapter {
 
                 this.percentage = Math.round(percentage ? percentage : 0);
                 if (this.percentage == 100) {
-                    this.uploadService._thumb$.subscribe((res) => {
-                        console.log(res);
-                        if (res != null) {
-                            this.temp = res;
-                            setTimeout(() => {
+                    setTimeout(() => {
+                        this
+                        this.uploadService.getFiles(1) //lấy file  chứa key từ firebase về
+                        .snapshotChanges()
+                        .pipe(
+                            take(1),
+                            map((changes:any) =>
+                                // store the key
+                                changes.map((c) => ({
+                                    key: c.payload.key,
+                                    ...c.payload.val(),
+                                }))
+                            )
+                        )
+                        .subscribe((fileUploads) => {
+                            if (fileUploads[0]?.key) {
                                 resolve({
-                                    default: this.temp?.url,
-                                });
-                            }, 1000);
-                        }
-                    });
+                                    default: fileUploads[0].url
+                                })
+                            }
+                        });
+                    }, 1000);
                 }
             },
             (error) => {

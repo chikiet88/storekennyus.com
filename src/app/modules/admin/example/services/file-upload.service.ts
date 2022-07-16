@@ -5,7 +5,7 @@ import {
 } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 import { FileUpload } from '../models/file-upload.model';
 
 
@@ -54,7 +54,26 @@ export class FileUploadService {
     private saveFileData(fileUpload: FileUpload): void {
         let image;
         this.db.list(this.basePath).push(fileUpload);
-
+        setTimeout(() => {
+            this
+                .getFiles(1) //lấy file  chứa key từ firebase về
+                .snapshotChanges()
+                .pipe(
+                    take(1),
+                    map((changes) =>
+                        // store the key
+                        changes.map((c) => ({
+                            key: c.payload.key,
+                            ...c.payload.val(),
+                        }))
+                    )
+                )
+                .subscribe((fileUploads) => {
+                    if (fileUploads[0]?.key) {
+                        this._thumb.next(fileUploads[0])
+                    }
+                });
+        }, 1000);
         return image;
     }
     getFiles(numberItems: number): AngularFireList<FileUpload> {

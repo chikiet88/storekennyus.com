@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DanhmucService } from '../danhmuc/danhmuc.service';
 import SwiperCore, { Navigation, Pagination, FreeMode, Autoplay } from 'swiper';
 import { ThuonghieuService } from '../thuonghieu/thuonghieu.service';
@@ -16,6 +16,7 @@ SwiperCore.use([Pagination, FreeMode, Navigation, Autoplay]);
     selector: 'app-homepage',
     templateUrl: './homepage.component.html',
     styleUrls: ['./homepage.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class HomepageComponent implements OnInit, AfterViewInit {
     private readonly notifier: NotifierService;

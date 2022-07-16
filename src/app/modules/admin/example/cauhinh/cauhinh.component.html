@@ -195,173 +195,177 @@
                 ></mat-tab>
                 <mat-tab label="Trang Chủ">
                     <div>
-                        <div class=" mb-6">
-                           <div class="flex mb-6">
-                            <div>
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Carousel Hình Desktop
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="upload()"
-                                    >
-                                        Upload Carousel
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                        <div class="mb-6">
+                            <div class="flex mb-6">
+                                <div>
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            for="grid-first-name"
                                         >
-                                            {{ percentage }}%
-                                        </div>
-                                    </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-                                </div>
-
-                                <div class="card w-full mt-5">
-                                    <div class="card-header">Image Upload</div>
-                                    <ul class="grid grid-cols-5 gap-5">
-                                        <li
-                                            class="list-group-item relative my-2"
-                                            *ngFor="
-                                                let item of listimage;
-                                                let i = index
-                                            "
-                                        >
-                                            <!-- item[1] url image ở firebase -->
-
-                                            <img
-                                                src="{{ item[1] }}"
-                                                class="w-20 h-20"
-                                                alt=""
+                                            Upload Carousel Hình Desktop
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
                                             />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="upload()"
+                                        >
+                                            Upload Carousel
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
                                             <div
-                                                class="absolute right-3 top-3 cursor-pointer"
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
                                             >
-                                                <!-- item[2] key image ở firebase -->
-                                                <span
-                                                    class="material-icons"
-                                                    (click)="
-                                                        deleteImageFirebase(
-                                                            item,
-                                                            i
-                                                        )
-                                                    "
-                                                >
-                                                    close
-                                                </span>
+                                                {{ percentage }}%
                                             </div>
-                                        </li>
-                                    </ul>
+                                        </div>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    </div>
+
+                                    <div class="card w-full mt-5">
+                                        <div class="card-header">
+                                            Image Upload
+                                        </div>
+                                        <ul class="grid grid-cols-5 gap-5">
+                                            <li
+                                                class="list-group-item relative my-2"
+                                                *ngFor="
+                                                    let item of listimage;
+                                                    let i = index
+                                                "
+                                            >
+                                                <!-- item[1] url image ở firebase -->
+
+                                                <img
+                                                    src="{{ item[1] }}"
+                                                    class="w-20 h-20"
+                                                    alt=""
+                                                />
+                                                <div
+                                                    class="absolute right-3 top-3 cursor-pointer"
+                                                >
+                                                    <!-- item[2] key image ở firebase -->
+                                                    <span
+                                                        class="material-icons"
+                                                        (click)="
+                                                            deleteImageFirebase(
+                                                                item,
+                                                                i
+                                                            )
+                                                        "
+                                                    >
+                                                        close
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            for="grid-first-name"
+                                        >
+                                            Upload Carousel Hình Mobile
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadMobile()"
+                                        >
+                                            Upload Carousel
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
+                                        </div>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    </div>
+
+                                    <div class="card w-full mt-5">
+                                        <div class="card-header">
+                                            Image Upload
+                                        </div>
+                                        <ul class="grid grid-cols-5 gap-5">
+                                            <li
+                                                class="list-group-item relative my-2"
+                                                *ngFor="
+                                                    let item of listimageMobile;
+                                                    let i = index
+                                                "
+                                            >
+                                                <!-- item[1] url image ở firebase -->
+
+                                                <img
+                                                    src="{{ item[1] }}"
+                                                    class="w-20 h-20"
+                                                    alt=""
+                                                />
+                                                <div
+                                                    class="absolute right-3 top-3 cursor-pointer"
+                                                >
+                                                    <!-- item[2] key image ở firebase -->
+                                                    <span
+                                                        class="material-icons"
+                                                        (click)="
+                                                            deleteImageFirebaseMobile(
+                                                                item,
+                                                                i
+                                                            )
+                                                        "
+                                                    >
+                                                        close
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div>
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Carousel Hình Mobile
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadMobile()"
-                                    >
-                                        Upload Carousel
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
-                                        >
-                                            {{ percentage }}%
-                                        </div>
-                                    </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-                                </div>
-
-                                <div class="card w-full mt-5">
-                                    <div class="card-header">Image Upload</div>
-                                    <ul class="grid grid-cols-5 gap-5">
-                                        <li
-                                            class="list-group-item relative my-2"
-                                            *ngFor="
-                                                let item of listimageMobile;
-                                                let i = index
-                                            "
-                                        >
-                                            <!-- item[1] url image ở firebase -->
-
-                                            <img
-                                                src="{{ item[1] }}"
-                                                class="w-20 h-20"
-                                                alt=""
-                                            />
-                                            <div
-                                                class="absolute right-3 top-3 cursor-pointer"
-                                            >
-                                                <!-- item[2] key image ở firebase -->
-                                                <span
-                                                    class="material-icons"
-                                                    (click)="
-                                                        deleteImageFirebaseMobile(
-                                                            item,
-                                                            i
-                                                        )
-                                                    "
-                                                >
-                                                    close
-                                                </span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                           </div>
-                           <div>
-                            <!-- <div class="w-full ">
+                                <!-- <div class="w-full ">
                                 <label
                                     class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
                                     for="grid-first-name"
@@ -377,7 +381,7 @@
                                     name="Link"
                                 />
                             </div> -->
-                           </div>
+                            </div>
                         </div>
                         <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div class="mb-5 border-b border-black">
@@ -1216,8 +1220,42 @@
                                 </div>
                             </div>
                         </div>
-                    </div></mat-tab
-                >
+                        <div class="flex mb-6">
+                            <div class="w-full">
+                                <label
+                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    for="grid-password"
+                                >
+                                    Combo ưu đãi
+                                </label>
+                                <ckeditor
+                                    class="h-56"
+                                    [editor]="Editor"
+                                    #editer
+                                    (ready)="onReady($event)"
+                                    [config]="config"
+                                    [formControlName]="'bannerCombo'"
+                                ></ckeditor>
+                            </div>
+                        </div>
+                        <div class="flex mb-6">
+                            <div class="w-full">
+                                <label
+                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    for="grid-password"
+                                >
+                                    Tags
+                                </label>
+                                <ckeditor
+                                    class="h-56"
+                                    [editor]="Editor"
+                                    #editer
+                                    [config]="config"
+                                    [formControlName]="'Tags'"
+                                ></ckeditor>
+                            </div>
+                        </div></div
+                ></mat-tab>
             </mat-tab-group>
         </div>
 

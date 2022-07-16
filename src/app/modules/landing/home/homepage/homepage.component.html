@@ -2,7 +2,7 @@
     <div class="lg:max-w-7xl lg:mx-auto lg:px-5">
         <app-carousel-home></app-carousel-home>
         <div
-            class="mx-auto rounded-xl bg-white lg:max-w-6xl lg:mx-auto border border-white mt-5 lg:pt-0 lg:mx-10"
+            class="mx-auto rounded-3xl bg-white lg:max-w-6xl lg:mx-auto border border-gray-200 bg-gray-100 mt-5 lg:pt-0 lg:mx-10"
         >
             <div class="flex md:flex-row sm:flex-col items-center py-7 mx-12">
                 <p
@@ -603,10 +603,19 @@
                         Combo ưu đãi
                     </p>
                 </div>
-                <div class="w-full flex lg:pt-10 pt-5 lg:flex-row flex-col">
+                <!-- <div class="w-full flex lg:pt-10 pt-5 lg:flex-row flex-col">
                     <div
                         class="lg:w-1/2 w-full bg-gray-200 rounded-3xl h-64 relative lg:mr-3"
                     >
+                    <div class="hidden md:block">
+                        <img src="../../../../../assets/images/homepage/desktop/combo.png" class="" alt="">
+                    
+                    </div>
+                    <div class=" md:hidden">
+                        <img src="../../../../../assets/images/homepage/desktop/combo-mobile.png" class="" alt="">
+                    
+                    </div>
+
                         <div
                             class="absolute left-20 flex flex-col top-1/2 centerY-img"
                         >
@@ -620,38 +629,42 @@
 
                                 <br />Vitamin B6</span
                             >
-                            <button
+                            <div
                                 class="border-none mt-7 px-3 w-36 text-center py-2 text-lg font-bold bg-purple-500 rounded-3xl text-white hover:sale-125"
                             >
                                 Show now >
-                            </button>
-                        </div>
-                        <div class="absolute right-2 top-2 text-xl">
-                            650*300
+                            </div>
                         </div>
                     </div>
                     <div
                         class="lg:w-1/2 w-full bg-gray-200 rounded-3xl h-64 relative lg:ml-3 text-xl mt-10 lg:mt-0"
                     >
+                    <div class="hidden md:block">
+                        <img src="../../../../../assets/images/homepage/desktop/combo.png" class="" alt="">
+                    
+                    </div>
+                    <div class=" md:hidden">
+                        <img src="../../../../../assets/images/homepage/desktop/combo-mobile.png" class="" alt="">
+                    
+                    </div>
                         <div
                             class="absolute left-20 flex flex-col top-1/2 centerY-img"
                         >
-                            650*300
-
                             <p class="text-purple-500 text-lg">From $0.99</p>
                             <span class="lg:text-4xl text-3xl py-2"
                                 ><strong>Pyridoxine</strong>
 
                                 <br />Vitamin B6</span
                             >
-                            <button
+                            <div
                                 class="border-none mt-7 px-3 w-36 text-center py-2 text-lg font-bold bg-purple-500 rounded-3xl text-white hover:sale-125"
                             >
                                 Show now >
-                            </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                <div [innerHTML]="cauhinh.data.bannerCombo"></div>
                 <div
                     class="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-5 md:pt-5 lg:pt-10"
                 >
@@ -663,7 +676,7 @@
             </div>
 
             <div class="pt-10">
-                <div class="pt-10 relative">
+                <!-- <div class="pt-10 relative">
                     <div
                         class="absolute h-px w-full bg-black opacity-50 left-0 top-0"
                     ></div>
@@ -711,7 +724,9 @@
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                <div [innerHTML]="cauhinh.data.Tags"></div>
+            
             </div>
             <div class="pt-10">
                 <div class="flex items-center justify-center">

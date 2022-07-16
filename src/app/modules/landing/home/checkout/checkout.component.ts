@@ -51,7 +51,7 @@ export class CheckoutComponent implements OnInit {
             ],
             Diachi: ['', Validators.required],
             ghichu: [''],
-            idKH: [],
+            idKH: [''],
         });
         this.donhangForm = this.fb.group({
             idDH: [''],

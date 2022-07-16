@@ -12,6 +12,7 @@ import { CauhinhService } from './cauhinh.service';
 import { FileUploadService } from '../services/file-upload.service';
 import { FileUpload } from '../models/file-upload.model';
 import { Cmyk, ColorPickerService } from 'ngx-color-picker';
+import { MyUploadAdapter } from '../MyUploadAdapter';
 
 @Component({
     selector: 'app-cauhinh',
@@ -400,6 +401,18 @@ export class CauhinhComponent implements OnInit {
     selectFile(event: any): void {
         this.selectedFiles = event.target.files;
     }
+    public onReady(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyUploadAdapter(loader, this.uploadService);
+        };
+
+        editor.ui
+            .getEditableElement()
+            .parentElement.insertBefore(
+                editor.ui.view.toolbar.element,
+                editor.ui.getEditableElement()
+            );
+    }
     onSelect(item) {
         this.i = Object.keys(item.data.imageCarousel).length - 1;
         this.cauhinhList.get('id').setValue(item.id);
@@ -453,6 +466,11 @@ export class CauhinhComponent implements OnInit {
         this.cauhinhList.get('data.Link3').setValue(item.data.Link3);
         this.cauhinhList.get('data.Link4').setValue(item.data.Link4);
         this.cauhinhList.get('data.Link5').setValue(item.data.Link5);
+
+        this.cauhinhList.get('data.bannerCombo').setValue(item.data.bannerCombo);
+        this.cauhinhList.get('data.Tags').setValue(item.data.Tags);
+
+
 
 
         this.cauhinhList
@@ -590,6 +608,8 @@ this.listkeyMobile = item.data.imageCarouselMobile || {}
                 Link5:[''],
 
                 Imageflashsale: [''],
+                bannerCombo:[''],
+                Tags:['']
             }),
         });
     }

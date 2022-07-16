@@ -1,4 +1,3 @@
-
 <div class="flex w-full">
     <mat-drawer-container class="example-container w-full" autosize>
         <mat-drawer
@@ -11,14 +10,16 @@
                 <span class="material-icons"> close </span>
             </button>
             <div class="p-5">
-                <p class="text-2xl text-center py-5">Danh sách các danh mục</p>
+                <p class="text-2xl text-center py-5">Danh sách Menu</p>
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                     <mat-tree-node
                         *matTreeNodeDef="let node"
                         matTreeNodePadding
                     >
                         <button mat-icon-button disabled></button>
-                        <span (click)="onSelectMenu(node)">{{
+                        <span (click)="onSelectMenu(node)" 
+                        (click)="drawer.toggle()"
+                        >{{
                             node.Tieude || node.title
                         }}</span>
                     </mat-tree-node>
@@ -29,7 +30,10 @@
                         <button
                             mat-icon-button
                             matTreeNodeToggle
-                            [attr.aria-label]="'Toggle ' + node.Tieude || node.title"
+                            [attr.aria-label]="
+                                'Toggle ' + node.Tieude || node.title
+                            "
+                            (click)="drawer.toggle()"
                         >
                             <mat-icon class="mat-icon-rtl-mirror">
                                 {{
@@ -39,7 +43,7 @@
                                 }}
                             </mat-icon>
                         </button>
-                        <span (click)="onSelectDanhmucEdit(node)">{{
+                        <span (click)="onSelectDanhmucEdit(node)" (click)="drawer.toggle()">{{
                             node.Tieude || node.title
                         }}</span>
                     </mat-tree-node>
@@ -59,12 +63,12 @@
                     </div>
                 </button>
                 <form class="w-full pt-10" [formGroup]="MenuList">
-                    <div class="flex flex-wrap">
+                    <div class="">
                         <div
                             class="flex md:flex-row flex-col justify-between w-full mx-3 mb-6"
                         >
                             <mat-form-field
-                                class="fuse-mat-emphasized-affix md:w-80 w-72 mb-6 md:mb-0"
+                                class="fuse-mat-emphasized-affix md:w-1/2 w-72 md:mr-5 mb-6 md:mb-0"
                                 appearance="fill"
                                 style="height: 50px"
                             >
@@ -74,49 +78,23 @@
                                         [value]="item.title"
                                         *ngFor="let item of menu"
                                         (click)="onSelect(item)"
-                                        >{{ item.title ? item.title : "" }}</mat-option
+                                        >{{
+                                            item.title ? item.title : ""
+                                        }}</mat-option
                                     >
                                 </mat-select>
                             </mat-form-field>
-            
+
                             <mat-form-field
-                                class="fuse-mat-emphasized-affix md:w-80 w-72 md:mx-5 mb-6 md:mb-0"
-                                appearance="fill"
-                                style="height: 50px"
-                            >
-                                <span matPrefix>Edit Menu</span>
-                                <mat-select (selectionChange)="onSelectMenu($event.value)">
-                                    <mat-option [value]="item" *ngFor="let item of menu">{{
-                                        item.title
-                                    }}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-            
-                            <mat-form-field
-                                class="fuse-mat-emphasized-affix md:w-80 w-72 md:mx-5 mb-6 md:mb-0"
-                                appearance="fill"
-                                style="height: 50px"
-                            >
-                                <span matPrefix>Danh mục</span>
-                                <mat-select
-                                    (selectionChange)="onSelectdanhmuc($event.value)"
-                                >
-                                    <mat-option
-                                        [value]="item"
-                                        *ngFor="let item of danhmuc"
-                                        >{{ item.Tieude }}</mat-option
-                                    >
-                                </mat-select>
-                            </mat-form-field>
-            
-                            <mat-form-field
-                                class="fuse-mat-emphasized-affix md:w-80 w-72 md:mx-5"
+                                class="fuse-mat-emphasized-affix md:w-1/2 w-72 md:ml-5"
                                 appearance="fill"
                                 style="height: 50px"
                             >
                                 <span matPrefix>Chọn bài viết</span>
                                 <mat-select
-                                    (selectionChange)="onSelectBaiviet($event.value)"
+                                    (selectionChange)="
+                                        onSelectBaiviet($event.value)
+                                    "
                                 >
                                     <mat-option
                                         [value]="item"
@@ -126,7 +104,7 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-            
+                      
                         <div class="w-full px-3 mb-6 md:mb-0">
                             <label
                                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -190,7 +168,6 @@
                         </button>
                     </div>
                 </form>
-            
             </div>
         </div>
     </mat-drawer-container>

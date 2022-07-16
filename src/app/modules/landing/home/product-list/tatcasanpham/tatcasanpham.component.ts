@@ -13,7 +13,7 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
     temp: any[];
     valuePrice;
     idThuonghieu = JSON.parse(localStorage.getItem('thuonghieu')) || '';
-
+    index;
     tempAllProducts: any[] = [];
     products;
     productListhide = 1;
@@ -96,7 +96,7 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
                     this.products = res.filter(
                         (x) => x.Thuonghieu == this.idThuonghieu
                     );
-                    localStorage.setItem('thuonghieu', JSON.stringify(""));
+                    localStorage.setItem('thuonghieu', JSON.stringify(''));
                 } else {
                     this.products = res;
                 }
@@ -109,7 +109,9 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
                         );
                     }
                 }
+                this.products = res;
             }
+
             this.productDM = this.tempProductSplice[0];
             this.temp = this.productDM;
         });
@@ -130,27 +132,22 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
     sapxepgiatri(value) {
         let products;
         let arr;
-
+        this._productService.getProduct().subscribe();
         this._productService.products$.subscribe((res) => {
-            products = res;
+            if (res) {
+                products = res;
+            }
         });
+        console.log(products);
 
         if (value == 'low') {
             arr = products.sort((a, b) => {
-                if (a.GiaSale != 0) {
-                    return a.GiaSale - b.GiaSale;
-                } else {
-                    return a.Gia - b.Gia;
-                }
+                return a.Gia - b.Gia;
             });
         }
         if (value == 'high') {
             arr = products.sort((a, b) => {
-                if (b.GiaSale != 0) {
-                    return b.GiaSale - a.GiaSale;
-                } else {
-                    return b.Gia - a.Gia;
-                }
+                return b.Gia - a.Gia;
             });
         }
         this.splceArr(arr);
@@ -165,9 +162,18 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
         }
     }
     paginateNumber(i) {
-        console.log(i);
         this.indexPaginate = i;
+
+        console.log(this.indexPaginate);
+
+        if (i == -1) {
+            i = this.tempProductSplice.length - 1;
+            this.indexPaginate = i;
+        }
+        if (i > this.tempProductSplice.length - 1) {
+            i = 0;
+            this.indexPaginate = i;
+        }
         this.productDM = this.tempProductSplice[i];
-        console.log(this.productDM);
     }
 }

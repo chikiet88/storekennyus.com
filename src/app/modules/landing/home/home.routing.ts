@@ -17,6 +17,7 @@ import { ProductListComponent } from "./product-list/product-list.component";
 import { BlogListComponent } from "./blog/blog-list/blog-list.component";
 import { SanphamDanhmucComponent } from "./product-list/sanpham-danhmuc/sanpham-danhmuc.component";
 import { SanphamDaxemComponent } from "./sanpham-daxem/sanpham-daxem.component";
+import { ThuonghieuComponent } from "./thuonghieu/thuonghieu.component";
 
 export const landingHomeRoutes: Route[] = [
   {
@@ -55,6 +56,8 @@ export const landingHomeRoutes: Route[] = [
       { path: "checkout/:slug", component: CheckoutDetailComponent },
       { path: "profile", component: ProfileComponent },
       { path: "san-pham-da-xem", component: SanphamDaxemComponent },
+      { path: "thuonghieu", component: ThuonghieuComponent },
+
     ],
   },
 ];
