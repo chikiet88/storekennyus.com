@@ -35,7 +35,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     name = 'Angular ' + VERSION.major;
     isZoomed = false;
     pos = { top: 0, left: 0, x: 0, y: 0 };
-
+    sanphamdaxem: any[]
     rating3;
     config1;
     config;
@@ -46,6 +46,8 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     cauhinh;
     listimage: any[] = [];
     danhmuc: any[];
+    TenDM = [];
+    productCard;
     productSale: any[] = [];
     constructor(
         private _productService: ProductListService,
@@ -69,22 +71,28 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
         });
     }
     ngOnInit(): void {
+        this.sanphamdaxem = JSON.parse(localStorage.getItem("sanphamdaxem")) || [];
+
         this.config = {
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,
             },
-            320: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-            },
-            760: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-            },
-            982: {
-                slidesPerView: 2,
-                spaceBetween: 20,
+            breakpoints: {
+                320: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+
+                },
+                760: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+
+                },
+                982: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
             },
         };
         this.config1 = {
@@ -125,7 +133,6 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                 this.year = res[0].data.year;
                 this.cauhinh = res[0].data.date;
                 console.log(this.cauhinh);
-                
             });
             this._productService.getProductDetail(slug.id).subscribe((res) => {
                 this.listimage = [];
@@ -165,7 +172,12 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                                 x.idDM == this.product.idDM &&
                                 x.id != this.product.id
                         );
-                        console.log(this.products);
+                        let productCard = res?.filter(
+                            (x) => x.Type == 'danhmucnoibat'
+                        );
+                        this.productCard = productCard.sort(
+                            () => 0.5 - Math.random()
+                        );
                     });
 
                     this._danhmucService.danhmucs$.subscribe((res) => {
@@ -174,6 +186,25 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                                 this.product.tenDM = x.Tieude;
                             }
                         });
+                        if (this.product) {
+                            if (Object.keys(this.product.Tags)?.length != 0) {
+                                for (const [key, value] of Object.entries(
+                                    this.product.Tags
+                                )) {
+                                    if (res) {
+                                        res.forEach((x) => {
+                                            if (x.id == key) {
+                                                this.TenDM.push({
+                                                    id: x.id,
+                                                    Tieude: x.Tieude,
+                                                });
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                        this.product.TenDM = this.TenDM;
                     });
                     this._cartService.getCart().subscribe((res) => {
                         res.find((x) => {

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { map } from 'rxjs';
+import { AddBaivietService } from '../add-baiviet/add-baiviet.service';
 // import { AddBaivietService } from '../add-baiviet/add-baiviet.service';
 import { DanhmucService } from '../danhmuc/danhmuc.service';
 import { MenuService } from './menu.service';
@@ -26,6 +27,7 @@ export class MenuComponent implements OnInit {
     message: 'chon theme';
     danhmuc;
     menuForm;
+    slug
     MenuList: FormGroup;
     selectTheme: any;
     idSelect;
@@ -66,8 +68,7 @@ export class MenuComponent implements OnInit {
     constructor(
         private MenuService: MenuService,
         private fb: FormBuilder,
-        // private _baivietService: AddBaivietService,
-        private _danhmucSerice: DanhmucService
+        private _baivietService: AddBaivietService,
     ) {}
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
     nest = (items, id = '', link = 'parentid') =>
@@ -83,6 +84,7 @@ export class MenuComponent implements OnInit {
             parentid: [''],
             slug: [''],
             tenMenuCha: [''],
+            Ordering:[1],
         });
     }
 
@@ -93,23 +95,21 @@ export class MenuComponent implements OnInit {
         this.MenuService.menu$.subscribe((menu) => {
             this.menu = menu
             if (menu?.length > 0) {
-                this.dataSource.data = this.nest(menu);
+                this.menu = this.nest(menu.reverse())
+                this.menu.sort((a,b)=>{
+                    return a.Ordering - b.Ordering
+                })
+                this.dataSource.data = this.menu;
             }
         });
 
-        // this._baivietService.getBaiviet().subscribe();
-        // this._baivietService.courses$.subscribe((result) => {
-        //     this.courses = result?.filter((x) => x.idDM == 0);
-        //     console.log(this.courses);
-        // });
+        this._baivietService.getBaiviet().subscribe();
+        this._baivietService.courses$.subscribe((result) => {
+            this.courses = result?.filter((x) => x.des == 'page');
+        });
 
-        this._danhmucSerice.getDanhmuc().subscribe();
-        this._danhmucSerice.danhmucs$.subscribe((res) => (this.danhmuc = res));
-        // this.addheaderService.getHeader().subscribe();
-
-        // this.addheaderService.themes$.subscribe((themes)=>{
-        //   this.themes = themes
-        // })
+    
+       
     }
     onSubmit() {
         this.MenuList.removeControl('tenMenuCha');
@@ -126,30 +126,27 @@ export class MenuComponent implements OnInit {
         // this.menuForm.parentid = item.id;
     }
     onSelectMenu(item) {
-        console.log(item);
-
-        // this.menuForm.id = item.id;
-        // this.menuForm.title = item.title;
-        // this.menuForm.slug = item.slug;
-        // this.menuForm.parentid = item.parentid;
-
+      
         this.MenuList.addControl('id', new FormControl(item.id));
         this.MenuList.get('id').setValue(item.id);
         this.MenuList.get('title').setValue(item.title);
         this.MenuList.get('slug').setValue(item.slug);
+        this.MenuList.get('Ordering').setValue(item.Ordering);
+
         this.MenuList.get('parentid').setValue(item.parentid);
         this.idSelect = item.id;
         this.menu.find((x) => {
             if (x.id == item.parentid) {
-                console.log(x);
 
                 this.MenuList.get('tenMenuCha').setValue(x.title);
             }
         });
     }
     onSelectBaiviet(e) {
-        this.menuForm.slug = this.menuForm.slug + '/' + e.slug;
-        console.log(this.menuForm.slug);
+        console.log(e);
+        
+        this.slug  =  'tintuc/' + e.slug;
+        this.MenuList.get('slug').setValue(this.slug)
     }
    
     deleteMenu() {

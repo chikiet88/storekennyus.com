@@ -72,7 +72,7 @@ export class MenuService {
           map((updateMenu) => {
 
               // Find the index of the updated tag
-              const index = menus.findIndex(item => item.id === item.id);
+              const index = menus.findIndex(item => item.id === data.id);
 
               // Update the tag
               menus[index] = data;

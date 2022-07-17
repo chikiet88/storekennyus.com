@@ -32,7 +32,7 @@
             </td>
             <td class="py-3 border-t md:border-t-none border-gray-300">
               <p class=" font-bold text-purple-500 md:hidden">Sản phẩm:</p>
-              <a class="text-purple-500 hover:underline text-center" routerLink="/sanpham/{{item.id}}">
+              <a class="text-purple-500 hover:underline text-center three-dot" routerLink="/sanpham/{{item.id}}">
                {{item.Tieude}}
               </a>
             </td>
@@ -66,7 +66,7 @@
       </table>
       <div class="md:pt-10 pt-7 flex justify-between md:flex-row flex-col">
         <div class="flex discount md:flex-row flex-col">
-          <input
+          <!-- <input
             class="text-purple-500 px-3 w-72 bg-gray-200 rounded-2xl py-2 font-bold border focus:border-blue-500"
             placeholder="Coupon code"
           />
@@ -74,14 +74,14 @@
             class="md:ml-3 sm:my-5 md:my-0 px-3 py-2 w-32 text-center text-white cursor-pointer  font-bold rounded-2xl bg-purple-500"
           >
             Apply coupon
-          </div>
+          </div> -->
         </div>
         <div class="h-px w-full bg-gray-200 mb-5 md:hidden "></div>
         <div
           class=" px-3 py-2 w-32 text-center text-white  cursor-pointer font-bold rounded-2xl bg-purple-500"
           (click)="updateCart()"
           >
-          Update cart
+          Cập nhật giỏ hàng
         </div>
       </div>
     </div>

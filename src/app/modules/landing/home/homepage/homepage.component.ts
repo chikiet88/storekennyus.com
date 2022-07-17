@@ -109,8 +109,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
         this._productListService.getDanhmuc().subscribe();
         this._productListService.danhmuc$.subscribe((res) => {
             this.danhmuc = res?.filter((x) => x.pid == '');
-            this.danhmucPopular = res?.filter((x) => x.Type == 'Popular');
-            this.danhmucBestSeller = res?.filter((x) => x.Type == 'Seller');
+            // this.danhmucPopular = res?.filter((x) => x.Type == 'Popular');
+            // this.danhmucBestSeller = res?.filter((x) => x.Type == 'Seller');
         });
         this._productListService.getProduct().subscribe();
         this._productListService.products$.subscribe((res) => {
@@ -132,6 +132,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
             });
 
             this.danhmucBestSeller = res?.filter((x) => x.Type == 'bestseller');
+            console.log(this.danhmucBestSeller);
+            
             this.combo = res?.filter((x) => x.Type == 'combo');
             // danh mục bán chạy trang chủ
             // this.danhmucBestSeller?.forEach((x) => {

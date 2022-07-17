@@ -19,6 +19,7 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
     tempProductSplice = [];
     productDM: any[];
     isChecked = false;
+    productCard
     productPriceFilter;
     thuonghieuFilter;
     constructor(
@@ -93,6 +94,8 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
             this._productService.getProduct().subscribe();
             this._productService.products$.pipe(take(1)).subscribe((res) => {
                 if (res) {
+                    let productCard = res?.filter(x=> x.Type == 'danhmucnoibat')
+                    this.productCard = productCard.sort(() => 0.5 - Math.random())
                     this.tempProductSplice = [];
                     this.products = res.filter(
                         (x) => x.idDM == this.danhmucdetail

@@ -104,6 +104,10 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         this.treeControl,
         this.treeFlattener
     );
+    dataSource1 = new MatTreeFlatDataSource(
+        this.treeControl,
+        this.treeFlattener
+    );
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
     
@@ -223,7 +227,38 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
                 }));
         }
     };
+    goDown1() {
+        document.getElementById('header').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+        });
+    }
+
+    onscroll() {
+        let item = window.scrollY;
+        let backtotop = document.querySelector('.backtotop')
+        
+        let header = document.querySelector('.nav-header');
+        if (item > 140) {
+            header.classList.add('header');
+        }
+        if (item > header.clientHeight + 200) {
+            header.classList.add('header-active');
+            backtotop.classList.add('backtotop-active')
+
+        }
+        if (item < 10) {
+            header.classList.remove('header-active');
+            header.classList.remove('header');
+            backtotop.classList.remove('backtotop-active')
+
+
+        }
+    }
     ngOnInit(): void {
+        window.addEventListener('scroll', this.onscroll, true);
+
         this.num =
             JSON.parse(localStorage.getItem('sanphamdaxem'))?.length || 0;
         this._productListService.getProduct().subscribe();
@@ -247,8 +282,11 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
                 });
             }
             if (res) {
-                this.danhmuc = this.nest(res);
-                this.dataSource.data = this.danhmuc;
+                this.danhmuc = this.nest(res.reverse())
+                this.danhmuc.sort((a,b)=>{
+                    return a.Ordering - b.Ordering
+                })
+                 this.dataSource.data = this.danhmuc;
             }
             if (this.danhmuc?.length > 0) {
                 for (let i = 0; i < this.danhmuc.length; i++) {
@@ -289,7 +327,14 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
         });
         this._menuService.getMenu().subscribe();
         this._menuService.menu$.subscribe((res) => {
+           if(res){
             this.menu = this.nestMenu(res.reverse());
+            this.menu.sort((a,b)=>{
+                return a.Ordering - b.Ordering;
+            })
+            this.dataSource1.data = this.menu;
+           }
+
         });
         this._menuService.getCauhinh().subscribe();
         this._menuService.cauhinh$.subscribe((res) => {

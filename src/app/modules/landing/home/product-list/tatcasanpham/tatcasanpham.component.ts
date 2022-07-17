@@ -16,6 +16,10 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
     index;
     tempAllProducts: any[] = [];
     products;
+    productCard1
+    productCard2
+    productCard3
+
     productListhide = 1;
     indexPaginate: number = 0;
     tempProductSplice = [];
@@ -91,6 +95,10 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
         this._productService.getProduct().subscribe();
         this._productService.products$.pipe(take(1)).subscribe((res) => {
             if (res) {
+                let productCard = res?.filter((x) => x.Type == 'danhmucnoibat');
+                this.productCard1 = productCard.sort(() => 0.5 - Math.random())
+                this.productCard2 = productCard.sort(() => 0.5 - Math.random())
+
                 this.tempProductSplice = [];
                 if (this.idThuonghieu != '') {
                     this.products = res.filter(
@@ -164,7 +172,6 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
     paginateNumber(i) {
         this.indexPaginate = i;
 
-        console.log(this.indexPaginate);
 
         if (i == -1) {
             i = this.tempProductSplice.length - 1;

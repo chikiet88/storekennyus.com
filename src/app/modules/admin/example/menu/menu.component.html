@@ -33,7 +33,7 @@
                             [attr.aria-label]="
                                 'Toggle ' + node.Tieude || node.title
                             "
-                            (click)="drawer.toggle()"
+                            (click)="onSelectMenu(node)"
                         >
                             <mat-icon class="mat-icon-rtl-mirror">
                                 {{
@@ -43,7 +43,7 @@
                                 }}
                             </mat-icon>
                         </button>
-                        <span (click)="onSelectDanhmucEdit(node)" (click)="drawer.toggle()">{{
+                        <span (click)="onSelectMenu(node)" (click)="drawer.toggle()">{{
                             node.Tieude || node.title
                         }}</span>
                     </mat-tree-node>
@@ -139,6 +139,23 @@
                             />
                             <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                         </div>
+                        <div class="w-full px-3 mb-6 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name"
+                            >
+                                Sắp xếp vị trí menu
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name"
+                                type="text"
+                                placeholder="Số thứ tự tăng dần"
+                                [formControlName]="'Ordering'"
+                                name="stt"
+                            />
+                            <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                        </div>
                     </div>
                     <div class="form-group mr-3 mb-3 pt-5">
                         <button
@@ -148,7 +165,7 @@
                             class="px-3 py-1 bg-green-600 rounded-lg text-white"
                             *ngIf="!idSelect"
                         >
-                            Submit
+                            Tạo mới
                         </button>
                         <button
                             type="update"
@@ -156,7 +173,7 @@
                             (click)="updateMenu()"
                             *ngIf="idSelect != undefined"
                         >
-                            Update
+                            Cập nhật
                         </button>
                         <button
                             type="update"
@@ -164,7 +181,7 @@
                             (click)="deleteMenu()"
                             *ngIf="idSelect != undefined"
                         >
-                            Delete
+                            Xóa
                         </button>
                     </div>
                 </form>

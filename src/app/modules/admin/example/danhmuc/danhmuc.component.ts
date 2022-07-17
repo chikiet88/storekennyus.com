@@ -113,6 +113,8 @@ export class DanhmucComponent implements OnInit {
         this.DanhmucList.get('Code').setValue(item.Code);
         this.DanhmucList.get('Type').setValue(item.Type);
         this.DanhmucList.get('Slug').setValue(item.Slug);
+        this.DanhmucList.get('Ordering').setValue(item.Ordering);
+
         this.danhmuc.find((x) => {
             if (x.id == item.pid) {
                 this.DanhmucList.get('tenDMcha').setValue(x.Tieude);
@@ -167,6 +169,7 @@ export class DanhmucComponent implements OnInit {
             pid: [''],
             Code: [''],
             Module:[0],
+            Ordering:[1],
             Trangthai:[0],
             Slug: [''],
             tenDMcha: [''],
@@ -220,11 +223,7 @@ export class DanhmucComponent implements OnInit {
                         console.log(error);
                     }
                 );
-            // if (this.percentage == 100) {
-            //     resolve(this.percentage);
-            // } else {
-            //     reject('sss');
-            // }
+           
         });
     }
     // upload(): void {
@@ -286,7 +285,11 @@ export class DanhmucComponent implements OnInit {
         this.DanhmucService.danhmucs$.subscribe((danhmuc) => {
             this.danhmuc = danhmuc;
             if (danhmuc?.length > 0) {
-                this.dataSource.data = this.nest(danhmuc);
+                this.danhmuc = this.nest(danhmuc.reverse())
+                this.danhmuc.sort((a,b)=>{
+                    return a.Ordering - b.Ordering
+                })
+                this.dataSource.data = this.danhmuc;
             }
         });
 

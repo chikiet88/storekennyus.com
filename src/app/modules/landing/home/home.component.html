@@ -82,79 +82,51 @@
                     </mat-tree>
                 </div>
                 <div class="py-5 px-3" *ngIf="MenuActive == true">
-                    <ul class="nav-mobile">
-                        <li class="text-purple-500 text-2xl font-bold py-2">
-                            <a routerLink="" (click)="drawer.toggle()"
-                                >Trang chủ</a
+                    <mat-tree
+                    [dataSource]="dataSource1"
+                    [treeControl]="treeControl"
+                >
+                    <mat-tree-node
+                        *matTreeNodeDef="let node"
+                        matTreeNodePadding
+                    >
+                        <button mat-icon-button disabled></button>
+                        <div class="cursor-pointer">
+                            <a
+                                (click)="drawer.toggle()"
+                                class="text-purple-500 text-2xl font-bold"
+                                routerLink="{{node.item.slug}}"
+                                >{{ node.name }}</a
                             >
-                        </li>
-                        <li class="text-purple-500 text-2xl font-bold py-2">
-                            <a routerLink="sanpham" (click)="drawer.toggle()"
-                                >Sản phẩm</a
+                        </div>
+                    </mat-tree-node>
+                    <mat-tree-node
+                        *matTreeNodeDef="let node; when: hasChild"
+                        matTreeNodePadding
+                    >
+                        <button
+                            mat-icon-button
+                            matTreeNodeToggle
+                            [attr.aria-label]="'Toggle ' + node.name"
+                        >
+                            <mat-icon class="mat-icon-rtl-mirror">
+                                {{
+                                    treeControl.isExpanded(node)
+                                        ? "expand_more"
+                                        : "chevron_right"
+                                }}
+                            </mat-icon>
+                        </button>
+                        <div class="cursor-pointer">
+                            <a
+                                (click)="drawer.toggle()"
+                                class="text-purple-500 text-2xl font-bold"
+                                routerLink="{{node.item.slug}}"
+                                >{{ node.name }}</a
                             >
-                        </li>
-                        <li class="text-purple-500 text-2xl font-bold py-2">
-                            <a routerLink="" (click)="drawer.toggle()"
-                                >Thương hiệu</a
-                            >
-                        </li>
-                        <li class="text-purple-500 text-2xl font-bold py-2">
-                            <a routerLink="" (click)="drawer.toggle()"
-                                >Flase Sale</a
-                            >
-                        </li>
-                        <li class="text-purple-500 text-2xl font-bold py-2">
-                            <mat-accordion>
-                                <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            <p
-                                                class="text-purple-500 text-2xl font-bold py-2"
-                                            >
-                                                Về chúng tôi
-                                            </p>
-                                        </mat-panel-title>
-                                    </mat-expansion-panel-header>
-
-                                    <div class="pl-3 flex flex-col">
-                                        <a
-                                            routerLink="/gioithieu"
-                                            class="text-purple-500 text-2xl font-bold"
-                                            aria-current="page"
-                                            (click)="drawer.toggle()"
-                                            >Giới Thiệu</a
-                                        >
-                                        <a
-                                            routerLink="/lienhe"
-                                            class="text-purple-500 text-2xl font-bold"
-                                            aria-current="page"
-                                            (click)="drawer.toggle()"
-                                            >Liên hệ</a
-                                        >
-                                        <a
-                                            routerLink=""
-                                            class="text-purple-500 text-2xl font-bold"
-                                            aria-current="page"
-                                            (click)="drawer.toggle()"
-                                            >Chính Sách Đổi Trả</a
-                                        >
-                                        <a
-                                            routerLink=""
-                                            class="text-purple-500 text-2xl font-bold"
-                                            aria-current="page"
-                                            (click)="drawer.toggle()"
-                                            >Hình Thức Thanh Toán</a
-                                        >
-                                    </div>
-                                </mat-expansion-panel>
-                            </mat-accordion>
-                        </li>
-                        <li class="text-purple-500 text-2xl font-bold py-2">
-                            <a routerLink="tintuc" (click)="drawer.toggle()"
-                                >Tin Tức</a
-                            >
-                        </li>
-                    </ul>
+                        </div>
+                    </mat-tree-node>
+                </mat-tree>
                 </div>
             </div>
         </div>
@@ -164,7 +136,7 @@
         class="example-sidenav-content flex flex-col relative"
         *ngIf="cauhinh?.data"
     >
-        <header class="">
+        <header id="header">
             <div class="bg-blue-500 hidden lg:block">
                 <div class="lg:max-w-7xl lg:mx-auto lg:px-5 py-3">
                     <div class="flex justify-between items-center">
@@ -271,8 +243,9 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="lg:max-w-7xl lg:mx-auto lg:px-5  px-3 py-3 nav-header"
+            <div class="nav-header w-full z-20">
+                <div
+                class="lg:max-w-7xl lg:mx-auto lg:px-5  px-3 py-3 "
             >
                 <div class="flex items-center justify-between">
                     <div class="text-2xl h-12 lg:w-2/12 md:w-3/12">
@@ -326,7 +299,7 @@
                                 />
                             </div>
                             <button
-                                class="bg-orange-500 text-white text-lg py-3 px-1 w-1/12 h-full rounded-r-3xl flex items-center justify-center"
+                                class="bg-orange-500 text-white text-lg py-3 px-1 w-1/12  rounded-r-3xl flex items-center justify-center" style="height: 50px;"
                                 (keyup.Enter)="searchSanpham()"
                             >
                                 <span class="material-icons text-white">
@@ -429,6 +402,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+         
             <div class="relative hidden lg:block">
                 <mat-divider class="bg-gray-300"></mat-divider>
 
@@ -529,11 +504,7 @@
                                                             >
                                                         </li>
 
-                                                        <li
-                                                            class="pt-4 text-blue-500 font-bold cursos-pointer"
-                                                        >
-                                                            View all >
-                                                        </li>
+                                                       
                                                     </ul>
                                                 </div>
 
@@ -552,7 +523,7 @@
                                                         class="top-1/2 absolute mt-10 w-full z-10 left-1/2 centerX centerY"
                                                     >
                                                         <h3
-                                                            class="text-purple-500 font-bold text-2xl"
+                                                            class="text-purple-500 font-bold text-xl"
                                                         >
                                                             {{
                                                                 danhmuc[i]
@@ -561,10 +532,12 @@
                                                             }}
                                                         </h3>
                                                         <div
-                                                            routerLink="sanpham"
-                                                            class="w-1/2 mt-3 mx-auto py-2 text-center bg-orange-500 text-white text-lg rounded-2xl"
+                                                            routerLink="/sanpham/sanphamchitiet/{{danhmuc[i]
+                                                                ?.sanphamnoibat
+                                                                ?.id}}"
+                                                            class="w-1/2 mt-3 mx-auto py-2 cursor-pointer text-center bg-orange-500 text-white text-lg rounded-2xl"
                                                         >
-                                                            Show now
+                                                            Mua ngay
                                                         </div>
                                                     </div>
                                                 </div>
@@ -710,5 +683,16 @@
                 </div>
             </div>
         </div>
+        <button
+        class="fixed lg:bottom-7 bottom-12 z-20 backtotop  lg:right-10 right-6 w-7 h-7 bg-white  rounded-full scroll-to-top  border border-gray-500"
+        (click)="goDown1()"
+    >
+        <span
+            class="material-icons absolute top-1/2 left-1/2 "
+            style="transform: translate(-50%, -50%)"
+        >
+        expand_less
+        </span>
+    </button>
     </div>
 </mat-drawer-container>

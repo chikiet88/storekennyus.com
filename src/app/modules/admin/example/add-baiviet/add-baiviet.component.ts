@@ -214,6 +214,7 @@ export class AddBaivietComponent implements OnInit {
     ) {
         this.html = '';
         this.Editor = ClassicEditor;
+        this.notifier = notifierService
         
     }
     getLinkImage(number) {
@@ -363,7 +364,6 @@ export class AddBaivietComponent implements OnInit {
                     .getValueByKey(item.image[property])
                     .subscribe((res) => {
                         this.listimage.push([...res, item.image[property]]);
-                        console.log(this.listimage);
                     });
             }
         }
@@ -443,6 +443,9 @@ export class AddBaivietComponent implements OnInit {
                 editor.ui.getEditableElement()
             );
     }
+    selectLoaibaiviet(e){
+       this.baivietForm.get('des').setValue(e)
+    }
     selectionDanhmuc(e) {
         this.danhmucs.find((x) => {
             if (x.Tieude == e) {
@@ -452,91 +455,10 @@ export class AddBaivietComponent implements OnInit {
             }
         });
     }
-    onchangeCarousel(index, item) {
-        if (index == 1) {
-            this.isSelectedCarousel1 = true;
-            this.itemIdCarousel1 = item.key;
-            this.baivietForm.get('slide1.contentCarousel').setValue(item.value);
-        }
-        if (index == 2) {
-            this.isSelectedCarousel2 = true;
-            this.itemIdCarousel2 = item.key;
-            this.baivietForm.get('slide2.contentCarousel').setValue(item.value);
-        }
-    }
-    AddCarousel(index) {
-        if (index == 1) {
-            if (Object.keys(this.listslide1).length == 0) {
-                let value = this.baivietForm.get(
-                    'slide1.contentCarousel'
-                ).value;
-                this.listslide1[0] = value;
-
-                ++this.i;
-                alert('Thêm carousel cơ hội nghề nghiệp thành công');
-            } else {
-                let i = Object.keys(this.listslide1).length;
-                this.listslide1[i] = this.listslide1[0];
-                alert('Thêm carousel cơ hội nghề nghiệp thành công');
-            }
-        }
-        if (index == 2) {
-            if (Object.keys(this.listslide2).length == 0) {
-                let value = this.baivietForm.get(
-                    'slide2.contentCarousel'
-                ).value;
-                this.listslide2[0] = value;
-                console.log(this.listslide2);
-
-                ++this.i;
-                alert('Thêm carousel chi tiết nghề nghiệp thành công');
-            } else {
-                let i = Object.keys(this.listslide2).length;
-                this.listslide2[i] = this.listslide2[0];
-                console.log(this.listslide2);
-
-                alert('Thêm carousel chi tiết nghề nghiệp thành công');
-            }
-        }
-    }
-    updateCarousel(index) {
-        if (index == 1) {
-            if (this.itemIdCarousel1 != undefined) {
-                let value = this.baivietForm.get(
-                    'slide1.contentCarousel'
-                ).value;
-
-                this.listslide1[this.itemIdCarousel1] = value;
-                alert('Update carousel cơ hội nghề nghiệp thành công');
-            }
-        }
-        if (index == 2) {
-            if (this.itemIdCarousel2 != undefined) {
-                let value = this.baivietForm.get(
-                    'slide2.contentCarousel'
-                ).value;
-                this.listslide2[this.itemIdCarousel2] = value;
-                alert('Update carousel chi tiết nghề nghiệp thành công');
-            }
-        }
-    }
-    deleteCarousel(index) {
-        if (index == 1) {
-            if (this.itemIdCarousel1 != undefined) {
-                delete this.listslide1[this.itemIdCarousel1];
-                this.baivietForm.get('slide1.contentCarousel').setValue('');
-                alert('Delete carousel cơ hội nghề nghiệp thành công');
-            }
-        }
-        if (index == 2) {
-            if (this.itemIdCarousel2 != undefined) {
-                delete this.listslide2[this.itemIdCarousel2];
-                this.baivietForm.get('slide2.contentCarousel').setValue('');
-                alert('Delete carousel chi tiết nghề nghiệp thành công');
-            }
-        }
-    }
-
+    
+   
+   
+   
     ngOnInit(): void {
         this.resetForm();
         this.baivietService.getTheme().subscribe();

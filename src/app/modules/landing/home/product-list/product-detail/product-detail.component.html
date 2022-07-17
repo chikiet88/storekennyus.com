@@ -1,54 +1,57 @@
 <div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-3 mt-10 px-3">
-  <div class="md:flex md:flex-col lg:flex-row">
-    <div class="lg:w-4/5 w-full lg:pr-5">
-      <div class="md:flex">
-        <div class="md:w-2/5 w-full">
-          <!-- <img src="{{product?.Image}}" class="w-full " alt=""> -->
-          <swiper
-            style="
-              --swiper-navigation-color: #fff;
-              --swiper-pagination-color: #fff;
-            "
-            [spaceBetween]="10"
-            [navigation]="true"
-            [thumbs]="{ swiper: thumbsSwiper }"
-            class="mySwiper2"
-          >
-            <ng-template swiperSlide *ngFor="let item of listimage">
-              <div class="cursor">
-                <lib-ngx-image-zoom
-                  [thumbImage]="item"
-                  [fullImage]="item"
-                  [magnification]="2"
-                  [enableScrollZoom]="true"
-                ></lib-ngx-image-zoom>
-              </div>
+    <div class="md:flex md:flex-col lg:flex-row">
+        <div class="lg:w-4/5 w-full lg:pr-5">
+            <div class="md:flex">
+                <div class="md:w-2/5 w-full">
+                    <!-- <img src="{{product?.Image}}" class="w-full " alt=""> -->
+                    <swiper
+                        style="
+                            --swiper-navigation-color: #fff;
+                            --swiper-pagination-color: #fff;
+                        "
+                        [spaceBetween]="10"
+                        [navigation]="true"
+                        [thumbs]="{ swiper: thumbsSwiper }"
+                        class="mySwiper2"
+                    >
+                        <ng-template swiperSlide *ngFor="let item of listimage">
+                            <div class="cursor">
+                                <lib-ngx-image-zoom
+                                    [thumbImage]="item"
+                                    [fullImage]="item"
+                                    [magnification]="2"
+                                    [enableScrollZoom]="true"
+                                ></lib-ngx-image-zoom>
+                            </div>
 
-              <!-- <img class="rounded"
+                            <!-- <img class="rounded"
           src="https://swiperjs.com/demos/images/nature-1.jpg" 
           /> -->
-            </ng-template>
-          </swiper>
-          <swiper
-            (swiper)="thumbsSwiper = $event"
-            [spaceBetween]="10"
-            [slidesPerView]="4"
-            [freeMode]="true"
-            [watchSlidesProgress]="true"
-            class="mySwiper pt-5"
-          >
-            <ng-template swiperSlide *ngFor="let item of listimage"
-              ><img class="rounded" src="{{ item }}" class="h-16 object-contain"
-            /></ng-template>
-          </swiper>
-        </div>
-        <div class="md:w-3/5 w-full md:pl-10">
-          <div class="lg:w-4/5">
-            <div class="border-b border-black pb-5">
-              <p class="text-3xl text-purple-500 font-bold pb-2">
-                {{ product?.Tieude }}
-              </p>
-              <div class="flex items-cener">
+                        </ng-template>
+                    </swiper>
+                    <swiper
+                        (swiper)="thumbsSwiper = $event"
+                        [spaceBetween]="10"
+                        [slidesPerView]="4"
+                        [freeMode]="true"
+                        [watchSlidesProgress]="true"
+                        class="mySwiper pt-5"
+                    >
+                        <ng-template swiperSlide *ngFor="let item of listimage"
+                            ><img
+                                class="rounded"
+                                src="{{ item }}"
+                                class="h-16 object-contain"
+                        /></ng-template>
+                    </swiper>
+                </div>
+                <div class="md:w-3/5 w-full md:pl-10">
+                    <div class="lg:w-4/5">
+                        <div class="border-b border-black pb-5">
+                            <p class="text-3xl text-purple-500 font-bold pb-2">
+                                {{ product?.Tieude }}
+                            </p>
+                            <!-- <div class="flex items-cener">
                 <div class="flex items-center mr-3">
                   <svg
                     class="w-5 h-5 text-yellow-500"
@@ -101,218 +104,282 @@
                     ></path>
                   </svg>
                 </div>
-                <p class="text-purple-500 text-md">(1 customer review)</p>
-              </div>
+                <p class="text-purple-500 text-md"></p>
+              </div> -->
+                        </div>
+                        <div
+                            [innerHTML]="product?.Mota"
+                            class="py-7 border-b border-black"
+                        ></div>
+
+                        <div class="flex pt-3">
+                            <p
+                                class="text-3xl text-red-500 mr-3 font-bold"
+                                *ngIf="product?.GiaSale != 0"
+                            >
+                                {{ product?.GiaSale | currency: "VND" }}
+                            </p>
+                            <span
+                                class="text-3xl text-blue-500 font-bold relative"
+                                >{{ product?.Gia | currency: "VND" }}
+                                <div
+                                    class="absolute top-1/2 left-0 w-full rotate-line {{
+                                        product?.GiaSale != 0
+                                            ? 'block'
+                                            : 'hidden'
+                                    }}"
+                                ></div>
+                            </span>
+                        </div>
+                        <div class="mt-4">
+                            <div class="bg-gray-200 rounded-xl">
+                                <div
+                                    class="flex px-5 py-7 items-center justify-center flex-col md:flex-row"
+                                >
+                                    <div
+                                        class="number-input flex items-center rounded-3xl border-none"
+                                    >
+                                        <button
+                                            class="text-md bg-purple-500 text-white rounded-full mr-2"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown(); "
+                                            (click)="trusoluong()"
+                                        ></button>
+                                        <input
+                                            class="quantity text-purple-500 bg-white rounded-3xl border-none flex item-center justify-center text-center lg:text-lg text-md w-full py-2 font-bold"
+                                            min="1"
+                                            [(ngModel)]="quantity"
+                                            name="quantity"
+                                            type="number"
+                                        />
+                                        <button
+                                            class="plus text-md bg-purple-500 text-white rounded-full ml-2"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
+                                            (click)="congsoluong()"
+                                        ></button>
+                                    </div>
+                                    <div
+                                        class="cursor-pointer md:w-48 w-full mt-3 md:mt-0 rounded-3xl text-white bg-blue-500 ml-3 p-3 text-center flex items-center justify-center"
+                                        (click)="addtocart(product)"
+                                    >
+                                        <span class="material-icons mr-2">
+                                            shopping_cart
+                                        </span>
+                                        Thêm vào giỏ hàng
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-5 flex items-center bg-gray-200 w-full p-5 rounded-xl"
+                    >
+                        <span class="material-icons text-blue-500 mr-5">
+                            discount
+                        </span>
+                        <p class="text-lg text-blue-500 font-bolp-5 font-bold">
+                            Sử dụng tạo giá trị FREESHIP cho giỏ hàng từ 999k
+                        </p>
+                    </div>
+                    <div class="pt-5">
+                        <p class="text-purple-500 text-lg">
+                            <strong class="text-blue-500 font-bold uppercase"
+                                >SKU: </strong
+                            >{{ product?.SKU }}
+                        </p>
+                        <p class="text-purple-500 text-lg my-3">
+                            <strong class="text-blue-500 font-bold"
+                                >Category:
+                            </strong>
+                            {{ product?.tenDM }}
+                        </p>
+                        <p class="text-purple-500 text-lg">
+                            <strong class="text-blue-500 font-bold"
+                                >Tag: </strong
+                            ><span
+                                *ngFor="let item of product?.TenDM"
+                                class="mr-2"
+                                >{{ item.Tieude }}</span
+                            >
+                        </p>
+                    </div>
+                    <!-- <div class="mt-4 flex items-center">
+            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
+            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
+            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
+            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
+            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
+            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
+          </div> -->
+                </div>
+            </div>
+            <div class="pt-10 tabs_product-detail">
+                <mat-tab-group animationDuration="0ms">
+                    <mat-tab label="Mô tả">
+                        <div class="">
+                            <div
+                                [innerHTML]="product?.Thongtin"
+                                class="text-gray-500"
+                            ></div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Thành phần">
+                        <div
+                            [innerHTML]="product?.Thanhphan"
+                            class="text-gray-500"
+                        ></div>
+                    </mat-tab>
+                    <mat-tab label="Hướng dẫn sử dụng">
+                        <div
+                            [innerHTML]="product?.Huongdan"
+                            class="text-gray-500"
+                        ></div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <div class="md:pt-10 pt-10">
+                <p class="text-3xl text-purple-500 font-bold">
+                    Sản phẩm liên quan
+                </p>
+                <swiper
+                    [config]="config1"
+                    [navigation]="true"
+                    class="mySwiper pt-5"
+                >
+                    <ng-template swiperSlide *ngFor="let item of products">
+                        <app-product-list [item]="item"></app-product-list>
+                    </ng-template>
+                </swiper>
+            </div>
+            <div class="md:pt-10 pt-10">
+              <p class="text-3xl text-purple-500 font-bold">
+                  Sản phẩm đã xem
+              </p>
+              <swiper
+                  [config]="config1"
+                  [navigation]="true"
+                  class="mySwiper pt-5"
+              >
+                  <ng-template swiperSlide *ngFor="let item of sanphamdaxem">
+                      <app-product-list [item]="item"></app-product-list>
+                  </ng-template>
+              </swiper>
+          </div>
+        </div>
+
+        <div class="lg:w-1/5 w-full lg:pt-0 md:pt-10 pt-5">
+            <div class="w-full border border-orange-500 rounded-xl p-3">
+                <swiper [config]="config" class="mySwiper pt-5">
+                    <ng-template swiperSlide *ngFor="let item of productSale">
+                        <app-product-list [item]="item"></app-product-list>
+                    </ng-template>
+                </swiper>
             </div>
             <div
-              [innerHTML]="product?.Mota"
-              class="py-7 border-b border-black"
-            ></div>
-
-            <div class="flex pt-3">
-              <p
-                class="text-3xl text-red-500 mr-3 font-bold"
-                *ngIf="product?.GiaSale != 0"
-              >
-                {{ product?.GiaSale | currency: "VND" }}
-              </p>
-              <span class="text-3xl text-blue-500 font-bold relative"
-                >{{ product?.Gia | currency: "VND" }}
-                <div
-                  class="absolute top-1/2 left-0 w-full rotate-line {{
-                    product?.GiaSale != 0 ? 'block' : 'hidden'
-                  }}"
-                ></div>
-              </span>
-            </div>
-            <div class="mt-4">
-              <div class="bg-gray-200 rounded-xl">
-                <div
-                  class="flex px-5 py-7 items-center justify-center flex-col md:flex-row"
-                >
-                  <div
-                    class="number-input flex items-center rounded-3xl border-none"
-                  >
-                    <button
-                      class="text-md bg-purple-500 text-white rounded-full mr-2"
-                      onclick="this.parentNode.querySelector('input[type=number]').stepDown(); "
-                      (click)="trusoluong()"
-                    ></button>
-                    <input
-                      class="quantity text-purple-500 bg-white rounded-3xl border-none flex item-center justify-center text-center lg:text-lg text-md w-full py-2 font-bold"
-                      min="1"
-                      [(ngModel)]="quantity"
-                      name="quantity"
-                      type="number"
-                    />
-                    <button
-                      class="plus text-md bg-purple-500 text-white rounded-full ml-2"
-                      onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
-                      (click)="congsoluong()"
-                    ></button>
-                  </div>
-                  <div
-                    class="cursor-pointer md:w-48 w-full mt-3 md:mt-0 rounded-3xl text-white bg-blue-500 ml-3 p-3 text-center flex items-center justify-center"
-                    (click)="addtocart(product)"
-                  >
-                    <span class="material-icons mr-2"> shopping_cart </span>
-                    Add to cart
-                  </div>
+                class="my-5 flex items-center justify-center"
+                *ngIf="isFlashSale"
+            >
+                <div class="p-2 bg-gray-200 rounded-xl text-center w-16">
+                    <p id="days" class="text-md text-purple-500 font-bold"></p>
+                    <p class="text-xs text-purple-500">Ngày</p>
                 </div>
-              </div>
+                <div class="p-2 bg-gray-200 rounded-xl text-center w-16 ml-2">
+                    <p id="hours" class="text-md text-purple-500 font-bold"></p>
+                    <p class="text-xs text-purple-500">Giờ</p>
+                </div>
+                <div class="p-2 bg-gray-200 rounded-xl text-center w-16 ml-2">
+                    <p id="mins" class="text-md text-purple-500 font-bold"></p>
+                    <p class="text-xs text-purple-500">Phút</p>
+                </div>
+                <div class="p-2 bg-gray-200 rounded-xl text-center w-16 ml-2">
+                    <p
+                        id="seconds"
+                        class="text-md text-purple-500 font-bold"
+                    ></p>
+                    <p class="text-xs text-purple-500">Giây</p>
+                </div>
             </div>
-          </div>
-          <div class="mt-5 flex items-center bg-gray-200 w-full p-5 rounded-xl">
-            <span class="material-icons text-blue-500 mr-5"> discount </span>
-            <p class="text-lg text-blue-500 font-bolp-5 font-bold">
-              Sử dụng tạo giá trị FREESHIP cho giỏ hàng từ 999k
-            </p>
-          </div>
-          <div class="pt-5">
-            <p class="text-purple-500 text-lg">
-              <strong class="text-blue-500 font-bold uppercase">SKU: </strong
-              >{{ product?.SKU }}
-            </p>
-            <p class="text-purple-500 text-lg my-3">
-              <strong class="text-blue-500 font-bold">Category: </strong>
-              {{ product?.tenDM }}
-            </p>
-            <p class="text-purple-500 text-lg">
-              <strong class="text-blue-500 font-bold">Tag: </strong
-              >{{ product?.Tag }}
-            </p>
-          </div>
-          <div class="mt-4 flex items-center">
-            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
-            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
-            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
-            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
-            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
-            <div class="rounded-2xl w-10 h-10 bg-gray-200 mr-1"></div>
-          </div>
-        </div>
-      </div>
-      <div class="pt-10 tabs_product-detail">
-        <mat-tab-group animationDuration="0ms">
-          <mat-tab label="Mô tả">
-            <div class="">
-              <div [innerHTML]="product?.Thongtin" class="text-gray-500"></div>
+            <div class="pt-5">
+                <div class="w-full bg-gray-200 rounded-xl">
+                    <div class="p-5 flex flex-col md:flex-row lg:flex-col items-center justify-between">
+                        <div class="w-full bg-gray-200">
+                            <img src="{{ productCard[0].Image }}" alt="" />
+                        </div>
+                        <div
+                            class="w-full h-1/2 flex flex-col items-center pt-5"
+                        >
+                            <p
+                                class="lg:text-2xl text-xl font-bold text-purple-500 text-center"
+                            >
+                                {{ productCard[0].Tieude }}
+                            </p>
+                            <div
+                                routerLink="../{{ productCard[0].id }}"
+                                class="text-white text-center cursor-pointer font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
+                            >
+                                Mua ngay
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </mat-tab>
-          <mat-tab label="Thành phần">
-            <div [innerHTML]="product?.Thanhphan" class="text-gray-500"></div>
-          </mat-tab>
-          <mat-tab label="Hướng dẫn sử dụng">
-            <div [innerHTML]="product?.Huongdan" class="text-gray-500"></div>
-          </mat-tab>
-        </mat-tab-group>
-      </div>
-      <div class="md:pt-10 pt-10">
-        <p class="text-3xl text-purple-500 font-bold">Sản phẩm liên quan</p>
-        <swiper [config]="config1" [navigation]="true" class="mySwiper pt-5">
-          <ng-template swiperSlide *ngFor="let item of products">
-            <app-product-list [item]="item"></app-product-list>
-          </ng-template>
-        </swiper>
-      </div>
-    </div>
 
-    <div class="lg:w-1/5 w-full lg:pt-0 md:pt-10 pt-5">
-      <div class="w-full border border-orange-500 rounded-xl p-3">
-        <swiper [config]="config"  class="mySwiper pt-5">
-          <ng-template swiperSlide *ngFor="let item of productSale">
-            <app-product-list [item]="item"></app-product-list>
-          </ng-template>
-        </swiper>
-      </div>
-      <div class="my-5 flex items-center justify-center" *ngIf="isFlashSale">
-        <div class="p-2 bg-gray-200 rounded-xl text-center w-16">
-          <p id="days" class="text-md text-purple-500 font-bold"></p>
-          <p class="text-xs text-purple-500">Days</p>
-        </div>
-        <div class="p-2 bg-gray-200 rounded-xl text-center w-16 ml-2">
-          <p id="hours" class="text-md text-purple-500 font-bold"></p>
-          <p class="text-xs text-purple-500">Hours</p>
-        </div>
-        <div class="p-2 bg-gray-200 rounded-xl text-center w-16 ml-2">
-          <p id="mins" class="text-md text-purple-500 font-bold"></p>
-          <p class="text-xs text-purple-500">Mins</p>
-        </div>
-        <div class="p-2 bg-gray-200 rounded-xl text-center w-16 ml-2">
-          <p id="seconds" class="text-md text-purple-500 font-bold"></p>
-          <p class="text-xs text-purple-500">Seconds</p>
-        </div>
-      </div>
-      <div class="pt-5">
-        <div class="w-full bg-gray-200 rounded-xl" style="height: 425px">
-          <div class="p-5 flex flex-col items-center justify-between">
-            <div class="w-full h-52 bg-red-200"></div>
-            <div class="w-full h-1/2 flex flex-col items-center pt-5">
-              <p class="text-purple-500">Pyridoxine Vitamin B6</p>
-              <p class="text-3xl font-bold text-purple-500 text-center">
-                Vitamin & <br class="hidden lg:block" />
-                Supplements
-              </p>
-              <button
-                class="text-white font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
-              >
-                Shop now >
-              </button>
+            <div class="pt-5">
+                <div class="w-full bg-gray-200 rounded-xl">
+                    <div class="p-5 flex flex-col md:flex-row lg:flex-col items-center justify-between">
+                        <div class="w-full bg-gray-200">
+                            <img src="{{ productCard[1].Image }}" alt="" />
+                        </div>
+                        <div
+                            class="w-full h-1/2 flex flex-col items-center pt-5"
+                        >
+                            <p
+                                class="lg:text-2xl text-xl font-bold text-purple-500 text-center"
+                            >
+                                {{ productCard[1].Tieude }}
+                            </p>
+                            <div
+                                routerLink="../{{ productCard[1].id }}"
+                                class="text-white text-center cursor-pointer font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
+                            >
+                                Mua ngay
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-     
-      <div class="pt-5">
-        <div class="w-full bg-gray-200 rounded-xl" style="height: 425px">
-          <div class="p-5 flex flex-col items-center justify-between h-full">
-            <div class="w-full h-52 bg-red-200"></div>
-            <div class="w-full h-1/2 flex flex-col items-center pt-5">
-              <p class="text-purple-500">Pyridoxine Vitamin B6</p>
-              <p class="text-3xl font-bold text-purple-500 text-center">
-                Vitamin & <br class="hidden lg:block" />
-                Supplements
-              </p>
-              <button
-                class="text-white font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
-              >
-                Shop now >
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 <div class="pt-10">
-  <div
-  class="w-full md:h-56 sm:h-72 bg-gray-200 relative flex flex-col items-center justify-center"
->
-  <div
-    class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
-  >
-    <p class="lg:text-4xl font-bold text-purple-500 uppercase">
-      Bảng tin khuyến mãi
-    </p>
-    <p class="text-purple-500 lg:pt-3 sm:text-center">
-      Đăng ký email của bạn để nhận mã giảm giá thường xuyên tại Kenny US
-      Store
-    </p>
     <div
-      class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
+        class="w-full md:h-56 sm:h-72 bg-gray-200 relative flex flex-col items-center justify-center"
     >
-      <input
-        class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
-        placeholder="Email Đăng ký"
-      />
-      <button
-        class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
-      >
-        <span class="material-icons text-white mr-2 text-lg"> send </span>
-        <span class="w-16"> Đăng ký</span>
-      </button>
+        <div
+            class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
+        >
+            <p class="lg:text-4xl font-bold text-purple-500 uppercase">
+                Bảng tin khuyến mãi
+            </p>
+            <p class="text-purple-500 lg:pt-3 sm:text-center">
+                Đăng ký email của bạn để nhận mã giảm giá thường xuyên tại Kenny
+                US Store
+            </p>
+            <div
+                class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
+            >
+                <input
+                    class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
+                    placeholder="Email Đăng ký"
+                />
+                <button
+                    class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
+                >
+                    <span class="material-icons text-white mr-2 text-lg">
+                        send
+                    </span>
+                    <span class="w-16"> Đăng ký</span>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </div>

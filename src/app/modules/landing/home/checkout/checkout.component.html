@@ -20,7 +20,7 @@
               <label class="text-gray-400">Số điện thoại *</label>
               <input
                 class="p-2 mt-1 text-purple-500 bg-white focus:border-blue-500 border rounded-xl"
-                type="number"
+                type="text"
                 [formControlName]="'SDT'"
               />
             </div>
@@ -172,32 +172,32 @@
 </div>
 <div class="pt-10">
   <div
-    class="w-full md:h-56 sm:h-72 bg-gray-200 relative flex flex-col items-center justify-center"
+  class="w-full md:h-56 sm:h-72 bg-gray-200 relative flex flex-col items-center justify-center"
+>
+  <div
+    class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
   >
+    <p class="lg:text-4xl font-bold text-purple-500 uppercase">
+      Bảng tin khuyến mãi
+    </p>
+    <p class="text-purple-500 lg:pt-3 sm:text-center">
+      Đăng ký email của bạn để nhận mã giảm giá thường xuyên tại Kenny US
+      Store
+    </p>
     <div
-      class="flex flex-col h-full items-center justify-center sm:mx-3 md:mx-0"
+      class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
     >
-      <p class="lg:text-5xl text-4xl font-bold text-purple-500">
-        Join our newsletter
-      </p>
-      <p class="text-purple-500 lg:pt-3 sm:text-center">
-        Join over half a million vitamin lovers and get our latest deals,
-        articles, and resources!
-      </p>
-      <div
-        class="flex sm:flex-col md:flex-row md:w-4/5 sm:w-full lg:h-12 h-10 mt-5 sm:mb-12 md:mb-0"
+      <input
+        class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
+        placeholder="Email Đăng ký"
+      />
+      <button
+        class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
       >
-        <input
-          class="px-5 sm:py-3 md:py-0 flex flex-col items-center justify-center bg-white w-full lg:h-12 h-10 md:rounded-l-3xl sm:rounded-3xl md:rounded-none"
-          placeholder="Email Address"
-        />
-        <button
-          class="px-8 sm:py-3 md:py-0 sm:mt-3 md:mt-0 md:rounded-r-3xl h-full text-white bg-orange-500 flex items-center justify-center sm:rounded-3xl md:rounded-none"
-        >
-          <span class="material-icons text-white mr-2 text-lg"> send </span>
-          Subrcries
-        </button>
-      </div>
+        <span class="material-icons text-white mr-2 text-lg"> send </span>
+        <span class="w-16"> Đăng ký</span>
+      </button>
     </div>
   </div>
+</div>
 </div>

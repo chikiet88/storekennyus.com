@@ -34,10 +34,10 @@
     </nav>
     <div class="bg-white">
         <mat-drawer-container class="example-container" autosize>
-            <mat-drawer #drawer class="example-sidenav" mode="side">
+            <mat-drawer #drawer class="example-sidenav w-3/4" mode="push">
                 <div class="pr-5 lg:hidden relative">
                     <p class="text-xl text-purple-500 font-bold">
-                        Shop by Categories
+                        Shop theo danh mục
                     </p>
 
                     <mat-tree
@@ -88,7 +88,7 @@
 
                     <div class="pt-10" (click)="changePrice()">
                         <p class="text-purple-500 font-bold text-xl pb-5">
-                            Price
+                            Tìm kiếm theo giá
                         </p>
                         <mat-slider
                             class="example-margin"
@@ -122,7 +122,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="pt-10">
+                    <!-- <div class="pt-10">
                         <p class="text-xl text-purple-500 font-bold">
                             Condition
                         </p>
@@ -154,7 +154,7 @@
                                 Acid reflux
                             </p>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="pt-10">
                         <div
@@ -196,7 +196,7 @@
             <div class="example-sidenav-content flex">
                 <div class="w-1/5 pr-5 hidden lg:block">
                     <p class="text-xl text-purple-500 font-bold">
-                        Shop by Categories
+                        Shop theo danh mục
                     </p>
 
                     <mat-tree
@@ -247,7 +247,7 @@
 
                     <div class="pt-10">
                         <p class="text-purple-500 font-bold text-xl pb-5">
-                            Price
+                            Giá
                         </p>
                         <div class="flex items-center" (click)="changePrice()">
                             <span class="text-blue-500">{{ min }}đ</span>
@@ -301,7 +301,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="pt-10">
+                    <!-- <div class="pt-10">
                         <p class="text-xl text-purple-500 font-bold">
                             Condition
                         </p>
@@ -333,7 +333,7 @@
                                 Acid reflux
                             </p>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="pt-10">
                         <div
@@ -341,24 +341,24 @@
                             style="height: 425px"
                         >
                             <div class="p-5 flex flex-col items-center">
-                                <div class="w-full h-52 bg-red-200"></div>
+                                <div class="w-full ">
+                                    <img src="{{ productCard[3].Image }}" alt="">
+                                </div>
                                 <div
-                                    class="w-full h-1/2 flex flex-col items-center pt-5"
+                                    class="w-full h-1/2 flex flex-col items-center pt-3"
                                 >
-                                    <p class="text-purple-500">
-                                        Pyridoxine Vitamin B6
-                                    </p>
+                                 
                                     <p
-                                        class="text-3xl font-bold text-purple-500 text-center"
+                                        class="lg:text-2xl text-xl font-bold text-purple-500 text-center"
                                     >
-                                        Vitamin & <br />
-                                        Supplements
+                                       {{productCard[3].Tieude}}
                                     </p>
-                                    <button
-                                        class="text-white font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
+                                    <div
+                                    routerLink="/sanpham/sanphamchitiet/{{productCard[3].id}}"
+                                        class="text-white cursor-pointer font-bold text-center text-lg p-2 bg-orange-500 rounded-3xl w-28"
                                     >
-                                        Shop now >
-                                    </button>
+                                        Mua ngay
+                                </div>
                                 </div>
                             </div>
                         </div>

@@ -40,7 +40,36 @@
     }
   }
 }
+.nav-header{
+  background-color: white;
 
+}
+.header{
+  transform: translateY(-100%);
+  transition: 1s;
+
+}
+.header-active{
+  transform: translateY(0%);
+  left: 0;
+  border-bottom: 1px solid #E2E8F0;
+  top: 0;
+  transition: 1s;
+  position: fixed !important;
+
+  width: 100%;
+}
+.backtotop{
+  opacity: 0;
+  transition: 0.5s;
+  transform: translateY(50%);
+}
+.backtotop-active{
+  opacity: 1;
+  transition: 0.5s;
+  transform: translateY(0%);
+
+}
 
 .home-menu.menuhomeactive {
   opacity: 1;

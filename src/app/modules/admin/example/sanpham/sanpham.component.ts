@@ -467,7 +467,7 @@ export class SanphamComponent implements OnInit {
         this.productList = this.fb.group({
             Tieude: [''],
             Mota: [
-                `  <ul>
+                ` <ul>
                 <li class="mr-3 text-md lg:text-base flex items-center my-1">
                     <span class="material-icons mr-3 text-md text-green-500">done </span>Cải thiện trí nhớ, khả năng tập trung và tập trung
                 </li>

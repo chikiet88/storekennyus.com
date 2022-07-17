@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { DanhmucService } from '../../danhmuc/danhmuc.service';
@@ -8,6 +8,7 @@ import { ProductListService } from '../../product-list/product-list.service';
     selector: 'app-search-mobile',
     templateUrl: './search-mobile.component.html',
     styleUrls: ['./search-mobile.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SearchMobileComponent implements OnInit {
     productSearch: any[];
@@ -45,6 +46,7 @@ export class SearchMobileComponent implements OnInit {
                     }
                 }
             }
+    
         }
     }
     selectCategoriesSearch(item) {

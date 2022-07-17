@@ -39,6 +39,7 @@ export class SanphamDanhmucComponent implements OnInit {
     filterThuonghieu = [];
     tempAllProducts: any[] = [];
     tempDM: any[] = [];
+    productCard
     min = 0;
     max = 2000000 ;
     thumbLabel = true;
@@ -150,5 +151,10 @@ export class SanphamDanhmucComponent implements OnInit {
         this._thuonghieuService.thuonghieus$.subscribe(
             (res) => (this.thuonghieus = res)
         );
+        this._productService.getProduct().subscribe()
+        this._productService.products$.subscribe(res=>{
+            let productCard = res?.filter(x=> x.Type == 'danhmucnoibat')
+            this.productCard = productCard.sort(() => 0.5 - Math.random())
+        })
     }
 }
