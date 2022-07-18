@@ -25,7 +25,9 @@ export class CartComponent implements OnInit {
       });
     }
   }
-
+  removeItem(item){
+    this._cartService.removeCart(item).subscribe()
+  }
   updateCart() {
       this.carts.forEach(x=>{
         
@@ -33,12 +35,8 @@ export class CartComponent implements OnInit {
         if(x.num){
           numTemp = x.num
           delete x.num
-          console.log(numTemp);
-          console.log(x);
           this._cartService.pushQuantityCart(x, numTemp).subscribe(res => alert('Cập nhật giỏ hàng thành công'))
         }
-         
-     
       })
   }
   ngOnInit(): void {

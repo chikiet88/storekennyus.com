@@ -234,20 +234,13 @@ export class CauhinhComponent implements OnInit {
     upload(): void {
         this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
             let max = 0;
-
             for (const [key, value] of Object.entries(this.listkey)) {
                 if (Number(key) > max) {
-                    console.log(key);
-                    
                     max = Number(key);
                 }
             }
-           
             if (max > 0) {
                 this.listkey[max + 1] = x.key;
-
-                // Object.assign(this.listkey, kiemtracohinhkhong: x.key );
-                console.log(this.listkey);
             } else {
                 this.listkey[1] = x.key; //vị trí đầu tiên
             }
@@ -257,6 +250,8 @@ export class CauhinhComponent implements OnInit {
                 .getValueByKey(x.key)
                 .pipe(take(1))
                 .subscribe((res) => {
+                    console.log(x.key);
+                    
                     console.log(res);
 
                     this.listimage.push({
@@ -285,7 +280,6 @@ export class CauhinhComponent implements OnInit {
                 this.listkeyMobile[max + 1] = x.key;
 
                 // Object.assign(this.listkeyMobile, kiemtracohinhkhong: x.key );
-                console.log(this.listkeyMobile);
             } else {
                 this.listkeyMobile[1] = x.key; //vị trí đầu tiên
             }
@@ -300,7 +294,6 @@ export class CauhinhComponent implements OnInit {
                         ...res,
                         2: keydetail,
                     });
-                    console.log(this.listimageMobile);
 
                 });
         });
@@ -326,20 +319,22 @@ export class CauhinhComponent implements OnInit {
                 this.listimageMobile = [];
 
             });
-        this.listKeyRemove.forEach((x) => {
-            this.uploadService.deleteFile(x);
-        });
+        // this.listKeyRemove.forEach((x) => {
+        //     this.uploadService.deleteFile(x);
+        // });
         this.listImageCarousel = {};
 
     }
     deleteImageFirebase(item, i) {
-        this.listKeyRemove.push(item[2]);
+        this.uploadService.deleteFile(item[2]);
 
         for (let index in this.listkey) {
             if (this.listkey[index] == item[2]) {
                 delete this.listkey[index];
             }
         }
+        console.log(this.listkey);
+        
 
         this.listimage = this.listimage.filter((x) => x[2] != item[2]);
     }
@@ -374,7 +369,7 @@ export class CauhinhComponent implements OnInit {
                                     .getFiles(1) //lấy file  chứa key từ firebase về
                                     .snapshotChanges()
                                     .pipe(
-                                        take(1),
+                                       
                                         map((changes) =>
                                             // store the key
                                             changes.map((c) => ({
@@ -385,11 +380,13 @@ export class CauhinhComponent implements OnInit {
                                     )
                                     .subscribe((fileUploads) => {
                                         if (fileUploads[0]?.key) {
+                                            console.log(fileUploads[0]?.key);
+                                            
                                             fileUploads = fileUploads.reverse();
                                             resolve(fileUploads[0]);
                                         }
                                     });
-                            }, 1000);
+                            }, 5000);
                         }
                     },
                     (error) => {
