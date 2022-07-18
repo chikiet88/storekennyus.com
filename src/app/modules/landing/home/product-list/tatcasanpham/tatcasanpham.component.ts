@@ -92,7 +92,6 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
     ngOnInit(): void {
         // this.route.params.subscribe((data) => (this.danhmucdetail = data.id));
 
-        this._productService.getProduct().subscribe();
         this._productService.products$.pipe(take(1)).subscribe((res) => {
             if (res) {
                 let productCard = res?.filter((x) => x.Type == 'danhmucnoibat');

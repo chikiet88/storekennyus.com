@@ -11,7 +11,6 @@ export class ContactComponent implements OnInit {
   constructor(private _homeService: HomeService) {}
 
   ngOnInit(): void {
-    this._homeService.getCauhinh().subscribe();
     this._homeService.cauhinh$.subscribe((res) => {
 
       if(res){

@@ -49,7 +49,6 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
                 disableOnInteraction: false,
             },
         };
-        this._homeService.getCauhinh().subscribe();
         this._homeService.cauhinh$.pipe(take(1)).subscribe((res) => {
             console.log(res[0].data.imageCarousel);
             if (res) {

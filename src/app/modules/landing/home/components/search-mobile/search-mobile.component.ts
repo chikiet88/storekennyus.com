@@ -53,12 +53,10 @@ export class SearchMobileComponent implements OnInit {
         this.danhmucSearch = item;
     }
     ngOnInit(): void {
-        this._productListService.getProduct().subscribe();
-        this._productListService.products$.subscribe((res) => {
+        this._productListService.products$.pipe(take(1)).subscribe((res) => {
             this.products = res;
         });
-        this._productListService.getDanhmuc().pipe(take(1)).subscribe();
-        this._productListService.danhmuc$.subscribe((res) => {
+        this._productListService.danhmuc$.pipe(take(1)).subscribe((res) => {
             this.categories = res;
         });
     }

@@ -121,12 +121,9 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
 
         this.rating3 = 3;
         this.route.params.subscribe((slug) => {
-            this._productService.getDanhmuc().subscribe();
             this._productService.danhmuc$.subscribe(
                 (res) => (this.danhmuc = res)
             );
-            this._danhmucService.getDanhmuc().subscribe();
-            this._homeService.getCauhinh().subscribe();
             this._homeService.cauhinh$.subscribe((res) => {
                 this.day = res[0].data.day;
                 this.month = res[0].data.month;
@@ -164,7 +161,6 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                         );
                     }
 
-                    this._productService.getProduct().subscribe();
                     this._productService.products$.subscribe((res) => {
                         this.productSale = res.filter((x) => x.Trangthai == 1);
                         this.products = res?.filter(

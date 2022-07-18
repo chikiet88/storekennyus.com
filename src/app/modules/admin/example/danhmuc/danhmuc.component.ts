@@ -11,6 +11,7 @@ import {
     MatTreeFlatDataSource,
     MatTreeFlattener,
 } from '@angular/material/tree';
+import { NotifierService } from 'angular-notifier';
 interface ExampleFlatNode {
     expandable: boolean;
     name: string;
@@ -23,6 +24,8 @@ interface ExampleFlatNode {
     styleUrls: ['./danhmuc.component.scss'],
 })
 export class DanhmucComponent implements OnInit {
+    private readonly notifier: NotifierService;
+
     themes: any;
     danhmuc: any;
     theme: any;
@@ -50,7 +53,6 @@ export class DanhmucComponent implements OnInit {
         },
     };
     private _transformer = (node: any, level: number) => {
-        console.log(node);
         node.expandable = !!node.children && node.children.length > 0;
         node.level = level;
         return node;
@@ -75,8 +77,11 @@ export class DanhmucComponent implements OnInit {
     constructor(
         private DanhmucService: DanhmucService,
         private fb: FormBuilder,
-        private uploadService: FileUploadService
-    ) {}
+        private uploadService: FileUploadService,
+        notifierService: NotifierService // private _notifierService: NotifierService
+        ) {
+            this.notifier = notifierService;
+    }
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
     onSubmit() {
@@ -87,7 +92,8 @@ export class DanhmucComponent implements OnInit {
         this.DanhmucService.AddDanhmuc(this.DanhmucList.value).subscribe(
             (res) => {
                 if (res) {
-                    alert('Tạo nội dung thành công');
+                    this.notifier.notify('success', `Tạo danh mục thành công`);
+
                     this.resetForm();
                 } else {
                     alert('Tạo nội dung không thành công');
@@ -126,7 +132,8 @@ export class DanhmucComponent implements OnInit {
     }
     deleteDanhmuc() {
         this.DanhmucService.deleteDanhmuc(this.idSelect).subscribe((res) => {
-            alert('Xóa Danhmuc thành công');
+            this.notifier.notify('success', `Xóa danh mục thành công`);
+
             this.resetForm();
 
             this.idSelect = undefined;
@@ -148,7 +155,8 @@ export class DanhmucComponent implements OnInit {
                     x = this.danhmuc.find((v) => v.id == x.pid);
                 }
                 if (res) {
-                    alert('Cập nhật Danh mục thành công');
+                    this.notifier.notify('success', `Cập nhật danh mục thành công`);
+
                     this.resetForm();
                     this.thumb = '';
                     this.Icon = '';

@@ -13,6 +13,7 @@ import { ThuonghieuService } from '../thuonghieu/thuonghieu.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
     selector: 'app-sanpham',
@@ -21,6 +22,8 @@ import { MatSort } from '@angular/material/sort';
     encapsulation: ViewEncapsulation.None,
 })
 export class SanphamComponent implements OnInit {
+    private readonly notifier: NotifierService;
+
     productList: FormGroup;
     selectedFiles?: FileList;
     currentFileUpload?: FileUpload;
@@ -59,8 +62,11 @@ export class SanphamComponent implements OnInit {
         private sanphamService: SanphamService,
         private uploadService: FileUploadService,
         private _danhmucService: DanhmucService,
-        private _thuonghieuService: ThuonghieuService
-    ) {}
+        private _thuonghieuService: ThuonghieuService,
+        notifierService: NotifierService // private _notifierService: NotifierService
+        ) {
+            this.notifier = notifierService;
+    }
     public Editor = ClassicEditor;
     public config = {
         htmlSupport: {
@@ -75,6 +81,8 @@ export class SanphamComponent implements OnInit {
     };
 
     onSubmit() {
+        console.log(this.productList.value);
+        
         this.productList.get('ListImage').setValue(this.listkey);
         let GiaSale = this.productList.get('GiaSale').value;
         if (GiaSale == 0) {
@@ -85,7 +93,8 @@ export class SanphamComponent implements OnInit {
         this.sanphamService
             .postProduct(this.productList.value)
             .subscribe((res) => {
-                alert('Tạo sản phẩm thành công');
+                this.notifier.notify('success', `Tạo sản phẩm thành công`);
+
             });
         this.resetForm();
     }
@@ -241,14 +250,15 @@ export class SanphamComponent implements OnInit {
         this.sanphamService
             .updateProduct(this.productList.value)
             .subscribe((res) => {
-                console.log(res);
+              
 
                 this.listimage = [];
                 this.listkey = {};
                 this.Tags = {};
                 this.chipsnhan = [];
                 this.thumb = ''
-                alert('Cập nhật thành công');
+                this.notifier.notify('success', `Cập nhật sản phẩm thành công`);
+
                 this.resetForm();
                 this.isSelectProduct = false;
                 this.tenDMcha = '';
@@ -263,7 +273,8 @@ export class SanphamComponent implements OnInit {
             .deleteSanpham(this.productList.value)
             .subscribe((res) => {
                 this.resetForm();
-                alert('Xóa sản phẩm thành công');
+                this.notifier.notify('success', `Xóa sản phẩm thành công`);
+
 
                 this.isSelectProduct = false;
                 this.thumb = '';
@@ -284,7 +295,6 @@ export class SanphamComponent implements OnInit {
                 Object.keys(this.listkey).length == 0 &&
                 this.isupdateListImage == false
             ) {
-                console.log('truong hop 1');
 
                 for (
                     let i = 0, p = Promise.resolve();
@@ -340,11 +350,6 @@ export class SanphamComponent implements OnInit {
                             let a =
                                 this.listimage.length +
                                 this.selectedFiles.length;
-                            console.log(this.listkey);
-
-                            console.log(Object.keys(this.listkey).length);
-
-                            console.log(a);
                             if (
                                 Object.keys(this.listkey).length ==
                                 this.listimage.length +
@@ -376,8 +381,6 @@ export class SanphamComponent implements OnInit {
         return;
     }
     deleteImageFirebase(item, i) {
-        console.log(item);
-        console.log(this.listkey);
         this.listKeyRemove.push(item[2]);
 
         for (const i in this.listkey) {
@@ -487,7 +490,7 @@ export class SanphamComponent implements OnInit {
             Code: [''],
             Slug: [''],
             SKU: [''],
-            Tags: [''],
+            Tags: [{}],
             ListImage: [{}],
             ContentImage: this.fb.group({
                 contentImage1: [''],
@@ -500,7 +503,7 @@ export class SanphamComponent implements OnInit {
             Type: [''],
             Thongtin: [''],
             Ordering: [0],
-            Trangthai: [''],
+            Trangthai: [0],
         });
         this.productList.removeControl('id');
         this.listkey = {};

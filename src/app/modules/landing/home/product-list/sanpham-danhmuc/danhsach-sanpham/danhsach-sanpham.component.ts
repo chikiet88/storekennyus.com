@@ -91,7 +91,6 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
         // this.route.params.subscribe((data) => (this.danhmucdetail = data.id));
         this._productService.danhmucdetail$.subscribe((res) => {
             this.danhmucdetail = res.id;
-            this._productService.getProduct().subscribe();
             this._productService.products$.pipe(take(1)).subscribe((res) => {
                 if (res) {
                     let productCard = res?.filter(x=> x.Type == 'danhmucnoibat')

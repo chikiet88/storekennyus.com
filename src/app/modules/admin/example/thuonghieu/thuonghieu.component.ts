@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { NotifierService } from 'angular-notifier';
 import { map, take } from 'rxjs';
 import { FileUpload } from '../models/file-upload.model';
 import { SanphamService } from '../sanpham/sanpham.service';
@@ -15,6 +16,8 @@ import { ThuonghieuService } from './thuonghieu.service';
     styleUrls: ['./thuonghieu.component.scss'],
 })
 export class ThuonghieuComponent implements OnInit {
+    private readonly notifier: NotifierService;
+
     thumb;
     thuonghieu;
     selectedFiles?: FileList;
@@ -36,8 +39,11 @@ export class ThuonghieuComponent implements OnInit {
         private _thuonghieuService: ThuonghieuService,
         private fb: FormBuilder,
         private uploadService: FileUploadService,
-        private _sanphamService: SanphamService
-    ) {}
+        private _sanphamService: SanphamService,
+        notifierService: NotifierService // private _notifierService: NotifierService
+        ) {
+            this.notifier = notifierService;
+    }
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -53,7 +59,8 @@ export class ThuonghieuComponent implements OnInit {
             .AddThuonghieu(this.ThuonghieuForm.value)
             .subscribe((res) => {
                 if (res) {
-                    alert('Tạo nội dung thành công');
+                    this.notifier.notify('success', `Tạo thương hiệu thành công`);
+
                     this.resetForm();
                 } else {
                     alert('Tạo nội dung không thành công');
@@ -79,7 +86,8 @@ export class ThuonghieuComponent implements OnInit {
         this._thuonghieuService
             .deleteThuonghieu(this.idSelect)
             .subscribe((res) => {
-                alert('Xóa thương hiệu thành công');
+                this.notifier.notify('success', `Xóa thương hiệu thành công`);
+
                 this.resetForm();
                 this.idSelect = undefined;
             });
@@ -91,7 +99,8 @@ export class ThuonghieuComponent implements OnInit {
             .updateThuonghieu(this.ThuonghieuForm.value)
             .subscribe((res) => {
                 if (res) {
-                    alert('Cập nhật Thương hiệu thành công');
+                    this.notifier.notify('success', `Cập nhật thương hiệu thành công`);
+
                     this.idSelect = undefined;
                     this.resetForm();
                 } else {
@@ -173,7 +182,6 @@ export class ThuonghieuComponent implements OnInit {
 
         this._thuonghieuService.getThuonghieu().subscribe();
         this._thuonghieuService.thuonghieus$.subscribe((res) => {
-            console.log(res);
             this.dataSource = new MatTableDataSource(res);
 
             this.dataSource.paginator = this.paginator;

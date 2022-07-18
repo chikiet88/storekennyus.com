@@ -13,7 +13,7 @@ import { ProductListService } from '../product-list.service';
 })
 export class ProductPopularComponent implements OnInit {
     private readonly notifier: NotifierService;
-    TenDM = []
+    TenDM = [];
     @Input() item;
     contentImage = false;
     constructor(
@@ -36,23 +36,24 @@ export class ProductPopularComponent implements OnInit {
         if (Object.keys(this.item.ContentImage).length == 0) {
             this.contentImage = false;
         }
-        this._productService.getDanhmuc().subscribe();
         this._productService.danhmuc$.pipe(take(1)).subscribe((res) => {
-          
-           if(this.item){
-            if(Object.keys(this.item.Tags)?.length != 0 ){
-              for (const [key, value] of Object.entries(this.item.Tags)) {
-                if (res) {
-                    res.forEach((x) => {
-                        if (x.id == key) {
-                            this.TenDM.push({ id: x.id, Tieude: x.Tieude });
+            if (this.item) {
+                if (Object.keys(this.item.Tags)?.length != 0) {
+                    for (const [key, value] of Object.entries(this.item.Tags)) {
+                        if (res) {
+                            res.forEach((x) => {
+                                if (x.id == key) {
+                                    this.TenDM.push({
+                                        id: x.id,
+                                        Tieude: x.Tieude,
+                                    });
+                                }
+                            });
                         }
-                    });
+                    }
                 }
             }
-             }
-           }
-            this.item.TenDM = this.TenDM
+            this.item.TenDM = this.TenDM;
         });
     }
 

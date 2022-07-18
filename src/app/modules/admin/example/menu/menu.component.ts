@@ -3,6 +3,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { NotifierService } from 'angular-notifier';
 import { map } from 'rxjs';
 import { AddBaivietService } from '../add-baiviet/add-baiviet.service';
 // import { AddBaivietService } from '../add-baiviet/add-baiviet.service';
@@ -20,6 +21,8 @@ interface ExampleFlatNode {
     styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
+    private readonly notifier: NotifierService;
+
     themes: any;
     menu: any;
     theme: any;
@@ -69,7 +72,10 @@ export class MenuComponent implements OnInit {
         private MenuService: MenuService,
         private fb: FormBuilder,
         private _baivietService: AddBaivietService,
-    ) {}
+        notifierService: NotifierService // private _notifierService: NotifierService
+        ) {
+            this.notifier = notifierService;
+    }
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
     nest = (items, id = '', link = 'parentid') =>
     items
@@ -116,9 +122,13 @@ export class MenuComponent implements OnInit {
         this.MenuList.removeControl('id');
 
         this.MenuService.Addmenu(this.MenuList.value).subscribe((res) =>
-            alert('Tạo nội dung thành công')
-        );
+      {
+        this.notifier.notify('success', `Tạo Menu thành công`)
         this.resetForm();
+
+      }
+
+        );
     }
 
     onSelect(item) {
@@ -153,7 +163,8 @@ export class MenuComponent implements OnInit {
         this.MenuList.removeControl('tenMenuCha');
 
         this.MenuService.deleteMenu(this.idSelect).subscribe((res) => {
-            alert('Xóa Menu thành công');
+            this.notifier.notify('success', `Xóa Menu thành công`)
+
             this.resetForm();
         });
     }
@@ -161,7 +172,8 @@ export class MenuComponent implements OnInit {
         this.MenuList.removeControl('tenMenuCha');
 
         this.MenuService.updateMenu(this.MenuList.value).subscribe((res) => {
-            alert('Cập nhật Menu thành công');
+            this.notifier.notify('success', `Cập nhật Menu thành công`)
+
             this.resetForm();
             this.idSelect = undefined;
         });

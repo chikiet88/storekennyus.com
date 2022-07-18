@@ -200,7 +200,6 @@ export class AddBaivietComponent implements OnInit {
     }
     deleteImageFirebase(item, i) {
         this.listimage = this.listimage.filter((x) => x[2] != item[2]);
-        console.log(this.listimage);
         
         this.uploadService.deleteFile(item);
     }

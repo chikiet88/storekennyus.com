@@ -13,6 +13,7 @@ import { FileUploadService } from '../services/file-upload.service';
 import { FileUpload } from '../models/file-upload.model';
 import { Cmyk, ColorPickerService } from 'ngx-color-picker';
 import { MyUploadAdapter } from '../MyUploadAdapter';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
     selector: 'app-cauhinh',
@@ -21,6 +22,8 @@ import { MyUploadAdapter } from '../MyUploadAdapter';
     encapsulation: ViewEncapsulation.None,
 })
 export class CauhinhComponent implements OnInit {
+    private readonly notifier: NotifierService;
+
     selectedFiles?: FileList;
     currentFileUpload?: FileUpload;
     idSelect = false;
@@ -121,9 +124,11 @@ export class CauhinhComponent implements OnInit {
         private fb: FormBuilder,
         private uploadService: FileUploadService,
         public vcRef: ViewContainerRef,
-        private cpService: ColorPickerService
-    ) {}
-
+        private cpService: ColorPickerService,
+        notifierService: NotifierService // private _notifierService: NotifierService
+        ) {
+            this.notifier = notifierService;
+    }
     uploadbanner(i): void {
         this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
             if (i == 1) {
@@ -314,7 +319,8 @@ export class CauhinhComponent implements OnInit {
         this.cauhinhService
             .updateCauhinh(this.cauhinhList.value)
             .subscribe((res) => {
-                alert('Cập nhật thành công');
+                this.notifier.notify('success', `Cập nhật thành công`);
+
                 this.idSelect = false;
                 this.listimage = [];
                 this.listimageMobile = [];

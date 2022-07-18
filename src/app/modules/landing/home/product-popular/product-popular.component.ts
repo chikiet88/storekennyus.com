@@ -36,7 +36,6 @@ export class ProductPopularComponent implements OnInit {
         if (Object.keys(this.item.ContentImage).length == 0) {
             this.contentImage = false;
         }
-        this._productService.getDanhmuc().subscribe();
         this._productService.danhmuc$.pipe(take(1)).subscribe((res) => {
           
            if(this.item.Tags){

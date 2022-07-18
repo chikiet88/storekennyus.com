@@ -138,8 +138,7 @@ export class SanphamDanhmucComponent implements OnInit {
             }));
 
     ngOnInit(): void {
-        this._productService.getDanhmuc().pipe(take(1)).subscribe();
-        this._productService.danhmuc$.subscribe((res) => {
+        this._productService.danhmuc$.pipe(take(1)).subscribe((res) => {
             this.tempDM = res;
             if (res) {
                 this.danhmuc = this.nest(res);
@@ -147,11 +146,9 @@ export class SanphamDanhmucComponent implements OnInit {
             }
         });
 
-        this._thuonghieuService.getThuonghieu().subscribe();
         this._thuonghieuService.thuonghieus$.subscribe(
             (res) => (this.thuonghieus = res)
         );
-        this._productService.getProduct().subscribe()
         this._productService.products$.subscribe(res=>{
             let productCard = res?.filter(x=> x.Type == 'danhmucnoibat')
             this.productCard = productCard.sort(() => 0.5 - Math.random())

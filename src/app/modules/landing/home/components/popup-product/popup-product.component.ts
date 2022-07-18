@@ -26,7 +26,6 @@ export class PopupProductComponent implements OnInit {
   }
   ngOnInit(): void {
     this.rating3 = 3;
-    this._danhmucService.getDanhmuc().subscribe();
     this._danhmucService.danhmucs$.subscribe((res) => {
       res?.find((x) => {
         if (x.id == this.data.dulieu.idDM) {

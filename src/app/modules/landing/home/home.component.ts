@@ -31,7 +31,7 @@ interface ExampleFlatNode {
 
     encapsulation: ViewEncapsulation.None,
 })
-export class LandingHomeComponent implements OnInit, AfterViewInit {
+export class LandingHomeComponent implements OnInit {
     isShowLogin = false;
     isShow = true;
     num;
@@ -148,7 +148,9 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
     }
     selectDanhmuc(i) {
         this.i = i;
-        this.danhmucChild = this.danhmucArr[i];
+        this.danhmucChild = this.danhmucArr[this.i];
+
+        
     }
     openDialog() {
         const dialogRef = this.dialog.open(SearchMobileComponent);
@@ -197,7 +199,6 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
             }
         );
     }
-    ngAfterViewInit(): void {}
 
     signout() {
         this._signinService.signOut().subscribe((res) => {
@@ -282,7 +283,7 @@ export class LandingHomeComponent implements OnInit, AfterViewInit {
                 });
             }
             if (res) {
-                this.danhmuc = this.nest(res.reverse())
+                this.danhmuc = this.nest(res)
                 this.danhmuc.sort((a,b)=>{
                     return a.Ordering - b.Ordering
                 })
