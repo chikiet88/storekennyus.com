@@ -27,7 +27,7 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
 
     constructor(
         private _homeService: HomeService,
-        private _uploadService: FileUploadService
+        private _uploadService: FileUploadService,
     ) {}
     cauhinh;
     callback(item) {
@@ -44,42 +44,10 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
         this.config = {
             loop: true,
             speed: 1000,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
         };
         this._homeService.cauhinh$.pipe(take(1)).subscribe((res) => {
-            console.log(res[0].data.imageCarousel);
             if (res) {
-                for (
-                    let i = 0, p = Promise.resolve();
-                    i < Object.keys(res[0].data.imageCarousel).length;
-                    i++
-                ) {
-                    p = p.then(() =>
-                        this.callback(
-                            Object.values(res[0].data.imageCarousel)[i]
-                        ).then((x) => {
-                            this.listimage.push(x);
-                            console.log(this.listimage);
-                        })
-                    );
-                }
-                for (
-                    let i = 0, p = Promise.resolve();
-                    i < Object.keys(res[0].data.imageCarouselMobile).length;
-                    i++
-                ) {
-                    p = p.then(() =>
-                        this.callback(
-                            Object.values(res[0].data.imageCarouselMobile)[i]
-                        ).then((x) => {
-                            this.listimageMobile.push(x);
-                            console.log(this.listimageMobile);
-                        })
-                    );
-                }
+                this.cauhinh = res[0]
             }
         });
     }
@@ -106,6 +74,7 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
         //     });
     }
     ngAfterViewInit(): void {
+        
         gsap.from('.image-1', {
             x: 200,
             duration: 1,
@@ -127,5 +96,34 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
             opacity: 0,
             ease: 'bounce',
         });
+        setTimeout(() => {
+            for (
+                let i = 0, p = Promise.resolve();
+                i < Object.keys(this.cauhinh.data.imageCarousel).length;
+                i++
+            ) {
+                p = p.then(() =>
+                    this.callback(
+                        Object.values(this.cauhinh.data.imageCarousel)[i]
+                    ).then((x) => {
+                        this.listimage.push(x);
+                    })
+                );
+            }
+            for (
+                let i = 0, p = Promise.resolve();
+                i < Object.keys(this.cauhinh.data.imageCarouselMobile).length;
+                i++
+            ) {
+                p = p.then(() =>
+                    this.callback(
+                        Object.values(this.cauhinh.data.imageCarouselMobile)[i]
+                    ).then((x) => {
+                        this.listimageMobile.push(x);
+                        console.log(this.listimageMobile);
+                    })
+                );
+            }
+        }, 4500);
     }
 }

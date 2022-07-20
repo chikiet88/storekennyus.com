@@ -9,7 +9,7 @@
                         >
                             <div class="md:w-1/2 w-full mb-3">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-first-name"
                                 >
                                     Title
@@ -26,7 +26,7 @@
                             </div>
                             <div class="md:w-1/2 w-full mb-3 md:ml-3">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-first-name"
                                 >
                                     Phone
@@ -48,7 +48,7 @@
                         >
                             <div class="md:w-1/2 w-full mb-3 md:mr-3">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-first-name"
                                 >
                                     Email
@@ -65,7 +65,7 @@
                             </div>
                             <div class="md:w-1/2 w-full mb-3 md:ml-3">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-first-name"
                                 >
                                     Fanpage Facebook
@@ -85,7 +85,7 @@
                         <div class="flex flex-wrap mb-3">
                             <div class="w-full">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-password"
                                 >
                                     Address
@@ -102,7 +102,7 @@
                         <div class="flex flex-wrap mb-3">
                             <div class="w-full mb-3">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-first-name"
                                 >
                                     Iframe Địa chỉ
@@ -142,7 +142,7 @@
                             </mat-form-field>
                             <div class="w-full mb-3 md:ml-10 ml-0">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-first-name"
                                 >
                                     Upload Banner Flash Sale
@@ -195,12 +195,428 @@
                 ></mat-tab>
                 <mat-tab label="Trang Chủ">
                     <div>
+                        <div class="mb-6 border-b border-black">
+                            <div class="w-full">
+                                <label
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
+                                    for="grid-first-name"
+                                >
+                                    Tiêu đề sản phẩm Carousel
+                                </label>
+                                <ckeditor
+                                    class="h-56"
+                                    [editor]="Editor"
+                                    #editer
+                                    [config]="config"
+                                    [formControlName]="'textProduct'"
+                                ></ckeditor>
+                                <ckeditor
+                                    class="h-56"
+                                    [editor]="Editor"
+                                    #editer
+                                    [config]="config"
+                                    [formControlName]="'textSale'"
+                                ></ckeditor>
+                                <div class="w-full mb-3">
+                                    <label
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
+                                        for="grid-first-name"
+                                    >
+                                        Link Carousel
+                                    </label>
+                                    <input
+                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                        id="grid-first-name"
+                                        type="text"
+                                        placeholder="Link sản phẩm"
+                                        [formControlName]="'slugAnimation'"
+                                        name="Link"
+                                    />
+                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                </div>
+                            </div>
+                           
+                            <div class="flex justify-between">
+                                <div class="w-full mb-3">
+                                    <label
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
+                                        for="grid-first-name"
+                                    >
+                                        Upload hình carousel Desktop
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="file"
+                                            class="text-nowrap text-truncate"
+                                            (change)="selectFile($event)"
+                                        />
+                                    </label>
+                                    <button
+                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                        [disabled]="!selectedFiles"
+                                        (click)="uploadbanner(7)"
+                                    >
+                                        Upload Carousel
+                                    </button>
+                                    <div
+                                        *ngIf="currentFileUpload"
+                                        class="progress mt-2"
+                                    >
+                                        <div
+                                            class="progress-bar progress-bar-info"
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{
+                                                percentage
+                                            }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            [ngStyle]="{
+                                                width: percentage + '%'
+                                            }"
+                                        >
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="card w-full mt-5"
+                                        *ngIf="thumbAnimation1"
+                                    >
+                                        <div class="card-header">
+                                            Image Upload
+                                        </div>
+                                        <ul
+                                            class="list-group list-group-flush"
+                                        >
+                                            <li class="list-group-item">
+                                                <img
+                                                    src="{{ thumbAnimation1 }}"
+                                                    class="w-20 h-20"
+                                                    alt=""
+                                                />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                </div>
+                                <div class="w-full mb-3">
+                                    <label
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
+                                        for="grid-first-name"
+                                    >
+                                        Upload Carousel hình Mobile
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="file"
+                                            class="text-nowrap text-truncate"
+                                            (change)="selectFile($event)"
+                                        />
+                                    </label>
+                                    <button
+                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                        [disabled]="!selectedFiles"
+                                        (click)="uploadbannerMobile(7)"
+                                    >
+                                        Upload Carousel
+                                    </button>
+                                    <div
+                                        *ngIf="currentFileUpload"
+                                        class="progress mt-2"
+                                    >
+                                        <div
+                                            class="progress-bar progress-bar-info"
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{
+                                                percentage
+                                            }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            [ngStyle]="{
+                                                width: percentage + '%'
+                                            }"
+                                        >
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="card w-full mt-5"
+                                        *ngIf="thumbAnimatiomobile1"
+                                    >
+                                        <div class="card-header">
+                                            Image Upload
+                                        </div>
+                                        <ul
+                                            class="list-group list-group-flush"
+                                        >
+                                            <li class="list-group-item">
+                                                <img
+                                                    src="{{ thumbAnimatiomobile1 }}"
+                                                    class="w-20 h-20"
+                                                    alt=""
+                                                />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <div class="w-full mb-3">
+                                    <label
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
+                                        for="grid-first-name"
+                                    >
+                                        Upload hình carousel Desktop
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="file"
+                                            class="text-nowrap text-truncate"
+                                            (change)="selectFile($event)"
+                                        />
+                                    </label>
+                                    <button
+                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                        [disabled]="!selectedFiles"
+                                        (click)="uploadbanner(8)"
+                                    >
+                                        Upload Carousel
+                                    </button>
+                                    <div
+                                        *ngIf="currentFileUpload"
+                                        class="progress mt-2"
+                                    >
+                                        <div
+                                            class="progress-bar progress-bar-info"
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{
+                                                percentage
+                                            }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            [ngStyle]="{
+                                                width: percentage + '%'
+                                            }"
+                                        >
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="card w-full mt-5"
+                                        *ngIf="thumbAnimation2"
+                                    >
+                                        <div class="card-header">
+                                            Image Upload
+                                        </div>
+                                        <ul
+                                            class="list-group list-group-flush"
+                                        >
+                                            <li class="list-group-item">
+                                                <img
+                                                    src="{{ thumbAnimation2 }}"
+                                                    class="w-20 h-20"
+                                                    alt=""
+                                                />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                </div>
+                                <div class="w-full mb-3">
+                                    <label
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
+                                        for="grid-first-name"
+                                    >
+                                        Upload Carousel hình Mobile
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="file"
+                                            class="text-nowrap text-truncate"
+                                            (change)="selectFile($event)"
+                                        />
+                                    </label>
+                                    <button
+                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                        [disabled]="!selectedFiles"
+                                        (click)="uploadbannerMobile(8)"
+                                    >
+                                        Upload Carousel
+                                    </button>
+                                    <div
+                                        *ngIf="currentFileUpload"
+                                        class="progress mt-2"
+                                    >
+                                        <div
+                                            class="progress-bar progress-bar-info"
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{
+                                                percentage
+                                            }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            [ngStyle]="{
+                                                width: percentage + '%'
+                                            }"
+                                        >
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="card w-full mt-5"
+                                        *ngIf="thumbAnimatiomobile2"
+                                    >
+                                        <div class="card-header">
+                                            Image Upload
+                                        </div>
+                                        <ul
+                                            class="list-group list-group-flush"
+                                        >
+                                            <li class="list-group-item">
+                                                <img
+                                                    src="{{ thumbAnimatiomobile2 }}"
+                                                    class="w-20 h-20"
+                                                    alt=""
+                                                />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <div class="w-full mb-3">
+                                    <label
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
+                                        for="grid-first-name"
+                                    >
+                                        Upload hình background Desktop
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="file"
+                                            class="text-nowrap text-truncate"
+                                            (change)="selectFile($event)"
+                                        />
+                                    </label>
+                                    <button
+                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                        [disabled]="!selectedFiles"
+                                        (click)="uploadbanner(9)"
+                                    >
+                                        Upload Carousel
+                                    </button>
+                                    <div
+                                        *ngIf="currentFileUpload"
+                                        class="progress mt-2"
+                                    >
+                                        <div
+                                            class="progress-bar progress-bar-info"
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{
+                                                percentage
+                                            }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            [ngStyle]="{
+                                                width: percentage + '%'
+                                            }"
+                                        >
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="card w-full mt-5"
+                                        *ngIf="backgroundAnimation"
+                                    >
+                                        <div class="card-header">
+                                            Image Upload
+                                        </div>
+                                        <ul
+                                            class="list-group list-group-flush"
+                                        >
+                                            <li class="list-group-item">
+                                                <img
+                                                    src="{{ backgroundAnimation }}"
+                                                    class="w-20 h-20"
+                                                    alt=""
+                                                />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                </div>
+                                <div class="w-full mb-3">
+                                    <label
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
+                                        for="grid-first-name"
+                                    >
+                                        Upload background hình Mobile
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="file"
+                                            class="text-nowrap text-truncate"
+                                            (change)="selectFile($event)"
+                                        />
+                                    </label>
+                                    <button
+                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                        [disabled]="!selectedFiles"
+                                        (click)="uploadbannerMobile(9)"
+                                    >
+                                        Upload Banner
+                                    </button>
+                                    <div
+                                        *ngIf="currentFileUpload"
+                                        class="progress mt-2"
+                                    >
+                                        <div
+                                            class="progress-bar progress-bar-info"
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{
+                                                percentage
+                                            }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            [ngStyle]="{
+                                                width: percentage + '%'
+                                            }"
+                                        >
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="card w-full mt-5"
+                                        *ngIf="backgroundAnimationMobile"
+                                    >
+                                        <div class="card-header">
+                                            Image Upload
+                                        </div>
+                                        <ul
+                                            class="list-group list-group-flush"
+                                        >
+                                            <li class="list-group-item">
+                                                <img
+                                                    src="{{ backgroundAnimationMobile }}"
+                                                    class="w-20 h-20"
+                                                    alt=""
+                                                />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                </div>
+                            </div>
+                        </div>
                         <div class="mb-6">
-                            <div class="flex mb-6">
-                                <div>
+                            <div
+                                class="flex lg:flex-row flex-col lg:justify-between mb-6"
+                            >
+                                <div class="w-1/2">
                                     <div class="w-full mb-3">
                                         <label
-                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
                                             for="grid-first-name"
                                         >
                                             Upload Carousel Hình Desktop
@@ -245,7 +661,9 @@
                                         <div class="card-header">
                                             Image Upload
                                         </div>
-                                        <ul class="grid grid-cols-5 gap-5">
+                                        <ul
+                                            class="grid md:grid-cols-5 grid-cols-2 gap-5"
+                                        >
                                             <li
                                                 class="list-group-item relative my-2"
                                                 *ngFor="
@@ -280,10 +698,10 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="w-1/2">
                                     <div class="w-full mb-3">
                                         <label
-                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
                                             for="grid-first-name"
                                         >
                                             Upload Carousel Hình Mobile
@@ -328,7 +746,9 @@
                                         <div class="card-header">
                                             Image Upload
                                         </div>
-                                        <ul class="grid grid-cols-5 gap-5">
+                                        <ul
+                                            class="grid md:grid-cols-5 grid-cols-2 gap-5"
+                                        >
                                             <li
                                                 class="list-group-item relative my-2"
                                                 *ngFor="
@@ -364,30 +784,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <!-- <div class="w-full ">
-                                <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                    for="grid-first-name"
-                                >
-                                    Link Carousel
-                                </label>
-                                <input
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    id="grid-first-name"
-                                    *ngFor="let item of listimage; let i = index"
-                                    type="text"
-                                    placeholder="Link Carousel"
-                                    name="Link"
-                                />
-                            </div> -->
-                            </div>
+                            <div></div>
                         </div>
-                        <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="mb-6 grid grid-cols-1 gap-5">
                             <div class="mb-5 border-b border-black">
                                 <div class="w-full">
                                     <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Tiêu đề sản phẩm banner 1
@@ -401,10 +804,10 @@
                                     ></ckeditor>
                                     <div class="w-full mb-3">
                                         <label
-                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
                                             for="grid-first-name"
                                         >
-                                            Link banner 1
+                                            Link banner
                                         </label>
                                         <input
                                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -432,129 +835,135 @@
                                     [cpOutputFormat]="'hex'"
                                     [cpPresetColors]="presetValues"
                                 />
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 1 Desktop
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbanner(1)"
-                                    >
-                                        Upload Banner 1
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                <div class="flex justify-between">
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
                                         >
-                                            {{ percentage }}%
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumb1"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
-                                        </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumb1 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-                                </div>
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 1 Mobile
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbannerMobile(1)"
-                                    >
-                                        Upload Banner 1
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                            Upload Banner hình Desktop
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbanner(1)"
                                         >
-                                            {{ percentage }}%
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumbmobile1"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumb1"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumb1 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumbmobile1 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
+                                        >
+                                            Upload Banner hình Mobile
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbannerMobile(1)"
+                                        >
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumbmobile1"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumbmobile1 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-5 border-b border-black">
                                 <div class="w-full">
                                     <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Tiêu đề sản phẩm banner 2
@@ -568,10 +977,10 @@
                                     ></ckeditor>
                                     <div class="w-full mb-3">
                                         <label
-                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
                                             for="grid-first-name"
                                         >
-                                            Link banner 2
+                                            Link banner
                                         </label>
                                         <input
                                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -599,129 +1008,135 @@
                                     [cpOutputFormat]="'hex'"
                                     [cpPresetColors]="presetValues"
                                 />
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 2 Desktop
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbanner(2)"
-                                    >
-                                        Upload Banner 2
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                <div class="flex justify-between">
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
                                         >
-                                            {{ percentage }}%
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumb2"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
-                                        </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumb2 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-                                </div>
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 2 Mobile
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbannerMobile(2)"
-                                    >
-                                        Upload Banner 2
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                            Upload Banner hình Desktop
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbanner(2)"
                                         >
-                                            {{ percentage }}%
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumbmobile2"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumb2"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumb2 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumbmobile2 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
+                                        >
+                                            Upload Banner hình Mobile
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbannerMobile(2)"
+                                        >
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumbmobile2"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumbmobile2 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-5 border-b border-black">
                                 <div class="w-full">
                                     <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Tiêu đề sản phẩm 3
@@ -735,10 +1150,10 @@
                                     ></ckeditor>
                                     <div class="w-full mb-3">
                                         <label
-                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
                                             for="grid-first-name"
                                         >
-                                            Link banner 3
+                                            Link banner
                                         </label>
                                         <input
                                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -766,129 +1181,135 @@
                                     [cpOutputFormat]="'hex'"
                                     [cpPresetColors]="presetValues"
                                 />
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 3 Desktop
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbanner(3)"
-                                    >
-                                        Upload Banner 3
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                <div class="flex justify-between">
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
                                         >
-                                            {{ percentage }}%
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumb3"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
-                                        </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumb3 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-                                </div>
-                                <div class="w-full">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 3 Mobile
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbannerMobile(3)"
-                                    >
-                                        Upload Banner 3
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                            Upload Banner hình Desktop
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbanner(3)"
                                         >
-                                            {{ percentage }}%
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumbmobile3"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumb3"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumb3 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumbmobile3 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    <div class="w-full">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
+                                        >
+                                            Upload Banner hình Mobile
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbannerMobile(3)"
+                                        >
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumbmobile3"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumbmobile3 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-5 border-b border-black">
                                 <div class="w-full mb-3 md:mb-0">
                                     <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Tiêu đề sản phẩm banner 4
@@ -902,10 +1323,10 @@
                                     ></ckeditor>
                                     <div class="w-full mb-3">
                                         <label
-                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
                                             for="grid-first-name"
                                         >
-                                            Link banner 4
+                                            Link banner
                                         </label>
                                         <input
                                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -933,129 +1354,135 @@
                                     [cpOutputFormat]="'hex'"
                                     [cpPresetColors]="presetValues"
                                 />
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 4 Desktop
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbanner(4)"
-                                    >
-                                        Upload Banner 4
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                <div class="flex justify-between">
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
                                         >
-                                            {{ percentage }}%
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumb4"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
-                                        </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumb4 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-                                </div>
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 4 Mobile
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbannerMobile(4)"
-                                    >
-                                        Upload Banner 4
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                            Upload Banner hình Desktop
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbanner(4)"
                                         >
-                                            {{ percentage }}%
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumbmobile4"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumb4"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumb4 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumbmobile4 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
+                                        >
+                                            Upload Banner hình Mobile
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbannerMobile(4)"
+                                        >
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumbmobile4"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumbmobile4 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-5 border-b">
                                 <div class="w-full">
                                     <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                        class="block tracking-wide text-gray-700 font-bold my-2"
                                         for="grid-first-name"
                                     >
                                         Tiêu đề sản phẩm banner 5
@@ -1069,10 +1496,10 @@
                                     ></ckeditor>
                                     <div class="w-full mb-3">
                                         <label
-                                            class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
                                             for="grid-first-name"
                                         >
-                                            Link banner 5
+                                            Link banner
                                         </label>
                                         <input
                                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -1100,130 +1527,136 @@
                                     [cpOutputFormat]="'hex'"
                                     [cpPresetColors]="presetValues"
                                 />
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 5 Desktop
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbanner(5)"
-                                    >
-                                        Upload Banner 5 Desktop
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                <div class="flex justify-between">
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
                                         >
-                                            {{ percentage }}%
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumb5"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
-                                        </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumb5 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-                                </div>
-                                <div class="w-full mb-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
-                                        for="grid-first-name"
-                                    >
-                                        Upload Banner hình 5 Mobile
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="file"
-                                            class="text-nowrap text-truncate"
-                                            (change)="selectFile($event)"
-                                        />
-                                    </label>
-                                    <button
-                                        class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
-                                        [disabled]="!selectedFiles"
-                                        (click)="uploadbannerMobile(5)"
-                                    >
-                                        Upload Banner 5
-                                    </button>
-                                    <div
-                                        *ngIf="currentFileUpload"
-                                        class="progress mt-2"
-                                    >
-                                        <div
-                                            class="progress-bar progress-bar-info"
-                                            role="progressbar"
-                                            attr.aria-valuenow="{{
-                                                percentage
-                                            }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                            [ngStyle]="{
-                                                width: percentage + '%'
-                                            }"
+                                            Upload Banner hình Desktop
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbanner(5)"
                                         >
-                                            {{ percentage }}%
+                                            Upload Banner Desktop
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        class="card w-full mt-5"
-                                        *ngIf="thumbmobile5"
-                                    >
-                                        <div class="card-header">
-                                            Image Upload
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumb5"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumb5 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <img
-                                                    src="{{ thumbmobile5 }}"
-                                                    class="w-20 h-20"
-                                                    alt=""
-                                                />
-                                            </li>
-                                        </ul>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                                     </div>
-                                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    <div class="w-full mb-3">
+                                        <label
+                                            class="block tracking-wide text-gray-700 font-bold my-2"
+                                            for="grid-first-name"
+                                        >
+                                            Upload Banner hình Mobile
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="file"
+                                                class="text-nowrap text-truncate"
+                                                (change)="selectFile($event)"
+                                            />
+                                        </label>
+                                        <button
+                                            class="px-3 py-1 bg-green-500 rounded-lg md:mx-10 my-2 text-white"
+                                            [disabled]="!selectedFiles"
+                                            (click)="uploadbannerMobile(5)"
+                                        >
+                                            Upload Banner
+                                        </button>
+                                        <div
+                                            *ngIf="currentFileUpload"
+                                            class="progress mt-2"
+                                        >
+                                            <div
+                                                class="progress-bar progress-bar-info"
+                                                role="progressbar"
+                                                attr.aria-valuenow="{{
+                                                    percentage
+                                                }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                [ngStyle]="{
+                                                    width: percentage + '%'
+                                                }"
+                                            >
+                                                {{ percentage }}%
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="card w-full mt-5"
+                                            *ngIf="thumbmobile5"
+                                        >
+                                            <div class="card-header">
+                                                Image Upload
+                                            </div>
+                                            <ul
+                                                class="list-group list-group-flush"
+                                            >
+                                                <li class="list-group-item">
+                                                    <img
+                                                        src="{{ thumbmobile5 }}"
+                                                        class="w-20 h-20"
+                                                        alt=""
+                                                    />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="flex mb-6">
                             <div class="w-full">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-password"
                                 >
                                     Combo ưu đãi
@@ -1241,7 +1674,7 @@
                         <div class="flex mb-6">
                             <div class="w-full">
                                 <label
-                                    class="block uppercase tracking-wide text-gray-700 text-lg font-bold my-2"
+                                    class="block tracking-wide text-gray-700 font-bold my-2"
                                     for="grid-password"
                                 >
                                     Tags
@@ -1261,7 +1694,7 @@
 
         <button
             type="update"
-            class="px-3 md:ml-5  py-1 bg-blue-500 rounded-lg mr-10 text-white"
+            class="px-3 md:ml-5 py-1 bg-blue-500 rounded-lg mr-10 text-white"
             (click)="updateCauhinh()"
         >
             Cập nhật

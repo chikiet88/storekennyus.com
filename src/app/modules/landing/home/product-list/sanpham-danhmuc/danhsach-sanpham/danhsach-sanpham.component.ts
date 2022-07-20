@@ -19,7 +19,7 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
     tempProductSplice = [];
     productDM: any[];
     isChecked = false;
-    productCard
+    productCard;
     productPriceFilter;
     thuonghieuFilter;
     constructor(
@@ -31,12 +31,13 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
         this._productService.priceChange$.subscribe(
             (res) => (this.productPriceFilter = res)
         );
-        this._productService.thuonghieu$.subscribe(
-            (res) => {
-                (this.thuonghieuFilter = res)
-            }
-        );
+        this._productService.thuonghieu$.subscribe((res) => {
+            this.thuonghieuFilter = res;
+            console.log(res);
+            
+        });
         let temp;
+
         this._productService.products$.subscribe((res) => {
             if (res) {
                 temp = res.filter((x) => x.idDM == this.danhmucdetail);
@@ -69,9 +70,10 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
                 this.splceArr(arr);
             }
         } else if (
-            this.thuonghieuFilter != null &&
+            this.thuonghieuFilter != null  &&
             this.productPriceFilter == null
         ) {
+            
             let arr = [];
             temp.filter((x) => {
                 for (const [key, value] of Object.entries(
@@ -87,14 +89,19 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
         }
     }
     ngOnInit(): void {
-        
         // this.route.params.subscribe((data) => (this.danhmucdetail = data.id));
-        this._productService.danhmucdetail$.subscribe((res) => {
-            this.danhmucdetail = res.id;
+        this._productService.danhmucdetail$.subscribe((data) => {
+            this.danhmucdetail = data.id;
+            this._productService.getProduct().subscribe();
+
             this._productService.products$.pipe(take(1)).subscribe((res) => {
                 if (res) {
-                    let productCard = res?.filter(x=> x.Type == 'danhmucnoibat')
-                    this.productCard = productCard.sort(() => 0.5 - Math.random())
+                    let productCard = res?.filter(
+                        (x) => x.Type == 'danhmucnoibat'
+                    );
+                    this.productCard = productCard.sort(
+                        () => 0.5 - Math.random()
+                    );
                     this.tempProductSplice = [];
                     this.products = res.filter(
                         (x) => x.idDM == this.danhmucdetail
@@ -158,7 +165,6 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
     }
     paginateNumber(i) {
         this.indexPaginate = i;
-
 
         if (i == -1) {
             i = this.tempProductSplice.length - 1;

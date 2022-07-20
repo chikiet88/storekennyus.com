@@ -38,7 +38,8 @@ export class ProductPopularComponent implements OnInit {
         }
         this._productService.danhmuc$.pipe(take(1)).subscribe((res) => {
           
-           if(this.item.Tags){
+            if (this.item.Tags != null) {
+
             if(Object.keys(this.item.Tags)?.length != 0 ){
               for (const [key, value] of Object.entries(this.item.Tags)) {
                 if (res) {

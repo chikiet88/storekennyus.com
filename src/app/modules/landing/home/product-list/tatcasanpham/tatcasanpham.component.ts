@@ -40,6 +40,7 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
             (res) => (this.thuonghieuFilter = res)
         );
         let temp;
+
         this._productService.products$.subscribe((res) => {
             if (res) {
                 temp = res;
@@ -88,10 +89,11 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
 
             this.splceArr(arr);
         }
+        
     }
     ngOnInit(): void {
         // this.route.params.subscribe((data) => (this.danhmucdetail = data.id));
-
+        this._productService.getProduct().subscribe();
         this._productService.products$.pipe(take(1)).subscribe((res) => {
             if (res) {
                 let productCard = res?.filter((x) => x.Type == 'danhmucnoibat');
@@ -105,7 +107,10 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
                     );
                     localStorage.setItem('thuonghieu', JSON.stringify(''));
                 } else {
-                    this.products = res;
+                    this.products = res
+                    console.log(res);
+                    
+                    this.tempAllProducts = res;
                 }
 
                 let x = this.products?.length / 12;

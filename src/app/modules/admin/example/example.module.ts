@@ -17,6 +17,7 @@ import { DonhangComponent } from './donhang/donhang.component';
 import { DonhangDetailComponent } from './donhang-detail/donhang-detail.component';
 import { CauhinhComponent } from './cauhinh/cauhinh.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { UserComponent } from './user/user.component';
 
 const exampleRoutes: Route[] = [
     {
@@ -39,6 +40,8 @@ const exampleRoutes: Route[] = [
             { path: 'menu', component: MenuComponent },
   
             { path: 'cauhinh', component: CauhinhComponent },
+            { path: 'users', component: UserComponent },
+
 
         ],
     },
@@ -57,7 +60,8 @@ const exampleRoutes: Route[] = [
         ThemeComponent,
         DonhangComponent,
         DonhangDetailComponent,
-        CauhinhComponent
+        CauhinhComponent,
+        UserComponent
     ],
     providers: [
         {

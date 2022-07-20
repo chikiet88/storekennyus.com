@@ -148,7 +148,7 @@ export class SanphamComponent implements OnInit {
         this.chipsnhan = this.chipsnhan.filter((x) => x.id != item.id);
     }
     selectProduct(item) {
-        console.log(item);
+        this.resetForm()
 
         this.listimage = [];
         this.isSelectProduct = true;
@@ -508,6 +508,8 @@ export class SanphamComponent implements OnInit {
         this.productList.removeControl('id');
         this.listkey = {};
         this.listimage = [];
+        this.Tags={}
+        this.chipsnhan = []
     }
 
     ngOnInit(): void {
@@ -537,7 +539,7 @@ export class SanphamComponent implements OnInit {
 
             if (res) {
                 this.products = res;
-                this.dataSource = new MatTableDataSource(res);
+                this.dataSource = new MatTableDataSource(res.reverse());
             }
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

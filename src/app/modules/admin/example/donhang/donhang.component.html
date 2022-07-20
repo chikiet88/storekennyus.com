@@ -81,7 +81,7 @@
     </mat-drawer>
 
     <mat-drawer-content class="w-full">
-        <div class="example-sidenav-content flex flex-col w-full">
+        <div class="example-sidenav-content flex flex-col w-full overflow-auto">
             <mat-form-field appearance="standard" class="px-5">
                 <mat-label>Tìm Kiếm</mat-label>
                 <input matInput (keyup)="applyFilter($event)" #input />

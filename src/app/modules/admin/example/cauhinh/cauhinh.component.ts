@@ -36,6 +36,14 @@ export class CauhinhComponent implements OnInit {
     isUpdate = false;
     hexColor;
     percentage;
+    thumbAnimation1;
+    thumbAnimation2;
+    thumbAnimatiomobile1;
+    thumbAnimatiomobile2;
+    backgroundAnimation;
+    backgroundAnimationMobile;
+
+
     thumb1;
     thumb2;
     thumb3;
@@ -49,19 +57,17 @@ export class CauhinhComponent implements OnInit {
     thumbmobile4;
     thumbmobile5;
 
-    Color1 
-    Color2 
-    Color3
-    Color4
-    Color5  
+    Color1;
+    Color2;
+    Color3;
+    Color4;
+    Color5;
 
-    Linkbanner1
-    Linkbanner2
-    Linkbanner3
-    Linkbanner4
-    Linkbanner5
-
-
+    Linkbanner1;
+    Linkbanner2;
+    Linkbanner3;
+    Linkbanner4;
+    Linkbanner5;
 
     isupdateListImage = false;
     listkey: any = {};
@@ -126,8 +132,8 @@ export class CauhinhComponent implements OnInit {
         public vcRef: ViewContainerRef,
         private cpService: ColorPickerService,
         notifierService: NotifierService // private _notifierService: NotifierService
-        ) {
-            this.notifier = notifierService;
+    ) {
+        this.notifier = notifierService;
     }
     uploadbanner(i): void {
         this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
@@ -155,6 +161,20 @@ export class CauhinhComponent implements OnInit {
                 this.cauhinhList.get('data.Imageflashsale').setValue(x.url);
                 this.thumb6 = x.url;
             }
+            if (i == 7) {
+                this.cauhinhList.get('data.imageAnimation1').setValue(x.url);
+                this.thumbAnimation1= x.url;
+                
+            }
+            if (i == 8) {
+                this.cauhinhList.get('data.imageAnimation2').setValue(x.url);
+                this.thumbAnimation2 = x.url;
+            }
+            if (i == 9) {
+                this.cauhinhList.get('data.backgroundAnimation').setValue(x.url);
+                this.backgroundAnimation = x.url;
+            }
+
         });
         return;
     }
@@ -181,10 +201,23 @@ export class CauhinhComponent implements OnInit {
                 this.thumbmobile5 = x.url;
             }
            
+            if (i == 7) {
+                this.cauhinhList.get('data.imageAnimationMobile1').setValue(x.url);
+                this.thumbAnimatiomobile1 = x.url;
+            }
+           
+            if (i == 8) {
+                this.cauhinhList.get('data.imageAnimationMobile2').setValue(x.url);
+                this.thumbAnimatiomobile2 = x.url;
+            }
+            if (i == 9) {
+                this.cauhinhList.get('data.backgroundAnimationMobile').setValue(x.url);
+                this.backgroundAnimationMobile = x.url;
+            }
         });
         return;
     }
-    handleChange(event,i){
+    handleChange(event, i) {
         if (i == 1) {
             this.cauhinhList.get('data.Color1').setValue(event);
         }
@@ -200,7 +233,6 @@ export class CauhinhComponent implements OnInit {
         if (i == 5) {
             this.cauhinhList.get('data.Color5').setValue(event);
         }
-        
     }
     getColorValues() {
         return this.colorList.map((c) => c.value);
@@ -232,7 +264,7 @@ export class CauhinhComponent implements OnInit {
         return '';
     }
     upload(): void {
-        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+        this.callback1(this.selectedFiles.item(0), 1).then((x: any) => {
             let max = 0;
             for (const [key, value] of Object.entries(this.listkey)) {
                 if (Number(key) > max) {
@@ -250,16 +282,10 @@ export class CauhinhComponent implements OnInit {
                 .getValueByKey(x.key)
                 .pipe(take(1))
                 .subscribe((res) => {
-                    console.log(x.key);
-                    
-                    console.log(res);
-
                     this.listimage.push({
                         ...res,
                         2: keydetail,
                     });
-                    console.log(this.listimage);
-
                     this.isupdateListImage = true;
                 });
         });
@@ -267,7 +293,7 @@ export class CauhinhComponent implements OnInit {
     }
 
     uploadMobile(): void {
-        this.callback(this.selectedFiles.item(0), 1).then((x: any) => {
+        this.callback1(this.selectedFiles.item(0), 1).then((x: any) => {
             let max = 0;
 
             for (const [key, value] of Object.entries(this.listkeyMobile)) {
@@ -289,25 +315,23 @@ export class CauhinhComponent implements OnInit {
                 .getValueByKey(x.key)
                 .pipe(take(1))
                 .subscribe((res) => {
-
                     this.listimageMobile.push({
                         ...res,
                         2: keydetail,
                     });
-
                 });
         });
         return;
     }
 
     updateCauhinh() {
-        console.log(this.listkey);
-
         if (this.listimage.length > 0) {
             this.cauhinhList.get('data.imageCarousel').setValue(this.listkey);
         }
         if (this.listimageMobile.length > 0) {
-            this.cauhinhList.get('data.imageCarouselMobile').setValue(this.listkeyMobile);
+            this.cauhinhList
+                .get('data.imageCarouselMobile')
+                .setValue(this.listkeyMobile);
         }
         this.cauhinhService
             .updateCauhinh(this.cauhinhList.value)
@@ -317,13 +341,8 @@ export class CauhinhComponent implements OnInit {
                 this.idSelect = false;
                 this.listimage = [];
                 this.listimageMobile = [];
-
             });
-        // this.listKeyRemove.forEach((x) => {
-        //     this.uploadService.deleteFile(x);
-        // });
         this.listImageCarousel = {};
-
     }
     deleteImageFirebase(item, i) {
         this.uploadService.deleteFile(item[2]);
@@ -333,9 +352,6 @@ export class CauhinhComponent implements OnInit {
                 delete this.listkey[index];
             }
         }
-        console.log(this.listkey);
-        
-
         this.listimage = this.listimage.filter((x) => x[2] != item[2]);
     }
     deleteImageFirebaseMobile(item, i) {
@@ -347,9 +363,57 @@ export class CauhinhComponent implements OnInit {
             }
         }
 
-        this.listimageMobile = this.listimageMobile.filter((x) => x[2] != item[2]);
+        this.listimageMobile = this.listimageMobile.filter(
+            (x) => x[2] != item[2]
+        );
     }
+    callback1(item, i) {
+        return new Promise((resolve, reject) => {
+            const file: File | null = item;
 
+            this.currentFileUpload = new FileUpload(file);
+            this.uploadService
+                .pushFileToStorage(this.currentFileUpload)
+                .subscribe(
+                    (percentage) => {
+                        this.percentage = Math.round(
+                            percentage ? percentage : 0
+                        );
+
+                        if (percentage == 100) {
+                            setTimeout(() => {
+                                this.uploadService
+                                    .getFiles(1) //lấy file  chứa key từ firebase về
+                                    .snapshotChanges()
+                                    .pipe(
+                                        map((changes) =>
+                                            // store the key
+                                            changes.map((c) => ({
+                                                key: c.payload.key,
+                                                ...c.payload.val(),
+                                            }))
+                                        )
+                                    )
+                                    .subscribe((fileUploads) => {
+                                        if (fileUploads[0]?.key) {
+                                            fileUploads = fileUploads.reverse();
+                                            resolve(fileUploads[0]);
+                                        }
+                                    });
+                            }, 3000);
+                        }
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+            // if (this.percentage == 100) {
+            //     resolve(this.percentage);
+            // } else {
+            //     reject('sss');
+            // }
+        });
+    }
     callback(item, i) {
         return new Promise((resolve, reject) => {
             const file: File | null = item;
@@ -369,7 +433,6 @@ export class CauhinhComponent implements OnInit {
                                     .getFiles(1) //lấy file  chứa key từ firebase về
                                     .snapshotChanges()
                                     .pipe(
-                                       
                                         map((changes) =>
                                             // store the key
                                             changes.map((c) => ({
@@ -380,13 +443,11 @@ export class CauhinhComponent implements OnInit {
                                     )
                                     .subscribe((fileUploads) => {
                                         if (fileUploads[0]?.key) {
-                                            console.log(fileUploads[0]?.key);
-                                            
                                             fileUploads = fileUploads.reverse();
                                             resolve(fileUploads[0]);
                                         }
                                     });
-                            }, 5000);
+                            }, 1000);
                         }
                     },
                     (error) => {
@@ -440,17 +501,60 @@ export class CauhinhComponent implements OnInit {
         this.cauhinhList.get('data.Tieude4').setValue(item.data.Tieude4);
         this.cauhinhList.get('data.Tieude5').setValue(item.data.Tieude5);
 
+        this.cauhinhList
+            .get('data.imageAnimation1')
+            .setValue(item.data.imageAnimation1 || '');
+        this.cauhinhList
+            .get('data.imageAnimationMobile1')
+            .setValue(item.data.imageAnimatinMobile1 || '');
+        this.cauhinhList
+            .get('data.imageAnimation2')
+            .setValue(item.data.imageAnimation2 || '');
+        this.cauhinhList
+            .get('data.imageAnimationMobile2')
+            .setValue(item.data.imageAnimationMobile2 || '');
+        this.cauhinhList
+            .get('data.slugAnimation')
+            .setValue(item.data.slugAnimation || '');
+        this.cauhinhList
+            .get('data.backgroundAnimation')
+            .setValue(item.data.backgroundAnimation || '');
+            this.cauhinhList
+            .get('data.backgroundAnimationMobile')
+            .setValue(item.data.backgroundAnimationMobile || '');
+        this.cauhinhList.get('data.textSale').setValue(item.data.textSale || '');
+        this.cauhinhList
+            .get('data.textProduct')
+            .setValue(item.data.textProduct || '');
+
+            this.thumbAnimation1 = item.data.imageAnimation1;
+            this.thumbAnimation2 = item.data.imageAnimation2;
+            this.thumbAnimatiomobile1= item.data.imageAnimationMobile1;
+            this.thumbAnimatiomobile2 = item.data.imageAnimationMobile2;
+            this.backgroundAnimation = item.data.backgroundAnimation;
+            this.backgroundAnimationMobile = item.data.backgroundAnimationMobile;
+
         this.cauhinhList.get('data.Image1').setValue(item.data.Image1);
         this.cauhinhList.get('data.Image2').setValue(item.data.Image2);
         this.cauhinhList.get('data.Image3').setValue(item.data.Image3);
         this.cauhinhList.get('data.Image4').setValue(item.data.Image4);
         this.cauhinhList.get('data.Image5').setValue(item.data.Image5);
 
-        this.cauhinhList.get('data.Imagemobile1').setValue(item.data.Imagemobile1);
-        this.cauhinhList.get('data.Imagemobile2').setValue(item.data.Imagemobile2);
-        this.cauhinhList.get('data.Imagemobile3').setValue(item.data.Imagemobile3);
-        this.cauhinhList.get('data.Imagemobile4').setValue(item.data.Imagemobile4);
-        this.cauhinhList.get('data.Imagemobile5').setValue(item.data.Imagemobile5);
+        this.cauhinhList
+            .get('data.Imagemobile1')
+            .setValue(item.data.Imagemobile1);
+        this.cauhinhList
+            .get('data.Imagemobile2')
+            .setValue(item.data.Imagemobile2);
+        this.cauhinhList
+            .get('data.Imagemobile3')
+            .setValue(item.data.Imagemobile3);
+        this.cauhinhList
+            .get('data.Imagemobile4')
+            .setValue(item.data.Imagemobile4);
+        this.cauhinhList
+            .get('data.Imagemobile5')
+            .setValue(item.data.Imagemobile5);
 
         this.cauhinhList.get('data.slug1').setValue(item.data.slug1);
         this.cauhinhList.get('data.slug2').setValue(item.data.slug2);
@@ -470,11 +574,10 @@ export class CauhinhComponent implements OnInit {
         this.cauhinhList.get('data.Link4').setValue(item.data.Link4);
         this.cauhinhList.get('data.Link5').setValue(item.data.Link5);
 
-        this.cauhinhList.get('data.bannerCombo').setValue(item.data.bannerCombo);
+        this.cauhinhList
+            .get('data.bannerCombo')
+            .setValue(item.data.bannerCombo);
         this.cauhinhList.get('data.Tags').setValue(item.data.Tags);
-
-
-
 
         this.cauhinhList
             .get('data.Imageflashsale')
@@ -493,12 +596,11 @@ export class CauhinhComponent implements OnInit {
         this.thumbmobile4 = item.data.Imagemobile4;
         this.thumbmobile5 = item.data.Imagemobile5;
 
-        this.Color1 = item.data.Color1 || '#e45a33'
-        this.Color2 = item.data.Color2 || '#e45a33'
-        this.Color3 = item.data.Color3 || '#e45a33'
-        this.Color4 = item.data.Color4 || '#e45a33'
-        this.Color5 = item.data.Color5 || '#e45a33'
-
+        this.Color1 = item.data.Color1 || '#e45a33';
+        this.Color2 = item.data.Color2 || '#e45a33';
+        this.Color3 = item.data.Color3 || '#e45a33';
+        this.Color4 = item.data.Color4 || '#e45a33';
+        this.Color5 = item.data.Color5 || '#e45a33';
 
         if (item.data.imageCarousel) {
             this.cauhinhList
@@ -507,7 +609,7 @@ export class CauhinhComponent implements OnInit {
         }
         this.idSelect = true;
         this.listkey = item.data.imageCarousel || {};
-this.listkeyMobile = item.data.imageCarouselMobile || {}
+        this.listkeyMobile = item.data.imageCarouselMobile || {};
         if (Object.keys(item.data.imageCarousel).length > 0) {
             this.isupdateListImage = true;
 
@@ -572,49 +674,62 @@ this.listkeyMobile = item.data.imageCarouselMobile || {}
                 month: [0],
                 year: [0],
                 iframeAddress: [''],
+
+                imageAnimation1: [''],
+                imageAnimationMobile1: [''],
+                imageAnimation2: [''],
+                imageAnimationMobile2: [''],
+                slugAnimation: [''],
+                backgroundAnimation: [''],
+                backgroundAnimationMobile:[''],
+                textSale: [''],
+                textProduct: [''],
+
                 imageCarousel: [''],
                 imageCarouselMobile: [''],
-                imageCarouselLink:[''],
+                imageCarouselLink: [''],
                 Tieude1: [''],
                 Image1: [''],
                 Imagemobile1: [''],
                 slug1: [''],
                 Color1: [''],
-                Link1:[''],
+                Link1: [''],
 
                 Tieude2: [''],
                 Image2: [''],
                 Imagemobile2: [''],
                 slug2: [''],
                 Color2: [''],
-                Link2:[''],
+                Link2: [''],
 
                 Tieude3: [''],
                 Image3: [''],
                 Imagemobile3: [''],
                 slug3: [''],
                 Color3: [''],
-                Link3:[''],
+                Link3: [''],
 
                 Tieude4: [''],
                 Image4: [''],
                 Imagemobile4: [''],
                 slug4: [''],
                 Color4: [''],
-                Link4:[''],
+                Link4: [''],
 
                 Tieude5: [''],
                 Image5: [''],
                 Imagemobile5: [''],
                 slug5: [''],
                 Color5: [''],
-                Link5:[''],
+                Link5: [''],
 
                 Imageflashsale: [''],
-                bannerCombo:[''],
-                Tags:['']
+                bannerCombo: [''],
+                Tags: [''],
             }),
         });
+        this.listimage = [];
+        this.listimageMobile = [];
     }
     ngOnInit(): void {
         this.resetForm();

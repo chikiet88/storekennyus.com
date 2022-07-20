@@ -15,6 +15,13 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 max-height: 3.2rem;
 }
+.one-dot{
+max-width: 50px;
+overflow: hidden;
+display: -webkit-box; 
+-webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+}
 .rotate-line {
   height: 1px;
   background-color: #000;

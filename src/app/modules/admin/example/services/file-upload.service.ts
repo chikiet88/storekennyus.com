@@ -48,7 +48,7 @@ export class FileUploadService {
                 })
             )
             .subscribe();
-
+            
         return uploadTask.percentageChanges();
     }
     private saveFileData(fileUpload: FileUpload): void {

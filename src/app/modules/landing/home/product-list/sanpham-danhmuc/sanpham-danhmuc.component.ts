@@ -35,13 +35,13 @@ export class SanphamDanhmucComponent implements OnInit {
     temp: any[];
     isChecked = false;
     indexPaginate: number = 0;
-    arrcheckbox = {};
+    objectcheckbox = {};
     filterThuonghieu = [];
     tempAllProducts: any[] = [];
     tempDM: any[] = [];
-    productCard
+    productCard;
     min = 0;
-    max = 2000000 ;
+    max = 2000000;
     thumbLabel = true;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     valuePrice: number;
@@ -74,10 +74,9 @@ export class SanphamDanhmucComponent implements OnInit {
 
     thuonghieus: string[] = [];
     changePrice() {
-      console.log(this.valuePrice);
-      
+        console.log(this.valuePrice);
+
         this._productService.getPriceFilter(this.valuePrice).subscribe();
-        
     }
     productListtoggle(number) {
         this.productListhide = number;
@@ -113,20 +112,18 @@ export class SanphamDanhmucComponent implements OnInit {
     }
     checkboxThuonghieu(item, i) {
         let id = item.id;
+        let iskey = false;
+        if(this.objectcheckbox[id]){
+            delete this.objectcheckbox[id];
 
-        if (Object.keys(this.arrcheckbox).length > 0) {
-            for (const [key, value] of Object.entries(this.arrcheckbox)) {
-                if (key == id) {
-                    delete this.arrcheckbox[key];
-                } else {
-                    this.arrcheckbox[id] = true;
-                }
-            }
-        } else {
-            this.arrcheckbox[id] = true;
+        }else{
+            this.objectcheckbox[id] = true;
+            
         }
-
-        this._productService.getThuonghieuFilter(this.arrcheckbox).subscribe();
+       
+        this._productService
+            .getThuonghieuFilter(this.objectcheckbox)
+            .subscribe();
     }
 
     nest = (items, id = '', link = 'pid') =>
@@ -149,9 +146,9 @@ export class SanphamDanhmucComponent implements OnInit {
         this._thuonghieuService.thuonghieus$.subscribe(
             (res) => (this.thuonghieus = res)
         );
-        this._productService.products$.subscribe(res=>{
-            let productCard = res?.filter(x=> x.Type == 'danhmucnoibat')
-            this.productCard = productCard.sort(() => 0.5 - Math.random())
-        })
+        this._productService.products$.subscribe((res) => {
+            let productCard = res?.filter((x) => x.Type == 'danhmucnoibat');
+            this.productCard = productCard.sort(() => 0.5 - Math.random());
+        });
     }
 }

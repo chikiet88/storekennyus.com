@@ -35,7 +35,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     name = 'Angular ' + VERSION.major;
     isZoomed = false;
     pos = { top: 0, left: 0, x: 0, y: 0 };
-    sanphamdaxem: any[]
+    sanphamdaxem: any[];
     rating3;
     config1;
     config;
@@ -71,7 +71,8 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
         });
     }
     ngOnInit(): void {
-        this.sanphamdaxem = JSON.parse(localStorage.getItem("sanphamdaxem")) || [];
+        this.sanphamdaxem =
+            JSON.parse(localStorage.getItem('sanphamdaxem')) || [];
 
         this.config = {
             autoplay: {
@@ -82,12 +83,10 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                 320: {
                     slidesPerView: 2,
                     spaceBetween: 20,
-
                 },
                 760: {
                     slidesPerView: 2,
                     spaceBetween: 20,
-
                 },
                 982: {
                     slidesPerView: 1,
@@ -160,6 +159,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                             JSON.stringify([...arr, res])
                         );
                     }
+                    this._productService.getProduct().subscribe();
 
                     this._productService.products$.subscribe((res) => {
                         this.productSale = res.filter((x) => x.Trangthai == 1);
@@ -168,12 +168,14 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                                 x.idDM == this.product.idDM &&
                                 x.id != this.product.id
                         );
-                        let productCard = res?.filter(
-                            (x) => x.Type == 'danhmucnoibat'
-                        );
-                        this.productCard = productCard.sort(
-                            () => 0.5 - Math.random()
-                        );
+                        if (res) {
+                            let productCard = res?.filter(
+                                (x) => x.Type == 'danhmucnoibat'
+                            );
+                            this.productCard = productCard.sort(
+                                () => 0.5 - Math.random()
+                            );
+                        }
                     });
 
                     this._danhmucService.danhmucs$.subscribe((res) => {

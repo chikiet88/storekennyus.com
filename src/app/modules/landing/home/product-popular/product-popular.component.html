@@ -29,9 +29,9 @@
    </div>
 
   </div>
-  <div class="pt-5 w-full flex flex-col justify-between h-36">
-    <div class="text-blue-500  text-sm flex" >
-      <a  routerLink="/sanpham/{{tag.id}}" class="mr-1" *ngFor="let tag of item.TenDM">{{tag.Tieude}},</a>
+  <div class="pt-5 w-full flex flex-col justify-between ">
+    <div class="text-blue-500  text-xs flex flex-wrap" >
+      <span  routerLink="/sanpham/{{tag.id}}" class="mr-1 " *ngFor="let tag of item.TenDM">{{tag.Tieude}},</span>
     </div>
     <a
       class="font-bold text-purple-500 hover:text-blue-500 cursor-pointer three-dot" href="{{item?.Tieude}}"

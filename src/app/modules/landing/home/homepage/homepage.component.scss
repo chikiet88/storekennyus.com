@@ -40,6 +40,13 @@
 .text-image{
     font-size: 0.625rem;
 }
+.three-dot{
+    overflow: hidden;
+  display: -webkit-box; 
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 3.2rem;
+  }
 @media screen and (max-width: 767px) {
     .banner-homepage{
         height: 400px;
