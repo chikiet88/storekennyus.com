@@ -36,44 +36,36 @@
                 <form class="w-full" [formGroup]="baivietForm">
                     <div class="flex md:flex-row flex-col md:mb-4">
                         <div class="md:w-1/2 w-full md:mb-0 md:mr-3">
-                            <label
-                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-first-name"
-                            >
-                                Tiêu đề
-                            </label>
-                            <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-black rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                id="grid-first-name"
-                                type="text"
-                                placeholder="Bánh cho bé"
-                                [formControlName]="'title'"
-                                name="title"
-                            />
+                            <mat-form-field class="flex-auto w-full">
+                                <input
+                                    matInput
+                                    type="text"
+                                    placeholder="Bánh cho bé"
+                                    [formControlName]="'title'"
+                                    name="title"
+                                />
+                                <span matPrefix>Tiêu đề</span>
+                            </mat-form-field>
+                          
                         </div>
                         <div class="md:w-1/2 w-full md:ml-3 mb-4 md:mb-0">
-                            <label
-                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-first-name"
-                            >
-                                Slug
-                            </label>
-                            <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-black rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                id="grid-first-name"
-                                type="text"
-                                placeholder="san-pham-noi-bat"
-                                [formControlName]="'slug'"
-                                name="slug"
-                            />
+                            <mat-form-field class="flex-auto w-full">
+                                <input
+                                    matInput
+                                    type="text"
+                                    placeholder="san-pham-noi-bat"
+                                    [formControlName]="'slug'"
+                                    name="slug"
+                                />
+                                <span matPrefix>Slug</span>
+                            </mat-form-field>
                         </div>
                     </div>
 
                     <div class="md:flex justify-between md:mb-6">
                         <mat-form-field
-                            class="fuse-mat-emphasized-affix md:w-1/2 w-full md:mr-3 mb-4 md:mb-0"
+                            class="md:w-1/2 w-full md:mr-3 mb-4 md:mb-0"
                             style="height: 50px"
-                            appearance="fill"
                         >
                             <span matPrefix>Chọn theme</span>
                             <mat-select>
@@ -89,8 +81,7 @@
                         </mat-form-field>
                         <div class="md:w-1/2 w-full md:ml-3">
                             <mat-form-field
-                                class="fuse-mat-emphasized-affix w-full"
-                                appearance="fill"
+                                class="w-full"
                                 style="height: 50px"
                             >
                                 <span matPrefix>Chọn bài viết nổi bật</span>
@@ -110,7 +101,7 @@
                     class="flex md:flex-row flex-col justify-between w-full  mb-6"
                 >
                     <mat-form-field
-                        class="fuse-mat-emphasized-affix md:w-1/2 w-full md:mr-5  mb-6 md:mb-0"
+                        class="md:w-1/2 w-full md:mr-5  mb-6 md:mb-0"
                         appearance="fill"
                         style="height: 50px"
                     >
@@ -203,7 +194,7 @@
                                 class="flex md:flex-row flex-col items-center mt-3"
                             >
                                 <mat-form-field
-                                    class="fuse-mat-emphasized-affix md:w-1/2 w-full md:mr-3 mb-4 md:mb-0"
+                                    class="md:w-1/2 w-full md:mr-3 mb-4 md:mb-0"
                                     style="height: 50px"
                                     appearance="fill"
                                 >

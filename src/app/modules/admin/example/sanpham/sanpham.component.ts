@@ -170,7 +170,7 @@ export class SanphamComponent implements OnInit {
             .setValue(item.ContentImage.contentImage1);
         this.productList
             .get('ContentImage.contentImage2')
-            .setValue(item.ContentImage.contentImag2);
+            .setValue(item.ContentImage.contentImage2);
         this.productList
             .get('ContentImage.contentImage3')
             .setValue(item.ContentImage.contentImage3);

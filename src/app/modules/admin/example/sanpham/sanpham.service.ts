@@ -65,7 +65,7 @@ export class SanphamService {
                         courses[index] = data;
 
                         // Update the tags
-                        this._products.next(courses);
+                        this._products.next(courses.reverse());
 
                         // Return the updated tag
                         return updateCourse;

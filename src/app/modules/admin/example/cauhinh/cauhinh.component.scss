@@ -49,3 +49,29 @@
         }
     }
 }
+.trangchu{
+    .mat-tab-label.mat-tab-label-active {
+       
+        .mat-tab-label-content {
+            font-size: 0.875rem;
+        }
+    }
+    .mat-tab-label {
+        .mat-tab-label-content {
+            font-size: 0.875rem;
+        }
+    }
+    .mat-tab-group .mat-tab-body-content{
+        padding: inherit;
+    }
+    @media screen and (max-width: 468px) {
+        
+        .mat-tab-label {
+            .mat-tab-label-content {
+                font-size: 0.875rem !important;
+            }
+        }
+
+       
+    }
+}

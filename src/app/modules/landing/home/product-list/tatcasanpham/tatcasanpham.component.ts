@@ -32,7 +32,7 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
         private _productService: ProductListService
     ) {}
 
-    public ngDoCheck() {
+    ngDoCheck() {
         this._productService.priceChange$.subscribe(
             (res) => (this.productPriceFilter = res)
         );
@@ -41,7 +41,7 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
         );
         let temp;
 
-        this._productService.products$.subscribe((res) => {
+        this._productService.products$.pipe(take(1)).subscribe((res) => {
             if (res) {
                 temp = res;
             }
@@ -72,7 +72,13 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
                 let arr = temp.filter((x) => x.Gia <= this.productPriceFilter);
                 this.splceArr(arr);
             }
-        } else if (
+        }else if (
+            this.thuonghieuFilter != null &&
+            Object.keys(this.thuonghieuFilter).length == 0
+        ) {
+            this.splceArr(temp);
+        }
+         else if (
             this.thuonghieuFilter != null &&
             this.productPriceFilter == null
         ) {
@@ -108,8 +114,6 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
                     localStorage.setItem('thuonghieu', JSON.stringify(''));
                 } else {
                     this.products = res
-                    console.log(res);
-                    
                     this.tempAllProducts = res;
                 }
 

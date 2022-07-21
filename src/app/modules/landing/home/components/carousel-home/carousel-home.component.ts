@@ -74,7 +74,13 @@ export class CarouselHomeComponent implements OnInit, AfterViewInit, DoCheck {
         //     });
     }
     ngAfterViewInit(): void {
-        
+        gsap.from('.text-proudct', {
+            x: 200,
+            duration: 1,
+            delay: 1,
+            opacity: 0,
+            ease: 'bounce',
+        });
         gsap.from('.image-1', {
             x: 200,
             duration: 1,

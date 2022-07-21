@@ -506,7 +506,7 @@ export class CauhinhComponent implements OnInit {
             .setValue(item.data.imageAnimation1 || '');
         this.cauhinhList
             .get('data.imageAnimationMobile1')
-            .setValue(item.data.imageAnimatinMobile1 || '');
+            .setValue(item.data.imageAnimationMobile1 || '');
         this.cauhinhList
             .get('data.imageAnimation2')
             .setValue(item.data.imageAnimation2 || '');

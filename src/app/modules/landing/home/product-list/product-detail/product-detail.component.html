@@ -302,7 +302,7 @@
                 <div class="w-full bg-gray-200 rounded-xl">
                     <div class="p-5 flex flex-col md:flex-row lg:flex-col items-center justify-between">
                         <div class="w-full bg-gray-200">
-                            <img src="{{ productCard[0].Image }}" alt="" />
+                            <img src="{{ productCard[0]?.Image }}" alt="" />
                         </div>
                         <div
                             class="w-full h-1/2 flex flex-col items-center pt-5"
@@ -310,10 +310,10 @@
                             <p
                                 class="lg:text-2xl text-xl font-bold text-purple-500 text-center"
                             >
-                                {{ productCard[0].Tieude }}
+                                {{ productCard[0]?.Tieude }}
                             </p>
                             <div
-                                routerLink="../{{ productCard[0].id }}"
+                                routerLink="../{{ productCard[0]?.id }}"
                                 class="text-white text-center cursor-pointer font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
                             >
                                 Mua ngay
@@ -327,7 +327,7 @@
                 <div class="w-full bg-gray-200 rounded-xl">
                     <div class="p-5 flex flex-col md:flex-row lg:flex-col items-center justify-between">
                         <div class="w-full bg-gray-200">
-                            <img src="{{ productCard[1].Image }}" alt="" />
+                            <img src="{{ productCard[1]?.Image }}" alt="" />
                         </div>
                         <div
                             class="w-full h-1/2 flex flex-col items-center pt-5"
@@ -338,7 +338,7 @@
                                 {{ productCard[1].Tieude }}
                             </p>
                             <div
-                                routerLink="../{{ productCard[1].id }}"
+                                routerLink="../{{ productCard[1]?.id }}"
                                 class="text-white text-center cursor-pointer font-bold text-lg p-2 bg-orange-500 rounded-3xl w-28"
                             >
                                 Mua ngay

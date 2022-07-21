@@ -9,10 +9,10 @@
                 <span class="material-icons"> close </span>
             </button>
             <form class="w-full p-10 overflow-hidden" [formGroup]="productList">
-                <div class="flex overflow-hidden mb-6">
+                <div class="flex md:flex-row flex-col overflow-hidden mb-6">
 
                     <mat-form-field
-                        class="fuse-mat-emphasized-affix w-full lg:w-1/2 h-12"
+                        class=" w-full lg:w-1/2 h-12 md:mb-0 mb-6"
                         appearance="fill"
                     >
                         <span matPrefix>Danh mục sản phấm</span>
@@ -29,7 +29,7 @@
                     </mat-form-field>
 
                     <mat-form-field
-                        class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pl-3 h-12"
+                        class=" w-full lg:w-1/2 lg:pl-3 h-12"
                         appearance="fill"
                     >
                         <span matPrefix>Chọn thương hiệu</span>
@@ -48,62 +48,44 @@
                     </mat-form-field>
                 </div>
                 <div class="flex mb-3 lg:flex-row flex-col">
-                    <div class="lg:w-1/2 w-full mb-3 lg:mr-2 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            tên sản phẩm
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="DNA Sharyn"
-                            [formControlName]="'Tieude'"
-                            name="title"
-                        />
-                        <p class="text-red-500 text-xs italic">
-                            Please fill out this field.
-                        </p>
+                    <div class="lg:w-1/2 w-full mb-3  md:mb-0">
+                        <mat-form-field  class=" flex-auto w-full">
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="DNA Sharyn"
+                                [formControlName]="'Tieude'"
+                                name="title"
+                            />
+                            <span matPrefix>tên sản phẩm</span>
+                        </mat-form-field>
+                      
                     </div>
-                    <div class="lg:w-1/2 w-full mb-3 lg:ml-2 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            Giá tiền
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="number"
-                            placeholder="2000000"
-                            [formControlName]="'Gia'"
-                            name="number"
-                        />
-                        <p class="text-red-500 text-xs italic">
-                            Please fill out this field.
-                        </p>
+                    <div class="lg:w-1/2 w-full mb-3 lg:mx-3 md:mb-0">
+                        <mat-form-field class=" flex-auto w-full">
+                            <input
+                                matInput
+                                type="number"
+                                placeholder="2000000"
+                                [formControlName]="'Gia'"
+                                name="number"
+                            />
+                            <span matPrefix>Giá tiền</span>
+                        </mat-form-field>
+                        
                     </div>
-                    <div class="lg:w-1/2 w-full mb-3 lg:ml-2 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            Giá Sale
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="number"
-                            placeholder="2000000"
-                            [formControlName]="'GiaSale'"
-                            name="number"
-                        />
-                        <p class="text-red-500 text-xs italic">
-                            Please fill out this field.
-                        </p>
+                    <div class="lg:w-1/2 w-full mb-3  md:mb-0">
+                        <mat-form-field class=" flex-auto w-full">
+                            <input
+                                matInput
+                                type="number"
+                                placeholder="2000000"
+                                [formControlName]="'GiaSale'"
+                                name="number"
+                            />
+                            <span matPrefix>Giá Sale</span>
+                        </mat-form-field>
+                       
                     </div>
                 </div>
                 <div
@@ -111,52 +93,40 @@
                     [formGroupName]="'ContentImage'"
                 >
                     <div class="lg:w-1/3 w-full mb-3 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            nội dung hình ảnh 1
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
+                        <mat-form-field class=" flex-auto w-full">
+                            <input
+                                matInput
+                                type="text"
                             placeholder="dna-sharyn"
                             [formControlName]="'contentImage1'"
                             name="Slug"
-                        />
+                            />
+                            <span matPrefix>nội dung hình ảnh 1</span>
+                        </mat-form-field>
                     </div>
                     <div class="lg:w-1/3 w-full md:mx-3 mb-3 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            nội dung hình ảnh 2
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="dna-sharyn"
-                            [formControlName]="'contentImage2'"
-                            name="Slug"
-                        />
+                        <mat-form-field class="flex-auto w-full">
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="dna-sharyn"
+                                [formControlName]="'contentImage2'"
+                                name="Slug"
+                            />
+                            <span matPrefix>nội dung hình ảnh 2</span>
+                        </mat-form-field>
                     </div>
-                    <div class="lg:w-1/3 w-full lg:pr-3 mb-3 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            nội dung hình ảnh 3
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="dna-sharyn"
-                            [formControlName]="'contentImage2'"
-                            name="Slug"
-                        />
+                    <div class="lg:w-1/3 w-full  mb-3 md:mb-0">
+                        <mat-form-field class="flex-auto w-full">
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="dna-sharyn"
+                                [formControlName]="'contentImage3'"
+                                name="Slug"
+                            />
+                            <span matPrefix>nội dung hình ảnh 3</span>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="flex mb-6">
@@ -228,52 +198,41 @@
                 </div>
                 <div class="flex lg:flex-row flex-col pt-5">
                     <div class="lg:w-1/2 w-full lg:pr-3 mb-3 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            Slug
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="banh-an-dam"
-                            [formControlName]="'Slug'"
-                            name="Slug"
-                        />
+                        <mat-form-field class=" flex-auto w-full">
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="banh-an-dam"
+                                [formControlName]="'Slug'"
+                                name="Slug"
+                            />
+                            <span matPrefix>Slug</span>
+                        </mat-form-field>
+                      
                     </div>
                     <div class="lg:w-1/2 w-full lg:pr-3 mb-3 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            SKU
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="SKU"
-                            [formControlName]="'SKU'"
-                            name="SKU"
-                        />
+                        <mat-form-field class=" flex-auto w-full">
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="SKU"
+                                [formControlName]="'SKU'"
+                                name="SKU"
+                            />
+                            <span matPrefix>SKU</span>
+                        </mat-form-field>
                     </div>
                     <div class="lg:w-1/2 w-full lg:pl-3 mb-3 md:mb-0">
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            Khối lượng
-                        </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="dna-sharyn"
-                            [formControlName]="'Khoiluong'"
-                            name="Khoiluong"
-                        />
+                        <mat-form-field class=" flex-auto w-full">
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="dna-sharyn"
+                                [formControlName]="'Khoiluong'"
+                                name="Khoiluong"
+                            />
+                            <span matPrefix>Khối lượng</span>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="flex lg:flex-row flex-col pt-5">
@@ -302,7 +261,7 @@
                           </mat-chip-list>
                     </div>
                 </div>
-                <div class="flex pt-5">
+                <div class="flex md:flex-row flex-col pt-5">
                     <div class="w-full mb-3 md:mb-0 flex">
                         <div>Hình thumbnail</div>
                         <label>
@@ -410,7 +369,7 @@
                 </div>
                 <div class="flex lg:flex-row flex-col lg:pt-5">
                     <mat-form-field
-                        class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pr-3 h-12 mb-5 lg:mb-0"
+                        class=" w-full lg:w-1/2 lg:pr-3 h-12 mb-5 lg:mb-0"
                         appearance="fill"
                     >
                         <span matPrefix>Chọn trạng thái</span>
@@ -428,7 +387,7 @@
                     </mat-form-field>
 
                     <mat-form-field
-                        class="fuse-mat-emphasized-affix w-full lg:w-1/2 lg:pl-3 h-12"
+                        class=" w-full lg:w-1/2 lg:pl-3 h-12"
                         appearance="fill"
                     >
                         <span matPrefix>Chọn nơi hiển thị</span>
@@ -460,7 +419,7 @@
                     </button>
                     <button
                         type="update"
-                        class="px-3 py-1 bg-indigo-600 rounded-lg mx-10 text-white"
+                        class="px-3 py-1 bg-indigo-600 rounded-lg mr-10 text-white"
                         (click)="onUpdate()"
                         (click)="drawer.toggle()"
 
@@ -526,7 +485,7 @@
                             <th mat-header-cell *matHeaderCellDef>
                                 <input
                                     (keyup)="applyFilter($event)"
-                                    placeholder="Danh mục"
+                                    placeholder="Tìm kiếm theo danh mục"
                                     #input
                                 />
                             </th>
@@ -538,7 +497,7 @@
                             <th mat-header-cell *matHeaderCellDef>
                                 <input
                                     (keyup)="applyFilter($event)"
-                                    placeholder="Thương hiệu"
+                                    placeholder="Tìm kiếm theo thương hiệu"
                                     #input
                                 />
                             </th>
@@ -550,7 +509,7 @@
                             <th mat-header-cell *matHeaderCellDef>
                                 <input
                                     (keyup)="applyFilter($event)"
-                                    placeholder="Name"
+                                    placeholder="Tìm kiếm theo tên sản phẩm"
                                     #input
                                 />
                             </th>

@@ -33,8 +33,6 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
         );
         this._productService.thuonghieu$.subscribe((res) => {
             this.thuonghieuFilter = res;
-            console.log(res);
-            
         });
         let temp;
 
@@ -70,10 +68,16 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
                 this.splceArr(arr);
             }
         } else if (
-            this.thuonghieuFilter != null  &&
+            this.thuonghieuFilter != null &&
+            Object.keys(this.thuonghieuFilter).length == 0
+        ) {
+            console.log(temp);
+
+            this.splceArr(temp);
+        } else if (
+            this.thuonghieuFilter != null &&
             this.productPriceFilter == null
         ) {
-            
             let arr = [];
             temp.filter((x) => {
                 for (const [key, value] of Object.entries(
@@ -84,7 +88,6 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
                     }
                 }
             });
-
             this.splceArr(arr);
         }
     }

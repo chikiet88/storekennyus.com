@@ -147,11 +147,12 @@ export class CheckoutComponent implements OnInit {
             this.notifier.notify('error', `Vui lòng nhập địa chỉ`);
         }
         let diachi = this.khachhangForm.get('Diachi').value
-        diachi = diachi +''+ this.TenQuanHuyen + ''+ this.TenTP
+        diachi = diachi +' '+ this.TenQuanHuyen + ' '+ this.TenTP
         
         if (this.khachhangForm.invalid) {
             return;
         }
+        this.khachhangForm.get('Diachi').setValue(diachi)
         if (this.carts.length > 0) {
             this._checkoutService
                 .postdonhang(this.khachhangForm.value)
