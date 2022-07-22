@@ -37,22 +37,23 @@ export class ProductPopularComponent implements OnInit {
             this.contentImage = false;
         }
         this._productService.danhmuc$.pipe(take(1)).subscribe((res) => {
-          
             if (this.item.Tags != null) {
-
-            if(Object.keys(this.item.Tags)?.length != 0 ){
-              for (const [key, value] of Object.entries(this.item.Tags)) {
-                if (res) {
-                    res.forEach((x) => {
-                        if (x.id == key) {
-                            this.TenDM.push({ id: x.id, Tieude: x.Tieude });
+                if (Object.keys(this.item.Tags)?.length != 0) {
+                    for (const [key, value] of Object.entries(this.item.Tags)) {
+                        if (res) {
+                            res.forEach((x) => {
+                                if (x.id == key) {
+                                    this.TenDM.push({
+                                        id: x.id,
+                                        Tieude: x.Tieude,
+                                    });
+                                }
+                            });
                         }
-                    });
+                    }
                 }
             }
-             }
-           }
-            this.item.TenDM = this.TenDM
+            this.item.TenDM = this.TenDM;
         });
     }
 

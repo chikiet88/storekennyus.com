@@ -130,10 +130,11 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                 this.cauhinh = res[0].data.date;
                 console.log(this.cauhinh);
             });
-            this._productService.getProductDetail(slug.id).subscribe((res) => {
+            this._productService.getProductDetail(slug.id).subscribe((item) => {
                 this.listimage = [];
-                this.product = res;
-                if (res) {
+                if (item) {
+                this.product = item;
+
                     this.listimage.push(this.product.Image);
                     for (
                         let i = 0, p = Promise.resolve();
@@ -156,34 +157,19 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                     if (index === -1) {
                         localStorage.setItem(
                             'sanphamdaxem',
-                            JSON.stringify([...arr, res])
+                            JSON.stringify([...arr, item])
                         );
                     }
-                    this._productService.getProduct().subscribe();
+                   
 
-                    this._productService.products$.subscribe((res) => {
-                        this.productSale = res.filter((x) => x.Trangthai == 1);
-                        this.products = res?.filter(
-                            (x) =>
-                                x.idDM == this.product.idDM &&
-                                x.id != this.product.id
-                        );
-                        if (res) {
-                            let productCard = res?.filter(
-                                (x) => x.Type == 'danhmucnoibat'
-                            );
-                            this.productCard = productCard.sort(
-                                () => 0.5 - Math.random()
-                            );
-                        }
-                    });
-
-                    this._danhmucService.danhmucs$.subscribe((res) => {
-                        res?.find((x) => {
-                            if (this.product?.idDM == x.id) {
+                    this._productService.danhmuc$.pipe(take(1)).subscribe((res) => {
+                       if(res){
+                        res.find((x) => {
+                            if (this.product.idDM == x.id) {
                                 this.product.tenDM = x.Tieude;
                             }
                         });
+                       }
                         if (this.product) {
                             if (Object.keys(this.product.Tags)?.length != 0) {
                                 for (const [key, value] of Object.entries(
@@ -203,6 +189,25 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
                             }
                         }
                         this.product.TenDM = this.TenDM;
+                        
+                    });
+                    this._productService.getProduct().subscribe();
+
+                    this._productService.products$.subscribe((res) => {
+                        this.productSale = res.filter((x) => x.Trangthai == 1);
+                        this.products = res?.filter(
+                            (x) =>
+                                x.idDM == this.product.idDM &&
+                                x.id != this.product.id
+                        );
+                        if (res) {
+                            let productCard = res?.filter(
+                                (x) => x.Type == 'danhmucnoibat'
+                            );
+                            this.productCard = productCard.sort(
+                                () => 0.5 - Math.random()
+                            );
+                        }
                     });
                     this._cartService.getCart().subscribe((res) => {
                         res.find((x) => {

@@ -203,7 +203,6 @@ export class SanphamComponent implements OnInit {
                 this.danhmucs.filter((x) => {
                     if (x.id == property) {
                         this.chipsnhan.push(x);
-                        console.log(x);
                     }
                 });
             }

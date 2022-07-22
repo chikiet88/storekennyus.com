@@ -387,6 +387,7 @@ export class AddBaivietComponent implements OnInit {
             .updateBaiviet(this.baivietForm.value)
             .subscribe((res) => {
                 this.listimage = [];
+                this.resetForm();
                 alert('Cập nhật thành công');
             });
         this.isSelectTheme1 = false;

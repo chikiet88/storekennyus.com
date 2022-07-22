@@ -76,6 +76,7 @@
                         </div>
                     </div>
                 </div>
+               
             </div>
         </div>
     </mat-drawer>
@@ -150,12 +151,27 @@
                         {{ element.Ngaytao | date }}
                     </td>
                 </ng-container>
-
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button
+                            class="text-blue-400 flex items-center"
+                            (click)="drawer.toggle()"
+                            (click)="SelectDonhang(row)"
+                        >
+                            <span class="material-icons text-lg mr-2">
+                                check_circle
+                            </span>
+                            Xem
+                        </button>
+                    </td>
+                </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr
                     mat-row
                     *matRowDef="let row; columns: displayedColumns"
                 ></tr>
+                
 
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4">

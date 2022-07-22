@@ -197,8 +197,8 @@
                                 >Tag: </strong
                             ><span
                                 *ngFor="let item of product?.TenDM"
-                                class="mr-2"
-                                >{{ item.Tieude }}</span
+                                class="mr-1 text-md"
+                                >{{ item.Tieude }}, </span
                             >
                         </p>
                     </div>
@@ -236,7 +236,7 @@
                     </mat-tab>
                 </mat-tab-group>
             </div>
-            <div class="md:pt-10 pt-10">
+            <div class="md:pt-10 pt-10" *ngIf="products.length > 0">
                 <p class="text-3xl text-purple-500 font-bold">
                     Sản phẩm liên quan
                 </p>
@@ -299,10 +299,10 @@
                 </div>
             </div>
             <div class="pt-5">
-                <div class="w-full bg-gray-200 rounded-xl">
+                <div class="w-full bg-gray-200 rounded-xl" *ngIf="productCard?.length > 0">
                     <div class="p-5 flex flex-col md:flex-row lg:flex-col items-center justify-between">
                         <div class="w-full bg-gray-200">
-                            <img src="{{ productCard[0]?.Image }}" alt="" />
+                            <img src="{{ productCard[0].Image }}" alt="" />
                         </div>
                         <div
                             class="w-full h-1/2 flex flex-col items-center pt-5"
@@ -324,7 +324,7 @@
             </div>
 
             <div class="pt-5">
-                <div class="w-full bg-gray-200 rounded-xl">
+                <div class="w-full bg-gray-200 rounded-xl" *ngIf="productCard?.length > 0">
                     <div class="p-5 flex flex-col md:flex-row lg:flex-col items-center justify-between">
                         <div class="w-full bg-gray-200">
                             <img src="{{ productCard[1]?.Image }}" alt="" />

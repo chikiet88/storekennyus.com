@@ -104,7 +104,6 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
             if (res) {
                 let productCard = res?.filter((x) => x.Type == 'danhmucnoibat');
                 this.productCard1 = productCard.sort(() => 0.5 - Math.random())
-                this.productCard2 = productCard.sort(() => 0.5 - Math.random())
 
                 this.tempProductSplice = [];
                 if (this.idThuonghieu != '') {
@@ -154,7 +153,6 @@ export class TatcasanphamComponent implements OnInit, DoCheck {
                 products = res;
             }
         });
-        console.log(products);
 
         if (value == 'low') {
             arr = products.sort((a, b) => {

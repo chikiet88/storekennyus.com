@@ -31,7 +31,9 @@ export class DonhangComponent implements AfterViewInit, OnInit {
         'Hoten',
         'SDT',
         'Diachi',
-        'Ngaytao'
+        'Ngaytao',
+        'action',
+
     ];
 
     trangthai: any[] = [

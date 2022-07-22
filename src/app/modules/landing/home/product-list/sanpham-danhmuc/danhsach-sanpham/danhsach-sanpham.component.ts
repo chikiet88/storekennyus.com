@@ -71,7 +71,6 @@ export class DanhsachSanphamComponent implements OnInit, DoCheck {
             this.thuonghieuFilter != null &&
             Object.keys(this.thuonghieuFilter).length == 0
         ) {
-            console.log(temp);
 
             this.splceArr(temp);
         } else if (
